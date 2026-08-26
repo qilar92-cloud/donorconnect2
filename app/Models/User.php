@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class User extends Model
+class User extends Authenticatable
 {
+    use Notifiable;
+
     protected $table = 'users';
+
     protected $primaryKey = 'id_user';
 
     protected $fillable = [
@@ -18,15 +21,6 @@ class User extends Model
 
     protected $hidden = [
         'password',
+        'remember_token',
     ];
-
-    public function petugasPMR(): HasOne
-    {
-        return $this->hasOne(PetugasPMR::class, 'id_user', 'id_user');
-    }
-
-    public function pendonor(): HasOne
-    {
-        return $this->hasOne(Pendonor::class, 'id_user', 'id_user');
-    }
 }

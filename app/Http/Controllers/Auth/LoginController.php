@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
@@ -25,22 +26,26 @@ class LoginController extends Controller
 
         if (!$user || !Hash::check($data['password'], $user->password)) {
             return back()
-                ->withErrors(['email' => 'Email atau password salah.'])
+                ->withErrors([
+                    'email' => 'Email atau password salah.'
+                ])
                 ->withInput();
         }
 
-        $request->session()->regenerate();
-        $request->session()->put('id_user', $user->id_user);
+        Auth::login($user);
 
-        return redirect('/dashboard');
+        $request->session()->regenerate();
+
+        return redirect()->route('dashboard');
     }
 
     public function logout(Request $request)
     {
-        $request->session()->forget('id_user');
+        Auth::logout();
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/login');
+        return redirect()->route('login');
     }
 }

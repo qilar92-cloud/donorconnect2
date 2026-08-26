@@ -12,8 +12,15 @@ class KegiatanDonorController extends Controller
         $kegiatan = KegiatanDonor::orderBy('tanggal')->get();
 
         return view(
-            'kegiatan_donor.index',
+            'pages.kegiatan_donor.index',
             compact('kegiatan')
+        );
+    }
+
+    public function create()
+    {
+        return view(
+            'pages.kegiatan_donor.create'
         );
     }
 
@@ -22,7 +29,7 @@ class KegiatanDonorController extends Controller
         $kegiatan = KegiatanDonor::findOrFail($id);
 
         return view(
-            'kegiatan_donor.show',
+            'pages.kegiatan_donor.show',
             compact('kegiatan')
         );
     }
@@ -42,6 +49,16 @@ class KegiatanDonorController extends Controller
         return redirect()
             ->route('kegiatan-donor.index')
             ->with('success', 'Kegiatan donor berhasil ditambahkan.');
+    }
+
+    public function edit($id)
+    {
+        $kegiatan = KegiatanDonor::findOrFail($id);
+
+        return view(
+            'pages.kegiatan_donor.edit',
+            compact('kegiatan')
+        );
     }
 
     public function update(Request $request, $id)
@@ -66,6 +83,7 @@ class KegiatanDonorController extends Controller
     public function destroy($id)
     {
         $kegiatan = KegiatanDonor::findOrFail($id);
+
         $kegiatan->delete();
 
         return redirect()
