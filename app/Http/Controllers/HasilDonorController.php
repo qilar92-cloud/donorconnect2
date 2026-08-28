@@ -24,4 +24,9 @@ class HasilDonorController extends Controller
             'Hasil donor berhasil dicatat.'
         );
     }
+
+    public function create()
+    {
+        return view('pages.hasil-donor.create');
+    }
 }

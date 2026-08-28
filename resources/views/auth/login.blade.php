@@ -1,464 +1,868 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Login - DONORCONNECT</title>
 
     <style>
+        /* =====================================================
+           RESET
+        ===================================================== */
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
         }
 
         body {
-            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
             background: #fff7f5;
+        }
+
+
+        /* =====================================================
+           HALAMAN LOGIN
+        ===================================================== */
+
+        .dc-login-page {
+            width: 100%;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 25px;
+            padding: 30px;
         }
 
-        .login-container {
+
+        /* =====================================================
+           CONTAINER
+        ===================================================== */
+
+        .dc-login-container {
             width: 100%;
-            max-width: 1100px;
-            min-height: 650px;
+            max-width: 1050px;
+            min-height: 620px;
+
             background: #ffffff;
-            border-radius: 25px;
+
+            border-radius: 24px;
             overflow: hidden;
+
             display: flex;
-            box-shadow: 0 10px 35px rgba(190, 40, 55, 0.12);
+
+            box-shadow:
+                0 15px 40px rgba(180, 30, 50, 0.12);
         }
 
-        /* BAGIAN KIRI */
-        .login-left {
-            width: 48%;
+
+        /* =====================================================
+           BAGIAN KIRI
+        ===================================================== */
+
+        .dc-login-left {
+            width: 46%;
+
             background: linear-gradient(
                 145deg,
-                #fff1f0,
-                #ffe3e4,
-                #fff8f5
+                #fff0f1 0%,
+                #ffe1e4 50%,
+                #fff7f5 100%
             );
+
             display: flex;
             justify-content: center;
             align-items: center;
+
             position: relative;
             overflow: hidden;
-            padding: 45px;
+
+            padding: 50px;
         }
 
-        .login-left::before {
+
+        /* Lingkaran dekorasi */
+
+        .dc-login-left::before {
             content: "";
+
             position: absolute;
-            width: 260px;
-            height: 260px;
-            background: #ffd4d7;
+
+            width: 280px;
+            height: 280px;
+
+            background: #ffd1d6;
+
             border-radius: 50%;
-            top: -100px;
-            left: -80px;
+
+            top: -130px;
+            left: -110px;
+
             opacity: 0.45;
         }
 
-        .login-left::after {
+        .dc-login-left::after {
             content: "";
+
             position: absolute;
-            width: 220px;
-            height: 220px;
-            background: #ffd9dc;
+
+            width: 230px;
+            height: 230px;
+
+            background: #ffd7db;
+
             border-radius: 50%;
-            bottom: -100px;
-            right: -60px;
-            opacity: 0.5;
+
+            bottom: -110px;
+            right: -80px;
+
+            opacity: 0.55;
         }
 
-        .left-content {
-            text-align: center;
+
+        /* Konten kiri */
+
+        .dc-left-content {
             position: relative;
             z-index: 2;
+
+            width: 100%;
+
+            text-align: center;
         }
 
-        .blood-icon {
-            width: 85px;
-            height: 85px;
+
+        /* Icon darah */
+
+        .dc-blood-icon {
+            width: 90px;
+            height: 90px;
+
+            margin: 0 auto 22px;
+
             background: #e51f3b;
-            margin: 0 auto 20px;
-            border-radius: 50% 50% 50% 8px;
+
+            border-radius: 50% 50% 50% 10px;
+
             transform: rotate(-45deg);
+
             display: flex;
             justify-content: center;
             align-items: center;
+
+            box-shadow:
+                0 8px 20px rgba(229, 31, 59, 0.20);
         }
 
-        .blood-icon span {
+        .dc-blood-icon span {
             color: white;
-            font-size: 38px;
+
+            font-size: 40px;
+
             transform: rotate(45deg);
         }
 
-        .brand {
+
+        /* Brand */
+
+        .dc-brand {
             color: #d91e36;
-            font-size: 25px;
-            font-weight: bold;
+
+            font-size: 27px;
+
+            font-weight: 800;
+
             margin-bottom: 8px;
         }
 
-        .subtitle {
-            color: #555;
+        .dc-subtitle {
+            color: #666;
+
             font-size: 14px;
-            margin-bottom: 30px;
-        }
 
-        .welcome-title {
-            color: #d91e36;
-            font-size: 25px;
-            font-weight: bold;
-            margin-bottom: 12px;
-        }
+            line-height: 1.6;
 
-        .welcome-text {
-            color: #555;
-            font-size: 14px;
-            line-height: 1.7;
-            max-width: 350px;
-            margin: auto;
-        }
-
-        .heart {
-            position: absolute;
-            color: #f4a5ad;
-            font-size: 35px;
-            opacity: 0.6;
-        }
-
-        .heart.one {
-            top: 70px;
-            right: 55px;
-        }
-
-        .heart.two {
-            bottom: 90px;
-            left: 55px;
-        }
-
-        /* BAGIAN KANAN */
-        .login-right {
-            width: 52%;
-            padding: 55px 70px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .login-box {
-            width: 100%;
-            max-width: 430px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #d91e36;
-            font-size: 21px;
-            font-weight: bold;
             margin-bottom: 35px;
         }
 
-        .logo-icon {
-            font-size: 28px;
+
+        /* Welcome */
+
+        .dc-welcome-title {
+            color: #d91e36;
+
+            font-size: 24px;
+
+            font-weight: 700;
+
+            line-height: 1.4;
+
+            margin-bottom: 12px;
         }
 
-        .login-title {
+        .dc-welcome-text {
+            color: #555;
+
+            font-size: 14px;
+
+            line-height: 1.8;
+
+            max-width: 350px;
+
+            margin: 0 auto;
+        }
+
+
+        /* Hati */
+
+        .dc-heart {
+            position: absolute;
+
+            color: #e99aa4;
+
+            font-size: 34px;
+
+            opacity: 0.55;
+
+            z-index: 1;
+        }
+
+        .dc-heart-one {
+            top: 65px;
+            right: 50px;
+        }
+
+        .dc-heart-two {
+            bottom: 75px;
+            left: 50px;
+        }
+
+
+        /* =====================================================
+           BAGIAN KANAN
+        ===================================================== */
+
+        .dc-login-right {
+            width: 54%;
+
+            padding: 55px 65px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background: #ffffff;
+        }
+
+
+        /* Box form */
+
+        .dc-login-box {
+            width: 100%;
+            max-width: 420px;
+        }
+
+
+        /* Logo */
+
+        .dc-login-logo {
+            display: flex;
+            align-items: center;
+
+            gap: 9px;
+
+            color: #d91e36;
+
+            font-size: 22px;
+
+            font-weight: 800;
+
+            margin-bottom: 32px;
+        }
+
+        .dc-login-logo-icon {
             font-size: 27px;
+        }
+
+
+        /* Judul */
+
+        .dc-login-title {
             color: #222;
+
+            font-size: 28px;
+
+            font-weight: 700;
+
+            line-height: 1.3;
+
             margin-bottom: 8px;
         }
 
-        .login-description {
+        .dc-login-description {
             color: #777;
+
             font-size: 13px;
-            margin-bottom: 28px;
+
+            margin-bottom: 25px;
         }
 
-        .form-group {
+
+        /* =====================================================
+           ERROR
+        ===================================================== */
+
+        .dc-error-message {
+            width: 100%;
+
+            background: #fff0f1;
+
+            color: #c91830;
+
+            border: 1px solid #f3c5ca;
+
+            border-radius: 8px;
+
+            padding: 11px 13px;
+
+            margin-bottom: 18px;
+
+            font-size: 12px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =====================================================
+           FORM
+        ===================================================== */
+
+        .dc-login-form {
+            width: 100%;
+        }
+
+
+        /* INI YANG PENTING:
+           Setiap form-group SELALU satu baris vertikal */
+
+        .dc-form-group {
+            width: 100%;
+
+            display: block;
+
             margin-bottom: 18px;
         }
 
-        .form-group label {
+
+        .dc-form-group label {
             display: block;
-            font-size: 13px;
-            font-weight: bold;
+
+            width: 100%;
+
             color: #333;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
             margin-bottom: 7px;
         }
 
-        .input-wrapper {
-            position: relative;
-        }
 
-        .input-wrapper input,
-        .input-wrapper select {
+        /* Input wrapper */
+
+        .dc-input-wrapper {
             width: 100%;
-            height: 44px;
-            border: 1px solid #ead6d8;
+
+            position: relative;
+
+            display: block;
+        }
+
+
+        /* Input dan select */
+
+        .dc-input-wrapper input,
+        .dc-input-wrapper select {
+            display: block;
+
+            width: 100%;
+
+            height: 46px;
+
+            border: 1px solid #e5d5d7;
+
             border-radius: 8px;
-            padding: 0 14px;
-            outline: none;
-            background: #fff;
-            color: #444;
+
+            background: #ffffff;
+
+            color: #333;
+
             font-size: 13px;
-            transition: 0.2s;
+
+            padding: 0 14px;
+
+            outline: none;
+
+            box-shadow: none;
+
+            transition: all 0.2s ease;
         }
 
-        .input-wrapper input:focus,
-        .input-wrapper select:focus {
+
+        /* Fokus */
+
+        .dc-input-wrapper input:focus,
+        .dc-input-wrapper select:focus {
             border-color: #e51f3b;
-            box-shadow: 0 0 0 3px rgba(229, 31, 59, 0.08);
+
+            box-shadow:
+                0 0 0 3px rgba(229, 31, 59, 0.08);
         }
 
-        .password-input {
-            padding-right: 45px !important;
+
+        /* Placeholder */
+
+        .dc-input-wrapper input::placeholder {
+            color: #aaa;
         }
 
-        .show-password {
+
+        /* Password */
+
+        .dc-password-input {
+            padding-right: 48px !important;
+        }
+
+
+        /* Eye */
+
+        .dc-show-password {
             position: absolute;
+
             right: 14px;
             top: 50%;
+
             transform: translateY(-50%);
+
             cursor: pointer;
+
             color: #777;
+
             font-size: 16px;
+
+            user-select: none;
         }
 
-        .remember {
+
+        /* =====================================================
+           REMEMBER
+        ===================================================== */
+
+        .dc-remember {
             display: flex;
+
             align-items: center;
+
             gap: 7px;
-            font-size: 12px;
+
+            margin: 3px 0 20px;
+
             color: #555;
-            margin: 5px 0 20px;
+
+            font-size: 12px;
         }
 
-        .remember input {
+        .dc-remember input {
+            width: 14px;
+            height: 14px;
+
             accent-color: #e51f3b;
         }
 
-        .login-button {
+
+        /* =====================================================
+           BUTTON LOGIN
+        ===================================================== */
+
+        .dc-login-button {
+            display: block;
+
             width: 100%;
-            height: 45px;
+
+            height: 46px;
+
             border: none;
+
             border-radius: 8px;
+
             background: #e51f3b;
-            color: white;
+
+            color: #ffffff;
+
             font-size: 14px;
-            font-weight: bold;
+
+            font-weight: 700;
+
             cursor: pointer;
-            transition: 0.2s;
+
+            transition: all 0.2s ease;
         }
 
-        .login-button:hover {
+        .dc-login-button:hover {
             background: #c91830;
+
+            transform: translateY(-1px);
         }
 
-        .register-text {
+        .dc-login-button:active {
+            transform: translateY(0);
+        }
+
+
+        /* =====================================================
+           REGISTER
+        ===================================================== */
+
+        .dc-register-text {
+            width: 100%;
+
             text-align: center;
+
+            color: #666;
+
             font-size: 12px;
-            color: #555;
+
             margin-top: 18px;
+
+            line-height: 1.6;
         }
 
-        .register-text a {
+        .dc-register-text a {
             color: #d91e36;
-            font-weight: bold;
+
+            font-weight: 700;
+
             text-decoration: none;
         }
 
-        .register-text a:hover {
+        .dc-register-text a:hover {
             text-decoration: underline;
         }
 
-        .error-message {
-            background: #fff0f1;
-            color: #c91830;
-            border: 1px solid #f3c5ca;
-            border-radius: 7px;
-            padding: 10px 12px;
-            margin-bottom: 18px;
-            font-size: 12px;
-        }
 
-        /* RESPONSIVE */
-        @media (max-width: 800px) {
-            .login-container {
-                min-height: auto;
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 850px) {
+
+            .dc-login-container {
+                max-width: 600px;
             }
 
-            .login-left {
+            .dc-login-left {
                 display: none;
             }
 
-            .login-right {
+            .dc-login-right {
                 width: 100%;
-                padding: 45px 30px;
+
+                padding: 50px 40px;
+            }
+        }
+
+
+        @media (max-width: 500px) {
+
+            .dc-login-page {
+                padding: 15px;
+            }
+
+            .dc-login-container {
+                border-radius: 18px;
+            }
+
+            .dc-login-right {
+                padding: 40px 25px;
+            }
+
+            .dc-login-title {
+                font-size: 24px;
             }
         }
     </style>
 </head>
 
+
 <body>
 
-<div class="login-container">
+<div class="dc-login-page">
 
-    <!-- BAGIAN KIRI -->
-    <div class="login-left">
+    <div class="dc-login-container">
 
-        <div class="heart one">♥</div>
-        <div class="heart two">♥</div>
 
-        <div class="left-content">
+        <!-- =================================================
+             BAGIAN KIRI
+        ================================================== -->
 
-            <div class="blood-icon">
-                <span>♥</span>
+        <div class="dc-login-left">
+
+            <div class="dc-heart dc-heart-one">
+                ♥
             </div>
 
-            <div class="brand">
-                DONORCONNECT
+            <div class="dc-heart dc-heart-two">
+                ♥
             </div>
 
-            <div class="subtitle">
-                Aplikasi Donor Darah<br>
-                PMR Sekolah
-            </div>
 
-            <div class="welcome-title">
-                Donor Darah, Selamatkan Nyawa ❤️
-            </div>
+            <div class="dc-left-content">
 
-            <div class="welcome-text">
-                Bersama DONORCONNECT, mari berkontribusi
-                untuk membantu sesama melalui kegiatan
-                donor darah.
+                <div class="dc-blood-icon">
+                    <span>♥</span>
+                </div>
+
+
+                <div class="dc-brand">
+                    DONORCONNECT
+                </div>
+
+
+                <div class="dc-subtitle">
+                    Aplikasi Donor Darah<br>
+                    PMR Sekolah
+                </div>
+
+
+                <div class="dc-welcome-title">
+                    Donor Darah, Selamatkan Nyawa ❤️
+                </div>
+
+
+                <div class="dc-welcome-text">
+                    Bersama DONORCONNECT, mari berkontribusi
+                    untuk membantu sesama melalui kegiatan
+                    donor darah.
+                </div>
+
             </div>
 
         </div>
-    </div>
 
 
-    <!-- BAGIAN KANAN -->
-    <div class="login-right">
+        <!-- =================================================
+             BAGIAN KANAN
+        ================================================== -->
 
-        <div class="login-box">
+        <div class="dc-login-right">
 
-            <div class="logo">
-                <span class="logo-icon">🩸</span>
-                DONORCONNECT
-            </div>
+            <div class="dc-login-box">
 
-            <h1 class="login-title">
-                Selamat Datang Kembali! 👋
-            </h1>
 
-            <p class="login-description">
-                Silakan login untuk melanjutkan.
-            </p>
+                <!-- LOGO -->
 
-            @if ($errors->any())
-                <div class="error-message">
-                    {{ $errors->first() }}
+                <div class="dc-login-logo">
+
+                    <span class="dc-login-logo-icon">
+                        🩸
+                    </span>
+
+                    <span>
+                        DONORCONNECT
+                    </span>
+
                 </div>
-            @endif
 
-            <form method="POST" action="{{ route('login.submit') }}">
-                @csrf
 
-                <!-- EMAIL -->
-                <div class="form-group">
-                    <label for="email">
-                        Email / Username
-                    </label>
+                <!-- JUDUL -->
 
-                    <div class="input-wrapper">
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            value="{{ old('email') }}"
-                            placeholder="Masukkan email atau username"
-                            required
-                            autocomplete="email"
-                        >
+                <h1 class="dc-login-title">
+                    Selamat Datang Kembali! 👋
+                </h1>
+
+
+                <p class="dc-login-description">
+                    Silakan login untuk melanjutkan.
+                </p>
+
+
+                <!-- ERROR -->
+
+                @if ($errors->any())
+
+                    <div class="dc-error-message">
+
+                        {{ $errors->first() }}
+
                     </div>
-                </div>
+
+                @endif
 
 
-                <!-- PASSWORD -->
-                <div class="form-group">
-                    <label for="password">
-                        Password
-                    </label>
+                <!-- =================================================
+                     FORM LOGIN
+                ================================================== -->
 
-                    <div class="input-wrapper">
+                <form
+                    class="dc-login-form"
+                    method="POST"
+                    action="{{ route('login.submit') }}"
+                >
+
+                    @csrf
+
+
+                    <!-- EMAIL -->
+
+                    <div class="dc-form-group">
+
+                        <label for="email">
+                            Email
+                        </label>
+
+                        <div class="dc-input-wrapper">
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                value="{{ old('email') }}"
+                                placeholder="Masukkan email"
+                                required
+                                autocomplete="email"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="dc-form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <div class="dc-input-wrapper">
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                class="dc-password-input"
+                                placeholder="Masukkan password"
+                                required
+                                autocomplete="current-password"
+                            >
+
+                            <span
+                                class="dc-show-password"
+                                id="dcEyeIcon"
+                                onclick="togglePassword()"
+                            >
+                                👁
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PILIH PERAN -->
+
+                    <div class="dc-form-group">
+
+                        <label for="role">
+                            Pilih Peran
+                        </label>
+
+                        <div class="dc-input-wrapper">
+
+                            <select
+                                id="role"
+                                name="role"
+                                required
+                            >
+
+                                <option value="">
+                                    Pilih peran Anda
+                                </option>
+
+                                <option
+                                    value="pendonor"
+                                    {{ old('role') === 'pendonor' ? 'selected' : '' }}
+                                >
+                                    Pendonor
+                                </option>
+
+                                <option
+                                    value="petugas"
+                                    {{ old('role') === 'petugas' ? 'selected' : '' }}
+                                >
+                                    Petugas PMR
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- REMEMBER ME -->
+
+                    <label class="dc-remember">
+
                         <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            class="password-input"
-                            placeholder="Masukkan password"
-                            required
-                            autocomplete="current-password"
+                            type="checkbox"
+                            name="remember"
+                            value="1"
                         >
 
-                        <span
-                            class="show-password"
-                            onclick="togglePassword()"
-                            id="eyeIcon"
-                        >
-                            👁
+                        <span>
+                            Ingat saya
                         </span>
-                    </div>
-                </div>
 
-
-                <!-- PILIH PERAN -->
-                <div class="form-group">
-                    <label for="role">
-                        Pilih Peran
                     </label>
 
-                    <div class="input-wrapper">
-                        <select id="role" name="role">
-                            <option value="">Pilih peran Anda</option>
-                            <option value="pendonor">Pendonor</option>
-                            <option value="petugas">Petugas PMR</option>
-                        </select>
-                    </div>
+
+                    <!-- LOGIN BUTTON -->
+
+                    <button
+                        type="submit"
+                        class="dc-login-button"
+                    >
+                        Login
+                    </button>
+
+                </form>
+
+
+                <!-- REGISTER -->
+
+                <div class="dc-register-text">
+
+                    Belum punya akun?
+
+                    <a href="{{ route('register') }}">
+                        Registrasi di sini
+                    </a>
+
                 </div>
 
 
-                <!-- INGAT SAYA -->
-                <label class="remember">
-                    <input type="checkbox" name="remember">
-                    <span>Ingat saya</span>
-                </label>
-
-
-                <!-- BUTTON LOGIN -->
-                <button type="submit" class="login-button">
-                    Login
-                </button>
-
-            </form>
-
-
-            <!-- REGISTER -->
-            <div class="register-text">
-                Belum punya akun?
-                <a href="{{ route('register') }}">
-                    Registrasi di sini
-                </a>
             </div>
 
         </div>
@@ -468,20 +872,39 @@
 </div>
 
 
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
 <script>
+
     function togglePassword() {
-        const password = document.getElementById('password');
-        const eye = document.getElementById('eyeIcon');
+
+        const password =
+            document.getElementById('password');
+
+        const eye =
+            document.getElementById('dcEyeIcon');
+
 
         if (password.type === 'password') {
+
             password.type = 'text';
+
             eye.textContent = '🙈';
+
         } else {
+
             password.type = 'password';
+
             eye.textContent = '👁';
+
         }
+
     }
+
 </script>
+
 
 </body>
 </html>

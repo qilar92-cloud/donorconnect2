@@ -1,23 +1,25 @@
-<ul
-    class="navbar-nav sidebar sidebar-dark accordion"
-    id="accordionSidebar"
->
+<ul class="navbar-nav sidebar sidebar-dark accordion donor-sidebar"
+    id="accordionSidebar">
+
+    @php
+        $role = strtolower(Auth::user()->role ?? 'pendonor');
+    @endphp
 
 
-    <!-- BRAND -->
+    {{-- =========================================================
+         BRAND
+    ========================================================== --}}
 
-    <a
-        class="sidebar-brand d-flex align-items-center justify-content-center"
-        href="{{ route('dashboard') }}"
-    >
+    <a class="sidebar-brand d-flex align-items-center justify-content-center"
+       href="{{ $role === 'petugas'
+            ? route('dashboard.petugas')
+            : route('dashboard') }}">
 
         <div class="sidebar-brand-icon">
-
             <i class="fas fa-tint"></i>
-
         </div>
 
-        <div class="sidebar-brand-text mx-3">
+        <div class="sidebar-brand-text">
             DONORCONNECT
         </div>
 
@@ -27,49 +29,34 @@
     <hr class="sidebar-divider my-0">
 
 
-    <!-- DASHBOARD -->
-
-    <li
-        class="nav-item {{ request()->routeIs('dashboard') ? 'active' : '' }}"
-    >
-
-        <a
-            class="nav-link"
-            href="{{ route('dashboard') }}"
-        >
-
-            <i class="fas fa-fw fa-home"></i>
-
-            <span>Dashboard</span>
-
-        </a>
-
-    </li>
-
-
-    @php
-
-        $role = strtolower(Auth::user()->role ?? 'pendonor');
-
-    @endphp
-
+    {{-- =========================================================
+         MENU PENDONOR
+    ========================================================== --}}
 
     @if ($role === 'pendonor')
 
 
-        <!-- PROFIL -->
+        {{-- DASHBOARD --}}
+        <li class="nav-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
 
-        <li
-            class="nav-item {{ request()->routeIs('profile') ? 'active' : '' }}"
-        >
+            <a class="nav-link"
+               href="{{ route('dashboard') }}">
 
-            <a
-                class="nav-link"
-                href="{{ route('profile') }}"
-            >
+                <i class="fas fa-fw fa-home"></i>
+                <span>Dashboard</span>
+
+            </a>
+
+        </li>
+
+
+        {{-- PROFIL --}}
+        <li class="nav-item {{ request()->routeIs('profile') ? 'active' : '' }}">
+
+            <a class="nav-link"
+               href="{{ route('profile') }}">
 
                 <i class="fas fa-fw fa-user"></i>
-
                 <span>Profil Saya</span>
 
             </a>
@@ -77,23 +64,19 @@
         </li>
 
 
-        <!-- KEGIATAN DONOR -->
-
-        <li
-            class="nav-item
-            {{ request()->routeIs('pendonor.kegiatan')
+        {{-- KEGIATAN DONOR --}}
+        <li class="nav-item
+            {{
+                request()->routeIs('pendonor.kegiatan')
                 || request()->routeIs('kegiatan-donor.show')
                 ? 'active'
-                : '' }}"
-        >
+                : ''
+            }}">
 
-            <a
-                class="nav-link"
-                href="{{ route('pendonor.kegiatan') }}"
-            >
+            <a class="nav-link"
+               href="{{ route('pendonor.kegiatan') }}">
 
                 <i class="fas fa-fw fa-calendar-alt"></i>
-
                 <span>Kegiatan Donor</span>
 
             </a>
@@ -101,17 +84,24 @@
         </li>
 
 
-        <!-- STATUS PENDAFTARAN -->
+        {{-- STATUS PENDAFTARAN --}}
+        <li class="nav-item
+            {{ request()->routeIs('pendonor.status') ? 'active' : '' }}">
 
-        <li class="nav-item">
+            @if (Route::has('pendonor.status'))
 
-            <a
-                class="nav-link"
-                href="{{ route('pendonor.kegiatan') }}"
-            >
+                <a class="nav-link"
+                   href="{{ route('pendonor.status') }}">
+
+            @else
+
+                {{-- sementara diarahkan ke kegiatan jika route status belum ada --}}
+                <a class="nav-link"
+                   href="{{ route('pendonor.kegiatan') }}">
+
+            @endif
 
                 <i class="fas fa-fw fa-clipboard-check"></i>
-
                 <span>Status Pendaftaran</span>
 
             </a>
@@ -119,23 +109,19 @@
         </li>
 
 
-        <!-- RIWAYAT -->
-
-        <li
-            class="nav-item
-            {{ request()->routeIs('pendonor.riwayat')
+        {{-- RIWAYAT DONOR --}}
+        <li class="nav-item
+            {{
+                request()->routeIs('pendonor.riwayat')
                 || request()->routeIs('riwayat-donor.index')
                 ? 'active'
-                : '' }}"
-        >
+                : ''
+            }}">
 
-            <a
-                class="nav-link"
-                href="{{ route('pendonor.riwayat') }}"
-            >
+            <a class="nav-link"
+               href="{{ route('pendonor.riwayat') }}">
 
                 <i class="fas fa-fw fa-history"></i>
-
                 <span>Riwayat Donor</span>
 
             </a>
@@ -143,30 +129,36 @@
         </li>
 
 
-    @else
+    {{-- =========================================================
+         MENU PETUGAS
+    ========================================================== --}}
+
+    @elseif ($role === 'petugas')
 
 
-        <!-- ==========================
-             MENU PETUGAS PMR
-        =========================== -->
+        {{-- DASHBOARD --}}
+        <li class="nav-item
+            {{ request()->routeIs('dashboard.petugas') ? 'active' : '' }}">
+
+            <a class="nav-link"
+               href="{{ route('dashboard.petugas') }}">
+
+                <i class="fas fa-fw fa-home"></i>
+                <span>Dashboard</span>
+
+            </a>
+
+        </li>
 
 
-        <!-- DATA PENDONOR -->
+        {{-- DATA PENDONOR --}}
+        <li class="nav-item
+            {{ request()->routeIs('pendonor.*') ? 'active' : '' }}">
 
-        <li
-            class="nav-item
-            {{ request()->routeIs('pendonor.index')
-                ? 'active'
-                : '' }}"
-        >
-
-            <a
-                class="nav-link"
-                href="{{ route('pendonor.index') }}"
-            >
+            <a class="nav-link"
+               href="{{ route('pendonor.index') }}">
 
                 <i class="fas fa-fw fa-users"></i>
-
                 <span>Data Pendonor</span>
 
             </a>
@@ -174,22 +166,14 @@
         </li>
 
 
-        <!-- KEGIATAN DONOR -->
+        {{-- KEGIATAN DONOR --}}
+        <li class="nav-item
+            {{ request()->routeIs('kegiatan-donor.*') ? 'active' : '' }}">
 
-        <li
-            class="nav-item
-            {{ request()->routeIs('kegiatan-donor.*')
-                ? 'active'
-                : '' }}"
-        >
-
-            <a
-                class="nav-link"
-                href="{{ route('kegiatan-donor.index') }}"
-            >
+            <a class="nav-link"
+               href="{{ route('kegiatan-donor.index') }}">
 
                 <i class="fas fa-fw fa-calendar-alt"></i>
-
                 <span>Kegiatan Donor</span>
 
             </a>
@@ -197,22 +181,33 @@
         </li>
 
 
-        <!-- RIWAYAT DONOR -->
+        {{-- CATAT HASIL DONOR --}}
+        @if (Route::has('hasil-donor.create'))
 
-        <li
-            class="nav-item
-            {{ request()->routeIs('riwayat-donor.*')
-                ? 'active'
-                : '' }}"
-        >
+            <li class="nav-item
+                {{ request()->routeIs('hasil-donor.*') ? 'active' : '' }}">
 
-            <a
-                class="nav-link"
-                href="{{ route('riwayat-donor.index') }}"
-            >
+                <a class="nav-link"
+                   href="{{ route('hasil-donor.create') }}">
+
+                    <i class="fas fa-fw fa-notes-medical"></i>
+                    <span>Catat Hasil Donor</span>
+
+                </a>
+
+            </li>
+
+        @endif
+
+
+        {{-- RIWAYAT DONOR --}}
+        <li class="nav-item
+            {{ request()->routeIs('riwayat-donor.*') ? 'active' : '' }}">
+
+            <a class="nav-link"
+               href="{{ route('riwayat-donor.index') }}">
 
                 <i class="fas fa-fw fa-history"></i>
-
                 <span>Riwayat Donor</span>
 
             </a>
@@ -220,22 +215,14 @@
         </li>
 
 
-        <!-- LAPORAN DONOR -->
+        {{-- LAPORAN DONOR --}}
+        <li class="nav-item
+            {{ request()->routeIs('laporan-donor.*') ? 'active' : '' }}">
 
-        <li
-            class="nav-item
-            {{ request()->routeIs('laporan-donor.*')
-                ? 'active'
-                : '' }}"
-        >
-
-            <a
-                class="nav-link"
-                href="{{ route('laporan-donor.index') }}"
-            >
+            <a class="nav-link"
+               href="{{ route('laporan-donor.index') }}">
 
                 <i class="fas fa-fw fa-file-alt"></i>
-
                 <span>Laporan Donor</span>
 
             </a>
@@ -243,59 +230,53 @@
         </li>
 
 
-        <!-- PROFIL -->
+        {{-- PROFIL --}}
+        <li class="nav-item
+            {{ request()->routeIs('profile') ? 'active' : '' }}">
 
-        <li
-            class="nav-item {{ request()->routeIs('profile') ? 'active' : '' }}"
-        >
-
-            <a
-                class="nav-link"
-                href="{{ route('profile') }}"
-            >
+            <a class="nav-link"
+               href="{{ route('profile') }}">
 
                 <i class="fas fa-fw fa-user"></i>
-
                 <span>Profil Saya</span>
 
             </a>
 
         </li>
 
-
     @endif
 
 
-    <!-- DIVIDER -->
+    {{-- =========================================================
+         DIVIDER
+    ========================================================== --}}
 
     <hr class="sidebar-divider">
 
 
-    <!-- LOGOUT -->
+    {{-- =========================================================
+         LOGOUT
+    ========================================================== --}}
 
-    <li class="nav-item">
+    <li class="nav-item logout-item">
 
-        <a
-            class="nav-link"
-            href="#"
-            onclick="
+        <a class="nav-link"
+           href="#"
+           onclick="
                 event.preventDefault();
                 document.getElementById('sidebar-logout-form').submit();
-            "
-        >
+           ">
 
             <i class="fas fa-fw fa-sign-out-alt"></i>
-
             <span>Logout</span>
 
         </a>
 
-        <form
-            id="sidebar-logout-form"
-            action="{{ route('logout') }}"
-            method="POST"
-            class="d-none"
-        >
+
+        <form id="sidebar-logout-form"
+              action="{{ route('logout') }}"
+              method="POST"
+              class="d-none">
 
             @csrf
 
@@ -303,5 +284,318 @@
 
     </li>
 
-
 </ul>
+
+
+
+{{-- ============================================================
+     SIDEBAR STYLE
+============================================================= --}}
+
+<style>
+
+    /* ==========================================================
+       SIDEBAR
+    ========================================================== */
+
+    .donor-sidebar {
+
+        width: 230px !important;
+        min-width: 230px !important;
+        max-width: 230px !important;
+
+        min-height: 100vh;
+
+        background: linear-gradient(
+            180deg,
+            #d91e36 0%,
+            #e52d4b 55%,
+            #d91e5b 100%
+        ) !important;
+
+        padding-bottom: 20px;
+
+        overflow-x: hidden;
+
+        box-sizing: border-box;
+
+    }
+
+
+
+    /* ==========================================================
+       BRAND
+    ========================================================== */
+
+    .donor-sidebar .sidebar-brand {
+
+        width: 230px !important;
+        max-width: 230px !important;
+
+        height: 100px;
+
+        padding: 0 18px;
+
+        margin: 0;
+
+        text-decoration: none;
+
+        background: rgba(180, 0, 25, 0.20);
+
+        box-sizing: border-box;
+
+    }
+
+
+    .donor-sidebar .sidebar-brand-icon {
+
+        font-size: 30px;
+
+        color: #ffffff;
+
+        margin-right: 8px;
+
+        flex-shrink: 0;
+
+    }
+
+
+    .donor-sidebar .sidebar-brand-text {
+
+        color: #ffffff;
+
+        font-size: 17px;
+
+        font-weight: 800;
+
+        letter-spacing: 0.5px;
+
+        white-space: nowrap;
+
+    }
+
+
+
+    /* ==========================================================
+       DIVIDER
+    ========================================================== */
+
+    .donor-sidebar .sidebar-divider {
+
+        width: auto !important;
+
+        border-top: 1px solid rgba(255,255,255,0.18);
+
+        margin: 12px 18px !important;
+
+    }
+
+
+
+    /* ==========================================================
+       NAV ITEM
+    ========================================================== */
+
+    .donor-sidebar .nav-item {
+
+        width: auto !important;
+
+        margin: 4px 10px !important;
+
+        padding: 0 !important;
+
+        box-sizing: border-box;
+
+    }
+
+
+
+    /* ==========================================================
+       NAV LINK
+    ========================================================== */
+
+    .donor-sidebar .nav-item .nav-link {
+
+        width: 100% !important;
+
+        max-width: 100% !important;
+
+        min-height: 52px;
+
+        height: 52px;
+
+        padding: 0 15px !important;
+
+        margin: 0 !important;
+
+        display: flex !important;
+
+        align-items: center !important;
+
+        box-sizing: border-box !important;
+
+        border-radius: 10px;
+
+        color: rgba(255,255,255,0.92) !important;
+
+        font-size: 13px;
+
+        font-weight: 500;
+
+        text-decoration: none;
+
+        overflow: hidden;
+
+        transition: all 0.2s ease;
+
+    }
+
+
+
+    /* ==========================================================
+       ICON
+    ========================================================== */
+
+    .donor-sidebar .nav-link i {
+
+        width: 23px !important;
+
+        min-width: 23px !important;
+
+        max-width: 23px !important;
+
+        margin-right: 12px !important;
+
+        text-align: center;
+
+        font-size: 15px;
+
+        color: rgba(255,255,255,0.95) !important;
+
+        flex-shrink: 0;
+
+    }
+
+
+
+    /* ==========================================================
+       TEXT
+    ========================================================== */
+
+    .donor-sidebar .nav-link span {
+
+        display: block;
+
+        line-height: 1;
+
+        white-space: nowrap;
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+
+    }
+
+
+
+    /* ==========================================================
+       HOVER
+    ========================================================== */
+
+    .donor-sidebar
+    .nav-item:not(.active)
+    .nav-link:hover {
+
+        background: rgba(255,255,255,0.13);
+
+        color: #ffffff !important;
+
+    }
+
+
+
+    /* ==========================================================
+       MENU AKTIF
+       PUTIH TIDAK BOLEH KELUAR SIDEBAR
+    ========================================================== */
+
+    .donor-sidebar
+    .nav-item.active
+    .nav-link {
+
+        width: 100% !important;
+
+        max-width: 100% !important;
+
+        background: #ffffff !important;
+
+        color: #c91d36 !important;
+
+        font-weight: 700;
+
+        box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+
+        margin: 0 !important;
+
+    }
+
+
+    .donor-sidebar
+    .nav-item.active
+    .nav-link i {
+
+        color: #c91d36 !important;
+
+    }
+
+
+
+    /* ==========================================================
+       LOGOUT
+    ========================================================== */
+
+    .donor-sidebar .logout-item {
+
+        margin-top: 4px !important;
+
+    }
+
+
+    .donor-sidebar
+    .logout-item
+    .nav-link {
+
+        color: rgba(255,255,255,0.92) !important;
+
+    }
+
+
+    .donor-sidebar
+    .logout-item
+    .nav-link:hover {
+
+        background: rgba(255,255,255,0.13);
+
+    }
+
+
+
+    /* ==========================================================
+       RESPONSIVE
+    ========================================================== */
+
+    @media (max-width: 768px) {
+
+        .donor-sidebar {
+
+            width: 230px !important;
+
+            min-width: 230px !important;
+
+            max-width: 230px !important;
+
+        }
+
+    }
+
+</style>

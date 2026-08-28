@@ -5,123 +5,263 @@
 @section('content')
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Kegiatan Donor</h1>
+    <div>
+        <h1 class="h3 mb-1 text-gray-800">Kegiatan Donor</h1>
+        <p class="mb-0 text-muted">
+            Kelola data kegiatan donor yang tersedia.
+        </p>
+    </div>
+
+    <a href="{{ route('kegiatan-donor.create') }}" class="btn btn-primary">
+        <i class="fas fa-plus-circle mr-2"></i>
+        Tambah Kegiatan
+    </a>
 </div>
+
 
 <div class="card shadow mb-4">
 
-    <div class="card-header d-flex align-items-center justify-content-between">
-        <h5 class="card-title mb-0">Data Kegiatan Donor</h5>
-
-        <a href="{{ route('kegiatan-donor.create') }}" class="btn btn-primary">
-            <span class="fa fa-plus-circle mr-2"></span>
-            Tambah Kegiatan
-        </a>
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-danger">
+            Data Kegiatan Donor
+        </h6>
     </div>
+
 
     <div class="card-body">
 
-        <table class="table table-striped table-hover datatable">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nama Kegiatan</th>
-                    <th>Tanggal</th>
-                    <th>Waktu</th>
-                    <th>Lokasi</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
+        @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show">
+                {{ session('success') }}
 
-            <tbody>
-                @foreach ($kegiatan as $item)
+                <button type="button"
+                        class="close"
+                        data-dismiss="alert">
+                    <span>&times;</span>
+                </button>
+            </div>
+        @endif
+
+
+        <div class="table-responsive">
+
+            <table class="table table-bordered table-hover datatable">
+
+                <thead class="thead-light">
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-
-                        <td>{{ $item->nama_kegiatan }}</td>
-
-                        <td>
-                            {{ $item->tanggal->format('d M Y') }}
-                        </td>
-
-                        <td>
-                            {{ $item->waktu }}
-                        </td>
-
-                        <td>
-                            {{ $item->lokasi }}
-                        </td>
-
-                        <td>
-                            <a href="{{ route('kegiatan-donor.show', $item->id_kegiatan) }}"
-                               class="btn btn-link text-secondary p-0 mx-2"
-                               title="Detail">
-                                <span class="fa fa-eye"></span>
-                            </a>
-
-                            <a href="{{ route('kegiatan-donor.edit', $item->id_kegiatan) }}"
-                               class="btn btn-link p-0 mx-2"
-                               title="Edit">
-                                <span class="fa fa-edit"></span>
-                            </a>
-
-                            <a href="javascript:void(0)"
-                               onclick="actionDestroy('{{ route('kegiatan-donor.destroy', $item->id_kegiatan) }}')"
-                               class="btn btn-link text-danger p-0 mx-2"
-                               title="Hapus">
-                                <span class="fa fa-trash"></span>
-                            </a>
-                        </td>
+                        <th width="5%">No</th>
+                        <th>Nama Kegiatan</th>
+                        <th>Tanggal</th>
+                        <th>Waktu</th>
+                        <th>Lokasi</th>
+                        <th width="15%">Aksi</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
 
-        <form id="form-destroy" method="POST" style="display: none;">
+
+                <tbody>
+
+                    @forelse($kegiatan as $item)
+
+                        <tr>
+
+                            <td class="text-center">
+                                {{ $loop->iteration }}
+                            </td>
+
+
+                            <td>
+                                {{ $item->nama_kegiatan }}
+                            </td>
+
+
+                            <td>
+                                {{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}
+                            </td>
+
+
+                            <td>
+                                {{ $item->waktu }}
+                            </td>
+
+
+                            <td>
+                                {{ $item->lokasi }}
+                            </td>
+
+
+                            <td class="text-center">
+
+                                {{-- Detail --}}
+                                <a href="{{ route('kegiatan-donor.show', $item->id_kegiatan) }}"
+                                   class="btn btn-sm btn-info"
+                                   title="Lihat Detail">
+
+                                    <i class="fas fa-eye"></i>
+
+                                </a>
+
+
+                                {{-- Edit --}}
+                                <a href="{{ route('kegiatan-donor.edit', $item->id_kegiatan) }}"
+                                   class="btn btn-sm btn-warning"
+                                   title="Edit">
+
+                                    <i class="fas fa-edit"></i>
+
+                                </a>
+
+
+                                {{-- Hapus --}}
+                                <button type="button"
+                                        class="btn btn-sm btn-danger"
+                                        title="Hapus"
+                                        onclick="actionDestroy('{{ route('kegiatan-donor.destroy', $item->id_kegiatan) }}')">
+
+                                    <i class="fas fa-trash"></i>
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                    @empty
+
+                        <tr>
+
+                            <td colspan="6"
+                                class="text-center text-muted py-4">
+
+                                <i class="fas fa-calendar-times fa-2x mb-2"></i>
+
+                                <br>
+
+                                Belum ada data kegiatan donor.
+
+                            </td>
+
+                        </tr>
+
+                    @endforelse
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        {{-- Form hapus --}}
+        <form id="form-destroy"
+              method="POST"
+              style="display: none;">
+
             @csrf
+
             @method('DELETE')
+
         </form>
 
     </div>
+
 </div>
 
 @endsection
 
+
 @push('styles')
+
 <link rel="stylesheet"
       href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}">
+
+<style>
+
+    .table th {
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+
+    .table td {
+        vertical-align: middle;
+    }
+
+    .btn-sm {
+        margin: 1px;
+    }
+
+</style>
+
 @endpush
+
 
 @push('scripts')
 
 <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
+
 <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
 
+
 <script>
-    $(function () {
-        $('.datatable').DataTable();
-    });
 
-    function actionDestroy(url) {
-        Swal.fire({
-            title: 'Apakah kamu yakin ingin menghapus data ini?',
-            text: 'Data yang dihapus tidak dapat dikembalikan!',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya, hapus!',
-            cancelButtonText: 'Batal'
-        }).then((result) => {
+    $(document).ready(function () {
 
-            if (result.isConfirmed) {
-                $('#form-destroy')
-                    .attr('action', url)
-                    .submit();
+        $('.datatable').DataTable({
+
+            language: {
+                search: "Cari:",
+                lengthMenu: "Tampilkan _MENU_ data",
+                zeroRecords: "Data tidak ditemukan",
+                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                infoEmpty: "Tidak ada data",
+                infoFiltered: "(difilter dari _MAX_ total data)",
+                paginate: {
+                    first: "Awal",
+                    last: "Akhir",
+                    next: "Berikutnya",
+                    previous: "Sebelumnya"
+                }
             }
 
         });
+
+    });
+
+
+    function actionDestroy(url) {
+
+        Swal.fire({
+
+            title: 'Hapus kegiatan donor?',
+
+            text: 'Data yang dihapus tidak dapat dikembalikan.',
+
+            icon: 'warning',
+
+            showCancelButton: true,
+
+            confirmButtonColor: '#d33',
+
+            cancelButtonColor: '#6c757d',
+
+            confirmButtonText: 'Ya, hapus!',
+
+            cancelButtonText: 'Batal'
+
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+
+                $('#form-destroy')
+                    .attr('action', url)
+                    .submit();
+
+            }
+
+        });
+
     }
+
 </script>
 
 @endpush

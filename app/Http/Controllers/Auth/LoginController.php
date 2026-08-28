@@ -3,42 +3,60 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
+    /**
+     * Menampilkan halaman login.
+     */
     public function showLoginForm()
     {
         return view('auth.login');
     }
 
+    /**
+     * Proses login berdasarkan role.
+     */
     public function login(Request $request)
     {
-        $data = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
+        // Validasi form
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+            'role' => ['required', 'in:pendonor,petugas'],
         ]);
 
-        $user = User::where('email', $data['email'])->first();
+        // Coba login
+        if (Auth::attempt([
+            'email' => $credentials['email'],
+            'password' => $credentials['password'],
+            'role' => $credentials['role'],
+        ])) {
 
-        if (!$user || !Hash::check($data['password'], $user->password)) {
-            return back()
-                ->withErrors([
-                    'email' => 'Email atau password salah.'
-                ])
-                ->withInput();
+            $request->session()->regenerate();
+
+            // Petugas PMR
+            if ($credentials['role'] === 'petugas') {
+                return redirect()->route('dashboard.petugas');
+            }
+
+            // Pendonor
+            return redirect()->route('dashboard');
         }
 
-        Auth::login($user);
-
-        $request->session()->regenerate();
-
-        return redirect()->route('dashboard');
+        // Jika login gagal
+        return back()
+            ->withErrors([
+                'email' => 'Email, password, atau role tidak sesuai.',
+            ])
+            ->withInput($request->only('email', 'role'));
     }
 
+    /**
+     * Logout.
+     */
     public function logout(Request $request)
     {
         Auth::logout();

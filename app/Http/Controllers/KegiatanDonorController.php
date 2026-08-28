@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\KegiatanDonor;
+use Illuminate\Http\Request;
 
 class KegiatanDonorController extends Controller
 {
@@ -19,14 +19,19 @@ class KegiatanDonorController extends Controller
 
     public function create()
     {
-        return view(
-            'pages.kegiatan_donor.create'
-        );
+        return view('pages.kegiatan_donor.create');
     }
 
     public function show($id)
     {
         $kegiatan = KegiatanDonor::findOrFail($id);
+
+        if (auth()->user()->role === 'pendonor') {
+            return view(
+                'pages.kegiatan_donor.show_pendonor',
+                compact('kegiatan')
+            );
+        }
 
         return view(
             'pages.kegiatan_donor.show',

@@ -9,6 +9,8 @@ use App\Models\RiwayatDonor;
 
 class PendonorController extends Controller
 {
+    // Bagian Profil Pendonor
+
     public function index()
     {
         $pendonor = Pendonor::where(
@@ -16,18 +18,27 @@ class PendonorController extends Controller
             session('id_user')
         )->firstOrFail();
 
-        return view('pendonor.index', compact('pendonor'));
+        return view(
+            'pages.pendonor.index',
+            compact('pendonor')
+        );
     }
+
+
+    // Bagian Daftar Kegiatan Donor Pendonor
 
     public function daftarKegiatanDonor()
     {
         $kegiatan = KegiatanDonor::orderBy('tanggal')->get();
 
         return view(
-            'pendonor.kegiatan',
+            'pages.pendonor.kegiatan',
             compact('kegiatan')
         );
     }
+
+
+    // Bagian Riwayat Donor Pendonor
 
     public function lihatRiwayatDonor()
     {
@@ -42,7 +53,7 @@ class PendonorController extends Controller
         )->with('hasilDonor')->get();
 
         return view(
-            'pendonor.riwayat',
+            'pages.pendonor.riwayat',
             compact('riwayat')
         );
     }

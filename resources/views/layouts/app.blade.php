@@ -19,7 +19,9 @@
     <title>@yield('title', 'DonorConnect')</title>
 
 
-    <!-- FONT AWESOME -->
+    <!-- =====================================================
+         FONT AWESOME
+    ====================================================== -->
     <link
         href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}"
         rel="stylesheet"
@@ -27,25 +29,37 @@
     >
 
 
-    <!-- GOOGLE FONT -->
+    <!-- =====================================================
+         GOOGLE FONT
+    ====================================================== -->
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900"
         rel="stylesheet"
     >
 
 
-    <!-- SB ADMIN -->
+    <!-- =====================================================
+         SB ADMIN 2
+    ====================================================== -->
     <link
         href="{{ asset('css/sb-admin-2.min.css') }}"
         rel="stylesheet"
     >
 
 
-    <!-- CUSTOM DONORCONNECT -->
+    <!-- =====================================================
+         CUSTOM DONORCONNECT
+    ====================================================== -->
     <style>
+
+        /* =================================================
+           GLOBAL
+        ================================================= */
 
         html,
         body {
+            margin: 0;
+            padding: 0;
             background: #fff7f5 !important;
         }
 
@@ -55,22 +69,56 @@
         }
 
 
-        /* CONTENT */
+        /* =================================================
+           WRAPPER
+        ================================================= */
+
+        #wrapper {
+            min-height: 100vh;
+            background: #fff7f5 !important;
+        }
+
+
+        /* =================================================
+           CONTENT WRAPPER
+        ================================================= */
 
         #content-wrapper {
+            min-height: 100vh;
             background: #fff7f5 !important;
         }
+
+
+        /* =================================================
+           CONTENT
+        ================================================= */
 
         #content {
+            min-height: calc(100vh - 75px);
             background: #fff7f5 !important;
         }
 
+
+        /* =================================================
+           MAIN CONTENT
+        ================================================= */
+
         .container-fluid {
-            padding-top: 20px;
+            width: 100%;
+            background: #fff7f5 !important;
+
+            padding-top: 25px;
+            padding-left: 30px;
+            padding-right: 30px;
+            padding-bottom: 35px;
+
+            margin: 0;
         }
 
 
-        /* SIDEBAR */
+        /* =================================================
+           SIDEBAR
+        ================================================= */
 
         .sidebar {
             background: linear-gradient(
@@ -95,27 +143,35 @@
         }
 
         .sidebar .nav-item .nav-link {
-            color: rgba(255,255,255,0.88);
+            color: rgba(255, 255, 255, 0.88);
+
             font-size: 12px;
             font-weight: 600;
+
             border-radius: 8px;
+
             margin: 3px 10px;
+
             padding: 12px 14px;
+
+            transition: all 0.2s ease;
         }
 
         .sidebar .nav-item .nav-link i {
-            color: rgba(255,255,255,0.95);
+            color: rgba(255, 255, 255, 0.95);
         }
 
         .sidebar .nav-item .nav-link:hover {
-            background: rgba(255,255,255,0.12);
+            background: rgba(255, 255, 255, 0.12);
             color: #ffffff;
         }
 
         .sidebar .nav-item.active .nav-link {
             background: #ffffff;
             color: #d91e36;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+
+            box-shadow:
+                0 3px 10px rgba(0, 0, 0, 0.08);
         }
 
         .sidebar .nav-item.active .nav-link i {
@@ -123,17 +179,23 @@
         }
 
         .sidebar hr.sidebar-divider {
-            border-top: 1px solid rgba(255,255,255,0.18);
+            border-top: 1px solid rgba(255, 255, 255, 0.18);
         }
 
 
-        /* TOPBAR */
+        /* =================================================
+           TOPBAR
+        ================================================= */
 
         .topbar {
-            background: #ffffff !important;
-            border-bottom: 1px solid #f4dfe1;
-            box-shadow: 0 3px 12px rgba(217,30,54,0.04) !important;
             height: 75px;
+
+            background: #ffffff !important;
+
+            border-bottom: 1px solid #f4dfe1;
+
+            box-shadow:
+                0 3px 12px rgba(217, 30, 54, 0.04) !important;
         }
 
         .topbar .nav-link {
@@ -143,12 +205,16 @@
         .topbar .img-profile {
             width: 35px;
             height: 35px;
+
             background: #fff0f1;
+
             padding: 7px;
         }
 
 
-        /* DROPDOWN */
+        /* =================================================
+           DROPDOWN
+        ================================================= */
 
         .dropdown-menu {
             border: 1px solid #f3dfe1;
@@ -165,7 +231,19 @@
         }
 
 
-        /* SCROLL TOP */
+        /* =================================================
+           FOOTER
+        ================================================= */
+
+        footer.sticky-footer {
+            background: #fff7f5 !important;
+            border-top: 1px solid #f3dfe1;
+        }
+
+
+        /* =================================================
+           SCROLL TOP
+        ================================================= */
 
         .scroll-to-top {
             background: #e51f3b !important;
@@ -176,18 +254,41 @@
         }
 
 
-        /* MOBILE */
+        /* =================================================
+           MOBILE
+        ================================================= */
 
         @media (max-width: 768px) {
 
+            #content {
+                min-height: calc(100vh - 60px);
+            }
+
             .container-fluid {
+                padding-top: 20px;
                 padding-left: 15px;
                 padding-right: 15px;
+                padding-bottom: 25px;
+            }
+
+        }
+
+
+        /* =================================================
+           SMALL MOBILE
+        ================================================= */
+
+        @media (max-width: 576px) {
+
+            .container-fluid {
+                padding-left: 12px;
+                padding-right: 12px;
             }
 
         }
 
     </style>
+
 
     @stack('styles')
 
@@ -199,33 +300,53 @@
 <div id="wrapper">
 
 
-    <!-- SIDEBAR -->
+    <!-- =================================================
+         SIDEBAR
+    ================================================== -->
+
     @include('layouts.inc.sidebar')
 
+
+    <!-- =================================================
+         CONTENT WRAPPER
+    ================================================== -->
 
     <div id="content-wrapper"
          class="d-flex flex-column">
 
 
+        <!-- =================================================
+             CONTENT
+        ================================================== -->
+
         <div id="content">
 
 
-            <!-- NAVBAR -->
+            <!-- =================================================
+                 NAVBAR
+            ================================================== -->
+
             @include('layouts.inc.navbar')
 
 
-            <!-- MAIN CONTENT -->
-            <div class="container-fluid">
+            <!-- =================================================
+                 MAIN CONTENT
+            ================================================== -->
+
+            <main class="container-fluid">
 
                 @yield('content')
 
-            </div>
+            </main>
 
 
         </div>
 
 
-        <!-- FOOTER -->
+        <!-- =================================================
+             FOOTER
+        ================================================== -->
+
         @include('layouts.inc.footer')
 
 
@@ -234,7 +355,9 @@
 </div>
 
 
-<!-- SCROLL TO TOP -->
+<!-- =====================================================
+     SCROLL TO TOP
+====================================================== -->
 
 <a class="scroll-to-top rounded"
    href="#page-top">
@@ -244,23 +367,38 @@
 </a>
 
 
-<!-- JQUERY -->
+<!-- =====================================================
+     JQUERY
+====================================================== -->
+
 <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
 
 
-<!-- BOOTSTRAP -->
+<!-- =====================================================
+     BOOTSTRAP
+====================================================== -->
+
 <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
 
-<!-- JQUERY EASING -->
+<!-- =====================================================
+     JQUERY EASING
+====================================================== -->
+
 <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 
 
-<!-- SB ADMIN -->
+<!-- =====================================================
+     SB ADMIN
+====================================================== -->
+
 <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
 
 
-<!-- SWEET ALERT -->
+<!-- =====================================================
+     SWEET ALERT
+====================================================== -->
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
