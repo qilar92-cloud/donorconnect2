@@ -19,6 +19,23 @@ class PendaftaranDonorController extends Controller
             'id_kegiatan' => 'required|exists:kegiatan_donor,id_kegiatan',
         ]);
 
+        $sudahDaftar = PendaftaranDonor::where(
+            'id_pendonor',
+            $pendonor->id_pendonor
+        )
+        ->where(
+            'id_kegiatan',
+            $data['id_kegiatan']
+        )
+        ->exists();
+
+        if ($sudahDaftar) {
+            return back()->with(
+                'error',
+                'Kamu sudah terdaftar pada kegiatan ini.'
+            );
+        }
+
         PendaftaranDonor::create([
             'id_pendonor' => $pendonor->id_pendonor,
             'id_kegiatan' => $data['id_kegiatan'],

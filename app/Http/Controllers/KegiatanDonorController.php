@@ -24,7 +24,9 @@ class KegiatanDonorController extends Controller
 
     public function show($id)
     {
-        $kegiatan = KegiatanDonor::findOrFail($id);
+        $kegiatan = KegiatanDonor::with([
+            'pendaftaranDonor.pendonor.user',
+        ])->findOrFail($id);
 
         if (auth()->user()->role === 'pendonor') {
             return view(

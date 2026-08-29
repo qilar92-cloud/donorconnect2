@@ -9,6 +9,7 @@ use App\Http\Controllers\PendaftaranDonorController;
 use App\Http\Controllers\PendonorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RiwayatDonorController;
+use App\Models\KegiatanDonor;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -32,17 +33,23 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])
         ->name('logout');
 
+    // Profil
+
     Route::get('/profile', [ProfileController::class, 'show'])
         ->name('profile');
+
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])
+        ->name('profile.edit');
 
     Route::put('/profile', [ProfileController::class, 'update'])
         ->name('profile.update');
 
+    // Pendonor
     Route::middleware('role:pendonor')->group(function () {
 
         Route::get('/dashboard', function () {
 
-            $jumlahKegiatan = \App\Models\KegiatanDonor::count();
+            $jumlahKegiatan = KegiatanDonor::count();
 
             return view('pages.dashboard.index', [
                 'jumlahKegiatan' => $jumlahKegiatan,
@@ -52,99 +59,105 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/pendonor/kegiatan', [
             PendonorController::class,
-            'daftarKegiatanDonor'
+            'daftarKegiatanDonor',
         ])->name('pendonor.kegiatan');
 
         Route::get('/pendonor/kegiatan/{id}', [
             KegiatanDonorController::class,
-            'show'
+            'show',
         ])->name('pendonor.kegiatan.show');
 
         Route::post('/pendaftaran-donor', [
             PendaftaranDonorController::class,
-            'store'
+            'store',
         ])->name('pendaftaran-donor.store');
 
         Route::get('/pendonor/riwayat', [
             PendonorController::class,
-            'lihatRiwayatDonor'
+            'lihatRiwayatDonor',
         ])->name('pendonor.riwayat');
     });
 
+    // Petugas
     Route::middleware('role:petugas')->group(function () {
 
         Route::get('/petugas/dashboard', function () {
             return view('pages.dashboard.petugas');
         })->name('dashboard.petugas');
 
+        // Kegiatan donor
         Route::get('/kegiatan-donor', [
             KegiatanDonorController::class,
-            'index'
+            'index',
         ])->name('kegiatan-donor.index');
 
         Route::get('/kegiatan-donor/create', [
             KegiatanDonorController::class,
-            'create'
+            'create',
         ])->name('kegiatan-donor.create');
 
         Route::post('/kegiatan-donor', [
             KegiatanDonorController::class,
-            'store'
+            'store',
         ])->name('kegiatan-donor.store');
 
         Route::get('/kegiatan-donor/{id}', [
             KegiatanDonorController::class,
-            'show'
+            'show',
         ])->name('kegiatan-donor.show');
 
         Route::get('/kegiatan-donor/{id}/edit', [
             KegiatanDonorController::class,
-            'edit'
+            'edit',
         ])->name('kegiatan-donor.edit');
 
         Route::put('/kegiatan-donor/{id}', [
             KegiatanDonorController::class,
-            'update'
+            'update',
         ])->name('kegiatan-donor.update');
 
         Route::delete('/kegiatan-donor/{id}', [
             KegiatanDonorController::class,
-            'destroy'
+            'destroy',
         ])->name('kegiatan-donor.destroy');
 
+        // Hasil donor
         Route::get('/hasil-donor/create', [
             HasilDonorController::class,
-            'create'
+            'create',
         ])->name('hasil-donor.create');
 
         Route::post('/hasil-donor', [
             HasilDonorController::class,
-            'store'
+            'store',
         ])->name('hasil-donor.store');
 
+        // Riwayat donor
         Route::get('/riwayat-donor', [
             RiwayatDonorController::class,
-            'index'
+            'index',
         ])->name('riwayat-donor.index');
 
         Route::post('/riwayat-donor/{id_pendonor}/{id_hasil}', [
             RiwayatDonorController::class,
-            'store'
+            'store',
         ])->name('riwayat-donor.store');
 
+        // Laporan donor
         Route::get('/laporan-donor', [
             LaporanDonorController::class,
-            'index'
+            'index',
         ])->name('laporan-donor.index');
 
         Route::get('/laporan-donor/filter', [
             LaporanDonorController::class,
-            'filter'
+            'filter',
         ])->name('laporan-donor.filter');
 
+        // Data pendonor
         Route::get('/pendonor', [
             PendonorController::class,
-            'index'
+            'index',
         ])->name('pendonor.index');
     });
 });

@@ -5,8 +5,19 @@
 @section('content')
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Profil Saya</h1>
+    <div>
+        <h1 class="h3 mb-1 text-gray-800">Profil Saya</h1>
+        <p class="mb-0 text-muted">
+            Informasi data pribadi pendonor.
+        </p>
+    </div>
 </div>
+
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 
 <div class="row">
 
@@ -14,8 +25,8 @@
 
         <div class="card shadow mb-4">
 
-            <div class="card-header">
-                <h5 class="card-title mb-0">
+            <div class="card-header py-3">
+                <h5 class="mb-0 font-weight-bold text-danger">
                     <i class="fas fa-user mr-2"></i>
                     Data Profil Pendonor
                 </h5>
@@ -35,7 +46,7 @@
                     <label>Status</label>
                     <input type="text"
                            class="form-control"
-                           value="{{ $pendonor->status }}"
+                           value="{{ $pendonor->status ?? '-' }}"
                            readonly>
                 </div>
 
@@ -43,7 +54,7 @@
                     <label>Kelas / Jabatan</label>
                     <input type="text"
                            class="form-control"
-                           value="{{ $pendonor->kelas_jabatan }}"
+                           value="{{ $pendonor->kelas_jabatan ?? '-' }}"
                            readonly>
                 </div>
 
@@ -51,7 +62,7 @@
                     <label>Tanggal Lahir</label>
                     <input type="text"
                            class="form-control"
-                           value="{{ $pendonor->tanggal_lahir }}"
+                           value="{{ $pendonor->tanggal_lahir ?? '-' }}"
                            readonly>
                 </div>
 
@@ -59,7 +70,7 @@
                     <label>Golongan Darah</label>
                     <input type="text"
                            class="form-control"
-                           value="{{ $pendonor->golongan_darah }}"
+                           value="{{ $pendonor->golongan_darah ?? '-' }}"
                            readonly>
                 </div>
 
@@ -67,7 +78,7 @@
                     <label>Nomor Telepon</label>
                     <input type="text"
                            class="form-control"
-                           value="{{ $pendonor->nomor_telepon }}"
+                           value="{{ $pendonor->nomor_telepon ?? '-' }}"
                            readonly>
                 </div>
 
@@ -75,7 +86,7 @@
                     <label>Informasi Kesehatan</label>
                     <textarea class="form-control"
                               rows="3"
-                              readonly>{{ $pendonor->informasi_kesehatan }}</textarea>
+                              readonly>{{ $pendonor->informasi_kesehatan ?? '-' }}</textarea>
                 </div>
 
             </div>

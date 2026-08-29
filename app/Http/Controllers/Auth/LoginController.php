@@ -8,27 +8,19 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    /**
-     * Menampilkan halaman login.
-     */
     public function showLoginForm()
     {
         return view('auth.login');
     }
 
-    /**
-     * Proses login berdasarkan role.
-     */
     public function login(Request $request)
     {
-        // Validasi form
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
             'role' => ['required', 'in:pendonor,petugas'],
         ]);
 
-        // Coba login
         if (Auth::attempt([
             'email' => $credentials['email'],
             'password' => $credentials['password'],
@@ -37,16 +29,18 @@ class LoginController extends Controller
 
             $request->session()->regenerate();
 
-            // Petugas PMR
+            $request->session()->put(
+                'id_user',
+                Auth::user()->id_user
+            );
+
             if ($credentials['role'] === 'petugas') {
                 return redirect()->route('dashboard.petugas');
             }
 
-            // Pendonor
             return redirect()->route('dashboard');
         }
 
-        // Jika login gagal
         return back()
             ->withErrors([
                 'email' => 'Email, password, atau role tidak sesuai.',
@@ -54,9 +48,6 @@ class LoginController extends Controller
             ->withInput($request->only('email', 'role'));
     }
 
-    /**
-     * Logout.
-     */
     public function logout(Request $request)
     {
         Auth::logout();
