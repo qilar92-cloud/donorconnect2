@@ -8,21 +8,30 @@
 
     <div class="dashboard-heading">
         <div>
+            <span class="mini-brand">DONORCONNECT</span>
             <h1>Dashboard</h1>
-            <p>Selamat datang kembali di DonorConnect</p>
+            <p>
+                Selamat datang kembali,
+                {{ Auth::user()->nama ?? 'Pendonor' }} ♡
+            </p>
         </div>
 
         <div class="role-badge">
+            <i class="fas fa-user"></i>
             {{ Auth::user()->role ?? 'Pendonor' }}
         </div>
     </div>
+
+
+    {{-- Welcome --}}
 
     <div class="welcome-card">
 
         <div class="welcome-content">
 
-            <div class="welcome-brand">
-                DONORCONNECT
+            <div class="welcome-label">
+                <i class="fas fa-heart"></i>
+                PEDULI · BERBAGI · MENYELAMATKAN
             </div>
 
             <h2>
@@ -30,20 +39,36 @@
             </h2>
 
             <p>
-                Terima kasih telah menjadi bagian dari
-                <strong>DONORCONNECT</strong>.
-                Mari bersama membantu sesama melalui donor darah.
+                Yuk, lanjut berbagi kebaikan hari ini.
+                Setetes darahmu bisa memberikan harapan bagi orang lain.
             </p>
+
+            <a href="{{ route('pendonor.kegiatan') }}" class="welcome-button">
+                <i class="fas fa-calendar-alt"></i>
+                Lihat Kegiatan
+            </a>
 
         </div>
 
-        <div class="blood-decoration">
-            <div class="blood-drop">
+        <div class="blood-illustration">
+
+            <span class="bubble bubble-blue"></span>
+            <span class="bubble bubble-yellow"></span>
+
+            <div class="blood-drop-main">
                 <i class="fas fa-heart"></i>
             </div>
+
+            <span class="small-heart">
+                <i class="fas fa-heart"></i>
+            </span>
+
         </div>
 
     </div>
+
+
+    {{-- Statistik --}}
 
     <div class="row dashboard-statistics">
 
@@ -54,7 +79,7 @@
                     <i class="fas fa-calendar-alt"></i>
                 </div>
 
-                <div class="stat-content">
+                <div>
                     <div class="stat-number">
                         {{ $jumlahKegiatan }}
                     </div>
@@ -67,14 +92,15 @@
             </div>
         </div>
 
+
         <div class="col-xl-3 col-md-6 mb-3">
             <div class="stat-card">
 
-                <div class="stat-icon heart-icon">
-                    <i class="fas fa-heart"></i>
+                <div class="stat-icon registration-icon">
+                    <i class="fas fa-clipboard-check"></i>
                 </div>
 
-                <div class="stat-content">
+                <div>
                     <div class="stat-number">
                         0
                     </div>
@@ -87,6 +113,7 @@
             </div>
         </div>
 
+
         <div class="col-xl-3 col-md-6 mb-3">
             <div class="stat-card">
 
@@ -94,7 +121,7 @@
                     <i class="fas fa-history"></i>
                 </div>
 
-                <div class="stat-content">
+                <div>
                     <div class="stat-number">
                         0
                     </div>
@@ -107,14 +134,15 @@
             </div>
         </div>
 
+
         <div class="col-xl-3 col-md-6 mb-3">
             <div class="stat-card">
 
-                <div class="stat-icon blood-icon-small">
+                <div class="stat-icon blood-icon">
                     <i class="fas fa-tint"></i>
                 </div>
 
-                <div class="stat-content">
+                <div>
                     <div class="stat-number">
                         0 ml
                     </div>
@@ -129,6 +157,9 @@
 
     </div>
 
+
+    {{-- Bagian bawah --}}
+
     <div class="row dashboard-bottom">
 
         <div class="col-lg-8 mb-4">
@@ -137,19 +168,25 @@
 
                 <div class="card-title-row">
 
-                    <h3>Kegiatan Terdekat</h3>
+                    <div>
+                        <span class="card-mini-title">DONOR</span>
+                        <h3>Kegiatan Terdekat</h3>
+                    </div>
 
                     <a href="{{ route('pendonor.kegiatan') }}"
                        class="see-all">
                         Lihat Semua
+                        <i class="fas fa-arrow-right"></i>
                     </a>
 
                 </div>
+
 
                 @php
                     $kegiatanTerdekat = \App\Models\KegiatanDonor::orderBy('tanggal')
                         ->first();
                 @endphp
+
 
                 @if($kegiatanTerdekat)
 
@@ -188,7 +225,7 @@
 
                         <a href="{{ route('pendonor.kegiatan.show', $kegiatanTerdekat->id_kegiatan) }}"
                            class="detail-button">
-                            Lihat Detail
+                            Detail
                         </a>
 
                     </div>
@@ -196,8 +233,13 @@
                 @else
 
                     <div class="empty-activity">
-                        <i class="fas fa-calendar-times"></i>
+
+                        <div class="empty-icon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+
                         <p>Belum ada kegiatan donor.</p>
+
                     </div>
 
                 @endif
@@ -206,29 +248,47 @@
 
         </div>
 
+
         <div class="col-lg-4 mb-4">
 
             <div class="dashboard-card information-card">
 
                 <div class="card-title-row">
-                    <h3>Informasi</h3>
+
+                    <div>
+                        <span class="card-mini-title">INFO</span>
+                        <h3>Untuk Kamu</h3>
+                    </div>
+
+                    <i class="fas fa-heart info-title-icon"></i>
+
                 </div>
+
 
                 <div class="information-content">
 
-                    <div class="info-blood">
-                        <i class="fas fa-tint"></i>
+                    <div class="info-blood-area">
+
+                        <span class="info-circle blue"></span>
+                        <span class="info-circle yellow"></span>
+
+                        <div class="info-blood">
+                            <i class="fas fa-heart"></i>
+                        </div>
+
                     </div>
 
-                    <p>
-                        Setetes darah Anda sangat berarti
-                        bagi mereka yang membutuhkan.
-                    </p>
+                    <h4>Setetes darahmu berarti</h4>
 
                     <p>
-                        Yuk, terus semangat untuk
-                        berbagi dan membantu sesama.
+                        Donormu hari ini bisa menjadi
+                        harapan bagi seseorang yang membutuhkan.
                     </p>
+
+                    <div class="info-note">
+                        <i class="fas fa-heart"></i>
+                        Terima kasih sudah peduli
+                    </div>
 
                 </div>
 
@@ -247,117 +307,219 @@
 
 <style>
 
+/* Dashboard */
+
 .dashboard-page {
     width: 100%;
     min-height: calc(100vh - 80px);
-    padding: 25px 28px 35px;
-    background: #fffafa;
+    padding: 28px 30px 40px;
+    background: #fff8f1;
 }
+
+
+/* Heading */
 
 .dashboard-heading {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
+}
+
+.mini-brand {
+    display: block;
+    margin-bottom: 5px;
+    color: #d94b63;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 2.5px;
 }
 
 .dashboard-heading h1 {
-    margin: 0 0 5px;
+    margin: 0 0 4px;
+    color: #3f4d72;
     font-size: 30px;
     font-weight: 800;
-    color: #292733;
 }
 
 .dashboard-heading p {
     margin: 0;
-    font-size: 13px;
-    color: #8a8588;
+    color: #928b8a;
+    font-size: 12px;
 }
 
 .role-badge {
-    padding: 7px 16px;
+    padding: 8px 16px;
+    border: 1px solid #f0cfd0;
     border-radius: 20px;
-    background: #fff0f1;
-    border: 1px solid #f3cbd0;
-    color: #d91e36;
-    font-size: 11px;
+    background: #fff5f5;
+    color: #c84a60;
+    font-size: 10px;
     font-weight: 700;
-    text-transform: capitalize;
 }
+
+.role-badge i {
+    margin-right: 5px;
+}
+
+
+/* Welcome */
 
 .welcome-card {
     position: relative;
-    width: 100%;
-    min-height: 155px;
-    margin-bottom: 20px;
-    padding: 28px 34px;
+    min-height: 190px;
+    margin-bottom: 22px;
+    padding: 30px 38px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #ffffff;
-    border: 1px solid #f3e1e2;
-    border-left: 5px solid #e51f3b;
-    border-radius: 15px;
-    box-shadow: 0 4px 14px rgba(217, 30, 54, 0.05);
     overflow: hidden;
+
+    background: #fffdfb;
+    border: 1px solid #f0dfd6;
+    border-left: 5px solid #d94b63;
+    border-radius: 17px;
+
+    box-shadow: 0 5px 20px rgba(190, 130, 120, 0.07);
 }
 
 .welcome-content {
     position: relative;
-    z-index: 2;
-    max-width: 75%;
+    z-index: 3;
+    max-width: 72%;
 }
 
-.welcome-brand {
-    margin-bottom: 6px;
-    color: #d91e36;
-    font-size: 10px;
+.welcome-label {
+    margin-bottom: 9px;
+    color: #d96b7d;
+    font-size: 9px;
     font-weight: 800;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
+}
+
+.welcome-label i {
+    margin-right: 4px;
 }
 
 .welcome-content h2 {
     margin: 0 0 8px;
-    color: #302e38;
-    font-size: 24px;
+    color: #405075;
+    font-size: 25px;
     font-weight: 800;
 }
 
 .welcome-content p {
-    margin: 0;
-    color: #858085;
-    font-size: 13px;
+    max-width: 650px;
+    margin: 0 0 16px;
+    color: #8d8787;
+    font-size: 12px;
     line-height: 1.7;
 }
 
-.welcome-content strong {
-    color: #d91e36;
+.welcome-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 16px;
+    background: #d94b63;
+    color: #ffffff !important;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 700;
+    text-decoration: none !important;
+    box-shadow: 0 5px 12px rgba(217, 75, 99, 0.18);
 }
 
-.blood-decoration {
+.welcome-button:hover {
+    background: #c63e56;
+}
+
+
+/* Blood illustration */
+
+.blood-illustration {
     position: absolute;
-    right: 38px;
+    right: 55px;
     top: 50%;
+    width: 145px;
+    height: 145px;
     transform: translateY(-50%);
-    width: 90px;
-    height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
-.blood-drop {
-    width: 58px;
-    height: 72px;
+.blood-drop-main {
+    position: absolute;
+    left: 43px;
+    top: 25px;
+    width: 62px;
+    height: 76px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #e51f3b;
+
+    background: #d94b63;
     color: #ffffff;
-    border-radius: 50% 50% 55% 55%;
-    font-size: 21px;
-    box-shadow: 0 7px 17px rgba(229, 31, 59, 0.18);
+
+    border-radius: 52% 52% 58% 58%;
+    transform: rotate(0deg);
+
+    box-shadow: 0 8px 18px rgba(217, 75, 99, 0.18);
 }
+
+.blood-drop-main:before {
+    content: "";
+    position: absolute;
+    top: -14px;
+    left: 13px;
+    width: 35px;
+    height: 35px;
+    background: #d94b63;
+    border-radius: 50%;
+    transform: rotate(45deg);
+    z-index: -1;
+}
+
+.blood-drop-main i {
+    font-size: 21px;
+}
+
+.bubble {
+    position: absolute;
+    border-radius: 50%;
+}
+
+.bubble-blue {
+    width: 92px;
+    height: 92px;
+    left: 12px;
+    top: 25px;
+    background: rgba(125, 191, 218, 0.25);
+}
+
+.bubble-yellow {
+    width: 28px;
+    height: 28px;
+    right: 8px;
+    top: 7px;
+    background: rgba(235, 191, 91, 0.45);
+}
+
+.small-heart {
+    position: absolute;
+    right: 13px;
+    bottom: 15px;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f6d6df;
+    color: #d94b63;
+    border-radius: 50%;
+    font-size: 9px;
+}
+
+
+/* Statistics */
 
 .dashboard-statistics {
     margin-left: -6px;
@@ -370,80 +532,87 @@
 }
 
 .stat-card {
-    width: 100%;
-    min-height: 92px;
-    padding: 18px;
+    min-height: 90px;
+    padding: 17px;
     display: flex;
     align-items: center;
     gap: 14px;
-    background: #ffffff;
-    border: 1px solid #f2e0e2;
+
+    background: #fffdfb;
+    border: 1px solid #f0dfd6;
     border-radius: 13px;
-    box-shadow: 0 3px 12px rgba(217, 30, 54, 0.04);
+
+    box-shadow: 0 3px 12px rgba(190, 130, 120, 0.05);
     transition: 0.2s ease;
 }
 
 .stat-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 17px rgba(217, 30, 54, 0.08);
+    box-shadow: 0 6px 16px rgba(190, 130, 120, 0.09);
 }
 
 .stat-icon {
-    flex-shrink: 0;
     width: 44px;
     height: 44px;
+    flex-shrink: 0;
+
     display: flex;
     justify-content: center;
     align-items: center;
+
     border-radius: 11px;
-    font-size: 17px;
+    font-size: 16px;
 }
 
 .calendar-icon {
-    background: #fff0f1;
-    color: #d91e36;
+    background: #eaf5fb;
+    color: #62a8cc;
 }
 
-.heart-icon {
-    background: #fff1f3;
-    color: #e51f3b;
+.registration-icon {
+    background: #fff0f3;
+    color: #d96b86;
 }
 
 .history-icon {
-    background: #fff4f1;
-    color: #dc6370;
+    background: #eef7f6;
+    color: #67aaa6;
 }
 
-.blood-icon-small {
-    background: #ffedf0;
-    color: #d91e36;
+.blood-icon {
+    background: #fff3df;
+    color: #d49a45;
 }
 
 .stat-number {
     margin-bottom: 3px;
-    color: #302e38;
+    color: #405075;
     font-size: 20px;
     font-weight: 800;
 }
 
 .stat-label {
-    color: #8d878c;
-    font-size: 10px;
-    white-space: nowrap;
+    color: #989092;
+    font-size: 9px;
 }
 
+
+/* Cards */
+
 .dashboard-bottom {
-    margin-top: 2px;
+    margin-top: 4px;
 }
 
 .dashboard-card {
     width: 100%;
     min-height: 235px;
-    padding: 22px;
-    background: #ffffff;
-    border: 1px solid #f1e0e2;
-    border-radius: 14px;
-    box-shadow: 0 3px 13px rgba(217, 30, 54, 0.04);
+    padding: 23px;
+
+    background: #fffdfb;
+    border: 1px solid #f0dfd6;
+    border-radius: 15px;
+
+    box-shadow: 0 3px 13px rgba(190, 130, 120, 0.05);
 }
 
 .card-title-row {
@@ -453,47 +622,66 @@
     margin-bottom: 18px;
 }
 
+.card-mini-title {
+    display: block;
+    margin-bottom: 3px;
+    color: #d98291;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
 .card-title-row h3 {
     margin: 0;
-    color: #302e38;
+    color: #405075;
     font-size: 16px;
     font-weight: 800;
 }
 
 .see-all {
-    color: #d91e36;
-    font-size: 10px;
+    color: #d65b70;
+    font-size: 9px;
     font-weight: 700;
     text-decoration: none;
 }
 
+.see-all i {
+    margin-left: 3px;
+}
+
 .see-all:hover {
-    color: #b9162d;
+    color: #bc4056;
     text-decoration: none;
 }
 
+
+/* Activity */
+
 .activity-item {
-    width: 100%;
     min-height: 105px;
     padding: 16px;
+
     display: flex;
     align-items: center;
     gap: 14px;
-    background: #fffafa;
-    border: 1px solid #f3e3e4;
+
+    background: #fff9f5;
+    border: 1px solid #f2e3dc;
     border-radius: 11px;
 }
 
 .activity-icon {
-    flex-shrink: 0;
     width: 43px;
     height: 43px;
+    flex-shrink: 0;
+
     display: flex;
     justify-content: center;
     align-items: center;
+
     border-radius: 10px;
-    background: #fff0f1;
-    color: #d91e36;
+    background: #eaf5fb;
+    color: #63a8c8;
     font-size: 15px;
 }
 
@@ -504,7 +692,7 @@
 
 .activity-info h4 {
     margin: 0 0 9px;
-    color: #302e38;
+    color: #4a5570;
     font-size: 12px;
     font-weight: 800;
 }
@@ -516,111 +704,210 @@
 }
 
 .activity-details span {
-    color: #8c868b;
+    color: #918a8a;
     font-size: 9px;
 }
 
 .activity-details i {
-    color: #d91e36;
     margin-right: 3px;
+    color: #d96b7d;
 }
 
 .detail-button {
+    padding: 8px 14px;
     flex-shrink: 0;
-    padding: 8px 13px;
+
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    background: #e51f3b;
+
+    background: #d94b63;
     color: #ffffff !important;
     border-radius: 7px;
+
     font-size: 9px;
     font-weight: 700;
     text-decoration: none !important;
-    white-space: nowrap;
 }
 
 .detail-button:hover {
-    background: #c91830;
-    color: #ffffff !important;
+    background: #c63e56;
 }
+
+
+/* Empty */
 
 .empty-activity {
     min-height: 105px;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: #fffafa;
-    border: 1px solid #f3e3e4;
+
+    background: #fff9f5;
+    border: 1px solid #f2e3dc;
     border-radius: 11px;
-    color: #aaa;
 }
 
-.empty-activity i {
+.empty-icon {
+    width: 42px;
+    height: 42px;
     margin-bottom: 8px;
-    font-size: 25px;
-    color: #d91e36;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+    background: #fff0f3;
+    color: #d96a7d;
 }
 
 .empty-activity p {
     margin: 0;
-    font-size: 11px;
+    color: #999292;
+    font-size: 10px;
 }
+
+
+/* Information */
 
 .information-card {
     min-height: 235px;
 }
 
+.info-title-icon {
+    color: #d96b7d;
+    font-size: 12px;
+}
+
 .information-content {
     min-height: 155px;
-    padding: 18px;
+    padding: 15px 18px;
+
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: #fff9f8;
-    border: 1px solid #f5e5e6;
+
+    background: #fff8f3;
+    border: 1px solid #f1e1da;
     border-radius: 11px;
     text-align: center;
 }
 
+.info-blood-area {
+    position: relative;
+    width: 85px;
+    height: 70px;
+    margin-bottom: 4px;
+}
+
+.info-circle {
+    position: absolute;
+    border-radius: 50%;
+}
+
+.info-circle.blue {
+    width: 60px;
+    height: 60px;
+    left: 8px;
+    top: 5px;
+    background: rgba(113, 185, 215, 0.22);
+}
+
+.info-circle.yellow {
+    width: 19px;
+    height: 19px;
+    right: 4px;
+    top: 3px;
+    background: rgba(232, 186, 82, 0.42);
+}
+
 .info-blood {
-    width: 43px;
-    height: 50px;
-    margin-bottom: 10px;
+    position: absolute;
+    left: 30px;
+    top: 11px;
+
+    width: 39px;
+    height: 48px;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #e51f3b;
+
+    background: #d94b63;
     color: #ffffff;
-    border-radius: 50% 50% 55% 55%;
-    font-size: 17px;
+
+    border-radius: 50% 50% 58% 58%;
+    box-shadow: 0 6px 12px rgba(217, 75, 99, 0.16);
+}
+
+.info-blood:before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 8px;
+
+    width: 23px;
+    height: 23px;
+
+    background: #d94b63;
+    border-radius: 50%;
+    transform: rotate(45deg);
+    z-index: -1;
+}
+
+.info-blood i {
+    font-size: 13px;
+}
+
+.information-content h4 {
+    margin: 0 0 5px;
+    color: #4a5570;
+    font-size: 12px;
+    font-weight: 800;
 }
 
 .information-content p {
-    max-width: 270px;
-    margin: 0 0 6px;
-    color: #858085;
-    font-size: 10px;
+    max-width: 245px;
+    margin: 0 0 8px;
+
+    color: #918a8a;
+    font-size: 9px;
     line-height: 1.6;
 }
+
+.info-note {
+    color: #d66a7c;
+    font-size: 8px;
+    font-weight: 700;
+}
+
+.info-note i {
+    margin-right: 3px;
+}
+
+
+/* Responsive */
 
 @media (max-width: 991px) {
 
     .dashboard-page {
-        padding: 23px 22px 35px;
+        padding: 24px 22px 35px;
     }
 
     .welcome-content {
-        max-width: 80%;
+        max-width: 78%;
     }
 
-    .blood-decoration {
-        right: 20px;
+    .blood-illustration {
+        right: 25px;
     }
 
 }
+
 
 @media (max-width: 768px) {
 
@@ -648,9 +935,9 @@
         font-size: 21px;
     }
 
-    .blood-decoration {
-        opacity: 0.12;
-        right: 5px;
+    .blood-illustration {
+        opacity: 0.18;
+        right: 0;
     }
 
     .activity-item {
@@ -676,6 +963,7 @@
     }
 
 }
+
 
 @media (max-width: 480px) {
 

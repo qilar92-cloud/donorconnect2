@@ -12,7 +12,7 @@ class KegiatanDonorController extends Controller
         $kegiatan = KegiatanDonor::orderBy('tanggal')->get();
 
         return view(
-            'pages.kegiatan_donor.index',
+            'pages.pendonor.pendaftaran.daftar',
             compact('kegiatan')
         );
     }
@@ -25,7 +25,7 @@ class KegiatanDonorController extends Controller
     public function show($id)
     {
         $kegiatan = KegiatanDonor::with([
-            'pendaftaranDonor.pendonor.user',
+            'pendaftaranDonor.pendonor.user'
         ])->findOrFail($id);
 
         if (auth()->user()->role === 'pendonor') {
@@ -37,6 +37,16 @@ class KegiatanDonorController extends Controller
 
         return view(
             'pages.kegiatan_donor.show',
+            compact('kegiatan')
+        );
+    }
+
+    public function formPendaftaran($id)
+    {
+        $kegiatan = KegiatanDonor::findOrFail($id);
+
+        return view(
+            'pages.kegiatan_donor.daftar',
             compact('kegiatan')
         );
     }

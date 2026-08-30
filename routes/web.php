@@ -33,8 +33,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])
         ->name('logout');
 
-    // Profil
-
     Route::get('/profile', [ProfileController::class, 'show'])
         ->name('profile');
 
@@ -48,13 +46,11 @@ Route::middleware('auth')->group(function () {
     Route::middleware('role:pendonor')->group(function () {
 
         Route::get('/dashboard', function () {
-
             $jumlahKegiatan = KegiatanDonor::count();
 
             return view('pages.dashboard.index', [
                 'jumlahKegiatan' => $jumlahKegiatan,
             ]);
-
         })->name('dashboard');
 
         Route::get('/pendonor/kegiatan', [
@@ -66,6 +62,11 @@ Route::middleware('auth')->group(function () {
             KegiatanDonorController::class,
             'show',
         ])->name('pendonor.kegiatan.show');
+
+        Route::get('/pendaftaran-donor/{id_kegiatan}', [
+            PendaftaranDonorController::class,
+            'create',
+        ])->name('pendaftaran-donor.create');
 
         Route::post('/pendaftaran-donor', [
             PendaftaranDonorController::class,
@@ -143,7 +144,7 @@ Route::middleware('auth')->group(function () {
             'store',
         ])->name('riwayat-donor.store');
 
-        // Laporan donor
+        // Laporan
         Route::get('/laporan-donor', [
             LaporanDonorController::class,
             'index',

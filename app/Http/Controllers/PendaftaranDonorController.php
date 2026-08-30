@@ -2,12 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\KegiatanDonor;
 use App\Models\PendaftaranDonor;
 use App\Models\Pendonor;
+use Illuminate\Http\Request;
 
 class PendaftaranDonorController extends Controller
 {
+    public function create($id_kegiatan)
+    {
+        $kegiatan = KegiatanDonor::findOrFail($id_kegiatan);
+
+        return view(
+            'pages.pendonor.pendaftaran.daftar',
+            compact('kegiatan')
+        );
+    }
+
     public function store(Request $request)
     {
         $pendonor = Pendonor::where(
@@ -17,6 +28,7 @@ class PendaftaranDonorController extends Controller
 
         $data = $request->validate([
             'id_kegiatan' => 'required|exists:kegiatan_donor,id_kegiatan',
+            'catatan' => 'nullable|string',
         ]);
 
         $sudahDaftar = PendaftaranDonor::where(
@@ -32,7 +44,7 @@ class PendaftaranDonorController extends Controller
         if ($sudahDaftar) {
             return back()->with(
                 'error',
-                'Kamu sudah terdaftar pada kegiatan ini.'
+                'Kamu sudah terdaftar pada kegiatan donor ini.'
             );
         }
 
@@ -42,9 +54,14 @@ class PendaftaranDonorController extends Controller
             'status_pendaftaran' => 'Terdaftar',
         ]);
 
-        return back()->with(
-            'success',
-            'Berhasil mendaftar kegiatan donor.'
-        );
+        return redirect()
+            ->route(
+                'pendonor.kegiatan.show',
+                $data['id_kegiatan']
+            )
+            ->with(
+                'success',
+                'Berhasil mendaftar kegiatan donor.'
+            );
     }
 }

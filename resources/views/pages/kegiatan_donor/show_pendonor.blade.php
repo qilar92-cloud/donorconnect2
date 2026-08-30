@@ -7,7 +7,6 @@
 <div class="detail-page">
 
     <div class="detail-heading">
-
         <div>
             <h1>Detail Kegiatan Donor</h1>
 
@@ -15,9 +14,19 @@
                 Informasi lengkap kegiatan donor.
             </p>
         </div>
-
     </div>
 
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="alert alert-warning">
+            {{ session('error') }}
+        </div>
+    @endif
 
     <div class="detail-card">
 
@@ -39,7 +48,6 @@
 
         </div>
 
-
         <div class="detail-card-body">
 
             <div class="detail-row">
@@ -55,7 +63,6 @@
 
             </div>
 
-
             <div class="detail-row">
 
                 <div class="detail-label">
@@ -68,7 +75,6 @@
                 </div>
 
             </div>
-
 
             <div class="detail-row">
 
@@ -83,7 +89,6 @@
 
             </div>
 
-
             <div class="detail-row">
 
                 <div class="detail-label">
@@ -97,7 +102,6 @@
 
             </div>
 
-
             <div class="detail-row">
 
                 <div class="detail-label">
@@ -106,17 +110,14 @@
                 </div>
 
                 <div class="detail-value">
-
                     <span class="status-badge">
                         Tersedia
                     </span>
-
                 </div>
 
             </div>
 
         </div>
-
 
         <div class="register-section">
 
@@ -128,30 +129,16 @@
                 Silakan melakukan pendaftaran jika ingin mengikuti kegiatan donor ini.
             </p>
 
+            <a href="{{ route('pendaftaran-donor.create', $kegiatan->id_kegiatan) }}"
+               class="register-button">
 
-            <form action="{{ route('pendaftaran-donor.store') }}"
-                  method="POST">
+                <i class="fas fa-tint"></i>
 
-                @csrf
+                Daftar Donor
 
-                <input type="hidden"
-                       name="id_kegiatan"
-                       value="{{ $kegiatan->id_kegiatan }}">
-
-
-                <button type="submit"
-                        class="register-button">
-
-                    <i class="fas fa-heart"></i>
-
-                    Daftar Donor
-
-                </button>
-
-            </form>
+            </a>
 
         </div>
-
 
         <div class="detail-card-footer">
 
@@ -169,7 +156,6 @@
     </div>
 
 </div>
-
 
 @push('styles')
 
@@ -310,21 +296,30 @@
 
 .register-button {
     padding: 10px 18px;
-    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     border-radius: 7px;
-    background: #e51f3b;
-    color: #ffffff;
+    background: #d91e36;
+    color: #ffffff !important;
     font-size: 11px;
     font-weight: 700;
-    cursor: pointer;
+    text-decoration: none !important;
 }
 
 .register-button:hover {
-    background: #c91830;
+    background: #c7182f;
+    color: #ffffff !important;
 }
 
 .register-button i {
-    margin-right: 6px;
+    margin-right: 4px;
+}
+
+.alert {
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-size: 12px;
 }
 
 .detail-card-footer {
@@ -348,6 +343,7 @@
 
 .back-button:hover {
     background: #5a6268;
+    color: #ffffff !important;
 }
 
 @media (max-width: 768px) {
@@ -392,6 +388,7 @@
 
     .register-button {
         width: 100%;
+        justify-content: center;
     }
 }
 
@@ -408,7 +405,6 @@
     .detail-card-header h2 {
         font-size: 15px;
     }
-
 }
 
 </style>
