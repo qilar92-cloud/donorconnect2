@@ -44,6 +44,9 @@ Route::middleware('auth')->group(function () {
 
     // Pendonor
     Route::middleware('role:pendonor')->group(function () {
+        // Status pendaftaran donor
+        Route::get('/status-pendaftaran', 
+        [PendaftaranDonorController::class,'status', ])->name('pendonor.status');
 
         Route::get('/dashboard', function () {
             $jumlahKegiatan = KegiatanDonor::count();
@@ -160,5 +163,7 @@ Route::middleware('auth')->group(function () {
             PendonorController::class,
             'index',
         ])->name('pendonor.index');
+
+      
     });
 });

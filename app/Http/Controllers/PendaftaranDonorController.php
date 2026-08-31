@@ -12,10 +12,14 @@ class PendaftaranDonorController extends Controller
     public function create($id_kegiatan)
     {
         $kegiatan = KegiatanDonor::findOrFail($id_kegiatan);
+        $pendonor = Pendonor::where(
+            'id_user',
+            session('id_user')
+        )->first();
 
         return view(
             'pages.pendonor.pendaftaran.daftar',
-            compact('kegiatan')
+            compact('kegiatan', 'pendonor')
         );
     }
 
@@ -35,11 +39,11 @@ class PendaftaranDonorController extends Controller
             'id_pendonor',
             $pendonor->id_pendonor
         )
-        ->where(
-            'id_kegiatan',
-            $data['id_kegiatan']
-        )
-        ->exists();
+            ->where(
+                'id_kegiatan',
+                $data['id_kegiatan']
+            )
+            ->exists();
 
         if ($sudahDaftar) {
             return back()->with(
@@ -63,5 +67,26 @@ class PendaftaranDonorController extends Controller
                 'success',
                 'Berhasil mendaftar kegiatan donor.'
             );
+    }
+
+    public function status()
+    {
+        $pendonor = Pendonor::where(
+            'id_user',
+            session('id_user')
+        )->firstOrFail();
+
+        $pendaftaran = PendaftaranDonor::with('kegiatanDonor')
+            ->where(
+                'id_pendonor',
+                $pendonor->id_pendonor
+            )
+            ->latest()
+            ->get();
+
+        return view(
+            'pages.pendonor.status.status',
+            compact('pendaftaran')
+        );
     }
 }
