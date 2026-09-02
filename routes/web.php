@@ -44,16 +44,20 @@ Route::middleware('auth')->group(function () {
 
     // Pendonor
     Route::middleware('role:pendonor')->group(function () {
-        // Status pendaftaran donor
-        Route::get('/status-pendaftaran', 
-        [PendaftaranDonorController::class,'status', ])->name('pendonor.status');
+
+        Route::get('/status-pendaftaran', [
+            PendaftaranDonorController::class,
+            'status',
+        ])->name('pendonor.status');
 
         Route::get('/dashboard', function () {
+
             $jumlahKegiatan = KegiatanDonor::count();
 
             return view('pages.dashboard.index', [
                 'jumlahKegiatan' => $jumlahKegiatan,
             ]);
+
         })->name('dashboard');
 
         Route::get('/pendonor/kegiatan', [
@@ -158,12 +162,11 @@ Route::middleware('auth')->group(function () {
             'filter',
         ])->name('laporan-donor.filter');
 
+       
         // Data pendonor
         Route::get('/pendonor', [
             PendonorController::class,
-            'index',
+            'dataPendonor',
         ])->name('pendonor.index');
-
-      
     });
 });

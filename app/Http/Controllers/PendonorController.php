@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Pendonor;
 use App\Models\KegiatanDonor;
 use App\Models\RiwayatDonor;
 
 class PendonorController extends Controller
 {
-    // Bagian Profil Pendonor
+    // Profil Pendonor
 
     public function index()
     {
@@ -25,7 +24,20 @@ class PendonorController extends Controller
     }
 
 
-    // Bagian Daftar Kegiatan Donor Pendonor
+    // Data Pendonor untuk Petugas
+
+    public function dataPendonor()
+    {
+        $pendonor = Pendonor::with('user')->get();
+
+        return view(
+            'pages.pendonor.data.index',
+            compact('pendonor')
+        );
+    }
+
+
+    // Daftar Kegiatan Donor Pendonor
 
     public function daftarKegiatanDonor()
     {
@@ -38,7 +50,7 @@ class PendonorController extends Controller
     }
 
 
-    // Bagian Riwayat Donor Pendonor
+    // Riwayat Donor Pendonor
 
     public function lihatRiwayatDonor()
     {
@@ -50,7 +62,9 @@ class PendonorController extends Controller
         $riwayat = RiwayatDonor::where(
             'id_pendonor',
             $pendonor->id_pendonor
-        )->with('hasilDonor')->get();
+        )
+            ->with('hasilDonor')
+            ->get();
 
         return view(
             'pages.pendonor.riwayat_donor.riwayat',
