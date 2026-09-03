@@ -1,14 +1,14 @@
 <nav class="navbar navbar-expand navbar-light donor-navbar mb-4 static-top">
 
+    <!-- Tombol mobile -->
     <button
         id="sidebarToggleTop"
-        class="btn btn-link d-md-none rounded-circle mr-3"
+        class="btn btn-link d-md-none rounded-circle donor-menu-button mr-3"
     >
         <i class="fa fa-bars"></i>
     </button>
 
-   
-
+    <!-- User -->
     <ul class="navbar-nav ml-auto">
 
         <li class="nav-item dropdown no-arrow">
@@ -27,14 +27,23 @@
                     <i class="fas fa-user"></i>
                 </span>
 
-                <span class="donor-user-name d-none d-lg-inline">
-                    {{ Auth::user()->nama ?? 'Pendonor' }}
+                <span class="donor-user-info d-none d-lg-flex">
+
+                    <span class="donor-user-name">
+                        {{ Auth::user()->nama ?? 'Pendonor' }}
+                    </span>
+
+                    <span class="donor-user-role">
+                        {{ ucfirst(Auth::user()->role ?? 'pendonor') }}
+                    </span>
+
                 </span>
 
                 <i class="fas fa-chevron-down donor-chevron"></i>
 
             </a>
 
+            <!-- Dropdown -->
             <div
                 class="dropdown-menu dropdown-menu-right donor-dropdown shadow animated--grow-in"
                 aria-labelledby="userDropdown"
@@ -46,7 +55,8 @@
                         <i class="fas fa-user"></i>
                     </div>
 
-                    <div>
+                    <div class="donor-dropdown-user">
+
                         <strong>
                             {{ Auth::user()->nama ?? 'Pendonor' }}
                         </strong>
@@ -54,38 +64,51 @@
                         <small>
                             {{ ucfirst(Auth::user()->role ?? 'pendonor') }}
                         </small>
+
                     </div>
 
                 </div>
 
                 <div class="dropdown-divider"></div>
 
+                <!-- Profil -->
                 <a
                     class="dropdown-item donor-dropdown-item"
                     href="{{ route('profile') }}"
                 >
+
                     <span class="dropdown-icon profile-icon">
                         <i class="fas fa-user"></i>
                     </span>
 
-                    <span>Profil Saya</span>
+                    <span class="dropdown-item-text">
+                        Profil Saya
+                    </span>
+
+                    <i class="fas fa-chevron-right dropdown-arrow"></i>
+
                 </a>
 
-                <div class="dropdown-divider"></div>
-
+                <!-- Logout -->
                 <a
-                    class="dropdown-item donor-dropdown-item"
+                    class="dropdown-item donor-dropdown-item logout-item"
                     href="#"
                     onclick="
                         event.preventDefault();
                         document.getElementById('form-logout').submit();
                     "
                 >
+
                     <span class="dropdown-icon logout-icon">
                         <i class="fas fa-sign-out-alt"></i>
                     </span>
 
-                    <span>Logout</span>
+                    <span class="dropdown-item-text">
+                        Logout
+                    </span>
+
+                    <i class="fas fa-chevron-right dropdown-arrow"></i>
+
                 </a>
 
                 <form
@@ -111,155 +134,226 @@
 .donor-navbar {
     min-height: 72px;
     padding: 0 28px;
-    background: #fffaf5 !important;
-    border-bottom: 1px solid #f1dedc;
-    box-shadow: 0 3px 15px rgba(185, 91, 91, 0.07);
+    background: #ffffff !important;
+    border-bottom: 1px solid #f1dddd;
+    box-shadow: 0 4px 18px rgba(111, 38, 54, .07);
+    position: relative;
+    z-index: 10;
 }
 
-.navbar-page-title {
-    display: flex;
-    align-items: center;
-}
-
-.navbar-mini-title {
-    color: #b9364d;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 1.8px;
-}
-
-.donor-user-menu {
-    display: flex;
-    align-items: center;
-    padding: 7px 10px !important;
-    border-radius: 30px;
-    transition: 0.2s ease;
-}
-
-.donor-user-menu:hover {
-    background: #fff0ef;
-}
-
-.donor-avatar {
-    width: 39px;
-    height: 39px;
+.donor-menu-button {
+    width: 38px;
+    height: 38px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    background: #fbe0e3;
-    border: 2px solid #fff;
-    color: #c9364e;
-    box-shadow: 0 2px 7px rgba(201, 54, 78, 0.12);
+    border-radius: 11px !important;
+    background: #fff0f3;
+    color: #bd183d !important;
+    transition: .2s ease;
+}
+
+.donor-menu-button:hover {
+    background: #ffe2e9;
+    color: #9f1233 !important;
+}
+
+.donor-user-menu {
+    min-height: 50px;
+    display: flex !important;
+    align-items: center;
+    padding: 5px 9px !important;
+    border-radius: 15px;
+    transition: .2s ease;
+}
+
+.donor-user-menu:hover {
+    background: #fff3f5;
+}
+
+.donor-avatar {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 13px;
+    background: linear-gradient(
+        135deg,
+        #a80e2c,
+        #d94b91
+    );
+    color: #ffffff;
+    box-shadow: 0 5px 12px rgba(169, 14, 44, .20);
 }
 
 .donor-avatar i {
     font-size: 14px;
 }
 
+.donor-user-info {
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 11px;
+    line-height: 1.2;
+}
+
 .donor-user-name {
-    margin-left: 10px;
-    color: #4c4144;
+    max-width: 145px;
+    color: #3b3034;
     font-size: 12px;
-    font-weight: 700;
-    max-width: 140px;
+    font-weight: 800;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+}
+
+.donor-user-role {
+    margin-top: 4px;
+    color: #a08087;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .6px;
 }
 
 .donor-chevron {
-    margin-left: 8px;
-    color: #b8898d;
+    margin-left: 10px;
+    color: #a97982;
     font-size: 9px;
+    transition: .2s ease;
+}
+
+.donor-user-menu[aria-expanded="true"] .donor-chevron {
+    transform: rotate(180deg);
+    color: #bd183d;
 }
 
 .donor-dropdown {
-    width: 230px;
-    margin-top: 8px;
-    padding: 8px 0;
-    background: #fffdfb;
-    border: 1px solid #f0dddd;
-    border-radius: 13px;
+    width: 245px;
+    margin-top: 9px;
+    padding: 7px 0;
+    background: #ffffff;
+    border: 1px solid #f0dce0;
+    border-radius: 16px;
     overflow: hidden;
+    box-shadow: 0 12px 30px rgba(83, 33, 45, .13) !important;
 }
 
 .donor-dropdown-header {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 13px 15px;
+    gap: 11px;
+    padding: 15px 16px;
+    background: linear-gradient(
+        135deg,
+        #fff6f7,
+        #fff0f4
+    );
 }
 
 .donor-dropdown-avatar {
-    width: 37px;
-    height: 37px;
+    width: 42px;
+    height: 42px;
     flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #fde8e9;
-    color: #c9364e;
-    border-radius: 50%;
+    border-radius: 13px;
+    background: linear-gradient(
+        135deg,
+        #a80e2c,
+        #d94b91
+    );
+    color: #ffffff;
+    font-size: 14px;
+    box-shadow: 0 4px 10px rgba(169, 14, 44, .17);
+}
+
+.donor-dropdown-user {
+    min-width: 0;
 }
 
 .donor-dropdown-header strong {
     display: block;
-    max-width: 145px;
-    color: #443b3e;
-    font-size: 11px;
+    max-width: 155px;
+    color: #3b3034;
+    font-size: 12px;
+    font-weight: 900;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 .donor-dropdown-header small {
     display: block;
-    margin-top: 2px;
-    color: #a48f92;
+    margin-top: 4px;
+    color: #a08087;
     font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .5px;
 }
 
 .donor-dropdown .dropdown-divider {
-    margin: 5px 13px;
-    border-top-color: #f1e3e1;
+    margin: 6px 14px;
+    border-top-color: #f2e3e6;
 }
 
 .donor-dropdown-item {
-    display: flex;
+    display: flex !important;
     align-items: center;
     gap: 10px;
     margin: 3px 8px;
-    padding: 9px 10px !important;
-    border-radius: 8px;
-    color: #5d5255 !important;
+    padding: 10px !important;
+    border-radius: 11px;
+    color: #56484d !important;
     font-size: 11px;
-    font-weight: 600;
+    font-weight: 700;
+    transition: .2s ease;
 }
 
 .donor-dropdown-item:hover {
-    background: #fff1f1;
-    color: #bd3048 !important;
+    background: #fff0f3;
+    color: #b6173c !important;
+    transform: translateX(2px);
 }
 
 .dropdown-icon {
-    width: 27px;
-    height: 27px;
+    width: 31px;
+    height: 31px;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 7px;
-    font-size: 10px;
+    border-radius: 9px;
+    font-size: 11px;
 }
 
 .profile-icon {
-    background: #fce7e9;
-    color: #c9364e;
+    background: #ffe9ee;
+    color: #b6173c;
 }
 
 .logout-icon {
-    background: #fff0e7;
-    color: #d47a50;
+    background: #fff0f0;
+    color: #c33a50;
+}
+
+.dropdown-item-text {
+    flex: 1;
+}
+
+.dropdown-arrow {
+    color: #c7aeb3;
+    font-size: 8px;
+    transition: .2s ease;
+}
+
+.donor-dropdown-item:hover .dropdown-arrow {
+    color: #b6173c;
+    transform: translateX(2px);
 }
 
 @media (max-width: 768px) {
@@ -267,6 +361,16 @@
     .donor-navbar {
         min-height: 65px;
         padding: 0 15px;
+    }
+
+    .donor-avatar {
+        width: 39px;
+        height: 39px;
+        border-radius: 12px;
+    }
+
+    .donor-chevron {
+        margin-left: 7px;
     }
 
 }

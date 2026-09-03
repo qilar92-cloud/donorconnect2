@@ -6,10 +6,7 @@
     @endphp
 
 
-    {{-- =========================================================
-         BRAND
-    ========================================================== --}}
-
+    {{-- BRAND --}}
     <a class="sidebar-brand d-flex align-items-center justify-content-center"
        href="{{ $role === 'petugas'
             ? route('dashboard.petugas')
@@ -29,12 +26,8 @@
     <hr class="sidebar-divider my-0">
 
 
-    {{-- =========================================================
-         MENU PENDONOR
-    ========================================================== --}}
-
+    {{-- MENU PENDONOR --}}
     @if ($role === 'pendonor')
-
 
         {{-- DASHBOARD --}}
         <li class="nav-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
@@ -68,7 +61,7 @@
         <li class="nav-item
             {{
                 request()->routeIs('pendonor.kegiatan')
-                || request()->routeIs('kegiatan-donor.show')
+                || request()->routeIs('pendonor.kegiatan.show')
                 ? 'active'
                 : ''
             }}">
@@ -88,18 +81,8 @@
         <li class="nav-item
             {{ request()->routeIs('pendonor.status') ? 'active' : '' }}">
 
-            @if (Route::has('pendonor.status'))
-
-                <a class="nav-link"
-                   href="{{ route('pendonor.status') }}">
-
-            @else
-
-                {{-- sementara diarahkan ke kegiatan jika route status belum ada --}}
-                <a class="nav-link"
-                   href="{{ route('pendonor.kegiatan') }}">
-
-            @endif
+            <a class="nav-link"
+               href="{{ route('pendonor.status') }}">
 
                 <i class="fas fa-fw fa-clipboard-check"></i>
                 <span>Status Pendaftaran</span>
@@ -111,12 +94,7 @@
 
         {{-- RIWAYAT DONOR --}}
         <li class="nav-item
-            {{
-                request()->routeIs('pendonor.riwayat')
-                || request()->routeIs('riwayat-donor.index')
-                ? 'active'
-                : ''
-            }}">
+            {{ request()->routeIs('pendonor.riwayat') ? 'active' : '' }}">
 
             <a class="nav-link"
                href="{{ route('pendonor.riwayat') }}">
@@ -129,12 +107,8 @@
         </li>
 
 
-    {{-- =========================================================
-         MENU PETUGAS
-    ========================================================== --}}
-
+    {{-- MENU PETUGAS --}}
     @elseif ($role === 'petugas')
-
 
         {{-- DASHBOARD --}}
         <li class="nav-item
@@ -182,22 +156,18 @@
 
 
         {{-- CATAT HASIL DONOR --}}
-        @if (Route::has('hasil-donor.create'))
+        <li class="nav-item
+            {{ request()->routeIs('hasil-donor.*') ? 'active' : '' }}">
 
-            <li class="nav-item
-                {{ request()->routeIs('hasil-donor.*') ? 'active' : '' }}">
+            <a class="nav-link"
+               href="{{ route('hasil-donor.create') }}">
 
-                <a class="nav-link"
-                   href="{{ route('hasil-donor.create') }}">
+                <i class="fas fa-fw fa-notes-medical"></i>
+                <span>Catat Hasil Donor</span>
 
-                    <i class="fas fa-fw fa-notes-medical"></i>
-                    <span>Catat Hasil Donor</span>
+            </a>
 
-                </a>
-
-            </li>
-
-        @endif
+        </li>
 
 
         {{-- RIWAYAT DONOR --}}
@@ -247,17 +217,11 @@
     @endif
 
 
-    {{-- =========================================================
-         DIVIDER
-    ========================================================== --}}
-
+    {{-- DIVIDER --}}
     <hr class="sidebar-divider">
 
 
-    {{-- =========================================================
-         LOGOUT
-    ========================================================== --}}
-
+    {{-- LOGOUT --}}
     <li class="nav-item logout-item">
 
         <a class="nav-link"
@@ -287,16 +251,9 @@
 </ul>
 
 
-
-{{-- ============================================================
-     SIDEBAR STYLE
-============================================================= --}}
-
 <style>
 
-    /* ==========================================================
-       SIDEBAR
-    ========================================================== */
+    /* SIDEBAR */
 
     .donor-sidebar {
 
@@ -308,9 +265,9 @@
 
         background: linear-gradient(
             180deg,
-            #d91e36 0%,
-            #e52d4b 55%,
-            #d91e5b 100%
+            #c90000 0%,
+            #d71945 48%,
+            #d94b91 100%
         ) !important;
 
         padding-bottom: 20px;
@@ -322,10 +279,7 @@
     }
 
 
-
-    /* ==========================================================
-       BRAND
-    ========================================================== */
+    /* BRAND */
 
     .donor-sidebar .sidebar-brand {
 
@@ -338,9 +292,9 @@
 
         margin: 0;
 
-        text-decoration: none;
+        background: rgba(145, 0, 20, 0.20);
 
-        background: rgba(180, 0, 25, 0.20);
+        text-decoration: none;
 
         box-sizing: border-box;
 
@@ -349,9 +303,9 @@
 
     .donor-sidebar .sidebar-brand-icon {
 
-        font-size: 30px;
-
         color: #ffffff;
+
+        font-size: 30px;
 
         margin-right: 8px;
 
@@ -366,7 +320,7 @@
 
         font-size: 17px;
 
-        font-weight: 800;
+        font-weight: 900;
 
         letter-spacing: 0.5px;
 
@@ -375,26 +329,20 @@
     }
 
 
-
-    /* ==========================================================
-       DIVIDER
-    ========================================================== */
+    /* DIVIDER */
 
     .donor-sidebar .sidebar-divider {
 
         width: auto !important;
 
-        border-top: 1px solid rgba(255,255,255,0.18);
+        border-top: 1px solid rgba(255,255,255,0.20);
 
         margin: 12px 18px !important;
 
     }
 
 
-
-    /* ==========================================================
-       NAV ITEM
-    ========================================================== */
+    /* MENU */
 
     .donor-sidebar .nav-item {
 
@@ -409,34 +357,25 @@
     }
 
 
-
-    /* ==========================================================
-       NAV LINK
-    ========================================================== */
+    /* LINK */
 
     .donor-sidebar .nav-item .nav-link {
 
         width: 100% !important;
-
         max-width: 100% !important;
 
         min-height: 52px;
-
         height: 52px;
 
         padding: 0 15px !important;
-
         margin: 0 !important;
 
         display: flex !important;
-
         align-items: center !important;
-
-        box-sizing: border-box !important;
 
         border-radius: 10px;
 
-        color: rgba(255,255,255,0.92) !important;
+        color: rgba(255,255,255,0.94) !important;
 
         font-size: 13px;
 
@@ -444,43 +383,35 @@
 
         text-decoration: none;
 
-        overflow: hidden;
+        box-sizing: border-box !important;
 
-        transition: all 0.2s ease;
+        transition: all .2s ease;
 
     }
 
 
-
-    /* ==========================================================
-       ICON
-    ========================================================== */
+    /* ICON */
 
     .donor-sidebar .nav-link i {
 
         width: 23px !important;
-
         min-width: 23px !important;
-
         max-width: 23px !important;
 
         margin-right: 12px !important;
 
         text-align: center;
 
-        font-size: 15px;
-
         color: rgba(255,255,255,0.95) !important;
+
+        font-size: 15px;
 
         flex-shrink: 0;
 
     }
 
 
-
-    /* ==========================================================
-       TEXT
-    ========================================================== */
+    /* TEXT */
 
     .donor-sidebar .nav-link span {
 
@@ -497,43 +428,38 @@
     }
 
 
-
-    /* ==========================================================
-       HOVER
-    ========================================================== */
+    /* HOVER */
 
     .donor-sidebar
     .nav-item:not(.active)
     .nav-link:hover {
 
-        background: rgba(255,255,255,0.13);
+        background: rgba(255,255,255,0.15);
 
         color: #ffffff !important;
+
+        transform: translateX(2px);
 
     }
 
 
-
-    /* ==========================================================
-       MENU AKTIF
-       PUTIH TIDAK BOLEH KELUAR SIDEBAR
-    ========================================================== */
+    /* ACTIVE */
 
     .donor-sidebar
     .nav-item.active
     .nav-link {
 
         width: 100% !important;
-
         max-width: 100% !important;
 
         background: #ffffff !important;
 
-        color: #c91d36 !important;
+        color: #c9183b !important;
 
-        font-weight: 700;
+        font-weight: 800;
 
-        box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        box-shadow:
+            0 4px 12px rgba(0,0,0,0.10);
 
         margin: 0 !important;
 
@@ -544,15 +470,12 @@
     .nav-item.active
     .nav-link i {
 
-        color: #c91d36 !important;
+        color: #c9183b !important;
 
     }
 
 
-
-    /* ==========================================================
-       LOGOUT
-    ========================================================== */
+    /* LOGOUT */
 
     .donor-sidebar .logout-item {
 
@@ -565,7 +488,7 @@
     .logout-item
     .nav-link {
 
-        color: rgba(255,255,255,0.92) !important;
+        color: rgba(255,255,255,0.94) !important;
 
     }
 
@@ -574,24 +497,21 @@
     .logout-item
     .nav-link:hover {
 
-        background: rgba(255,255,255,0.13);
+        background: rgba(255,255,255,0.15);
+
+        color: #ffffff !important;
 
     }
 
 
-
-    /* ==========================================================
-       RESPONSIVE
-    ========================================================== */
+    /* RESPONSIVE */
 
     @media (max-width: 768px) {
 
         .donor-sidebar {
 
             width: 230px !important;
-
             min-width: 230px !important;
-
             max-width: 230px !important;
 
         }
