@@ -4,108 +4,311 @@
 
 @section('content')
 
-<div class="profile-page">
+<div class="container-fluid">
 
-    <div class="page-title">
-        <h1>Profil Saya</h1>
-        <p>Informasi data pribadi pendonor.</p>
+    <!-- Header -->
+    <div class="mb-4">
+        <h1 class="h3 mb-1" style="font-weight: 800; color: #27324a;">
+            Profil Saya
+        </h1>
+
+        @if(isset($pendonor))
+            <p class="mb-0 text-muted">
+                Informasi data pribadi dan profil pendonor.
+            </p>
+        @else
+            <p class="mb-0 text-muted">
+                Informasi data pribadi dan profil petugas PMR.
+            </p>
+        @endif
     </div>
 
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
+    <!-- Card Profil -->
+    <div class="card border-0 shadow-sm" style="border-radius: 18px; overflow: hidden;">
 
-    <div class="profile-card">
+        <!-- Card Header -->
+        <div class="card-header bg-white py-4 px-4"
+             style="border-bottom: 1px solid #f0e5eb;">
 
-        <div class="profile-card-header">
-            <div class="profile-title">
-                <i class="fas fa-user"></i>
-                <span>Profil Saya</span>
-            </div>
-        </div>
+            <div class="d-flex align-items-center">
 
-        <div class="profile-content">
-
-            <div class="profile-photo">
-
-                <div class="avatar">
+                <div style="
+                    width: 58px;
+                    height: 58px;
+                    border-radius: 14px;
+                    background: linear-gradient(135deg, #a80e2c, #d94b91);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-size: 24px;
+                ">
                     <i class="fas fa-user"></i>
                 </div>
 
-            </div>
+                <div class="ml-3">
+                    <h5 class="mb-1" style="font-weight: 800; color: #27324a;">
+                        Informasi Profil
+                    </h5>
 
-            <div class="profile-data">
-
-                <div class="data-row">
-                    <div class="data-label">Nama Lengkap</div>
-                    <div class="data-separator">:</div>
-                    <div class="data-value">
-                        {{ $pendonor->user->nama ?? '-' }}
-                    </div>
-                </div>
-
-                <div class="data-row">
-                    <div class="data-label">Status</div>
-                    <div class="data-separator">:</div>
-                    <div class="data-value">
-                        {{ $pendonor->status ?? '-' }}
-                    </div>
-                </div>
-
-                <div class="data-row">
-                    <div class="data-label">Kelas / Jabatan</div>
-                    <div class="data-separator">:</div>
-                    <div class="data-value">
-                        {{ $pendonor->kelas_jabatan ?? '-' }}
-                    </div>
-                </div>
-
-                <div class="data-row">
-                    <div class="data-label">Tanggal Lahir</div>
-                    <div class="data-separator">:</div>
-                    <div class="data-value">
-                        @if($pendonor->tanggal_lahir)
-                            {{ \Carbon\Carbon::parse($pendonor->tanggal_lahir)->format('d M Y') }}
-                        @else
-                            -
-                        @endif
-                    </div>
-                </div>
-
-                <div class="data-row">
-                    <div class="data-label">Golongan Darah</div>
-                    <div class="data-separator">:</div>
-                    <div class="data-value">
-                        {{ $pendonor->golongan_darah ?? '-' }}
-                    </div>
-                </div>
-
-                <div class="data-row">
-                    <div class="data-label">No. Telepon</div>
-                    <div class="data-separator">:</div>
-                    <div class="data-value">
-                        {{ $pendonor->nomor_telepon ?? '-' }}
-                    </div>
-                </div>
-
-                <div class="data-row">
-                    <div class="data-label">Informasi Kesehatan</div>
-                    <div class="data-separator">:</div>
-                    <div class="data-value">
-                        {{ $pendonor->informasi_kesehatan ?? '-' }}
-                    </div>
+                    @if(isset($pendonor))
+                        <small class="text-muted">Data Pendonor</small>
+                    @else
+                        <small class="text-muted">Data Petugas PMR</small>
+                    @endif
                 </div>
 
             </div>
 
         </div>
 
-        <div class="profile-footer">
+        <!-- Isi Profil -->
+        <div class="card-body p-4 p-md-5">
 
-            <a href="{{ route('profile.edit') }}" class="edit-button">
-                <i class="fas fa-edit"></i>
+            <div class="row align-items-center">
+
+                <!-- Foto Profil -->
+                <div class="col-md-4 text-center mb-4 mb-md-0">
+
+                    <div style="
+                        width: 145px;
+                        height: 145px;
+                        border-radius: 50%;
+                        background: linear-gradient(135deg, #a80e2c, #d94b91);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin: 0 auto 20px;
+                        box-shadow: 0 10px 25px rgba(168, 14, 44, 0.20);
+                    ">
+                        <i class="fas fa-user"
+                           style="font-size: 65px; color: white;"></i>
+                    </div>
+
+                    @if(isset($pendonor))
+
+                        <h5 style="
+                            font-weight: 800;
+                            color: #27324a;
+                            margin-bottom: 8px;
+                        ">
+                            {{ $pendonor->user->nama }}
+                        </h5>
+
+                        <span style="
+                            display: inline-block;
+                            padding: 6px 16px;
+                            border-radius: 20px;
+                            background: #fce7ef;
+                            color: #a80e2c;
+                            font-size: 12px;
+                            font-weight: 700;
+                        ">
+                            PENDONOR
+                        </span>
+
+                    @else
+
+                        <h5 style="
+                            font-weight: 800;
+                            color: #27324a;
+                            margin-bottom: 8px;
+                        ">
+                            {{ $petugas->user->nama }}
+                        </h5>
+
+                        <span style="
+                            display: inline-block;
+                            padding: 6px 16px;
+                            border-radius: 20px;
+                            background: #fce7ef;
+                            color: #a80e2c;
+                            font-size: 12px;
+                            font-weight: 700;
+                        ">
+                            PETUGAS PMR
+                        </span>
+
+                    @endif
+
+                </div>
+
+                <!-- Detail -->
+                <div class="col-md-8">
+
+                    @if(isset($pendonor))
+
+                        <!-- Nama -->
+                        <div class="profile-item">
+                            <div class="profile-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+
+                            <div>
+                                <small>Nama Lengkap</small>
+                                <strong>{{ $pendonor->user->nama }}</strong>
+                            </div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="profile-item">
+                            <div class="profile-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+
+                            <div>
+                                <small>Email</small>
+                                <strong>{{ $pendonor->user->email }}</strong>
+                            </div>
+                        </div>
+
+                        <!-- Status -->
+                        <div class="profile-item">
+                            <div class="profile-icon">
+                                <i class="fas fa-user-tag"></i>
+                            </div>
+
+                            <div>
+                                <small>Status</small>
+                                <strong>{{ $pendonor->status }}</strong>
+                            </div>
+                        </div>
+
+                        <!-- Kelas -->
+                        <div class="profile-item">
+                            <div class="profile-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+
+                            <div>
+                                <small>Kelas / Jabatan</small>
+                                <strong>{{ $pendonor->kelas_jabatan }}</strong>
+                            </div>
+                        </div>
+
+                        <!-- Tanggal Lahir -->
+                        <div class="profile-item">
+                            <div class="profile-icon">
+                                <i class="fas fa-calendar"></i>
+                            </div>
+
+                            <div>
+                                <small>Tanggal Lahir</small>
+                                <strong>
+                                    {{ optional($pendonor->tanggal_lahir)->format('d F Y') }}
+                                </strong>
+                            </div>
+                        </div>
+
+                        <!-- Golongan Darah -->
+                        <div class="profile-item">
+                            <div class="profile-icon">
+                                <i class="fas fa-tint"></i>
+                            </div>
+
+                            <div>
+                                <small>Golongan Darah</small>
+                                <strong>{{ $pendonor->golongan_darah }}</strong>
+                            </div>
+                        </div>
+
+                        <!-- Telepon -->
+                        <div class="profile-item">
+                            <div class="profile-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+
+                            <div>
+                                <small>No. Telepon</small>
+                                <strong>{{ $pendonor->nomor_telepon }}</strong>
+                            </div>
+                        </div>
+
+                        <!-- Kesehatan -->
+                        <div class="profile-item">
+                            <div class="profile-icon">
+                                <i class="fas fa-heartbeat"></i>
+                            </div>
+
+                            <div>
+                                <small>Informasi Kesehatan</small>
+                                <strong>{{ $pendonor->informasi_kesehatan }}</strong>
+                            </div>
+                        </div>
+
+                    @elseif(isset($petugas))
+
+                        <!-- Nama -->
+                        <div class="profile-item">
+                            <div class="profile-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+
+                            <div>
+                                <small>Nama Lengkap</small>
+                                <strong>{{ $petugas->user->nama }}</strong>
+                            </div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="profile-item">
+                            <div class="profile-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+
+                            <div>
+                                <small>Email</small>
+                                <strong>{{ $petugas->user->email }}</strong>
+                            </div>
+                        </div>
+
+                        <!-- Jabatan -->
+                        <div class="profile-item">
+                            <div class="profile-icon">
+                                <i class="fas fa-user-shield"></i>
+                            </div>
+
+                            <div>
+                                <small>Jabatan</small>
+                                <strong>Petugas PMR</strong>
+                            </div>
+                        </div>
+
+                        <!-- ID Petugas -->
+                        <div class="profile-item">
+                            <div class="profile-icon">
+                                <i class="fas fa-id-card"></i>
+                            </div>
+
+                            <div>
+                                <small>ID Petugas</small>
+                                <strong>{{ $petugas->id_petugas }}</strong>
+                            </div>
+                        </div>
+
+                    @endif
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="card-footer bg-white px-4 py-4"
+             style="border-top: 1px solid #f0e5eb;">
+
+            <a href="{{ route('profile.edit') }}"
+               class="btn"
+               style="
+                    background: linear-gradient(135deg, #a80e2c, #d94b91);
+                    color: white;
+                    border: none;
+                    border-radius: 10px;
+                    padding: 11px 22px;
+                    font-weight: 700;
+               ">
+                <i class="fas fa-edit mr-2"></i>
                 Ubah Profil
             </a>
 
@@ -115,224 +318,56 @@
 
 </div>
 
-@push('styles')
+@endsection
 
+@push('styles')
 <style>
 
-.profile-page {
-    width: 100%;
-    min-height: calc(100vh - 80px);
-    padding: 25px 28px 35px;
-    background: #fffafa;
-}
-
-.page-title {
-    margin-bottom: 20px;
-}
-
-.page-title h1 {
-    margin: 0 0 5px;
-    color: #292733;
-    font-size: 30px;
-    font-weight: 800;
-}
-
-.page-title p {
-    margin: 0;
-    color: #8a8588;
-    font-size: 13px;
-}
-
-.profile-card {
-    width: 100%;
-    background: #ffffff;
-    border: 1px solid #f1e0e2;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(217, 30, 54, 0.05);
-    overflow: hidden;
-}
-
-.profile-card-header {
-    padding: 18px 25px;
-    border-bottom: 1px solid #f3e1e2;
-}
-
-.profile-title {
+.profile-item {
     display: flex;
-    align-items: center;
-    gap: 9px;
-    color: #d91e36;
-    font-size: 14px;
-    font-weight: 800;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 14px 0;
+    border-bottom: 1px solid #f3e9ee;
 }
 
-.profile-title i {
-    font-size: 14px;
-}
-
-.profile-content {
-    display: flex;
-    align-items: center;
-    gap: 45px;
-    padding: 30px 40px;
-}
-
-.profile-photo {
-    width: 35%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.avatar {
-    width: 190px;
-    height: 190px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #fff0f1;
-    border: 8px solid #ffe1e4;
-    border-radius: 50%;
-    color: #d91e36;
-    font-size: 70px;
-}
-
-.profile-data {
-    width: 65%;
-}
-
-.data-row {
-    min-height: 42px;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #f5eeee;
-}
-
-.data-row:last-child {
+.profile-item:last-child {
     border-bottom: none;
 }
 
-.data-label {
-    width: 185px;
-    color: #575157;
-    font-size: 12px;
-    font-weight: 700;
-}
-
-.data-separator {
-    width: 25px;
-    color: #777177;
-    font-size: 12px;
-}
-
-.data-value {
-    flex: 1;
-    color: #302e38;
-    font-size: 12px;
-    font-weight: 500;
-}
-
-.profile-footer {
-    padding: 0 40px 25px;
-}
-
-.edit-button {
-    width: 100%;
-    min-height: 40px;
+.profile-icon {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    border-radius: 10px;
+    background: #fce7ef;
+    color: #c91845;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 7px;
-    background: #e51f3b;
-    color: #ffffff !important;
-    border-radius: 7px;
+}
+
+.profile-item small {
+    display: block;
+    color: #9a9a9a;
     font-size: 12px;
+    margin-bottom: 3px;
+}
+
+.profile-item strong {
+    display: block;
+    color: #3d465a;
+    font-size: 14px;
     font-weight: 700;
-    text-decoration: none !important;
-    transition: 0.2s;
-}
-
-.edit-button:hover {
-    background: #c91830;
-    color: #ffffff !important;
-}
-
-.alert {
-    margin-bottom: 20px;
-    border-radius: 8px;
-    font-size: 12px;
 }
 
 @media (max-width: 768px) {
 
-    .profile-page {
-        padding: 20px 15px 30px;
-    }
-
-    .page-title h1 {
-        font-size: 25px;
-    }
-
-    .profile-content {
-        flex-direction: column;
-        gap: 25px;
-        padding: 25px 20px;
-    }
-
-    .profile-photo,
-    .profile-data {
-        width: 100%;
-    }
-
-    .avatar {
-        width: 150px;
-        height: 150px;
-        font-size: 55px;
-    }
-
-    .profile-footer {
-        padding: 0 20px 20px;
-    }
-
-}
-
-@media (max-width: 480px) {
-
-    .profile-page {
-        padding: 18px 12px 25px;
-    }
-
-    .page-title h1 {
-        font-size: 22px;
-    }
-
-    .profile-card-header {
-        padding: 16px 18px;
-    }
-
-    .data-row {
-        display: block;
-        padding: 9px 0;
-    }
-
-    .data-label,
-    .data-separator,
-    .data-value {
-        width: 100%;
-    }
-
-    .data-separator {
-        display: none;
-    }
-
-    .data-value {
-        margin-top: 3px;
+    .profile-item {
+        padding: 12px 0;
     }
 
 }
 
 </style>
-
 @endpush
-
-@endsection

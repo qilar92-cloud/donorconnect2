@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class HasilDonor extends Model
 {
     protected $table = 'hasil_donor';
+
     protected $primaryKey = 'id_hasil';
 
     protected $fillable = [
@@ -25,16 +26,28 @@ class HasilDonor extends Model
 
     public function pendonor(): BelongsTo
     {
-        return $this->belongsTo(Pendonor::class, 'id_pendonor', 'id_pendonor');
+        return $this->belongsTo(
+            Pendonor::class,
+            'id_pendonor',
+            'id_pendonor'
+        );
     }
 
     public function kegiatanDonor(): BelongsTo
     {
-        return $this->belongsTo(KegiatanDonor::class, 'id_kegiatan', 'id_kegiatan');
+        return $this->belongsTo(
+            KegiatanDonor::class,
+            'id_kegiatan',
+            'id_kegiatan'
+        );
     }
 
     public function riwayatDonor(): HasOne
     {
-        return $this->hasOne(RiwayatDonor::class, 'id_hasil', 'id_hasil');
+        return $this->hasOne(
+            RiwayatDonor::class,
+            'id_hasil',
+            'id_hasil'
+        );
     }
 }

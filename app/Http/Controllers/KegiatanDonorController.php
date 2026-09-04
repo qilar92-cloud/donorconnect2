@@ -13,7 +13,10 @@ class KegiatanDonorController extends Controller
     {
         $kegiatan = KegiatanDonor::orderBy('tanggal', 'asc')->get();
 
-        return view('pages.kegiatan_donor.index', compact('kegiatan'));
+        return view(
+            'pages.kegiatan_donor.index',
+            compact('kegiatan')
+        );
     }
 
     // Form tambah kegiatan
@@ -28,7 +31,7 @@ class KegiatanDonorController extends Controller
         $data = $request->validate([
             'nama_kegiatan' => 'required|string|max:255',
             'tanggal' => 'required|date',
-            'waktu' => 'required',
+            'waktu' => 'required|string|max:255',
             'lokasi' => 'required|string|max:255',
             'keterangan' => 'nullable|string',
         ]);
@@ -37,17 +40,23 @@ class KegiatanDonorController extends Controller
 
         return redirect()
             ->route('kegiatan-donor.index')
-            ->with('success', 'Kegiatan donor berhasil ditambahkan.');
+            ->with(
+                'success',
+                'Kegiatan donor berhasil ditambahkan.'
+            );
     }
 
     // Detail kegiatan
     public function show($id)
     {
         $kegiatan = KegiatanDonor::with([
-            'pendaftaranDonor.pendonor.user'
+            'pendaftaranDonor.pendonor.user',
         ])->findOrFail($id);
 
-        return view('pages.kegiatan_donor.show', compact('kegiatan'));
+        return view(
+            'pages.kegiatan_donor.show',
+            compact('kegiatan')
+        );
     }
 
     // Form edit
@@ -55,7 +64,10 @@ class KegiatanDonorController extends Controller
     {
         $kegiatan = KegiatanDonor::findOrFail($id);
 
-        return view('pages.kegiatan_donor.edit', compact('kegiatan'));
+        return view(
+            'pages.kegiatan_donor.edit',
+            compact('kegiatan')
+        );
     }
 
     // Update kegiatan
@@ -66,7 +78,7 @@ class KegiatanDonorController extends Controller
         $data = $request->validate([
             'nama_kegiatan' => 'required|string|max:255',
             'tanggal' => 'required|date',
-            'waktu' => 'required',
+            'waktu' => 'required|string|max:255',
             'lokasi' => 'required|string|max:255',
             'keterangan' => 'nullable|string',
         ]);
@@ -75,7 +87,10 @@ class KegiatanDonorController extends Controller
 
         return redirect()
             ->route('kegiatan-donor.index')
-            ->with('success', 'Kegiatan donor berhasil diperbarui.');
+            ->with(
+                'success',
+                'Kegiatan donor berhasil diperbarui.'
+            );
     }
 
     // Hapus kegiatan
@@ -87,15 +102,24 @@ class KegiatanDonorController extends Controller
 
         return redirect()
             ->route('kegiatan-donor.index')
-            ->with('success', 'Kegiatan donor berhasil dihapus.');
+            ->with(
+                'success',
+                'Kegiatan donor berhasil dihapus.'
+            );
     }
 
     // Daftar kegiatan untuk pendonor
     public function pendonor()
     {
-        $kegiatan = KegiatanDonor::orderBy('tanggal', 'asc')->get();
+        $kegiatan = KegiatanDonor::orderBy(
+            'tanggal',
+            'asc'
+        )->get();
 
-        return view('pages.pendonor.kegiatan', compact('kegiatan'));
+        return view(
+            'pages.pendonor.kegiatan',
+            compact('kegiatan')
+        );
     }
 
     // Detail kegiatan pendonor
@@ -104,7 +128,7 @@ class KegiatanDonorController extends Controller
         $kegiatan = KegiatanDonor::findOrFail($id);
 
         return view(
-            'pages.pendonor.kegiatan_detail',
+            'pages.kegiatan_donor.show_pendonor',
             compact('kegiatan')
         );
     }

@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id('id_kegiatan');
             $table->string('nama_kegiatan');
             $table->date('tanggal');
-            $table->time('waktu');
+            $table->string('waktu');
             $table->string('lokasi');
             $table->string('keterangan')->nullable();
 

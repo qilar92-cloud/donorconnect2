@@ -8,12 +8,19 @@
 
     <div class="page-title">
         <h1>Ubah Profil</h1>
-        <p>Perbarui informasi profil pendonor.</p>
+
+        @if(isset($pendonor))
+            <p>Perbarui informasi profil pendonor.</p>
+        @elseif(isset($petugas))
+            <p>Perbarui informasi profil petugas PMR.</p>
+        @endif
     </div>
 
     @if($errors->any())
         <div class="alert alert-danger">
-            <ul class="mb-0">
+            <i class="fas fa-exclamation-circle"></i>
+
+            <ul>
                 @foreach($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
@@ -24,14 +31,21 @@
     <div class="edit-card">
 
         <div class="edit-card-header">
+
             <div class="header-icon">
                 <i class="fas fa-user-edit"></i>
             </div>
 
             <div>
                 <h2>Ubah Profil</h2>
-                <span>Perbarui data pribadi Anda.</span>
+
+                @if(isset($pendonor))
+                    <span>Perbarui data pribadi pendonor.</span>
+                @elseif(isset($petugas))
+                    <span>Perbarui data akun petugas PMR.</span>
+                @endif
             </div>
+
         </div>
 
         <form action="{{ route('profile.update') }}" method="POST">
@@ -41,81 +55,107 @@
 
             <div class="edit-body">
 
-                <div class="form-row">
+                @if(isset($pendonor))
 
-                    <label>Status</label>
+                    <!-- Status -->
+                    <div class="form-row">
+                        <label>Status</label>
 
-                    <input type="text"
-                           name="status"
-                           value="{{ old('status', $pendonor->status) }}"
-                           required>
+                        <input
+                            type="text"
+                            name="status"
+                            value="{{ old('status', $pendonor->status) }}"
+                            required
+                        >
+                    </div>
 
-                </div>
+                    <!-- Kelas / Jabatan -->
+                    <div class="form-row">
+                        <label>Kelas / Jabatan</label>
 
-                <div class="form-row">
+                        <input
+                            type="text"
+                            name="kelas_jabatan"
+                            value="{{ old('kelas_jabatan', $pendonor->kelas_jabatan) }}"
+                            required
+                        >
+                    </div>
 
-                    <label>Kelas / Jabatan</label>
+                    <!-- Tanggal Lahir -->
+                    <div class="form-row">
+                        <label>Tanggal Lahir</label>
 
-                    <input type="text"
-                           name="kelas_jabatan"
-                           value="{{ old('kelas_jabatan', $pendonor->kelas_jabatan) }}"
-                           required>
+                        <input
+                            type="date"
+                            name="tanggal_lahir"
+                            value="{{ old('tanggal_lahir', optional($pendonor->tanggal_lahir)->format('Y-m-d')) }}"
+                            required
+                        >
+                    </div>
 
-                </div>
+                    <!-- Golongan Darah -->
+                    <div class="form-row">
+                        <label>Golongan Darah</label>
 
-                <div class="form-row">
+                        <input
+                            type="text"
+                            name="golongan_darah"
+                            value="{{ old('golongan_darah', $pendonor->golongan_darah) }}"
+                            required
+                        >
+                    </div>
 
-                    <label>Tanggal Lahir</label>
+                    <!-- No. Telepon -->
+                    <div class="form-row">
+                        <label>No. Telepon</label>
 
-                    <input type="date"
-                           name="tanggal_lahir"
-                           value="{{ old('tanggal_lahir', $pendonor->tanggal_lahir) }}"
-                           required>
+                        <input
+                            type="text"
+                            name="nomor_telepon"
+                            value="{{ old('nomor_telepon', $pendonor->nomor_telepon) }}"
+                            required
+                        >
+                    </div>
 
-                </div>
+                    <!-- Informasi Kesehatan -->
+                    <div class="form-row">
+                        <label>Informasi Kesehatan</label>
 
-                <div class="form-row">
+                        <input
+                            type="text"
+                            name="informasi_kesehatan"
+                            value="{{ old('informasi_kesehatan', $pendonor->informasi_kesehatan) }}"
+                            required
+                        >
+                    </div>
 
-                    <label>Golongan Darah</label>
+                @elseif(isset($petugas))
 
-                    <input type="text"
-                           name="golongan_darah"
-                           value="{{ old('golongan_darah', $pendonor->golongan_darah) }}"
-                           required>
+                    <!-- Nama -->
+                    <div class="form-row">
+                        <label>Nama Lengkap</label>
 
-                </div>
+                        <input
+                            type="text"
+                            name="nama"
+                            value="{{ old('nama', $petugas->user->nama ?? '') }}"
+                            required
+                        >
+                    </div>
 
-                <div class="form-row">
+                    <!-- Email -->
+                    <div class="form-row">
+                        <label>Email</label>
 
-                    <label>No. Telepon</label>
+                        <input
+                            type="email"
+                            name="email"
+                            value="{{ old('email', $petugas->user->email ?? '') }}"
+                            required
+                        >
+                    </div>
 
-                    <input type="text"
-                           name="nomor_telepon"
-                           value="{{ old('nomor_telepon', $pendonor->nomor_telepon) }}"
-                           required>
-
-                </div>
-
-                <div class="form-row">
-
-                    <label>Informasi Kesehatan</label>
-
-                    <input type="text"
-                           name="informasi_kesehatan"
-                           value="{{ old('informasi_kesehatan', $pendonor->informasi_kesehatan) }}"
-                           required>
-
-                </div>
-
-                <div class="form-row">
-
-                    <label>Password <span>(opsional)</span></label>
-
-                    <input type="password"
-                           name="password"
-                           placeholder="Masukkan password baru">
-
-                </div>
+                @endif
 
             </div>
 
@@ -126,7 +166,10 @@
                     Simpan Perubahan
                 </button>
 
-                <a href="{{ route('profile') }}" class="cancel-button">
+                <a
+                    href="{{ route('profile') }}"
+                    class="cancel-button"
+                >
                     Batal
                 </a>
 
@@ -171,7 +214,7 @@
     background: #ffffff;
     border: 1px solid #f1e0e2;
     border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(217, 30, 54, 0.05);
+    box-shadow: 0 5px 18px rgba(168, 14, 44, 0.07);
     overflow: hidden;
 }
 
@@ -189,8 +232,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #fff0f1;
-    color: #d91e36;
+    background: linear-gradient(
+        135deg,
+        #a80e2c,
+        #d94b91
+    );
+    color: #ffffff;
     border-radius: 10px;
 }
 
@@ -217,17 +264,16 @@
     border-bottom: 1px solid #f4eeee;
 }
 
+.form-row:last-child {
+    border-bottom: none;
+}
+
 .form-row label {
     width: 210px;
     margin: 0;
     color: #575157;
     font-size: 12px;
     font-weight: 700;
-}
-
-.form-row label span {
-    color: #999195;
-    font-weight: 400;
 }
 
 .form-row input {
@@ -245,10 +291,6 @@
 .form-row input:focus {
     border-color: #d91e36;
     box-shadow: 0 0 0 2px rgba(217, 30, 54, 0.08);
-}
-
-.form-row input::placeholder {
-    color: #aaa2a5;
 }
 
 .edit-footer {
@@ -275,12 +317,21 @@
 
 .save-button {
     border: none;
-    background: #e51f3b;
+    background: linear-gradient(
+        135deg,
+        #c9183b,
+        #d94b91
+    );
     color: #ffffff;
 }
 
 .save-button:hover {
-    background: #c91830;
+    background: linear-gradient(
+        135deg,
+        #a80e2c,
+        #c91859
+    );
+    color: #ffffff;
 }
 
 .cancel-button {
@@ -296,8 +347,23 @@
 
 .alert {
     margin-bottom: 20px;
+    padding: 11px 15px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
     border-radius: 8px;
     font-size: 12px;
+}
+
+.alert ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.alert-danger {
+    background: #fff0f1;
+    border: 1px solid #f1cdd1;
+    color: #a80e2c;
 }
 
 @media (max-width: 768px) {

@@ -67,7 +67,7 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/pendonor/kegiatan/{id}', [
             KegiatanDonorController::class,
-            'show',
+            'detailPendonor',
         ])->name('pendonor.kegiatan.show');
 
         Route::get('/pendaftaran-donor/{id_kegiatan}', [
@@ -162,7 +162,6 @@ Route::middleware('auth')->group(function () {
             'filter',
         ])->name('laporan-donor.filter');
 
-       
         // Data pendonor
         Route::get('/pendonor', [
             PendonorController::class,
