@@ -5,21 +5,7 @@
 @section('content')
 
 <div class="dashboard-page">
-
-    <div class="dashboard-heading">
-        <div>
-            <span class="mini-brand">DONORCONNECT</span>
-            <h1>Dashboard</h1>
-            <p>
-                Selamat datang kembali,
-                {{ Auth::user()->nama ?? 'Pendonor' }} ♡
-            </p>
-        </div>
-
-        <div class="role-badge">
-            <i class="fas fa-user"></i>
-            {{ Auth::user()->role ?? 'Pendonor' }}
-        </div>
+    <div class="dashboard-heading">       
     </div>
 
 

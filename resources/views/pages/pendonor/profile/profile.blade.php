@@ -8,14 +8,10 @@
 
     <!-- Header -->
     <div class="mb-4">
-        <h1 class="h3 mb-1" style="font-weight: 800; color: #27324a;">
-            Profil Saya
-        </h1>
+        
 
         @if(isset($pendonor))
-            <p class="mb-0 text-muted">
-                Informasi data pribadi dan profil pendonor.
-            </p>
+           
         @else
             <p class="mb-0 text-muted">
                 Informasi data pribadi dan profil petugas PMR.

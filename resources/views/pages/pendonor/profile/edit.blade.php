@@ -7,10 +7,9 @@
 <div class="edit-page">
 
     <div class="page-title">
-        <h1>Ubah Profil</h1>
-
+        
         @if(isset($pendonor))
-            <p>Perbarui informasi profil pendonor.</p>
+            
         @elseif(isset($petugas))
             <p>Perbarui informasi profil petugas PMR.</p>
         @endif
@@ -56,6 +55,30 @@
             <div class="edit-body">
 
                 @if(isset($pendonor))
+
+                    <!-- Nama -->
+                    <div class="form-row">
+                        <label>Nama Lengkap</label>
+
+                        <input
+                            type="text"
+                            name="nama"
+                            value="{{ old('nama', $user->nama ?? $pendonor->user->nama ?? '') }}"
+                            required
+                        >
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-row">
+                        <label>Email</label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            value="{{ old('email', $user->email ?? $pendonor->user->email ?? '') }}"
+                            required
+                        >
+                    </div>
 
                     <!-- Status -->
                     <div class="form-row">
