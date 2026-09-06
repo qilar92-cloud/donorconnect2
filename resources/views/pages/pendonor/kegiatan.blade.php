@@ -5,58 +5,99 @@
 @section('content')
 
 <style>
-    .page-header {
-        margin-bottom: 24px;
+    .kegiatan-page {
+        padding-bottom: 30px;
     }
 
-    .page-label {
-        color: #a80e2c;
-        font-size: 12px;
+    /* Header */
+    .kegiatan-header {
+        position: relative;
+        background: linear-gradient(135deg, #a80e2c 0%, #c91845 55%, #d94b91 100%);
+        border-radius: 22px;
+        padding: 28px 30px;
+        margin-bottom: 22px;
+        overflow: hidden;
+        color: #fff;
+    }
+
+    .kegiatan-header::after {
+        content: "";
+        position: absolute;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.08);
+        right: -50px;
+        top: -70px;
+    }
+
+    .kegiatan-header-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .kegiatan-label {
+        font-size: 11px;
         font-weight: 800;
         letter-spacing: 2px;
         text-transform: uppercase;
-        margin-bottom: 6px;
+        opacity: 0.85;
+        margin-bottom: 5px;
     }
 
-    .page-title {
-        color: #18213d;
+    .kegiatan-title {
+        font-size: 29px;
         font-weight: 800;
-        font-size: 30px;
-        margin-bottom: 6px;
+        margin: 0 0 6px;
     }
 
-    .page-subtitle {
-        color: #7c8194;
+    .kegiatan-subtitle {
+        font-size: 13px;
         margin: 0;
-        font-size: 14px;
+        opacity: 0.88;
     }
 
+    .header-total {
+        position: absolute;
+        right: 28px;
+        bottom: 25px;
+        z-index: 2;
+        background: rgba(255, 255, 255, 0.16);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        backdrop-filter: blur(8px);
+        border-radius: 14px;
+        padding: 10px 15px;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    /* Search */
     .search-card {
         background: #fff;
-        border: 1px solid #f0e5e7;
+        border: 1px solid #f0e1e5;
         border-radius: 18px;
-        padding: 16px 20px;
-        margin-bottom: 28px;
-        box-shadow: 0 5px 20px rgba(168, 14, 44, 0.05);
+        padding: 13px 16px;
+        margin-bottom: 25px;
+        box-shadow: 0 6px 22px rgba(168, 14, 44, 0.05);
     }
 
-    .search-wrapper {
+    .search-box {
         display: flex;
         align-items: center;
-        gap: 14px;
+        gap: 13px;
     }
 
     .search-icon {
-        width: 48px;
-        height: 48px;
-        border-radius: 14px;
-        background: #f9e9ef;
-        color: #a80e2c;
+        width: 43px;
+        height: 43px;
+        flex-shrink: 0;
+        border-radius: 13px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 18px;
-        flex-shrink: 0;
+        background: #f9e8ee;
+        color: #a80e2c;
+        font-size: 16px;
     }
 
     .search-content {
@@ -66,86 +107,91 @@
     .search-label {
         display: block;
         color: #18213d;
-        font-size: 13px;
-        font-weight: 700;
-        margin-bottom: 4px;
+        font-size: 12px;
+        font-weight: 800;
+        margin-bottom: 2px;
     }
 
     .search-input {
-        border: none;
-        outline: none;
         width: 100%;
-        color: #18213d;
-        font-size: 14px;
+        border: 0;
+        outline: 0;
         padding: 0;
         background: transparent;
+        color: #18213d;
+        font-size: 13px;
     }
 
     .search-input::placeholder {
-        color: #a0a4b3;
+        color: #a4a7b4;
     }
 
-    .section-heading {
+    /* Section */
+    .section-header {
         display: flex;
-        align-items: end;
+        align-items: center;
         justify-content: space-between;
-        margin-bottom: 16px;
+        margin-bottom: 15px;
     }
 
     .section-title {
         color: #18213d;
-        font-size: 20px;
+        font-size: 19px;
         font-weight: 800;
-        margin: 0 0 3px;
-    }
-
-    .section-subtitle {
-        color: #8b8f9f;
-        font-size: 13px;
         margin: 0;
     }
 
-    .total-badge {
-        background: #f9e9ef;
-        color: #a80e2c;
-        border-radius: 20px;
-        padding: 8px 14px;
+    .section-subtitle {
+        color: #9295a4;
         font-size: 12px;
-        font-weight: 700;
-        white-space: nowrap;
+        margin: 3px 0 0;
     }
 
+    .jumlah-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        background: #f9e8ee;
+        color: #a80e2c;
+        border-radius: 20px;
+        padding: 8px 13px;
+        font-size: 11px;
+        font-weight: 800;
+    }
+
+    /* Grid */
     .event-grid {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 18px;
     }
 
+    /* Card */
     .event-card {
         position: relative;
         background: #fff;
         border: 1px solid #eee3e6;
-        border-radius: 18px;
+        border-radius: 20px;
         padding: 20px;
+        box-shadow: 0 5px 20px rgba(35, 30, 35, 0.04);
+        transition: 0.25s ease;
         overflow: hidden;
-        transition: all 0.2s ease;
-        box-shadow: 0 5px 18px rgba(168, 14, 44, 0.04);
+    }
+
+    .event-card:hover {
+        transform: translateY(-4px);
+        border-color: #e6b9c7;
+        box-shadow: 0 13px 30px rgba(168, 14, 44, 0.10);
     }
 
     .event-card::before {
         content: "";
         position: absolute;
-        top: 0;
         left: 0;
-        right: 0;
+        top: 0;
+        width: 100%;
         height: 4px;
         background: linear-gradient(90deg, #a80e2c, #d94b91);
-    }
-
-    .event-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 25px rgba(168, 14, 44, 0.10);
-        border-color: #e9cbd5;
     }
 
     .event-top {
@@ -156,109 +202,135 @@
     }
 
     .event-icon {
-        width: 44px;
-        height: 44px;
-        border-radius: 13px;
+        width: 45px;
+        height: 45px;
+        border-radius: 14px;
         background: linear-gradient(135deg, #a80e2c, #d94b91);
         color: #fff;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 18px;
+        box-shadow: 0 7px 15px rgba(168, 14, 44, 0.16);
     }
 
-    .available-badge {
+    .status-badge {
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        background: #eef9f5;
-        color: #218c70;
-        border-radius: 20px;
         padding: 6px 10px;
-        font-size: 11px;
-        font-weight: 700;
+        border-radius: 20px;
+        background: #eef9f5;
+        color: #21866c;
+        font-size: 10px;
+        font-weight: 800;
     }
 
-    .available-dot {
+    .status-dot {
         width: 6px;
         height: 6px;
-        background: #28a985;
         border-radius: 50%;
+        background: #28a985;
     }
 
     .event-name {
         color: #18213d;
         font-size: 17px;
+        line-height: 1.35;
         font-weight: 800;
-        line-height: 1.4;
         margin-bottom: 5px;
     }
 
     .event-description {
-        color: #8b8f9f;
-        font-size: 12px;
-        margin-bottom: 18px;
-        min-height: 18px;
+        color: #9094a2;
+        font-size: 11px;
+        line-height: 1.5;
+        margin-bottom: 16px;
     }
 
+    /* Information */
     .event-info {
         display: grid;
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
         gap: 9px;
-        margin-bottom: 18px;
+        margin-bottom: 17px;
     }
 
-    .info-item {
+    .info-box {
+        background: #fcf7f8;
+        border: 1px solid #f4e8eb;
+        border-radius: 11px;
+        padding: 9px 10px;
+    }
+
+    .info-box.location {
+        grid-column: 1 / -1;
+    }
+
+    .info-label {
         display: flex;
         align-items: center;
-        gap: 10px;
-        color: #64697c;
-        font-size: 12px;
+        gap: 6px;
+        color: #a80e2c;
+        font-size: 9px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 3px;
     }
 
-    .info-item i {
+    .info-value {
+        color: #41465b;
+        font-size: 11px;
+        font-weight: 700;
+        line-height: 1.4;
+    }
+
+    /* Button */
+    .detail-button {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        border-radius: 12px;
+        padding: 10px 13px;
+        background: #fff;
+        border: 1px solid #e8c7d0;
+        color: #a80e2c !important;
+        font-size: 11px;
+        font-weight: 800;
+        text-decoration: none !important;
+        transition: 0.2s ease;
+    }
+
+    .detail-button i {
         width: 25px;
         height: 25px;
         border-radius: 8px;
-        background: #f9e9ef;
-        color: #a80e2c;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 11px;
-        flex-shrink: 0;
-    }
-
-    .info-item strong {
-        color: #34394f;
-        font-weight: 700;
-    }
-
-    .detail-button {
-        width: 100%;
-        border: none;
-        border-radius: 11px;
-        background: #a80e2c;
-        color: #fff !important;
-        padding: 10px 14px;
-        font-size: 12px;
-        font-weight: 700;
-        text-align: center;
-        display: block;
+        background: #f9e8ee;
         transition: 0.2s ease;
     }
 
     .detail-button:hover {
-        background: #8f0925;
-        text-decoration: none;
+        background: #a80e2c;
+        border-color: #a80e2c;
+        color: #fff !important;
+    }
+
+    .detail-button:hover i {
+        background: rgba(255, 255, 255, 0.18);
         color: #fff;
     }
 
+    /* Empty */
     .empty-state {
         grid-column: 1 / -1;
         background: #fff;
-        border: 1px dashed #e5cfd5;
-        border-radius: 18px;
+        border: 1px dashed #e4cdd3;
+        border-radius: 20px;
         padding: 45px 20px;
         text-align: center;
     }
@@ -266,13 +338,13 @@
     .empty-icon {
         width: 55px;
         height: 55px;
+        margin: 0 auto 13px;
         border-radius: 16px;
-        background: #f9e9ef;
+        background: #f9e8ee;
         color: #a80e2c;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 0 auto 14px;
         font-size: 20px;
     }
 
@@ -283,173 +355,233 @@
     }
 
     .empty-state p {
-        color: #8b8f9f;
-        font-size: 13px;
+        color: #9194a2;
+        font-size: 12px;
         margin: 0;
     }
 
-    @media (max-width: 768px) {
+    /* Responsive */
+    @media (max-width: 900px) {
         .event-grid {
             grid-template-columns: 1fr;
         }
+    }
 
-        .page-title {
-            font-size: 25px;
+    @media (max-width: 600px) {
+        .kegiatan-header {
+            padding: 23px;
         }
 
-        .section-heading {
+        .kegiatan-title {
+            font-size: 24px;
+        }
+
+        .header-total {
+            position: static;
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+        .section-header {
             align-items: flex-start;
             gap: 10px;
         }
     }
 
-    @media (max-width: 480px) {
-        .section-heading {
-            display: block;
+    @media (max-width: 420px) {
+        .event-info {
+            grid-template-columns: 1fr;
         }
 
-        .total-badge {
-            display: inline-block;
-            margin-top: 10px;
-        }
-
-        .search-card {
-            padding: 14px;
-        }
-
-        .event-card {
-            padding: 17px;
+        .info-box.location {
+            grid-column: auto;
         }
     }
 </style>
 
+<div class="kegiatan-page">
 
+    <!-- Header -->
+    <div class="kegiatan-header">
 
-<div class="search-card">
-    <div class="search-wrapper">
+        <div class="kegiatan-header-content">
 
-        <div class="search-icon">
-            <i class="fas fa-search"></i>
-        </div>
+            <h1 class="kegiatan-title">
+                Kegiatan Donor
+            </h1>
 
-        <div class="search-content">
-            <label for="searchKegiatan" class="search-label">
-                Cari Kegiatan
-            </label>
-
-            <input
-                type="text"
-                id="searchKegiatan"
-                class="search-input"
-                placeholder="Cari nama kegiatan atau lokasi..."
-            >
-        </div>
-
-    </div>
-</div>
-
-<div class="section-heading">
-
-    <div>
-        <h2 class="section-title">Kegiatan Donor Tersedia</h2>
-
-        <p class="section-subtitle">
-            Pilih kegiatan donor yang ingin kamu ikuti.
-        </p>
-    </div>
-
-    <div class="total-badge">
-        <i class="fas fa-calendar-check mr-1"></i>
-        <span id="jumlahKegiatan">{{ $kegiatan->count() }}</span> kegiatan
-    </div>
-
-</div>
-
-<div class="event-grid" id="eventGrid">
-
-    @forelse ($kegiatan as $item)
-
-        <div
-            class="event-card"
-            data-search="{{ strtolower($item->nama_kegiatan . ' ' . $item->lokasi) }}"
-        >
-
-            <div class="event-top">
-
-                <div class="event-icon">
-                    <i class="fas fa-tint"></i>
-                </div>
-
-                <div class="available-badge">
-                    <span class="available-dot"></span>
-                    Tersedia
-                </div>
-
-            </div>
-
-            <div class="event-name">
-                {{ $item->nama_kegiatan }}
-            </div>
-
-            <div class="event-description">
-                {{ $item->keterangan ?: 'Kegiatan donor darah DonorConnect.' }}
-            </div>
-
-            <div class="event-info">
-
-                <div class="info-item">
-                    <i class="fas fa-calendar-alt"></i>
-                    <span>
-                        <strong>Tanggal:</strong>
-                        {{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}
-                    </span>
-                </div>
-
-                <div class="info-item">
-                    <i class="fas fa-clock"></i>
-                    <span>
-                        <strong>Waktu:</strong>
-                        {{ $item->waktu }}
-                    </span>
-                </div>
-
-                <div class="info-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>
-                        <strong>Lokasi:</strong>
-                        {{ $item->lokasi }}
-                    </span>
-                </div>
-
-            </div>
-
-            <a
-                href="{{ route('pendonor.kegiatan.show', $item->id_kegiatan) }}"
-                class="detail-button"
-            >
-                Lihat Detail
-                <i class="fas fa-arrow-right ml-1"></i>
-            </a>
-
-        </div>
-
-    @empty
-
-        <div class="empty-state">
-
-            <div class="empty-icon">
-                <i class="fas fa-calendar-times"></i>
-            </div>
-
-            <h5>Belum Ada Kegiatan</h5>
-
-            <p>
-                Saat ini belum ada kegiatan donor yang tersedia.
+            <p class="kegiatan-subtitle">
+                Temukan kegiatan donor darah dan pilih kegiatan yang ingin kamu ikuti.
             </p>
 
+            <div class="header-total">
+                <i class="fas fa-calendar-check mr-1"></i>
+                {{ $kegiatan->count() }} kegiatan tersedia
+            </div>
+
         </div>
 
-    @endforelse
+    </div>
+
+    <!-- Search -->
+    <div class="search-card">
+
+        <div class="search-box">
+
+            <div class="search-icon">
+                <i class="fas fa-search"></i>
+            </div>
+
+            <div class="search-content">
+
+                <label for="searchKegiatan" class="search-label">
+                    Cari Kegiatan
+                </label>
+
+                <input
+                    type="text"
+                    id="searchKegiatan"
+                    class="search-input"
+                    placeholder="Cari nama kegiatan atau lokasi..."
+                >
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Section -->
+    <div class="section-header">
+
+        <div>
+            <h2 class="section-title">
+                Kegiatan Donor Tersedia
+            </h2>
+
+            <p class="section-subtitle">
+                Pilih kegiatan donor yang ingin kamu ikuti.
+            </p>
+        </div>
+
+        <div class="jumlah-badge">
+            <i class="fas fa-calendar-alt"></i>
+            <span id="jumlahKegiatan">
+                {{ $kegiatan->count() }}
+            </span>
+            kegiatan
+        </div>
+
+    </div>
+
+    <!-- Cards -->
+    <div class="event-grid" id="eventGrid">
+
+        @forelse ($kegiatan as $item)
+
+            <div
+                class="event-card"
+                data-search="{{ strtolower($item->nama_kegiatan . ' ' . $item->lokasi) }}"
+            >
+
+                <div class="event-top">
+
+                    <div class="event-icon">
+                        <i class="fas fa-tint"></i>
+                    </div>
+
+                    <div class="status-badge">
+                        <span class="status-dot"></span>
+                        Tersedia
+                    </div>
+
+                </div>
+
+                <div class="event-name">
+                    {{ $item->nama_kegiatan }}
+                </div>
+
+                <div class="event-description">
+                    {{ $item->keterangan ?: 'Kegiatan donor darah DonorConnect.' }}
+                </div>
+
+                <div class="event-info">
+
+                    <div class="info-box">
+
+                        <div class="info-label">
+                            <i class="fas fa-calendar-alt"></i>
+                            Tanggal
+                        </div>
+
+                        <div class="info-value">
+                            {{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}
+                        </div>
+
+                    </div>
+
+                    <div class="info-box">
+
+                        <div class="info-label">
+                            <i class="fas fa-clock"></i>
+                            Waktu
+                        </div>
+
+                        <div class="info-value">
+                            {{ $item->waktu }}
+                        </div>
+
+                    </div>
+
+                    <div class="info-box location">
+
+                        <div class="info-label">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Lokasi
+                        </div>
+
+                        <div class="info-value">
+                            {{ $item->lokasi }}
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <a
+                    href="{{ route('pendonor.kegiatan.show', $item->id_kegiatan) }}"
+                    class="detail-button"
+                >
+                    <span>
+                        Lihat Detail Kegiatan
+                    </span>
+
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+
+            </div>
+
+        @empty
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    <i class="fas fa-calendar-times"></i>
+                </div>
+
+                <h5>
+                    Belum Ada Kegiatan
+                </h5>
+
+                <p>
+                    Saat ini belum ada kegiatan donor yang tersedia.
+                </p>
+
+            </div>
+
+        @endforelse
+
+    </div>
 
 </div>
 

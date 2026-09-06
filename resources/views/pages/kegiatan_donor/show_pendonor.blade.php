@@ -6,15 +6,23 @@
 
 <div class="detail-page">
 
-    <div class="detail-heading">
-        <div>
-            <h1>Detail Kegiatan Donor</h1>
+    {{-- Heading --}}
 
-            <p>
-                Informasi lengkap kegiatan donor.
-            </p>
+    <div class="detail-heading">
+
+        <div class="heading-label">
+            <span></span>
+            KEGIATAN DONOR
         </div>
+
+        <h1>Detail Kegiatan Donor</h1>
+
+        <p>
+            Informasi lengkap mengenai kegiatan donor yang tersedia.
+        </p>
+
     </div>
+
 
     @if(session('success'))
         <div class="alert alert-success">
@@ -27,6 +35,9 @@
             {{ session('error') }}
         </div>
     @endif
+
+
+    {{-- Detail --}}
 
     <div class="detail-card">
 
@@ -48,6 +59,7 @@
 
         </div>
 
+
         <div class="detail-card-body">
 
             <div class="detail-row">
@@ -63,6 +75,7 @@
 
             </div>
 
+
             <div class="detail-row">
 
                 <div class="detail-label">
@@ -75,6 +88,7 @@
                 </div>
 
             </div>
+
 
             <div class="detail-row">
 
@@ -89,6 +103,7 @@
 
             </div>
 
+
             <div class="detail-row">
 
                 <div class="detail-label">
@@ -102,6 +117,7 @@
 
             </div>
 
+
             <div class="detail-row">
 
                 <div class="detail-label">
@@ -111,6 +127,7 @@
 
                 <div class="detail-value">
                     <span class="status-badge">
+                        <span></span>
                         Tersedia
                     </span>
                 </div>
@@ -119,36 +136,49 @@
 
         </div>
 
+
+        {{-- Pendaftaran --}}
+
         <div class="register-section">
 
-            <h3>
-                Daftar Kegiatan Donor
-            </h3>
+            <div class="register-icon">
+                <i class="fas fa-heart"></i>
+            </div>
 
-            <p>
-                Silakan melakukan pendaftaran jika ingin mengikuti kegiatan donor ini.
-            </p>
+            <div class="register-content">
 
-            <a href="{{ route('pendaftaran-donor.create', $kegiatan->id_kegiatan) }}"
-               class="register-button">
+                <h3>
+                    Ingin mengikuti kegiatan ini?
+                </h3>
 
-                <i class="fas fa-tint"></i>
+                <p>
+                    Daftarkan diri kamu untuk mengikuti kegiatan donor.
+                </p>
 
-                Daftar Donor
+                <a
+                    href="{{ route('pendaftaran-donor.create', $kegiatan->id_kegiatan) }}"
+                    class="register-button"
+                >
+                    <i class="fas fa-tint"></i>
+                    Daftar Donor
+                    <i class="fas fa-arrow-right"></i>
+                </a>
 
-            </a>
+            </div>
 
         </div>
 
+
+        {{-- Footer --}}
+
         <div class="detail-card-footer">
 
-            <a href="{{ route('pendonor.kegiatan') }}"
-               class="back-button">
-
+            <a
+                href="{{ route('pendonor.kegiatan') }}"
+                class="back-button"
+            >
                 <i class="fas fa-arrow-left"></i>
-
-                Kembali
-
+                Kembali ke Kegiatan
             </a>
 
         </div>
@@ -157,211 +187,432 @@
 
 </div>
 
+
 @push('styles')
 
 <style>
 
+/* Page */
+
 .detail-page {
     width: 100%;
     min-height: calc(100vh - 80px);
-    padding: 25px 28px 35px;
-    background: #fffafa;
+    padding: 28px 30px 40px;
+    background: #fff8f3;
 }
 
+
+/* Heading */
+
 .detail-heading {
-    margin-bottom: 20px;
+    margin-bottom: 22px;
+}
+
+.heading-label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 7px;
+
+    color: #b0143b;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.heading-label span {
+    width: 22px;
+    height: 3px;
+    background: linear-gradient(
+        90deg,
+        #a80e2c,
+        #d94b91
+    );
+    border-radius: 5px;
 }
 
 .detail-heading h1 {
     margin: 0 0 5px;
-    color: #292733;
+
+    color: #283252;
     font-size: 30px;
-    font-weight: 800;
+    font-weight: 900;
+    letter-spacing: -0.5px;
 }
 
 .detail-heading p {
     margin: 0;
-    color: #8a8588;
-    font-size: 13px;
+
+    color: #918d96;
+    font-size: 12px;
 }
+
+
+/* Alert */
+
+.alert {
+    margin-bottom: 18px;
+    border-radius: 10px;
+    font-size: 11px;
+}
+
+
+/* Main Card */
 
 .detail-card {
     width: 100%;
+
     background: #ffffff;
-    border: 1px solid #f1e0e2;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(217, 30, 54, 0.05);
+
+    border: 1px solid #f0dfe4;
+    border-radius: 18px;
+
+    box-shadow: 0 7px 25px rgba(168, 14, 44, 0.06);
+
     overflow: hidden;
 }
 
+
+/* Card Header */
+
 .detail-card-header {
-    padding: 22px 25px;
+    position: relative;
+
+    padding: 25px 28px;
+
     display: flex;
     align-items: center;
     gap: 15px;
-    border-bottom: 1px solid #f3e1e2;
+
+    background: linear-gradient(
+        135deg,
+        #fff,
+        #fff7f9
+    );
+
+    border-bottom: 1px solid #f3e2e6;
 }
 
+.detail-card-header:before {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    width: 4px;
+
+    background: linear-gradient(
+        180deg,
+        #a80e2c,
+        #d94b91
+    );
+}
+
+
+/* Header Icon */
+
 .header-icon {
-    width: 48px;
-    height: 48px;
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+
     display: flex;
-    justify-content: center;
     align-items: center;
-    background: #fff0f1;
-    color: #d91e36;
-    border-radius: 11px;
+    justify-content: center;
+
+    background: linear-gradient(
+        145deg,
+        #fce6ed,
+        #f9d9e5
+    );
+
+    color: #b0143b;
+
+    border-radius: 14px;
+
     font-size: 18px;
 }
 
 .detail-card-header h2 {
     margin: 0 0 4px;
-    color: #302e38;
+
+    color: #283252;
     font-size: 18px;
-    font-weight: 800;
+    font-weight: 850;
 }
 
 .detail-card-header span {
-    color: #999195;
+    color: #9b969d;
     font-size: 10px;
 }
 
+
+/* Detail Body */
+
 .detail-card-body {
-    padding: 10px 25px;
+    padding: 8px 28px;
 }
 
 .detail-row {
-    min-height: 65px;
+    min-height: 63px;
+
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #f4eeee;
+
+    border-bottom: 1px solid #f5edef;
 }
 
 .detail-row:last-child {
     border-bottom: none;
 }
 
+
+/* Label */
+
 .detail-label {
     width: 35%;
+
     display: flex;
     align-items: center;
-    gap: 9px;
-    color: #716b70;
-    font-size: 12px;
-    font-weight: 700;
-}
+    gap: 10px;
 
-.detail-label i {
-    width: 18px;
-    color: #d91e36;
-    text-align: center;
-}
+    color: #77717a;
 
-.detail-value {
-    width: 65%;
-    color: #302e38;
-    font-size: 12px;
-}
-
-.status-badge {
-    display: inline-block;
-    padding: 5px 10px;
-    background: #e8f7ee;
-    color: #218838;
-    border-radius: 6px;
-    font-size: 10px;
-    font-weight: 700;
-}
-
-.register-section {
-    margin: 0 25px 20px;
-    padding: 20px;
-    background: #fff5f6;
-    border: 1px solid #f3dadd;
-    border-radius: 11px;
-}
-
-.register-section h3 {
-    margin: 0 0 6px;
-    color: #302e38;
-    font-size: 15px;
+    font-size: 11px;
     font-weight: 800;
 }
 
-.register-section p {
-    margin: 0 0 15px;
-    color: #858085;
-    font-size: 11px;
-}
+.detail-label i {
+    width: 20px;
 
-.register-button {
-    padding: 10px 18px;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    border-radius: 7px;
-    background: #d91e36;
-    color: #ffffff !important;
-    font-size: 11px;
-    font-weight: 700;
-    text-decoration: none !important;
-}
+    color: #c62b58;
 
-.register-button:hover {
-    background: #c7182f;
-    color: #ffffff !important;
-}
-
-.register-button i {
-    margin-right: 4px;
-}
-
-.alert {
-    margin-bottom: 20px;
-    border-radius: 8px;
+    text-align: center;
     font-size: 12px;
 }
 
-.detail-card-footer {
-    padding: 18px 25px;
-    background: #fffafa;
-    border-top: 1px solid #f3e3e4;
+
+/* Value */
+
+.detail-value {
+    width: 65%;
+
+    color: #34394f;
+
+    font-size: 11px;
+    font-weight: 600;
 }
 
-.back-button {
-    padding: 9px 16px;
+
+/* Status */
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 6px 11px;
+
+    background: #eaf8f1;
+    color: #24866d;
+
+    border-radius: 20px;
+
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.status-badge span {
+    width: 6px;
+    height: 6px;
+
+    background: #2bb58c;
+
+    border-radius: 50%;
+}
+
+
+/* Register */
+
+.register-section {
+    margin: 10px 28px 22px;
+    padding: 20px 21px;
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    background: linear-gradient(
+        135deg,
+        #fff5f7,
+        #fff0f5
+    );
+
+    border: 1px solid #f2d9e1;
+    border-radius: 14px;
+}
+
+
+/* Register Icon */
+
+.register-icon {
+    width: 43px;
+    height: 43px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(
+        145deg,
+        #a80e2c,
+        #d94b91
+    );
+
+    color: #fff;
+
+    border-radius: 12px;
+
+    font-size: 14px;
+
+    box-shadow: 0 6px 14px rgba(168, 14, 44, 0.15);
+}
+
+
+/* Register Content */
+
+.register-content {
+    flex: 1;
+}
+
+.register-content h3 {
+    margin: 0 0 4px;
+
+    color: #303752;
+
+    font-size: 13px;
+    font-weight: 850;
+}
+
+.register-content p {
+    margin: 0 0 11px;
+
+    color: #908b93;
+
+    font-size: 9px;
+}
+
+
+/* Register Button */
+
+.register-button {
     display: inline-flex;
     align-items: center;
     gap: 7px;
-    background: #6c757d;
-    color: #ffffff !important;
-    border-radius: 7px;
-    font-size: 11px;
-    font-weight: 700;
+
+    padding: 9px 14px;
+
+    background: linear-gradient(
+        135deg,
+        #a80e2c,
+        #d94b91
+    );
+
+    color: #fff !important;
+
+    border-radius: 9px;
+
+    font-size: 9px;
+    font-weight: 800;
+
     text-decoration: none !important;
+
+    box-shadow: 0 6px 14px rgba(168, 14, 44, 0.15);
+
+    transition: 0.2s ease;
+}
+
+.register-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow: 0 9px 18px rgba(168, 14, 44, 0.2);
+}
+
+.register-button i:last-child {
+    font-size: 7px;
+}
+
+
+/* Footer */
+
+.detail-card-footer {
+    padding: 16px 28px;
+
+    background: #fffafa;
+
+    border-top: 1px solid #f3e3e6;
+}
+
+
+/* Back */
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 9px 14px;
+
+    background: #fff;
+
+    color: #77717a !important;
+
+    border: 1px solid #e5dfe1;
+
+    border-radius: 9px;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    text-decoration: none !important;
+
+    transition: 0.2s ease;
 }
 
 .back-button:hover {
-    background: #5a6268;
-    color: #ffffff !important;
+    color: #b0143b !important;
+
+    border-color: #dfbdc8;
+
+    background: #fff6f8;
 }
+
+
+/* Responsive */
 
 @media (max-width: 768px) {
 
     .detail-page {
-        padding: 20px 15px 30px;
+        padding: 22px 17px 30px;
     }
 
     .detail-heading h1 {
         font-size: 25px;
     }
 
+    .detail-heading p {
+        font-size: 11px;
+    }
+
     .detail-card-header {
-        padding: 20px;
+        padding: 22px;
     }
 
     .detail-card-body {
-        padding: 5px 20px;
+        padding: 5px 22px;
     }
 
     .detail-row {
@@ -379,18 +630,15 @@
     }
 
     .register-section {
-        margin: 0 20px 20px;
+        margin: 10px 22px 20px;
     }
 
     .detail-card-footer {
-        padding: 15px 20px;
+        padding: 15px 22px;
     }
 
-    .register-button {
-        width: 100%;
-        justify-content: center;
-    }
 }
+
 
 @media (max-width: 480px) {
 
@@ -398,13 +646,44 @@
         padding: 18px 12px 25px;
     }
 
+    .heading-label {
+        font-size: 8px;
+    }
+
     .detail-heading h1 {
         font-size: 22px;
+    }
+
+    .detail-card-header {
+        padding: 19px;
     }
 
     .detail-card-header h2 {
         font-size: 15px;
     }
+
+    .detail-card-body {
+        padding: 4px 19px;
+    }
+
+    .register-section {
+        margin: 10px 19px 18px;
+        align-items: flex-start;
+    }
+
+    .register-content {
+        min-width: 0;
+    }
+
+    .register-button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .detail-card-footer {
+        padding: 14px 19px;
+    }
+
 }
 
 </style>

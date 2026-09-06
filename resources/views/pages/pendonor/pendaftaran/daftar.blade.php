@@ -9,8 +9,7 @@
     <div class="page-heading">
 
         <div>
-            <span class="heading-label">DONORCONNECT</span>
-
+           
             <h1>Pendaftaran Donor</h1>
 
             <p>

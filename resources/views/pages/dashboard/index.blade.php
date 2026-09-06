@@ -5,9 +5,6 @@
 @section('content')
 
 <div class="dashboard-page">
-    <div class="dashboard-heading">       
-    </div>
-
 
     {{-- Welcome --}}
 
@@ -31,7 +28,8 @@
 
             <a href="{{ route('pendonor.kegiatan') }}" class="welcome-button">
                 <i class="fas fa-calendar-alt"></i>
-                Lihat Kegiatan
+                Lihat Kegiatan Donor
+                <i class="fas fa-arrow-right arrow-icon"></i>
             </a>
 
         </div>
@@ -39,6 +37,7 @@
         <div class="blood-illustration">
 
             <span class="bubble bubble-blue"></span>
+            <span class="bubble bubble-pink"></span>
             <span class="bubble bubble-yellow"></span>
 
             <div class="blood-drop-main">
@@ -59,86 +58,115 @@
     <div class="row dashboard-statistics">
 
         <div class="col-xl-3 col-md-6 mb-3">
-            <div class="stat-card">
+            <a href="{{ route('pendonor.kegiatan') }}" class="stat-link">
 
-                <div class="stat-icon calendar-icon">
-                    <i class="fas fa-calendar-alt"></i>
-                </div>
+                <div class="stat-card">
 
-                <div>
-                    <div class="stat-number">
-                        {{ $jumlahKegiatan }}
+                    <div class="stat-icon calendar-icon">
+                        <i class="fas fa-calendar-alt"></i>
                     </div>
 
-                    <div class="stat-label">
-                        Kegiatan Tersedia
+                    <div class="stat-content">
+                        <div class="stat-number">
+                            {{ $jumlahKegiatan }}
+                        </div>
+
+                        <div class="stat-label">
+                            Kegiatan Tersedia
+                        </div>
                     </div>
+
+                    <div class="stat-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+
                 </div>
 
-            </div>
+            </a>
         </div>
 
 
         <div class="col-xl-3 col-md-6 mb-3">
-            <div class="stat-card">
+            <a href="{{ route('pendonor.status') }}" class="stat-link">
 
-                <div class="stat-icon registration-icon">
-                    <i class="fas fa-clipboard-check"></i>
-                </div>
+                <div class="stat-card">
 
-                <div>
-                    <div class="stat-number">
-                        0
+                    <div class="stat-icon registration-icon">
+                        <i class="fas fa-clipboard-check"></i>
                     </div>
 
-                    <div class="stat-label">
-                        Pendaftaran Aktif
+                    <div class="stat-content">
+                        <div class="stat-number">
+                            0
+                        </div>
+
+                        <div class="stat-label">
+                            Pendaftaran Aktif
+                        </div>
                     </div>
+
+                    <div class="stat-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+
                 </div>
 
-            </div>
+            </a>
         </div>
 
 
         <div class="col-xl-3 col-md-6 mb-3">
-            <div class="stat-card">
+            <a href="{{ route('pendonor.riwayat') }}" class="stat-link">
 
-                <div class="stat-icon history-icon">
-                    <i class="fas fa-history"></i>
-                </div>
+                <div class="stat-card">
 
-                <div>
-                    <div class="stat-number">
-                        0
+                    <div class="stat-icon history-icon">
+                        <i class="fas fa-history"></i>
                     </div>
 
-                    <div class="stat-label">
-                        Riwayat Donor
+                    <div class="stat-content">
+                        <div class="stat-number">
+                            0
+                        </div>
+
+                        <div class="stat-label">
+                            Riwayat Donor
+                        </div>
                     </div>
+
+                    <div class="stat-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+
                 </div>
 
-            </div>
+            </a>
         </div>
 
 
         <div class="col-xl-3 col-md-6 mb-3">
+
             <div class="stat-card">
 
                 <div class="stat-icon blood-icon">
                     <i class="fas fa-tint"></i>
                 </div>
 
-                <div>
+                <div class="stat-content">
+
                     <div class="stat-number">
-                        0 ml
+                        0
+                        <small>kantong</small>
                     </div>
 
                     <div class="stat-label">
                         Total Donor
                     </div>
+
                 </div>
 
             </div>
+
         </div>
 
     </div>
@@ -155,22 +183,50 @@
                 <div class="card-title-row">
 
                     <div>
-                        <span class="card-mini-title">DONOR</span>
-                        <h3>Kegiatan Terdekat</h3>
+
+                        <span class="card-mini-title">
+                            DONOR
+                        </span>
+
+                        <h3>
+                            Kegiatan Terdekat
+                        </h3>
+
+                        <p class="card-subtitle">
+                            Jangan lewatkan kegiatan donor berikutnya.
+                        </p>
+
                     </div>
 
                     <a href="{{ route('pendonor.kegiatan') }}"
                        class="see-all">
+
                         Lihat Semua
                         <i class="fas fa-arrow-right"></i>
+
                     </a>
 
                 </div>
 
 
                 @php
-                    $kegiatanTerdekat = \App\Models\KegiatanDonor::orderBy('tanggal')
-                        ->first();
+
+                    $kegiatanTerdekat = \App\Models\KegiatanDonor::whereDate(
+                        'tanggal',
+                        '>=',
+                        now()
+                    )
+                    ->orderBy('tanggal')
+                    ->first();
+
+                    if (!$kegiatanTerdekat) {
+
+                        $kegiatanTerdekat =
+                            \App\Models\KegiatanDonor::orderBy('tanggal')
+                            ->first();
+
+                    }
+
                 @endphp
 
 
@@ -178,11 +234,33 @@
 
                     <div class="activity-item">
 
-                        <div class="activity-icon">
-                            <i class="fas fa-calendar-alt"></i>
+                        <div class="activity-left">
+
+                            <div class="activity-icon">
+                                <i class="fas fa-tint"></i>
+                            </div>
+
+                            <div class="activity-date">
+
+                                <strong>
+                                    {{ \Carbon\Carbon::parse($kegiatanTerdekat->tanggal)->format('d') }}
+                                </strong>
+
+                                <span>
+                                    {{ \Carbon\Carbon::parse($kegiatanTerdekat->tanggal)->format('M') }}
+                                </span>
+
+                            </div>
+
                         </div>
 
+
                         <div class="activity-info">
+
+                            <span class="activity-status">
+                                <span></span>
+                                Tersedia
+                            </span>
 
                             <h4>
                                 {{ $kegiatanTerdekat->nama_kegiatan }}
@@ -191,7 +269,7 @@
                             <div class="activity-details">
 
                                 <span>
-                                    <i class="fas fa-calendar"></i>
+                                    <i class="fas fa-calendar-alt"></i>
                                     {{ \Carbon\Carbon::parse($kegiatanTerdekat->tanggal)->format('d M Y') }}
                                 </span>
 
@@ -209,9 +287,13 @@
 
                         </div>
 
+
                         <a href="{{ route('pendonor.kegiatan.show', $kegiatanTerdekat->id_kegiatan) }}"
                            class="detail-button">
+
                             Detail
+                            <i class="fas fa-arrow-right"></i>
+
                         </a>
 
                     </div>
@@ -221,10 +303,16 @@
                     <div class="empty-activity">
 
                         <div class="empty-icon">
-                            <i class="fas fa-tint"></i>
+                            <i class="fas fa-calendar-times"></i>
                         </div>
 
-                        <p>Belum ada kegiatan donor.</p>
+                        <h4>
+                            Belum ada kegiatan donor
+                        </h4>
+
+                        <p>
+                            Kegiatan donor yang tersedia akan muncul di sini.
+                        </p>
 
                     </div>
 
@@ -242,11 +330,20 @@
                 <div class="card-title-row">
 
                     <div>
-                        <span class="card-mini-title">INFO</span>
-                        <h3>Untuk Kamu</h3>
+
+                        <span class="card-mini-title">
+                            INFO
+                        </span>
+
+                        <h3>
+                            Untuk Kamu
+                        </h3>
+
                     </div>
 
-                    <i class="fas fa-heart info-title-icon"></i>
+                    <div class="info-header-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
 
                 </div>
 
@@ -256,6 +353,7 @@
                     <div class="info-blood-area">
 
                         <span class="info-circle blue"></span>
+                        <span class="info-circle pink"></span>
                         <span class="info-circle yellow"></span>
 
                         <div class="info-blood">
@@ -264,11 +362,17 @@
 
                     </div>
 
-                    <h4>Setetes darahmu berarti</h4>
+                    <span class="info-tag">
+                        DONORCONNECT
+                    </span>
+
+                    <h4>
+                        Setetes darahmu berarti
+                    </h4>
 
                     <p>
-                        Donormu hari ini bisa menjadi
-                        harapan bagi seseorang yang membutuhkan.
+                        Donormu hari ini bisa menjadi harapan
+                        bagi seseorang yang membutuhkan.
                     </p>
 
                     <div class="info-note">
@@ -293,59 +397,11 @@
 
 <style>
 
-/* Dashboard */
-
 .dashboard-page {
     width: 100%;
     min-height: calc(100vh - 80px);
-    padding: 28px 30px 40px;
-    background: #fff8f1;
-}
-
-
-/* Heading */
-
-.dashboard-heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 22px;
-}
-
-.mini-brand {
-    display: block;
-    margin-bottom: 5px;
-    color: #d94b63;
-    font-size: 9px;
-    font-weight: 800;
-    letter-spacing: 2.5px;
-}
-
-.dashboard-heading h1 {
-    margin: 0 0 4px;
-    color: #3f4d72;
-    font-size: 30px;
-    font-weight: 800;
-}
-
-.dashboard-heading p {
-    margin: 0;
-    color: #928b8a;
-    font-size: 12px;
-}
-
-.role-badge {
-    padding: 8px 16px;
-    border: 1px solid #f0cfd0;
-    border-radius: 20px;
-    background: #fff5f5;
-    color: #c84a60;
-    font-size: 10px;
-    font-weight: 700;
-}
-
-.role-badge i {
-    margin-right: 5px;
+    padding: 28px 30px 35px;
+    background: #fff8f3;
 }
 
 
@@ -353,33 +409,50 @@
 
 .welcome-card {
     position: relative;
-    min-height: 190px;
-    margin-bottom: 22px;
-    padding: 30px 38px;
+    min-height: 195px;
+    margin-bottom: 20px;
+    padding: 30px 36px;
+
     display: flex;
     align-items: center;
-    justify-content: space-between;
     overflow: hidden;
 
-    background: #fffdfb;
-    border: 1px solid #f0dfd6;
-    border-left: 5px solid #d94b63;
-    border-radius: 17px;
+    background: linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #fffafa 55%,
+        #fff3f7 100%
+    );
 
-    box-shadow: 0 5px 20px rgba(190, 130, 120, 0.07);
+    border: 1px solid #f0dce2;
+    border-left: 5px solid #b0143b;
+    border-radius: 20px;
+
+    box-shadow: 0 8px 28px rgba(168, 14, 44, 0.07);
+}
+
+.welcome-card:after {
+    content: "";
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    right: -100px;
+    top: -130px;
+    border-radius: 50%;
+    background: rgba(217, 75, 145, 0.05);
 }
 
 .welcome-content {
     position: relative;
     z-index: 3;
-    max-width: 72%;
+    max-width: 70%;
 }
 
 .welcome-label {
     margin-bottom: 9px;
-    color: #d96b7d;
+    color: #b0143b;
     font-size: 9px;
-    font-weight: 800;
+    font-weight: 900;
     letter-spacing: 1.5px;
 }
 
@@ -389,15 +462,15 @@
 
 .welcome-content h2 {
     margin: 0 0 8px;
-    color: #405075;
-    font-size: 25px;
+    color: #283252;
+    font-size: 26px;
     font-weight: 800;
 }
 
 .welcome-content p {
-    max-width: 650px;
-    margin: 0 0 16px;
-    color: #8d8787;
+    max-width: 610px;
+    margin: 0 0 17px;
+    color: #858493;
     font-size: 12px;
     line-height: 1.7;
 }
@@ -405,61 +478,89 @@
 .welcome-button {
     display: inline-flex;
     align-items: center;
-    gap: 7px;
-    padding: 9px 16px;
-    background: #d94b63;
-    color: #ffffff !important;
-    border-radius: 8px;
+    gap: 8px;
+    padding: 10px 16px;
+
+    background: linear-gradient(
+        135deg,
+        #a80e2c,
+        #d94b91
+    );
+
+    color: #fff !important;
+    border-radius: 10px;
+
     font-size: 10px;
-    font-weight: 700;
+    font-weight: 800;
     text-decoration: none !important;
-    box-shadow: 0 5px 12px rgba(217, 75, 99, 0.18);
+
+    box-shadow: 0 7px 16px rgba(168, 14, 44, 0.18);
+    transition: 0.2s ease;
 }
 
 .welcome-button:hover {
-    background: #c63e56;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(168, 14, 44, 0.23);
+}
+
+.arrow-icon {
+    font-size: 8px;
+    margin-left: 2px;
 }
 
 
-/* Blood illustration */
+/* Illustration */
 
 .blood-illustration {
     position: absolute;
     right: 55px;
     top: 50%;
-    width: 145px;
-    height: 145px;
+
+    width: 155px;
+    height: 150px;
+
     transform: translateY(-50%);
+    z-index: 2;
 }
 
 .blood-drop-main {
     position: absolute;
-    left: 43px;
-    top: 25px;
+    left: 48px;
+    top: 29px;
+
     width: 62px;
     height: 76px;
+
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 
-    background: #d94b63;
-    color: #ffffff;
+    background: linear-gradient(
+        145deg,
+        #a80e2c,
+        #d94b91
+    );
 
-    border-radius: 52% 52% 58% 58%;
-    transform: rotate(0deg);
+    color: #fff;
 
-    box-shadow: 0 8px 18px rgba(217, 75, 99, 0.18);
+    border-radius: 50% 50% 58% 58%;
+
+    box-shadow: 0 10px 22px rgba(168, 14, 44, 0.2);
 }
 
 .blood-drop-main:before {
     content: "";
     position: absolute;
+
+    width: 37px;
+    height: 37px;
+
     top: -14px;
     left: 13px;
-    width: 35px;
-    height: 35px;
-    background: #d94b63;
+
+    background: #b0143b;
     border-radius: 50%;
+
     transform: rotate(45deg);
     z-index: -1;
 }
@@ -474,32 +575,51 @@
 }
 
 .bubble-blue {
-    width: 92px;
-    height: 92px;
-    left: 12px;
+    width: 94px;
+    height: 94px;
+
+    left: 10px;
     top: 25px;
-    background: rgba(125, 191, 218, 0.25);
+
+    background: rgba(105, 184, 214, 0.19);
+}
+
+.bubble-pink {
+    width: 70px;
+    height: 70px;
+
+    right: 10px;
+    bottom: 5px;
+
+    background: rgba(217, 75, 145, 0.10);
 }
 
 .bubble-yellow {
     width: 28px;
     height: 28px;
-    right: 8px;
-    top: 7px;
-    background: rgba(235, 191, 91, 0.45);
+
+    right: 4px;
+    top: 4px;
+
+    background: rgba(229, 185, 87, 0.35);
 }
 
 .small-heart {
     position: absolute;
-    right: 13px;
-    bottom: 15px;
-    width: 25px;
-    height: 25px;
+
+    right: 8px;
+    bottom: 12px;
+
+    width: 27px;
+    height: 27px;
+
     display: flex;
-    justify-content: center;
     align-items: center;
-    background: #f6d6df;
-    color: #d94b63;
+    justify-content: center;
+
+    background: #f9dce6;
+    color: #b0143b;
+
     border-radius: 50%;
     font-size: 9px;
 }
@@ -508,82 +628,127 @@
 /* Statistics */
 
 .dashboard-statistics {
-    margin-left: -6px;
-    margin-right: -6px;
+    margin-left: -5px;
+    margin-right: -5px;
 }
 
 .dashboard-statistics > div {
-    padding-left: 6px;
-    padding-right: 6px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.stat-link {
+    display: block;
+    text-decoration: none !important;
 }
 
 .stat-card {
-    min-height: 90px;
-    padding: 17px;
+    position: relative;
+
+    min-height: 94px;
+    padding: 16px;
+
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 13px;
 
-    background: #fffdfb;
-    border: 1px solid #f0dfd6;
-    border-radius: 13px;
+    background: #fff;
 
-    box-shadow: 0 3px 12px rgba(190, 130, 120, 0.05);
-    transition: 0.2s ease;
+    border: 1px solid #f0dfe4;
+    border-radius: 15px;
+
+    box-shadow: 0 5px 18px rgba(168, 14, 44, 0.045);
+
+    transition: 0.22s ease;
 }
 
-.stat-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(190, 130, 120, 0.09);
+.stat-link .stat-card:hover {
+    transform: translateY(-3px);
+    border-color: #dfbdc8;
+    box-shadow: 0 10px 24px rgba(168, 14, 44, 0.10);
 }
 
 .stat-icon {
-    width: 44px;
-    height: 44px;
+    width: 46px;
+    height: 46px;
+
     flex-shrink: 0;
 
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 
-    border-radius: 11px;
+    border-radius: 13px;
     font-size: 16px;
 }
 
 .calendar-icon {
-    background: #eaf5fb;
-    color: #62a8cc;
+    background: #edf7fb;
+    color: #429bc4;
 }
 
 .registration-icon {
-    background: #fff0f3;
-    color: #d96b86;
+    background: #fcecf2;
+    color: #c92e61;
 }
 
 .history-icon {
-    background: #eef7f6;
-    color: #67aaa6;
+    background: #f1eef9;
+    color: #8170b4;
 }
 
 .blood-icon {
-    background: #fff3df;
-    color: #d49a45;
+    background: #fff3e3;
+    color: #c98732;
+}
+
+.stat-content {
+    min-width: 0;
 }
 
 .stat-number {
-    margin-bottom: 3px;
-    color: #405075;
-    font-size: 20px;
+    color: #283252;
+    font-size: 21px;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.stat-number small {
+    font-size: 9px;
     font-weight: 800;
 }
 
 .stat-label {
-    color: #989092;
+    color: #8f8d98;
     font-size: 9px;
+    font-weight: 600;
+}
+
+.stat-arrow {
+    position: absolute;
+
+    right: 14px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 25px;
+    height: 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #faf0f3;
+    color: #b0143b;
+
+    border-radius: 8px;
+    font-size: 8px;
 }
 
 
-/* Cards */
+/* Bottom */
 
 .dashboard-bottom {
     margin-top: 4px;
@@ -591,84 +756,144 @@
 
 .dashboard-card {
     width: 100%;
-    min-height: 235px;
-    padding: 23px;
+    min-height: 245px;
+    padding: 22px;
 
-    background: #fffdfb;
-    border: 1px solid #f0dfd6;
-    border-radius: 15px;
+    background: #fff;
 
-    box-shadow: 0 3px 13px rgba(190, 130, 120, 0.05);
+    border: 1px solid #f0dfe4;
+    border-radius: 17px;
+
+    box-shadow: 0 5px 18px rgba(168, 14, 44, 0.045);
 }
 
 .card-title-row {
     display: flex;
+    align-items: flex-start;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 18px;
+
+    margin-bottom: 17px;
 }
 
 .card-mini-title {
     display: block;
     margin-bottom: 3px;
-    color: #d98291;
+
+    color: #b0143b;
+
     font-size: 8px;
-    font-weight: 800;
-    letter-spacing: 1.5px;
+    font-weight: 900;
+    letter-spacing: 1.7px;
 }
 
 .card-title-row h3 {
     margin: 0;
-    color: #405075;
-    font-size: 16px;
+
+    color: #283252;
+
+    font-size: 17px;
     font-weight: 800;
 }
 
-.see-all {
-    color: #d65b70;
+.card-subtitle {
+    margin: 3px 0 0;
+
+    color: #9996a0;
+
     font-size: 9px;
-    font-weight: 700;
-    text-decoration: none;
 }
 
-.see-all i {
-    margin-left: 3px;
+.see-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+
+    padding-top: 5px;
+
+    color: #b0143b;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    text-decoration: none !important;
 }
 
 .see-all:hover {
-    color: #bc4056;
-    text-decoration: none;
+    color: #8f0c2a;
 }
 
 
 /* Activity */
 
 .activity-item {
-    min-height: 105px;
-    padding: 16px;
+    min-height: 118px;
+    padding: 15px;
 
     display: flex;
     align-items: center;
     gap: 14px;
 
-    background: #fff9f5;
-    border: 1px solid #f2e3dc;
-    border-radius: 11px;
+    background: linear-gradient(
+        135deg,
+        #fffafa,
+        #fff6f8
+    );
+
+    border: 1px solid #f1dfe4;
+    border-radius: 14px;
+}
+
+.activity-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    flex-shrink: 0;
 }
 
 .activity-icon {
-    width: 43px;
-    height: 43px;
-    flex-shrink: 0;
+    width: 46px;
+    height: 46px;
 
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 
-    border-radius: 10px;
-    background: #eaf5fb;
-    color: #63a8c8;
-    font-size: 15px;
+    border-radius: 13px;
+
+    background: linear-gradient(
+        135deg,
+        #a80e2c,
+        #d94b91
+    );
+
+    color: #fff;
+    font-size: 16px;
+
+    box-shadow: 0 7px 14px rgba(168, 14, 44, 0.15);
+}
+
+.activity-date {
+    width: 38px;
+    text-align: center;
+}
+
+.activity-date strong {
+    display: block;
+
+    color: #b0143b;
+
+    font-size: 17px;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.activity-date span {
+    color: #99949b;
+
+    font-size: 8px;
+    text-transform: uppercase;
+    font-weight: 800;
 }
 
 .activity-info {
@@ -676,118 +901,180 @@
     min-width: 0;
 }
 
+.activity-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+
+    margin-bottom: 5px;
+
+    color: #24876e;
+
+    font-size: 8px;
+    font-weight: 800;
+}
+
+.activity-status span {
+    width: 6px;
+    height: 6px;
+
+    background: #28a985;
+    border-radius: 50%;
+}
+
 .activity-info h4 {
-    margin: 0 0 9px;
-    color: #4a5570;
+    margin: 0 0 8px;
+
+    color: #37415f;
+
     font-size: 12px;
     font-weight: 800;
+    line-height: 1.4;
 }
 
 .activity-details {
     display: flex;
     flex-wrap: wrap;
-    gap: 7px 14px;
+    gap: 5px 13px;
 }
 
 .activity-details span {
-    color: #918a8a;
-    font-size: 9px;
+    color: #918d94;
+    font-size: 8px;
 }
 
 .activity-details i {
     margin-right: 3px;
-    color: #d96b7d;
+    color: #c23c60;
 }
 
 .detail-button {
-    padding: 8px 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
     flex-shrink: 0;
 
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
+    padding: 9px 12px;
 
-    background: #d94b63;
-    color: #ffffff !important;
-    border-radius: 7px;
+    background: #b0143b;
+    color: #fff !important;
+
+    border-radius: 9px;
 
     font-size: 9px;
-    font-weight: 700;
+    font-weight: 800;
+
     text-decoration: none !important;
+
+    transition: 0.2s ease;
 }
 
 .detail-button:hover {
-    background: #c63e56;
+    background: #8f0c2a;
+    transform: translateY(-1px);
+}
+
+.detail-button i {
+    font-size: 7px;
 }
 
 
 /* Empty */
 
 .empty-activity {
-    min-height: 105px;
+    min-height: 118px;
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 
-    background: #fff9f5;
-    border: 1px solid #f2e3dc;
-    border-radius: 11px;
+    background: #fffafa;
+
+    border: 1px dashed #e8ccd4;
+    border-radius: 13px;
 }
 
 .empty-icon {
     width: 42px;
     height: 42px;
+
     margin-bottom: 8px;
 
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 
-    border-radius: 50%;
-    background: #fff0f3;
-    color: #d96a7d;
+    background: #f9eaf0;
+    color: #b0143b;
+
+    border-radius: 12px;
+}
+
+.empty-activity h4 {
+    margin: 0 0 3px;
+
+    color: #414a67;
+
+    font-size: 11px;
+    font-weight: 800;
 }
 
 .empty-activity p {
     margin: 0;
-    color: #999292;
-    font-size: 10px;
+
+    color: #99949b;
+
+    font-size: 9px;
 }
 
 
 /* Information */
 
-.information-card {
-    min-height: 235px;
-}
+.info-header-icon {
+    width: 29px;
+    height: 29px;
 
-.info-title-icon {
-    color: #d96b7d;
-    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #f9eaf0;
+    color: #b0143b;
+
+    border-radius: 9px;
+    font-size: 10px;
 }
 
 .information-content {
-    min-height: 155px;
-    padding: 15px 18px;
+    min-height: 165px;
+    padding: 12px 18px;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 
-    background: #fff8f3;
-    border: 1px solid #f1e1da;
-    border-radius: 11px;
+    background: linear-gradient(
+        145deg,
+        #fff9f7,
+        #fff3f7
+    );
+
+    border: 1px solid #f1dfe4;
+    border-radius: 13px;
+
     text-align: center;
 }
 
 .info-blood-area {
     position: relative;
-    width: 85px;
+
+    width: 90px;
     height: 70px;
-    margin-bottom: 4px;
+
+    margin-bottom: 1px;
 }
 
 .info-circle {
@@ -798,50 +1085,75 @@
 .info-circle.blue {
     width: 60px;
     height: 60px;
+
     left: 8px;
     top: 5px;
-    background: rgba(113, 185, 215, 0.22);
+
+    background: rgba(104, 185, 216, 0.20);
+}
+
+.info-circle.pink {
+    width: 43px;
+    height: 43px;
+
+    right: 7px;
+    bottom: 4px;
+
+    background: rgba(217, 75, 145, 0.10);
 }
 
 .info-circle.yellow {
-    width: 19px;
-    height: 19px;
+    width: 18px;
+    height: 18px;
+
     right: 4px;
-    top: 3px;
-    background: rgba(232, 186, 82, 0.42);
+    top: 2px;
+
+    background: rgba(232, 186, 82, 0.35);
 }
 
 .info-blood {
     position: absolute;
-    left: 30px;
+
+    left: 31px;
     top: 11px;
 
-    width: 39px;
-    height: 48px;
+    width: 40px;
+    height: 49px;
 
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 
-    background: #d94b63;
-    color: #ffffff;
+    background: linear-gradient(
+        145deg,
+        #a80e2c,
+        #d94b91
+    );
+
+    color: #fff;
 
     border-radius: 50% 50% 58% 58%;
-    box-shadow: 0 6px 12px rgba(217, 75, 99, 0.16);
+
+    box-shadow: 0 7px 14px rgba(168, 14, 44, 0.16);
 }
 
 .info-blood:before {
     content: "";
+
     position: absolute;
+
+    width: 24px;
+    height: 24px;
+
     top: -8px;
     left: 8px;
 
-    width: 23px;
-    height: 23px;
+    background: #b0143b;
 
-    background: #d94b63;
     border-radius: 50%;
     transform: rotate(45deg);
+
     z-index: -1;
 }
 
@@ -849,26 +1161,41 @@
     font-size: 13px;
 }
 
+.info-tag {
+    margin-bottom: 4px;
+
+    color: #b0143b;
+
+    font-size: 7px;
+    font-weight: 900;
+    letter-spacing: 1.4px;
+}
+
 .information-content h4 {
     margin: 0 0 5px;
-    color: #4a5570;
-    font-size: 12px;
+
+    color: #3c4664;
+
+    font-size: 13px;
     font-weight: 800;
 }
 
 .information-content p {
-    max-width: 245px;
+    max-width: 235px;
+
     margin: 0 0 8px;
 
-    color: #918a8a;
+    color: #908c94;
+
     font-size: 9px;
     line-height: 1.6;
 }
 
 .info-note {
-    color: #d66a7c;
+    color: #b0143b;
+
     font-size: 8px;
-    font-weight: 700;
+    font-weight: 800;
 }
 
 .info-note i {
@@ -901,14 +1228,6 @@
         padding: 20px 15px 30px;
     }
 
-    .dashboard-heading h1 {
-        font-size: 25px;
-    }
-
-    .role-badge {
-        display: none;
-    }
-
     .welcome-card {
         padding: 24px;
     }
@@ -922,7 +1241,7 @@
     }
 
     .blood-illustration {
-        opacity: 0.18;
+        opacity: 0.16;
         right: 0;
     }
 
@@ -932,7 +1251,7 @@
     }
 
     .activity-info {
-        width: calc(100% - 58px);
+        width: calc(100% - 60px);
     }
 
     .activity-details {
@@ -946,6 +1265,7 @@
 
     .detail-button {
         width: 100%;
+        justify-content: center;
     }
 
 }
@@ -957,10 +1277,6 @@
         padding: 18px 12px 25px;
     }
 
-    .dashboard-heading h1 {
-        font-size: 22px;
-    }
-
     .welcome-card {
         padding: 20px;
     }
@@ -969,9 +1285,23 @@
         font-size: 19px;
     }
 
+    .welcome-button {
+        font-size: 9px;
+        padding: 9px 13px;
+    }
+
     .stat-card {
-        min-height: 85px;
-        padding: 14px;
+        min-height: 84px;
+        padding: 13px;
+    }
+
+    .stat-icon {
+        width: 42px;
+        height: 42px;
+    }
+
+    .stat-arrow {
+        display: none;
     }
 
     .dashboard-card {

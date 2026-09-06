@@ -7,26 +7,44 @@
 <div class="status-page">
 
     {{-- Header --}}
-    <div class="page-heading">
+    <div class="status-header">
 
-        <div class="heading-icon">
-            <i class="fas fa-clipboard-check"></i>
+        <div class="header-content">
+
+            <div class="header-label">
+                <span></span>
+                PENDAFTARAN DONOR
+            </div>
+
+            <h1>Status Pendaftaran</h1>
+
+            <p>
+                Pantau kegiatan donor yang sudah kamu daftarkan.
+            </p>
+
         </div>
 
-        <div>
-            <h1>Status Pendaftaran</h1>
-            <p>
-                Lihat status pendaftaran kegiatan donor yang sudah kamu ikuti.
-            </p>
+        <div class="header-decoration">
+
+            <div class="decoration-circle circle-one"></div>
+            <div class="decoration-circle circle-two"></div>
+
+            <div class="blood-drop">
+                <i class="fas fa-heart"></i>
+            </div>
+
+            <i class="fas fa-heart outline-heart"></i>
+
         </div>
 
     </div>
 
 
-    {{-- Pesan sukses --}}
+    {{-- Pesan --}}
     @if(session('success'))
 
         <div class="status-alert success-alert">
+
             <div class="alert-icon">
                 <i class="fas fa-check"></i>
             </div>
@@ -35,15 +53,16 @@
                 <strong>Berhasil</strong>
                 <span>{{ session('success') }}</span>
             </div>
+
         </div>
 
     @endif
 
 
-    {{-- Pesan error --}}
     @if(session('error'))
 
         <div class="status-alert error-alert">
+
             <div class="alert-icon">
                 <i class="fas fa-exclamation"></i>
             </div>
@@ -52,24 +71,30 @@
                 <strong>Perhatian</strong>
                 <span>{{ session('error') }}</span>
             </div>
+
         </div>
 
     @endif
 
 
-    {{-- Jika belum ada pendaftaran --}}
     @if($pendaftaran->isEmpty())
 
+        {{-- Empty --}}
         <div class="empty-card">
 
             <div class="empty-icon">
                 <i class="fas fa-clipboard-list"></i>
             </div>
 
+            <div class="empty-label">
+                DONORCONNECT
+            </div>
+
             <h2>Belum Ada Pendaftaran</h2>
 
             <p>
                 Kamu belum mendaftar pada kegiatan donor mana pun.
+                Yuk, cari kegiatan donor yang tersedia.
             </p>
 
             <a href="{{ route('pendonor.kegiatan') }}"
@@ -78,28 +103,44 @@
                 <i class="fas fa-calendar-alt"></i>
                 Lihat Kegiatan Donor
 
+                <i class="fas fa-arrow-right"></i>
+
             </a>
 
         </div>
 
     @else
 
-        {{-- Daftar pendaftaran --}}
+        {{-- Main Card --}}
         <div class="status-card">
 
-            <div class="card-top">
+            <div class="card-header">
 
-                <div>
+                <div class="card-header-left">
+
+                    <div class="card-label">
+                        AKTIVITAS
+                    </div>
+
                     <h2>Daftar Pendaftaran</h2>
 
                     <p>
-                        Berikut kegiatan donor yang sudah kamu daftarkan.
+                        Kegiatan donor yang sudah kamu daftarkan.
                     </p>
+
                 </div>
 
                 <div class="total-badge">
-                    <i class="fas fa-file-medical"></i>
-                    {{ $pendaftaran->count() }} Pendaftaran
+
+                    <div class="badge-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+
+                    <div>
+                        <strong>{{ $pendaftaran->count() }}</strong>
+                        <span>Pendaftaran</span>
+                    </div>
+
                 </div>
 
             </div>
@@ -111,52 +152,55 @@
 
                     <div class="status-item">
 
+                        {{-- Icon --}}
                         <div class="activity-icon">
-                            <i class="fas fa-tint"></i>
-                        </div>
 
-
-                        <div class="activity-info">
-
-                            <h3>
-                                {{ $item->kegiatanDonor->nama_kegiatan ?? 'Kegiatan Donor' }}
-                            </h3>
-
-
-                            <div class="activity-detail">
-
-                                @if($item->kegiatanDonor)
-
-                                    <span>
-                                        <i class="fas fa-calendar-alt"></i>
-
-                                        {{ \Carbon\Carbon::parse($item->kegiatanDonor->tanggal)->format('d M Y') }}
-
-                                    </span>
-
-
-                                    <span>
-                                        <i class="fas fa-clock"></i>
-
-                                        {{ $item->kegiatanDonor->waktu ?? '-' }}
-
-                                    </span>
-
-
-                                    <span>
-                                        <i class="fas fa-map-marker-alt"></i>
-
-                                        {{ $item->kegiatanDonor->lokasi ?? '-' }}
-
-                                    </span>
-
-                                @endif
-
+                            <div class="drop-shape">
+                                <i class="fas fa-tint"></i>
                             </div>
 
                         </div>
 
 
+                        {{-- Informasi --}}
+                        <div class="activity-info">
+
+                            <div class="activity-top">
+
+                                <h3>
+                                    {{ $item->kegiatanDonor->nama_kegiatan ?? 'Kegiatan Donor' }}
+                                </h3>
+
+                            </div>
+
+
+                            @if($item->kegiatanDonor)
+
+                                <div class="activity-detail">
+
+                                    <span>
+                                        <i class="fas fa-calendar-alt"></i>
+                                        {{ \Carbon\Carbon::parse($item->kegiatanDonor->tanggal)->format('d M Y') }}
+                                    </span>
+
+                                    <span>
+                                        <i class="fas fa-clock"></i>
+                                        {{ $item->kegiatanDonor->waktu ?? '-' }}
+                                    </span>
+
+                                    <span>
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        {{ $item->kegiatanDonor->lokasi ?? '-' }}
+                                    </span>
+
+                                </div>
+
+                            @endif
+
+                        </div>
+
+
+                        {{-- Status --}}
                         <div class="status-area">
 
                             @php
@@ -165,39 +209,38 @@
                                 );
                             @endphp
 
-
                             @if($status === 'terdaftar')
 
                                 <span class="status-badge registered">
-                                    <i class="fas fa-check-circle"></i>
+                                    <span class="status-dot"></span>
                                     Terdaftar
                                 </span>
 
                             @elseif($status === 'diterima')
 
                                 <span class="status-badge accepted">
-                                    <i class="fas fa-check-circle"></i>
+                                    <span class="status-dot"></span>
                                     Diterima
                                 </span>
 
                             @elseif($status === 'ditolak')
 
                                 <span class="status-badge rejected">
-                                    <i class="fas fa-times-circle"></i>
+                                    <span class="status-dot"></span>
                                     Ditolak
                                 </span>
 
                             @elseif($status === 'selesai')
 
                                 <span class="status-badge completed">
-                                    <i class="fas fa-check-double"></i>
+                                    <span class="status-dot"></span>
                                     Selesai
                                 </span>
 
                             @else
 
                                 <span class="status-badge pending">
-                                    <i class="fas fa-clock"></i>
+                                    <span class="status-dot"></span>
                                     {{ ucfirst($item->status_pendaftaran ?? 'Terdaftar') }}
                                 </span>
 
@@ -222,92 +265,222 @@
 
 <style>
 
+/* PAGE */
+
 .status-page {
+    position: relative;
     width: 100%;
     min-height: calc(100vh - 80px);
-    padding: 28px 30px 40px;
-    background: #fffaf5;
+    padding: 30px 32px 45px;
+    background: #fff8f5;
+    overflow: hidden;
 }
 
 
 /* HEADER */
 
-.page-heading {
+.status-header {
+    position: relative;
+    min-height: 145px;
+    margin-bottom: 22px;
+    padding: 25px 30px;
+
     display: flex;
     align-items: center;
-    gap: 14px;
-    margin-bottom: 25px;
+    justify-content: space-between;
+
+    background: linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #fffafa 55%,
+        #fff0f5 100%
+    );
+
+    border: 1px solid #f1dce3;
+    border-radius: 20px;
+
+    overflow: hidden;
 }
 
-.heading-icon {
-    width: 48px;
-    height: 48px;
+.header-content {
+    position: relative;
+    z-index: 3;
+}
+
+.header-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-bottom: 7px;
+
+    color: #a80e2c;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.header-label span {
+    width: 32px;
+    height: 4px;
+
+    background: linear-gradient(
+        90deg,
+        #a80e2c,
+        #d94b91
+    );
+
+    border-radius: 10px;
+}
+
+.status-header h1 {
+    margin: 0 0 5px;
+
+    color: #273252;
+
+    font-size: 30px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+}
+
+.status-header p {
+    margin: 0;
+
+    color: #888693;
+
+    font-size: 12px;
+}
+
+
+/* HEADER DECORATION */
+
+.header-decoration {
+    position: absolute;
+    right: 35px;
+    top: 0;
+
+    width: 250px;
+    height: 145px;
+}
+
+.decoration-circle {
+    position: absolute;
+    border-radius: 50%;
+}
+
+.circle-one {
+    width: 150px;
+    height: 150px;
+
+    right: -25px;
+    top: -65px;
+
+    background: rgba(217, 75, 145, 0.10);
+}
+
+.circle-two {
+    width: 85px;
+    height: 85px;
+
+    right: 95px;
+    bottom: -35px;
+
+    background: rgba(168, 14, 44, 0.07);
+}
+
+.blood-drop {
+    position: absolute;
+
+    right: 80px;
+    top: 38px;
+
+    width: 58px;
+    height: 70px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    background: #fbe1e4;
-    color: #c9364e;
+    background: linear-gradient(
+        145deg,
+        #a80e2c,
+        #d94b91
+    );
 
-    border-radius: 13px;
+    color: #fff;
 
-    font-size: 18px;
+    border-radius: 50% 50% 58% 58%;
 
-    box-shadow: 0 4px 12px rgba(201, 54, 78, 0.08);
+    box-shadow:
+        0 10px 22px rgba(168, 14, 44, 0.18);
 }
 
-.page-heading h1 {
-    margin: 0 0 5px;
+.blood-drop:before {
+    content: "";
 
-    color: #40383a;
+    position: absolute;
 
-    font-size: 28px;
-    font-weight: 800;
+    width: 34px;
+    height: 34px;
+
+    top: -12px;
+    left: 12px;
+
+    background: #b0143b;
+
+    border-radius: 50%;
+
+    transform: rotate(45deg);
+
+    z-index: -1;
 }
 
-.page-heading p {
-    margin: 0;
+.blood-drop i {
+    font-size: 19px;
+}
 
-    color: #95898b;
+.outline-heart {
+    position: absolute;
 
-    font-size: 12px;
+    right: 25px;
+    top: 25px;
+
+    color: #d94b91;
+
+    font-size: 34px;
+
+    opacity: 0.55;
 }
 
 
 /* ALERT */
 
 .status-alert {
-    max-width: 1000px;
-
     margin: 0 auto 18px;
-
     padding: 13px 16px;
 
     display: flex;
     align-items: center;
-
     gap: 12px;
 
-    border-radius: 10px;
+    border-radius: 12px;
 }
 
 .alert-icon {
-    width: 31px;
-    height: 31px;
+    width: 32px;
+    height: 32px;
+
+    flex-shrink: 0;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    border-radius: 8px;
-
-    flex-shrink: 0;
+    border-radius: 9px;
 }
 
 .status-alert strong {
     display: block;
-
     margin-bottom: 2px;
 
     font-size: 11px;
@@ -320,145 +493,242 @@
 }
 
 .success-alert {
-    background: #eef9f1;
-    border: 1px solid #d5ecd9;
-    color: #41764c;
+    background: #edf9f1;
+    border: 1px solid #d3ecda;
+    color: #36784a;
 }
 
 .success-alert .alert-icon {
-    background: #d9f0dd;
+    background: #d8f1df;
 }
 
 .error-alert {
-    background: #fff1f1;
-    border: 1px solid #f2d5d7;
-    color: #a73b47;
+    background: #fff0f2;
+    border: 1px solid #f2d5da;
+    color: #a93649;
 }
 
 .error-alert .alert-icon {
-    background: #f9dfe2;
+    background: #f9dce1;
 }
 
 
-/* CARD */
+/* MAIN CARD */
 
 .status-card {
     width: 100%;
-    max-width: 1000px;
 
-    margin: 0 auto;
+    background: #fff;
 
-    background: #ffffff;
+    border: 1px solid #efdfe5;
+    border-radius: 20px;
 
-    border: 1px solid #f0dfdf;
-
-    border-radius: 16px;
-
-    box-shadow: 0 5px 20px rgba(185, 91, 91, 0.07);
+    box-shadow:
+        0 8px 30px rgba(168, 14, 44, 0.065);
 
     overflow: hidden;
 }
 
 
-/* CARD TOP */
+/* CARD HEADER */
 
-.card-top {
-    padding: 22px 25px;
+.card-header {
+    position: relative;
+
+    padding: 24px 28px;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    gap: 15px;
-
-    border-bottom: 1px solid #f2e5e3;
+    border-bottom: 1px solid #f2e5e9;
 }
 
-.card-top h2 {
+.card-header:before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    width: 4px;
+
+    background: linear-gradient(
+        180deg,
+        #a80e2c,
+        #d94b91
+    );
+}
+
+.card-label {
+    margin-bottom: 4px;
+
+    color: #b0143b;
+
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.card-header h2 {
     margin: 0 0 4px;
 
-    color: #40383a;
+    color: #293454;
 
-    font-size: 17px;
-    font-weight: 800;
+    font-size: 19px;
+    font-weight: 900;
 }
 
-.card-top p {
+.card-header p {
     margin: 0;
 
-    color: #9b9091;
+    color: #98949d;
 
     font-size: 10px;
 }
 
+
+/* TOTAL */
+
 .total-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
+    min-width: 125px;
 
     padding: 8px 12px;
 
-    background: #fff1f2;
+    display: flex;
+    align-items: center;
+    gap: 9px;
 
-    border: 1px solid #f5dadd;
+    background: linear-gradient(
+        135deg,
+        #fff1f5,
+        #fff7f8
+    );
 
-    border-radius: 20px;
+    border: 1px solid #f3dce5;
+    border-radius: 30px;
+}
 
-    color: #c9364e;
+.badge-icon {
+    width: 31px;
+    height: 31px;
 
-    font-size: 10px;
-    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    white-space: nowrap;
+    background: linear-gradient(
+        135deg,
+        #a80e2c,
+        #d94b91
+    );
+
+    color: #fff;
+
+    border-radius: 9px;
+
+    font-size: 11px;
+}
+
+.total-badge strong {
+    display: block;
+
+    color: #a80e2c;
+
+    font-size: 13px;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.total-badge span {
+    display: block;
+    margin-top: 2px;
+
+    color: #9a8e94;
+
+    font-size: 8px;
 }
 
 
 /* LIST */
 
 .status-list {
-    padding: 8px 20px 20px;
+    padding: 7px 24px 18px;
 }
 
 
 /* ITEM */
 
 .status-item {
-    min-height: 90px;
+    position: relative;
 
-    padding: 16px 5px;
+    min-height: 92px;
+
+    padding: 17px 5px;
 
     display: flex;
     align-items: center;
+    gap: 16px;
 
-    gap: 15px;
+    border-bottom: 1px solid #f4eaed;
 
-    border-bottom: 1px solid #f4eaea;
+    transition: 0.2s ease;
 }
 
 .status-item:last-child {
     border-bottom: none;
 }
 
+.status-item:hover {
+    padding-left: 9px;
+    padding-right: 1px;
+}
+
 
 /* ACTIVITY ICON */
 
 .activity-icon {
-    width: 45px;
-    height: 45px;
+    width: 52px;
+    height: 52px;
+
+    flex-shrink: 0;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    flex-shrink: 0;
+    background: #fff0f5;
 
-    background: #fff0f1;
+    border: 1px solid #f6dce6;
+    border-radius: 15px;
+}
 
-    color: #d12f48;
+.drop-shape {
+    width: 35px;
+    height: 39px;
 
-    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    font-size: 16px;
+    background: linear-gradient(
+        145deg,
+        #a80e2c,
+        #d94b91
+    );
+
+    color: #fff;
+
+    border-radius: 50% 50% 58% 58%;
+
+    box-shadow:
+        0 6px 13px rgba(168, 14, 44, 0.15);
+}
+
+.drop-shape i {
+    font-size: 13px;
 }
 
 
@@ -466,39 +736,40 @@
 
 .activity-info {
     flex: 1;
-
     min-width: 0;
 }
 
 .activity-info h3 {
-    margin: 0 0 8px;
+    margin: 0 0 9px;
 
-    color: #443b3d;
+    color: #35405f;
 
     font-size: 13px;
-    font-weight: 750;
+    font-weight: 850;
+
+    line-height: 1.4;
 }
 
 .activity-detail {
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
 
-    gap: 12px;
+    gap: 7px 18px;
 }
 
 .activity-detail span {
     display: inline-flex;
     align-items: center;
-
     gap: 5px;
 
-    color: #93888a;
+    color: #918c96;
 
     font-size: 9px;
 }
 
 .activity-detail i {
-    color: #c9364e;
+    color: #c12f59;
 
     font-size: 9px;
 }
@@ -514,143 +785,202 @@
 }
 
 .status-badge {
+    min-width: 90px;
+
+    padding: 8px 12px;
+
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 6px;
 
-    gap: 5px;
-
-    min-width: 88px;
-
-    padding: 7px 10px;
-
-    border-radius: 20px;
+    border-radius: 30px;
 
     font-size: 9px;
-    font-weight: 700;
+    font-weight: 800;
 
     white-space: nowrap;
 }
 
-.status-badge i {
-    font-size: 9px;
+.status-dot {
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
 }
+
+
+/* TERDAFTAR */
 
 .registered {
-    background: #eaf7ed;
-    color: #43824f;
-    border: 1px solid #d3ebd8;
+    background: #e8f7f1;
+    color: #25856d;
+    border: 1px solid #cfeade;
 }
+
+.registered .status-dot {
+    background: #29a984;
+}
+
+
+/* DITERIMA */
 
 .accepted {
-    background: #e8f5f7;
-    color: #367a82;
-    border: 1px solid #d0e8eb;
+    background: #eaf5f8;
+    color: #397d88;
+    border: 1px solid #d2e8ec;
 }
+
+.accepted .status-dot {
+    background: #45a8b6;
+}
+
+
+/* DITOLAK */
 
 .rejected {
-    background: #fff0f0;
-    color: #b5414d;
-    border: 1px solid #f0d3d5;
+    background: #fff0f2;
+    color: #b43d50;
+    border: 1px solid #f0d5da;
 }
 
-.completed {
-    background: #f1edfb;
-    color: #68529a;
-    border: 1px solid #e2daf4;
+.rejected .status-dot {
+    background: #d24b60;
 }
+
+
+/* SELESAI */
+
+.completed {
+    background: #f2edfb;
+    color: #7058a0;
+    border: 1px solid #e2d9f2;
+}
+
+.completed .status-dot {
+    background: #8168b5;
+}
+
+
+/* PENDING */
 
 .pending {
     background: #fff5e8;
-    color: #aa7136;
-    border: 1px solid #f1dfc5;
+    color: #a97134;
+    border: 1px solid #f0dfc5;
+}
+
+.pending .status-dot {
+    background: #d39a4d;
 }
 
 
 /* EMPTY */
 
 .empty-card {
-    width: 100%;
-    max-width: 650px;
+    max-width: 620px;
 
-    margin: 45px auto;
-
-    padding: 50px 30px;
+    margin: 35px auto;
+    padding: 55px 35px;
 
     text-align: center;
 
-    background: #ffffff;
+    background: #fff;
 
-    border: 1px solid #f0dfdf;
+    border: 1px solid #f0dfe5;
+    border-radius: 20px;
 
-    border-radius: 16px;
-
-    box-shadow: 0 5px 20px rgba(185, 91, 91, 0.07);
+    box-shadow:
+        0 8px 30px rgba(168, 14, 44, 0.06);
 }
 
 .empty-icon {
-    width: 65px;
-    height: 65px;
+    width: 68px;
+    height: 68px;
 
-    margin: 0 auto 18px;
+    margin: 0 auto 14px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    background: #fff0f1;
+    background: linear-gradient(
+        135deg,
+        #fff0f4,
+        #fce3eb
+    );
 
-    color: #d12f48;
+    color: #b0143b;
 
-    border-radius: 18px;
+    border-radius: 20px;
 
     font-size: 24px;
+}
+
+.empty-label {
+    margin-bottom: 5px;
+
+    color: #b0143b;
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 2px;
 }
 
 .empty-card h2 {
     margin: 0 0 7px;
 
-    color: #443b3d;
+    color: #35405f;
 
-    font-size: 18px;
-    font-weight: 800;
+    font-size: 19px;
+    font-weight: 900;
 }
 
 .empty-card p {
-    margin: 0 0 22px;
+    max-width: 400px;
 
-    color: #9b9091;
+    margin: 0 auto 22px;
 
-    font-size: 11px;
+    color: #99939b;
+
+    font-size: 10px;
+    line-height: 1.7;
 }
 
 .btn-kegiatan {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
+    gap: 8px;
 
-    gap: 7px;
+    padding: 11px 17px;
 
-    padding: 10px 16px;
+    background: linear-gradient(
+        135deg,
+        #a80e2c,
+        #d94b91
+    );
 
-    background: #d12f48;
+    color: #fff !important;
 
-    color: #ffffff !important;
-
-    border-radius: 8px;
+    border-radius: 10px;
 
     font-size: 10px;
-    font-weight: 700;
+    font-weight: 800;
 
     text-decoration: none !important;
+
+    box-shadow:
+        0 7px 17px rgba(168, 14, 44, 0.17);
 
     transition: 0.2s ease;
 }
 
 .btn-kegiatan:hover {
-    background: #bd2940;
-
-    transform: translateY(-1px);
+    color: #fff !important;
+    transform: translateY(-2px);
+    box-shadow:
+        0 10px 22px rgba(168, 14, 44, 0.22);
 }
 
 
@@ -659,55 +989,116 @@
 @media (max-width: 768px) {
 
     .status-page {
-        padding: 22px 15px 30px;
+        padding: 22px 16px 35px;
     }
 
-    .page-heading h1 {
-        font-size: 24px;
+    .status-header {
+        padding: 23px;
     }
 
-    .card-top {
+    .status-header h1 {
+        font-size: 25px;
+    }
+
+    .header-decoration {
+        right: -25px;
+        opacity: 0.55;
+    }
+
+    .card-header {
+        padding: 22px;
         align-items: flex-start;
         flex-direction: column;
+        gap: 15px;
+    }
+
+    .total-badge {
+        align-self: flex-start;
+    }
+
+    .status-list {
+        padding-left: 17px;
+        padding-right: 17px;
     }
 
     .status-item {
         align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .activity-info {
+        width: calc(100% - 70px);
     }
 
     .status-area {
-        min-width: auto;
+        width: 100%;
+        padding-left: 68px;
+        justify-content: flex-start;
     }
 
 }
 
 
-@media (max-width: 560px) {
+@media (max-width: 520px) {
+
+    .status-page {
+        padding: 17px 12px 28px;
+    }
+
+    .status-header {
+        min-height: 130px;
+        padding: 20px;
+    }
+
+    .status-header h1 {
+        font-size: 22px;
+    }
+
+    .status-header p {
+        font-size: 10px;
+        max-width: 230px;
+    }
+
+    .header-decoration {
+        right: -70px;
+        opacity: 0.35;
+    }
+
+    .card-header h2 {
+        font-size: 17px;
+    }
 
     .status-item {
-        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .activity-icon {
+        width: 45px;
+        height: 45px;
+        border-radius: 13px;
+    }
+
+    .drop-shape {
+        width: 30px;
+        height: 34px;
     }
 
     .activity-info {
-        width: calc(100% - 60px);
+        width: calc(100% - 58px);
     }
 
-    .status-area {
-        width: 100%;
-
-        padding-left: 60px;
-
-        justify-content: flex-start;
+    .activity-info h3 {
+        font-size: 12px;
     }
 
     .activity-detail {
         flex-direction: column;
-
+        align-items: flex-start;
         gap: 5px;
     }
 
-    .total-badge {
-        align-self: flex-start;
+    .status-area {
+        padding-left: 57px;
     }
 
 }
