@@ -4,373 +4,940 @@
 
 <div class="container-fluid donor-page">
 
+    <!-- Header -->
     <div class="donor-header">
-        <div>
-            <div class="donor-small-title">DONORCONNECT</div>
+
+        <div class="header-content">
+
+            <div class="donor-small-title">
+                DONORCONNECT
+            </div>
 
             <h1>Riwayat Donor Saya</h1>
 
             <p>
                 Lihat riwayat kegiatan donor yang telah kamu ikuti.
             </p>
+
         </div>
 
-        <div class="donor-header-icon">
-            <i class="fas fa-history"></i>
+        <div class="donor-header-decoration">
+
+            <div class="decoration-circle circle-one"></div>
+            <div class="decoration-circle circle-two"></div>
+
+            <div class="header-icon">
+                <i class="fas fa-history"></i>
+            </div>
+
         </div>
+
     </div>
 
+
+    <!-- Statistik -->
+    <div class="donor-stat-row">
+
+        <div class="donor-stat-card">
+
+            <div class="stat-icon donor-stat-icon">
+                <i class="fas fa-heartbeat"></i>
+            </div>
+
+            <div class="stat-content">
+
+                <span class="stat-label">
+                    Total Donor
+                </span>
+
+                <strong>
+                    {{ $riwayat->count() }}
+                </strong>
+
+                <small>
+                    Kali donor
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="donor-stat-card">
+
+            <div class="stat-icon blood-stat-icon">
+                <i class="fas fa-tint"></i>
+            </div>
+
+            <div class="stat-content">
+
+                <span class="stat-label">
+                    Total Kantong
+                </span>
+
+                <strong>
+                    {{ $riwayat->sum(function ($item) {
+                        return $item->hasilDonor->jumlah_kantong ?? 0;
+                    }) }}
+                </strong>
+
+                <small>
+                    Kantong darah
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Card Riwayat -->
     <div class="donor-card">
 
         <div class="card-title-area">
+
             <div class="title-icon">
                 <i class="fas fa-history"></i>
             </div>
 
             <div>
+
                 <h3>Riwayat Donor</h3>
-                <p>Daftar riwayat donor kamu</p>
+
+                <p>
+                    Daftar kegiatan donor yang telah kamu lakukan
+                </p>
+
             </div>
-        </div>
-
-        <div class="table-responsive">
-
-            <table class="table donor-table">
-
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Kegiatan</th>
-                        <th>Tanggal Donor</th>
-                        <th>Jumlah Kantong</th>
-                        <th>Keterangan</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    @forelse ($riwayat as $item)
-
-                    <tr>
-
-                        <td>
-                            {{ $loop->iteration }}
-                        </td>
-
-                        <td>
-                            <div class="activity-name">
-
-                                <div class="activity-icon">
-                                    <i class="fas fa-tint"></i>
-                                </div>
-
-                                <span>
-                                    {{ $item->hasilDonor->kegiatanDonor->nama_kegiatan
-                                        ?? $item->kegiatanDonor->nama_kegiatan
-                                        ?? '-' }}
-                                </span>
-
-                            </div>
-                        </td>
-
-                        <td>
-                            {{ $item->hasilDonor->tanggal_donor
-                                ?? $item->tanggal_donor
-                                ?? '-' }}
-                        </td>
-
-                        <td>
-                            <span class="blood-bag">
-                                <i class="fas fa-tint"></i>
-
-                                {{ $item->hasilDonor->jumlah_kantong
-                                    ?? $item->jumlah_kantong
-                                    ?? 0 }}
-
-                                kantong
-                            </span>
-                        </td>
-
-                        <td>
-                            <span class="status-sehat">
-                                {{ $item->hasilDonor->keterangan
-                                    ?? $item->keterangan
-                                    ?? 'Sehat' }}
-                            </span>
-                        </td>
-
-                    </tr>
-
-                    @empty
-
-                    <tr>
-                        <td colspan="5">
-
-                            <div class="empty-state">
-
-                                <div class="empty-icon">
-                                    <i class="fas fa-history"></i>
-                                </div>
-
-                                <h4>Belum Ada Riwayat Donor</h4>
-
-                                <p>
-                                    Riwayat donor kamu akan muncul
-                                    setelah kamu melakukan donor.
-                                </p>
-
-                                <a href="{{ route('pendonor.kegiatan') }}"
-                                   class="btn-donor">
-
-                                    <i class="fas fa-calendar-alt"></i>
-                                    Lihat Kegiatan Donor
-
-                                </a>
-
-                            </div>
-
-                        </td>
-                    </tr>
-
-                    @endforelse
-
-                </tbody>
-
-            </table>
 
         </div>
+
+
+        @if($riwayat->count() > 0)
+
+        <div class="history-list">
+
+            @foreach($riwayat as $item)
+
+                <div class="history-item">
+
+                    <!-- Nomor -->
+                    <div class="history-number">
+                        {{ $loop->iteration }}
+                    </div>
+
+
+                    <!-- Icon -->
+                    <div class="activity-icon">
+
+                        <i class="fas fa-tint"></i>
+
+                    </div>
+
+
+                    <!-- Informasi -->
+                    <div class="history-main">
+
+                        <div class="history-title">
+
+                            <h4>
+                                {{ $item->hasilDonor->kegiatanDonor->nama_kegiatan ?? '-' }}
+                            </h4>
+
+                        </div>
+
+
+                        <div class="history-info">
+
+                            <span>
+                                <i class="fas fa-calendar-alt"></i>
+
+                                {{ $item->hasilDonor->tanggal_donor
+                                    ? $item->hasilDonor->tanggal_donor->format('d M Y')
+                                    : '-' }}
+                            </span>
+
+
+                            <span>
+                                <i class="fas fa-map-marker-alt"></i>
+
+                                {{ $item->hasilDonor->kegiatanDonor->lokasi ?? '-' }}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Jumlah -->
+                    <div class="history-amount">
+
+                        <span class="amount-label">
+                            Jumlah Donor
+                        </span>
+
+                        <span class="blood-bag">
+
+                            <i class="fas fa-tint"></i>
+
+                            {{ $item->hasilDonor->jumlah_kantong ?? 0 }}
+
+                            <small>kantong</small>
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- Status -->
+                    <div class="history-status">
+
+                        <span class="status-sehat">
+
+                            <i class="fas fa-check-circle"></i>
+
+                            {{ $item->hasilDonor->keterangan ?? 'Sehat' }}
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            @endforeach
+
+        </div>
+
+        @else
+
+        <!-- Empty -->
+        <div class="empty-state">
+
+            <div class="empty-illustration">
+
+                <div class="empty-circle">
+
+                    <i class="fas fa-history"></i>
+
+                </div>
+
+                <span class="empty-dot dot-one"></span>
+                <span class="empty-dot dot-two"></span>
+                <span class="empty-dot dot-three"></span>
+
+            </div>
+
+
+            <h4>
+                Belum Ada Riwayat Donor
+            </h4>
+
+            <p>
+                Riwayat donor kamu akan muncul setelah kamu
+                melakukan donor dan hasilnya dicatat oleh petugas.
+            </p>
+
+
+            <a href="{{ route('pendonor.kegiatan') }}"
+               class="btn-donor">
+
+                <i class="fas fa-calendar-alt"></i>
+
+                Lihat Kegiatan Donor
+
+            </a>
+
+        </div>
+
+        @endif
 
     </div>
 
 </div>
 
+
 <style>
 
+/* Halaman */
+
 .donor-page {
-    padding: 25px 28px;
+    padding: 25px 28px 40px;
     background: #fffaf7;
     min-height: calc(100vh - 72px);
 }
 
+
+/* Header */
+
 .donor-header {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: linear-gradient(135deg, #fff5f3, #fffdfb);
-    border: 1px solid #f1dddd;
-    border-radius: 16px;
-    padding: 22px 25px;
-    margin-bottom: 20px;
-    box-shadow: 0 5px 18px rgba(185, 91, 91, 0.06);
+    overflow: hidden;
+
+    min-height: 150px;
+
+    padding: 25px 30px;
+    margin-bottom: 18px;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff4f3 0%,
+            #fffafa 55%,
+            #fdebf3 100%
+        );
+
+    border: 1px solid #f0dadd;
+
+    box-shadow:
+        0 8px 25px rgba(126, 34, 52, .06);
+}
+
+.header-content {
+    position: relative;
+    z-index: 2;
 }
 
 .donor-small-title {
-    color: #c9364e;
+    color: #c9183b;
     font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    margin-bottom: 4px;
+    font-weight: 900;
+    letter-spacing: 1.8px;
+    margin-bottom: 5px;
 }
 
 .donor-header h1 {
     margin: 0;
-    color: #3f3437;
-    font-size: 23px;
-    font-weight: 800;
+
+    color: #283451;
+
+    font-size: 25px;
+    font-weight: 900;
 }
 
 .donor-header p {
-    margin: 6px 0 0;
-    color: #9b898c;
+    margin: 7px 0 0;
+
+    color: #8f7e83;
+
     font-size: 11px;
 }
 
-.donor-header-icon {
-    width: 52px;
-    height: 52px;
+
+/* Hiasan header */
+
+.donor-header-decoration {
+    position: relative;
+
+    width: 150px;
+    height: 110px;
+}
+
+.header-icon {
+    position: absolute;
+
+    right: 18px;
+    top: 27px;
+
+    width: 58px;
+    height: 58px;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 14px;
-    background: #fde3e5;
-    color: #c9364e;
+
+    border-radius: 17px;
+
+    background: linear-gradient(
+        135deg,
+        #a80e2c,
+        #d94b91
+    );
+
+    color: #ffffff;
+
     font-size: 21px;
+
+    box-shadow:
+        0 10px 22px rgba(168, 14, 44, .20);
+
+    z-index: 3;
 }
+
+.decoration-circle {
+    position: absolute;
+
+    border-radius: 50%;
+}
+
+.circle-one {
+    width: 85px;
+    height: 85px;
+
+    right: -5px;
+    top: 5px;
+
+    background: #f8dce8;
+    opacity: .75;
+}
+
+.circle-two {
+    width: 48px;
+    height: 48px;
+
+    right: 70px;
+    bottom: 5px;
+
+    background: #fde4e7;
+    opacity: .8;
+}
+
+
+/* Statistik */
+
+.donor-stat-row {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 16px;
+
+    margin-bottom: 18px;
+}
+
+.donor-stat-card {
+    display: flex;
+    align-items: center;
+
+    min-height: 92px;
+
+    padding: 16px 19px;
+
+    background: #ffffff;
+
+    border: 1px solid #f0dfe0;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 5px 18px rgba(126, 34, 52, .05);
+
+    transition: .2s ease;
+}
+
+.donor-stat-card:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 9px 22px rgba(126, 34, 52, .08);
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 13px;
+
+    font-size: 17px;
+}
+
+.donor-stat-icon {
+    background: #fde7ec;
+    color: #c9183b;
+}
+
+.blood-stat-icon {
+    background: #f8e5ed;
+    color: #c13c68;
+}
+
+.stat-content {
+    display: flex;
+    flex-direction: column;
+
+    margin-left: 13px;
+}
+
+.stat-label {
+    color: #9a858b;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    text-transform: uppercase;
+    letter-spacing: .6px;
+}
+
+.stat-content strong {
+    margin-top: 2px;
+
+    color: #30364f;
+
+    font-size: 22px;
+    font-weight: 900;
+
+    line-height: 1.1;
+}
+
+.stat-content small {
+    margin-top: 2px;
+
+    color: #b19ca1;
+
+    font-size: 9px;
+}
+
+
+/* Card */
 
 .donor-card {
     background: #ffffff;
+
     border: 1px solid #f0dddd;
-    border-radius: 16px;
+
+    border-radius: 17px;
+
     padding: 22px;
-    box-shadow: 0 5px 20px rgba(185, 91, 91, 0.06);
+
+    box-shadow:
+        0 7px 24px rgba(126, 34, 52, .055);
 }
+
+
+/* Judul card */
 
 .card-title-area {
     display: flex;
     align-items: center;
+
     gap: 12px;
-    margin-bottom: 20px;
+
+    margin-bottom: 19px;
 }
 
 .title-icon {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 10px;
-    background: #fde7e8;
-    color: #c9364e;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fde4e8,
+            #f8dce9
+        );
+
+    color: #c9183b;
+
     font-size: 15px;
 }
 
 .card-title-area h3 {
     margin: 0;
-    color: #493d40;
+
+    color: #30364f;
+
     font-size: 15px;
-    font-weight: 800;
+    font-weight: 900;
 }
 
 .card-title-area p {
     margin: 3px 0 0;
-    color: #a18e91;
+
+    color: #a18e93;
+
     font-size: 10px;
 }
 
-.donor-table {
-    width: 100%;
-    margin: 0;
-    border-collapse: separate;
-    border-spacing: 0;
-    overflow: hidden;
-    border: 1px solid #f1e4e2;
-    border-radius: 12px;
+
+/* History */
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
 }
 
-.donor-table thead th {
-    background: #fff3f2;
-    color: #a64755;
-    border: none;
-    padding: 13px 12px;
-    font-size: 10px;
-    font-weight: 800;
-    white-space: nowrap;
-}
-
-.donor-table tbody td {
-    padding: 14px 12px;
-    border-top: 1px solid #f4e9e7;
-    color: #5d5154;
-    font-size: 10px;
-    vertical-align: middle;
-}
-
-.donor-table tbody tr:hover {
-    background: #fffafa;
-}
-
-.activity-name {
+.history-item {
     display: flex;
     align-items: center;
-    gap: 9px;
-    min-width: 190px;
+
+    min-height: 78px;
+
+    padding: 12px 14px;
+
+    background: #fffdfd;
+
+    border: 1px solid #f1e6e6;
+
+    border-radius: 13px;
+
+    transition: .2s ease;
 }
 
+.history-item:hover {
+    background: #fff8f9;
+
+    border-color: #eed4da;
+
+    transform: translateX(2px);
+
+    box-shadow:
+        0 5px 15px rgba(126, 34, 52, .055);
+}
+
+
+/* Nomor */
+
+.history-number {
+    width: 25px;
+
+    color: #b8a5a9;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    text-align: center;
+}
+
+
+/* Icon kegiatan */
+
 .activity-icon {
-    width: 31px;
-    height: 31px;
-    flex-shrink: 0;
+    width: 39px;
+    height: 39px;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
-    background: #fde6e8;
-    color: #c9364e;
-    font-size: 11px;
+
+    flex-shrink: 0;
+
+    margin-left: 5px;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fde4e8,
+            #f5d8e6
+        );
+
+    color: #c9183b;
+
+    font-size: 13px;
 }
 
-.activity-name span {
-    color: #4a3e41;
-    font-weight: 700;
+
+/* Main */
+
+.history-main {
+    flex: 1;
+
+    min-width: 0;
+
+    margin-left: 13px;
+}
+
+.history-title h4 {
+    margin: 0;
+
+    color: #3c4058;
+
+    font-size: 11px;
+    font-weight: 800;
+
     line-height: 1.4;
+}
+
+.history-info {
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    margin-top: 6px;
+}
+
+.history-info span {
+    display: flex;
+    align-items: center;
+
+    gap: 5px;
+
+    color: #9e8d92;
+
+    font-size: 8px;
+}
+
+.history-info i {
+    color: #c9183b;
+
+    font-size: 8px;
+}
+
+
+/* Jumlah */
+
+.history-amount {
+    width: 105px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: flex-start;
+}
+
+.amount-label {
+    margin-bottom: 5px;
+
+    color: #b09da1;
+
+    font-size: 7px;
+    font-weight: 800;
+
+    text-transform: uppercase;
+    letter-spacing: .4px;
 }
 
 .blood-bag {
     display: inline-flex;
     align-items: center;
+
     gap: 5px;
-    background: #fff0f0;
-    color: #c9364e;
+
     padding: 6px 9px;
-    border-radius: 7px;
+
+    border-radius: 8px;
+
+    background: #fff0f2;
+
+    color: #c9183b;
+
     font-size: 9px;
-    font-weight: 700;
+    font-weight: 800;
 }
 
 .blood-bag i {
     font-size: 9px;
 }
 
-.status-sehat {
-    display: inline-block;
-    padding: 6px 10px;
-    border-radius: 7px;
-    background: #eaf7ed;
-    color: #39814c;
-    font-size: 9px;
-    font-weight: 700;
+.blood-bag small {
+    font-size: 8px;
 }
 
-.empty-state {
-    text-align: center;
-    padding: 45px 20px;
-}
 
-.empty-icon {
-    width: 60px;
-    height: 60px;
-    margin: 0 auto 12px;
+/* Status */
+
+.history-status {
+    width: 100px;
+
     display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: #fde7e8;
-    color: #c9364e;
-    font-size: 22px;
+    justify-content: flex-end;
 }
 
-.empty-state h4 {
-    margin: 0 0 6px;
-    color: #514548;
-    font-size: 14px;
+.status-sehat {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 5px;
+
+    padding: 6px 9px;
+
+    border-radius: 8px;
+
+    background: #eaf7ed;
+
+    color: #39814c;
+
+    font-size: 8px;
     font-weight: 800;
 }
 
+.status-sehat i {
+    font-size: 8px;
+}
+
+
+/* Empty */
+
+.empty-state {
+    padding: 50px 20px 45px;
+
+    text-align: center;
+}
+
+.empty-illustration {
+    position: relative;
+
+    width: 75px;
+    height: 75px;
+
+    margin: 0 auto 15px;
+}
+
+.empty-circle {
+    width: 65px;
+    height: 65px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 5px auto;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fde5e9,
+            #f7dcea
+        );
+
+    color: #c9183b;
+
+    font-size: 22px;
+}
+
+.empty-dot {
+    position: absolute;
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #e7b6c8;
+}
+
+.dot-one {
+    top: 2px;
+    right: 8px;
+}
+
+.dot-two {
+    bottom: 8px;
+    left: 4px;
+
+    background: #f0c8d4;
+}
+
+.dot-three {
+    top: 23px;
+    left: 0;
+
+    width: 5px;
+    height: 5px;
+}
+
+.empty-state h4 {
+    margin: 0 0 7px;
+
+    color: #414558;
+
+    font-size: 15px;
+    font-weight: 900;
+}
+
 .empty-state p {
-    margin: 0 auto 17px;
-    max-width: 350px;
-    color: #a28f92;
+    max-width: 390px;
+
+    margin: 0 auto 18px;
+
+    color: #a18e93;
+
     font-size: 10px;
-    line-height: 1.6;
+
+    line-height: 1.7;
 }
 
 .btn-donor {
     display: inline-flex;
     align-items: center;
+
     gap: 7px;
-    padding: 9px 15px;
-    border-radius: 8px;
-    background: #d92b45;
+
+    padding: 10px 16px;
+
+    border-radius: 9px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #c90000,
+            #d92b63
+        );
+
     color: #ffffff !important;
+
     font-size: 10px;
-    font-weight: 700;
+    font-weight: 800;
+
     text-decoration: none;
+
+    box-shadow:
+        0 6px 14px rgba(201, 0, 0, .15);
+
+    transition: .2s ease;
 }
 
 .btn-donor:hover {
-    background: #c6203a;
+    transform: translateY(-1px);
+
+    background:
+        linear-gradient(
+            135deg,
+            #ad0000,
+            #c62055
+        );
+
     color: #ffffff !important;
+
     text-decoration: none;
+}
+
+
+/* Responsive */
+
+@media (max-width: 900px) {
+
+    .history-item {
+        flex-wrap: wrap;
+    }
+
+    .history-main {
+        width: calc(100% - 80px);
+    }
+
+    .history-amount {
+        margin-left: 73px;
+        margin-top: 8px;
+    }
+
+    .history-status {
+        margin-left: auto;
+        margin-top: 8px;
+    }
+
 }
 
 @media (max-width: 768px) {
@@ -380,19 +947,53 @@
     }
 
     .donor-header {
-        padding: 18px;
+        padding: 20px;
+
+        min-height: 130px;
     }
 
     .donor-header h1 {
-        font-size: 19px;
+        font-size: 20px;
+    }
+
+    .donor-header-decoration {
+        width: 80px;
+    }
+
+    .header-icon {
+        right: 0;
+    }
+
+    .circle-one,
+    .circle-two {
+        display: none;
+    }
+
+    .donor-stat-row {
+        grid-template-columns: 1fr;
     }
 
     .donor-card {
         padding: 15px;
     }
 
-    .donor-table {
-        min-width: 700px;
+    .history-item {
+        align-items: flex-start;
+    }
+
+    .history-info {
+        flex-direction: column;
+        align-items: flex-start;
+
+        gap: 5px;
+    }
+
+    .history-amount {
+        margin-left: 69px;
+    }
+
+    .history-status {
+        width: auto;
     }
 
 }

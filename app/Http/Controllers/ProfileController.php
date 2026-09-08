@@ -15,21 +15,21 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
-        $pendonor = Pendonor::with('user')
-            ->where('id_user', $user->id_user)
-            ->first();
-
         if ($user->role === 'petugas') {
-            $petugas = PetugasPMR::where(
-                'id_user',
-                $user->id_user
-            )->first();
+
+            $petugas = PetugasPMR::firstOrCreate([
+                'id_user' => $user->id_user
+            ]);
 
             return view(
                 'pages.pendonor.profile.profile',
                 compact('user', 'petugas')
             );
         }
+
+        $pendonor = Pendonor::with('user')
+            ->where('id_user', $user->id_user)
+            ->firstOrFail();
 
         return view(
             'pages.pendonor.profile.profile',
@@ -42,19 +42,26 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
+        if ($user->role === 'petugas') {
+
+            $petugas = PetugasPMR::firstOrCreate([
+                'id_user' => $user->id_user
+            ]);
+
+            return view(
+                'pages.pendonor.profile.edit',
+                compact('user', 'petugas')
+            );
+        }
+
         $pendonor = Pendonor::where(
             'id_user',
             $user->id_user
-        )->first();
-
-        $petugas = PetugasPMR::where(
-            'id_user',
-            $user->id_user
-        )->first();
+        )->firstOrFail();
 
         return view(
             'pages.pendonor.profile.edit',
-            compact('user', 'pendonor', 'petugas')
+            compact('user', 'pendonor')
         );
     }
 
@@ -78,13 +85,13 @@ class ProfileController extends Controller
 
         $user->save();
 
-        // Update data pendonor
-        $pendonor = Pendonor::where(
-            'id_user',
-            $user->id_user
-        )->first();
+        if ($user->role === 'pendonor') {
 
-        if ($pendonor) {
+            $pendonor = Pendonor::where(
+                'id_user',
+                $user->id_user
+            )->firstOrFail();
+
             $pendonorData = $request->validate([
                 'status' => 'required|string|max:255',
                 'kelas_jabatan' => 'required|string|max:255',
@@ -95,6 +102,13 @@ class ProfileController extends Controller
             ]);
 
             $pendonor->update($pendonorData);
+        }
+
+        if ($user->role === 'petugas') {
+
+            PetugasPMR::firstOrCreate([
+                'id_user' => $user->id_user
+            ]);
         }
 
         return redirect()

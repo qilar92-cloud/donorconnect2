@@ -6,122 +6,81 @@
 
 <div class="container-fluid">
 
-    <!-- Header -->
     <div class="mb-4">
-        
+        <h1 class="h3 mb-2" style="font-weight: 800; color: #27324a;">
+            Profil Saya
+        </h1>
 
         @if(isset($pendonor))
-           
+            <p class="mb-0 text-muted">
+                Informasi data pribadi pendonor.
+            </p>
         @else
             <p class="mb-0 text-muted">
-                Informasi data pribadi dan profil petugas PMR.
+                Informasi data pribadi petugas PMR.
             </p>
         @endif
     </div>
 
-    <!-- Card Profil -->
-    <div class="card border-0 shadow-sm" style="border-radius: 18px; overflow: hidden;">
+    <div class="card border-0 shadow-sm profile-card">
 
-        <!-- Card Header -->
-        <div class="card-header bg-white py-4 px-4"
-             style="border-bottom: 1px solid #f0e5eb;">
+        <div class="card-header bg-white profile-header">
 
             <div class="d-flex align-items-center">
 
-                <div style="
-                    width: 58px;
-                    height: 58px;
-                    border-radius: 14px;
-                    background: linear-gradient(135deg, #a80e2c, #d94b91);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    color: white;
-                    font-size: 24px;
-                ">
+                <div class="profile-header-icon">
                     <i class="fas fa-user"></i>
                 </div>
 
                 <div class="ml-3">
-                    <h5 class="mb-1" style="font-weight: 800; color: #27324a;">
+
+                    <h5 class="mb-1 profile-title">
                         Informasi Profil
                     </h5>
 
                     @if(isset($pendonor))
-                        <small class="text-muted">Data Pendonor</small>
+                        <small class="text-muted">
+                            Data Pendonor
+                        </small>
                     @else
-                        <small class="text-muted">Data Petugas PMR</small>
+                        <small class="text-muted">
+                            Data Petugas PMR
+                        </small>
                     @endif
+
                 </div>
 
             </div>
 
         </div>
 
-        <!-- Isi Profil -->
-        <div class="card-body p-4 p-md-5">
+        <div class="card-body profile-body">
 
-            <div class="row align-items-center">
+            <div class="row">
 
-                <!-- Foto Profil -->
-                <div class="col-md-4 text-center mb-4 mb-md-0">
+                <div class="col-md-4 text-center">
 
-                    <div style="
-                        width: 145px;
-                        height: 145px;
-                        border-radius: 50%;
-                        background: linear-gradient(135deg, #a80e2c, #d94b91);
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        margin: 0 auto 20px;
-                        box-shadow: 0 10px 25px rgba(168, 14, 44, 0.20);
-                    ">
-                        <i class="fas fa-user"
-                           style="font-size: 65px; color: white;"></i>
+                    <div class="profile-avatar">
+                        <i class="fas fa-user"></i>
                     </div>
 
                     @if(isset($pendonor))
 
-                        <h5 style="
-                            font-weight: 800;
-                            color: #27324a;
-                            margin-bottom: 8px;
-                        ">
-                            {{ $pendonor->user->nama }}
-                        </h5>
+                        <h4 class="profile-name">
+                            {{ $user->nama }}
+                        </h4>
 
-                        <span style="
-                            display: inline-block;
-                            padding: 6px 16px;
-                            border-radius: 20px;
-                            background: #fce7ef;
-                            color: #a80e2c;
-                            font-size: 12px;
-                            font-weight: 700;
-                        ">
+                        <span class="profile-role">
                             PENDONOR
                         </span>
 
                     @else
 
-                        <h5 style="
-                            font-weight: 800;
-                            color: #27324a;
-                            margin-bottom: 8px;
-                        ">
-                            {{ $petugas->user->nama }}
-                        </h5>
+                        <h4 class="profile-name">
+                            {{ $user->nama }}
+                        </h4>
 
-                        <span style="
-                            display: inline-block;
-                            padding: 6px 16px;
-                            border-radius: 20px;
-                            background: #fce7ef;
-                            color: #a80e2c;
-                            font-size: 12px;
-                            font-weight: 700;
-                        ">
+                        <span class="profile-role">
                             PETUGAS PMR
                         </span>
 
@@ -129,12 +88,10 @@
 
                 </div>
 
-                <!-- Detail -->
                 <div class="col-md-8">
 
                     @if(isset($pendonor))
 
-                        <!-- Nama -->
                         <div class="profile-item">
                             <div class="profile-icon">
                                 <i class="fas fa-user"></i>
@@ -142,11 +99,10 @@
 
                             <div>
                                 <small>Nama Lengkap</small>
-                                <strong>{{ $pendonor->user->nama }}</strong>
+                                <strong>{{ $user->nama }}</strong>
                             </div>
                         </div>
 
-                        <!-- Email -->
                         <div class="profile-item">
                             <div class="profile-icon">
                                 <i class="fas fa-envelope"></i>
@@ -154,11 +110,10 @@
 
                             <div>
                                 <small>Email</small>
-                                <strong>{{ $pendonor->user->email }}</strong>
+                                <strong>{{ $user->email }}</strong>
                             </div>
                         </div>
 
-                        <!-- Status -->
                         <div class="profile-item">
                             <div class="profile-icon">
                                 <i class="fas fa-user-tag"></i>
@@ -170,7 +125,6 @@
                             </div>
                         </div>
 
-                        <!-- Kelas -->
                         <div class="profile-item">
                             <div class="profile-icon">
                                 <i class="fas fa-graduation-cap"></i>
@@ -182,7 +136,6 @@
                             </div>
                         </div>
 
-                        <!-- Tanggal Lahir -->
                         <div class="profile-item">
                             <div class="profile-icon">
                                 <i class="fas fa-calendar"></i>
@@ -196,7 +149,6 @@
                             </div>
                         </div>
 
-                        <!-- Golongan Darah -->
                         <div class="profile-item">
                             <div class="profile-icon">
                                 <i class="fas fa-tint"></i>
@@ -208,7 +160,6 @@
                             </div>
                         </div>
 
-                        <!-- Telepon -->
                         <div class="profile-item">
                             <div class="profile-icon">
                                 <i class="fas fa-phone"></i>
@@ -220,7 +171,6 @@
                             </div>
                         </div>
 
-                        <!-- Kesehatan -->
                         <div class="profile-item">
                             <div class="profile-icon">
                                 <i class="fas fa-heartbeat"></i>
@@ -234,7 +184,6 @@
 
                     @elseif(isset($petugas))
 
-                        <!-- Nama -->
                         <div class="profile-item">
                             <div class="profile-icon">
                                 <i class="fas fa-user"></i>
@@ -242,11 +191,10 @@
 
                             <div>
                                 <small>Nama Lengkap</small>
-                                <strong>{{ $petugas->user->nama }}</strong>
+                                <strong>{{ $user->nama }}</strong>
                             </div>
                         </div>
 
-                        <!-- Email -->
                         <div class="profile-item">
                             <div class="profile-icon">
                                 <i class="fas fa-envelope"></i>
@@ -254,11 +202,10 @@
 
                             <div>
                                 <small>Email</small>
-                                <strong>{{ $petugas->user->email }}</strong>
+                                <strong>{{ $user->email }}</strong>
                             </div>
                         </div>
 
-                        <!-- Jabatan -->
                         <div class="profile-item">
                             <div class="profile-icon">
                                 <i class="fas fa-user-shield"></i>
@@ -270,7 +217,6 @@
                             </div>
                         </div>
 
-                        <!-- ID Petugas -->
                         <div class="profile-item">
                             <div class="profile-icon">
                                 <i class="fas fa-id-card"></i>
@@ -282,6 +228,13 @@
                             </div>
                         </div>
 
+                    @else
+
+                        <div class="empty-profile">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Data petugas belum tersedia.</span>
+                        </div>
+
                     @endif
 
                 </div>
@@ -290,20 +243,9 @@
 
         </div>
 
-        <!-- Footer -->
-        <div class="card-footer bg-white px-4 py-4"
-             style="border-top: 1px solid #f0e5eb;">
+        <div class="card-footer bg-white profile-footer">
 
-            <a href="{{ route('profile.edit') }}"
-               class="btn"
-               style="
-                    background: linear-gradient(135deg, #a80e2c, #d94b91);
-                    color: white;
-                    border: none;
-                    border-radius: 10px;
-                    padding: 11px 22px;
-                    font-weight: 700;
-               ">
+            <a href="{{ route('profile.edit') }}" class="btn profile-button">
                 <i class="fas fa-edit mr-2"></i>
                 Ubah Profil
             </a>
@@ -319,9 +261,70 @@
 @push('styles')
 <style>
 
+.profile-card {
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.profile-header {
+    padding: 24px 28px;
+    border-bottom: 1px solid #f0e5eb;
+}
+
+.profile-header-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #a80e2c, #d94b91);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.profile-title {
+    font-weight: 800;
+    color: #27324a;
+}
+
+.profile-body {
+    padding: 45px;
+}
+
+.profile-avatar {
+    width: 145px;
+    height: 145px;
+    border-radius: 50%;
+    margin: 10px auto 22px;
+    background: linear-gradient(135deg, #a80e2c, #d94b91);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 65px;
+    box-shadow: 0 12px 28px rgba(168, 14, 44, 0.20);
+}
+
+.profile-name {
+    color: #27324a;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.profile-role {
+    display: inline-block;
+    padding: 7px 18px;
+    border-radius: 20px;
+    background: #fce7ef;
+    color: #a80e2c;
+    font-size: 12px;
+    font-weight: 800;
+}
+
 .profile-item {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 15px;
     padding: 14px 0;
     border-bottom: 1px solid #f3e9ee;
@@ -332,10 +335,10 @@
 }
 
 .profile-icon {
-    width: 38px;
-    height: 38px;
-    min-width: 38px;
-    border-radius: 10px;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 11px;
     background: #fce7ef;
     color: #c91845;
     display: flex;
@@ -345,7 +348,7 @@
 
 .profile-item small {
     display: block;
-    color: #9a9a9a;
+    color: #999;
     font-size: 12px;
     margin-bottom: 3px;
 }
@@ -357,10 +360,48 @@
     font-weight: 700;
 }
 
+.empty-profile {
+    background: #fff7f5;
+    border: 1px solid #f0dfe5;
+    border-radius: 12px;
+    padding: 18px;
+    color: #777;
+}
+
+.empty-profile i {
+    color: #c91845;
+    margin-right: 8px;
+}
+
+.profile-footer {
+    padding: 22px 28px;
+    border-top: 1px solid #f0e5eb;
+}
+
+.profile-button {
+    background: linear-gradient(135deg, #a80e2c, #d94b91);
+    color: white;
+    border: none;
+    border-radius: 11px;
+    padding: 11px 22px;
+    font-weight: 700;
+}
+
+.profile-button:hover {
+    color: white;
+    opacity: 0.92;
+}
+
 @media (max-width: 768px) {
 
-    .profile-item {
-        padding: 12px 0;
+    .profile-body {
+        padding: 25px;
+    }
+
+    .profile-avatar {
+        width: 125px;
+        height: 125px;
+        font-size: 55px;
     }
 
 }

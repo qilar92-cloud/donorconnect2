@@ -8,6 +8,15 @@
         <i class="fa fa-bars"></i>
     </button>
 
+    <!-- Hiasan -->
+    <div class="navbar-decoration">
+        <span class="shape shape-one"></span>
+        <span class="shape shape-two"></span>
+        <span class="shape shape-three"></span>
+        <span class="curve curve-one"></span>
+        <span class="curve curve-two"></span>
+    </div>
+
     <!-- User -->
     <ul class="navbar-nav ml-auto">
 
@@ -30,7 +39,7 @@
                 <span class="donor-user-info d-none d-lg-flex">
 
                     <span class="donor-user-name">
-                        {{ Auth::user()->nama ?? 'Pendonor' }}
+                        {{ Auth::user()->nama ?? 'User' }}
                     </span>
 
                     <span class="donor-user-role">
@@ -58,7 +67,7 @@
                     <div class="donor-dropdown-user">
 
                         <strong>
-                            {{ Auth::user()->nama ?? 'Pendonor' }}
+                            {{ Auth::user()->nama ?? 'User' }}
                         </strong>
 
                         <small>
@@ -93,10 +102,7 @@
                 <a
                     class="dropdown-item donor-dropdown-item logout-item"
                     href="#"
-                    onclick="
-                        event.preventDefault();
-                        document.getElementById('form-logout').submit();
-                    "
+                    onclick="event.preventDefault(); document.getElementById('form-logout').submit();"
                 >
 
                     <span class="dropdown-icon logout-icon">
@@ -113,8 +119,8 @@
 
                 <form
                     action="{{ route('logout') }}"
-                    id="form-logout"
                     method="POST"
+                    id="form-logout"
                     class="d-none"
                 >
                     @csrf
@@ -131,15 +137,88 @@
 
 <style>
 
+/* Navbar */
+
 .donor-navbar {
     min-height: 72px;
     padding: 0 28px;
     background: #ffffff !important;
     border-bottom: 1px solid #f1dddd;
-    box-shadow: 0 4px 18px rgba(111, 38, 54, .07);
+    box-shadow: 0 4px 18px rgba(111, 38, 54, .06);
     position: relative;
-    z-index: 10;
+    z-index: 1000;
+
+    /* Jangan hidden supaya dropdown tidak terpotong */
+    overflow: visible !important;
 }
+
+
+/* Hiasan */
+
+.navbar-decoration {
+    position: absolute;
+    left: 260px;
+    right: 300px;
+    top: 0;
+    height: 72px;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.shape {
+    position: absolute;
+    border-radius: 50%;
+}
+
+.shape-one {
+    width: 120px;
+    height: 120px;
+    top: -72px;
+    left: 18%;
+    background: rgba(217, 75, 145, .08);
+}
+
+.shape-two {
+    width: 80px;
+    height: 80px;
+    bottom: -50px;
+    left: 42%;
+    background: rgba(201, 0, 0, .06);
+}
+
+.shape-three {
+    width: 45px;
+    height: 45px;
+    top: 14px;
+    right: 24%;
+    background: rgba(217, 75, 145, .07);
+}
+
+.curve {
+    position: absolute;
+    border: 1.5px solid rgba(201, 0, 0, .10);
+    border-radius: 50%;
+    transform: rotate(-12deg);
+}
+
+.curve-one {
+    width: 190px;
+    height: 65px;
+    left: 30%;
+    top: 5px;
+}
+
+.curve-two {
+    width: 140px;
+    height: 50px;
+    left: 55%;
+    top: 17px;
+    border-color: rgba(217, 75, 145, .12);
+}
+
+
+/* Tombol mobile */
 
 .donor-menu-button {
     width: 38px;
@@ -150,13 +229,14 @@
     border-radius: 11px !important;
     background: #fff0f3;
     color: #bd183d !important;
-    transition: .2s ease;
 }
 
 .donor-menu-button:hover {
     background: #ffe2e9;
-    color: #9f1233 !important;
 }
+
+
+/* User */
 
 .donor-user-menu {
     min-height: 50px;
@@ -164,6 +244,8 @@
     align-items: center;
     padding: 5px 9px !important;
     border-radius: 15px;
+    position: relative;
+    z-index: 1001;
     transition: .2s ease;
 }
 
@@ -230,15 +312,19 @@
     color: #bd183d;
 }
 
+
+/* Dropdown */
+
 .donor-dropdown {
     width: 245px;
-    margin-top: 9px;
+    margin-top: 9px !important;
     padding: 7px 0;
     background: #ffffff;
     border: 1px solid #f0dce0;
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 12px 30px rgba(83, 33, 45, .13) !important;
+    box-shadow: 0 12px 30px rgba(83, 33, 45, .15) !important;
+    z-index: 2000 !important;
 }
 
 .donor-dropdown-header {
@@ -268,38 +354,31 @@
     );
     color: #ffffff;
     font-size: 14px;
-    box-shadow: 0 4px 10px rgba(169, 14, 44, .17);
 }
 
-.donor-dropdown-user {
-    min-width: 0;
-}
-
-.donor-dropdown-header strong {
+.donor-dropdown-user strong {
     display: block;
-    max-width: 155px;
     color: #3b3034;
     font-size: 12px;
-    font-weight: 900;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-weight: 800;
 }
 
-.donor-dropdown-header small {
+.donor-dropdown-user small {
     display: block;
     margin-top: 4px;
     color: #a08087;
     font-size: 9px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: .5px;
 }
 
 .donor-dropdown .dropdown-divider {
     margin: 6px 14px;
     border-top-color: #f2e3e6;
 }
+
+
+/* Item dropdown */
 
 .donor-dropdown-item {
     display: flex !important;
@@ -315,9 +394,8 @@
 }
 
 .donor-dropdown-item:hover {
-    background: #fff0f3;
+    background: #fff0f3 !important;
     color: #b6173c !important;
-    transform: translateX(2px);
 }
 
 .dropdown-icon {
@@ -348,13 +426,14 @@
 .dropdown-arrow {
     color: #c7aeb3;
     font-size: 8px;
-    transition: .2s ease;
 }
 
 .donor-dropdown-item:hover .dropdown-arrow {
     color: #b6173c;
-    transform: translateX(2px);
 }
+
+
+/* Mobile */
 
 @media (max-width: 768px) {
 
@@ -363,14 +442,20 @@
         padding: 0 15px;
     }
 
+    .navbar-decoration {
+        left: 100px;
+        right: 150px;
+        height: 65px;
+    }
+
     .donor-avatar {
         width: 39px;
         height: 39px;
         border-radius: 12px;
     }
 
-    .donor-chevron {
-        margin-left: 7px;
+    .donor-dropdown {
+        width: 220px;
     }
 
 }
