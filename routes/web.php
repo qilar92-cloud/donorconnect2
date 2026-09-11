@@ -12,27 +12,33 @@ use App\Http\Controllers\RiwayatDonorController;
 use App\Models\KegiatanDonor;
 use Illuminate\Support\Facades\Route;
 
+// Landing
 Route::get('/', function () {
     return view('pages.landing.index');
 })->name('landing');
 
+// Login
 Route::get('/login', [LoginController::class, 'showLoginForm'])
     ->name('login');
 
 Route::post('/login', [LoginController::class, 'login'])
     ->name('login.submit');
 
+// Register
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])
     ->name('register');
 
 Route::post('/register', [RegisterController::class, 'register'])
     ->name('register.submit');
 
+// Auth
 Route::middleware('auth')->group(function () {
 
+    // Logout
     Route::post('/logout', [LoginController::class, 'logout'])
         ->name('logout');
 
+    // Profile
     Route::get('/profile', [ProfileController::class, 'show'])
         ->name('profile');
 
@@ -41,6 +47,7 @@ Route::middleware('auth')->group(function () {
 
     Route::put('/profile', [ProfileController::class, 'update'])
         ->name('profile.update');
+
 
     // Pendonor
     Route::middleware('role:pendonor')->group(function () {
@@ -86,14 +93,17 @@ Route::middleware('auth')->group(function () {
         ])->name('pendonor.riwayat');
     });
 
+
     // Petugas
     Route::middleware('role:petugas')->group(function () {
 
+        // Dashboard
         Route::get('/petugas/dashboard', function () {
             return view('pages.dashboard.petugas');
         })->name('dashboard.petugas');
 
-        // Kegiatan donor
+
+        // Kegiatan Donor
         Route::get('/kegiatan-donor', [
             KegiatanDonorController::class,
             'index',
@@ -129,7 +139,8 @@ Route::middleware('auth')->group(function () {
             'destroy',
         ])->name('kegiatan-donor.destroy');
 
-        // Hasil donor
+
+        // Hasil Donor
         Route::get('/hasil-donor/create', [
             HasilDonorController::class,
             'create',
@@ -140,7 +151,8 @@ Route::middleware('auth')->group(function () {
             'store',
         ])->name('hasil-donor.store');
 
-        // Riwayat donor
+
+        // Riwayat Donor
         Route::get('/riwayat-donor', [
             RiwayatDonorController::class,
             'index',
@@ -150,6 +162,7 @@ Route::middleware('auth')->group(function () {
             RiwayatDonorController::class,
             'store',
         ])->name('riwayat-donor.store');
+
 
         // Laporan
         Route::get('/laporan-donor', [
@@ -162,10 +175,31 @@ Route::middleware('auth')->group(function () {
             'filter',
         ])->name('laporan-donor.filter');
 
-        // Data pendonor
+
+        // Data Pendonor
         Route::get('/pendonor', [
             PendonorController::class,
             'dataPendonor',
         ])->name('pendonor.index');
+
+        Route::get('/pendonor/{id}', [
+            PendonorController::class,
+            'show',
+        ])->name('pendonor.show');
+
+        Route::get('/pendonor/{id}/edit', [
+            PendonorController::class,
+            'edit',
+        ])->name('pendonor.edit');
+
+        Route::put('/pendonor/{id}', [
+            PendonorController::class,
+            'update',
+        ])->name('pendonor.update');
+
+        Route::delete('/pendonor/{id}', [
+            PendonorController::class,
+            'destroy',
+        ])->name('pendonor.destroy');
     });
 });

@@ -7,52 +7,41 @@
     use App\Models\KegiatanDonor;
     use App\Models\HasilDonor;
 
+    // Data
     $totalPendonor = $jumlahPendonor ?? Pendonor::count();
     $totalKegiatan = $jumlahKegiatan ?? KegiatanDonor::count();
     $totalHasil = $jumlahHasil ?? HasilDonor::count();
 
-    $kantongHariIni = $jumlahKantongHariIni ?? HasilDonor::whereDate(
-        'tanggal_donor',
-        today()
-    )->sum('jumlah_kantong');
+    $kantongHariIni = $jumlahKantongHariIni
+        ?? HasilDonor::whereDate('tanggal_donor', today())->sum('jumlah_kantong');
 
-    $kegiatanTerdekat = $kegiatanTerdekat ?? KegiatanDonor::orderBy(
-        'tanggal',
-        'asc'
-    )->take(3)->get();
+    $kegiatanTerdekat = $kegiatanTerdekat
+        ?? KegiatanDonor::whereDate('tanggal', '>=', today())
+            ->orderBy('tanggal', 'asc')
+            ->take(3)
+            ->get();
 
     $bulan = [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'Mei',
-        'Jun',
-        'Jul',
-        'Agu',
-        'Sep',
-        'Okt',
-        'Nov',
-        'Des'
+        'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun',
+        'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'
     ];
 
     $grafikDonor = [];
 
     for ($i = 1; $i <= 12; $i++) {
-        $grafikDonor[] = HasilDonor::whereMonth(
-            'tanggal_donor',
-            $i
-        )->whereYear(
-            'tanggal_donor',
-            now()->year
-        )->sum('jumlah_kantong');
+        $grafikDonor[] = HasilDonor::whereMonth('tanggal_donor', $i)
+            ->whereYear('tanggal_donor', now()->year)
+            ->sum('jumlah_kantong');
     }
 
     $nilaiMaksimal = max($grafikDonor);
 
-    if ($nilaiMaksimal == 0) {
+    if ($nilaiMaksimal <= 0) {
         $nilaiMaksimal = 1;
     }
+
+    $totalDonorTahun = array_sum($grafikDonor);
+    $donorTertinggi = max($grafikDonor);
 @endphp
 
 
@@ -61,157 +50,192 @@
 <div class="petugas-dashboard">
 
     {{-- Header --}}
-    <div class="dashboard-header">
+    <section class="dashboard-hero">
 
-        <div>
-            <div class="header-label">
-                DONORCONNECT • PETUGAS PMR
+        <div class="hero-decoration hero-circle-one"></div>
+        <div class="hero-decoration hero-circle-two"></div>
+
+        <div class="hero-content">
+
+            <div class="hero-label">
+                <span class="hero-dot"></span>
+                DONORCONNECT
+                <span class="hero-divider">•</span>
+                PETUGAS PMR
             </div>
 
             <h1>Dashboard Petugas PMR</h1>
 
             <p>
                 Kelola data pendonor, kegiatan donor, hasil donor,
-                riwayat, dan laporan dengan mudah.
+                riwayat, dan laporan dengan lebih mudah.
             </p>
+
+            <div class="hero-date">
+                <i class="fas fa-calendar-alt"></i>
+                {{ now()->translatedFormat('l, d F Y') }}
+            </div>
+
         </div>
 
-        <div class="header-icon">
-            <i class="fas fa-heartbeat"></i>
+        <div class="hero-illustration">
+
+            <div class="hero-heart">
+                <i class="fas fa-heartbeat"></i>
+            </div>
+
+            <span class="hero-small-circle circle-a"></span>
+            <span class="hero-small-circle circle-b"></span>
+            <span class="hero-small-circle circle-c"></span>
+
         </div>
 
-    </div>
+    </section>
 
 
     {{-- Statistik --}}
-    <div class="stats-grid">
+    <section class="stats-grid">
 
-        {{-- Total Pendonor --}}
-        <a href="{{ route('pendonor.index') }}"
-           class="stat-card stat-pendonor">
+        <a href="{{ route('pendonor.index') }}" class="stat-card">
 
-            <div class="stat-content">
+            <div class="stat-card-top">
 
-                <span class="stat-title">
+                <span class="stat-label">
                     TOTAL PENDONOR
                 </span>
 
-                <strong class="stat-number">
-                    {{ $totalPendonor }}
-                </strong>
-
-                <span class="stat-description">
-                    Data pendonor terdaftar
-                </span>
+                <div class="stat-icon pink">
+                    <i class="fas fa-users"></i>
+                </div>
 
             </div>
 
-            <div class="stat-icon">
-                <i class="fas fa-users"></i>
+            <div class="stat-number">
+                {{ $totalPendonor }}
+            </div>
+
+            <div class="stat-bottom">
+                <span>Data pendonor terdaftar</span>
+                <i class="fas fa-arrow-right"></i>
             </div>
 
         </a>
 
 
-        {{-- Kegiatan Donor --}}
-        <a href="{{ route('kegiatan-donor.index') }}"
-           class="stat-card stat-kegiatan">
+        <a href="{{ route('kegiatan-donor.index') }}" class="stat-card">
 
-            <div class="stat-content">
+            <div class="stat-card-top">
 
-                <span class="stat-title">
+                <span class="stat-label">
                     KEGIATAN DONOR
                 </span>
 
-                <strong class="stat-number">
-                    {{ $totalKegiatan }}
-                </strong>
-
-                <span class="stat-description">
-                    Total kegiatan donor
-                </span>
+                <div class="stat-icon blue">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
 
             </div>
 
-            <div class="stat-icon">
-                <i class="fas fa-calendar-alt"></i>
+            <div class="stat-number">
+                {{ $totalKegiatan }}
+            </div>
+
+            <div class="stat-bottom">
+                <span>Total kegiatan donor</span>
+                <i class="fas fa-arrow-right"></i>
             </div>
 
         </a>
 
 
-        {{-- Hasil Donor --}}
-        <a href="{{ route('hasil-donor.create') }}"
-           class="stat-card stat-hasil">
+        <a href="{{ route('hasil-donor.create') }}" class="stat-card">
 
-            <div class="stat-content">
+            <div class="stat-card-top">
 
-                <span class="stat-title">
+                <span class="stat-label">
                     HASIL DONOR
                 </span>
 
-                <strong class="stat-number">
-                    {{ $totalHasil }}
-                </strong>
-
-                <span class="stat-description">
-                    Donor yang telah dicatat
-                </span>
+                <div class="stat-icon purple">
+                    <i class="fas fa-notes-medical"></i>
+                </div>
 
             </div>
 
-            <div class="stat-icon">
-                <i class="fas fa-notes-medical"></i>
+            <div class="stat-number">
+                {{ $totalHasil }}
+            </div>
+
+            <div class="stat-bottom">
+                <span>Donor yang telah dicatat</span>
+                <i class="fas fa-arrow-right"></i>
             </div>
 
         </a>
 
 
-        {{-- Kantong Hari Ini --}}
-        <a href="{{ route('riwayat-donor.index') }}"
-           class="stat-card stat-kantong">
+        <a href="{{ route('riwayat-donor.index') }}" class="stat-card">
 
-            <div class="stat-content">
+            <div class="stat-card-top">
 
-                <span class="stat-title">
+                <span class="stat-label">
                     KANTONG HARI INI
                 </span>
 
-                <strong class="stat-number">
-                    {{ $kantongHariIni }}
-                </strong>
-
-                <span class="stat-description">
-                    Kantong darah terkumpul
-                </span>
+                <div class="stat-icon red">
+                    <i class="fas fa-tint"></i>
+                </div>
 
             </div>
 
-            <div class="stat-icon">
-                <i class="fas fa-tint"></i>
+            <div class="stat-number">
+                {{ $kantongHariIni }}
+            </div>
+
+            <div class="stat-bottom">
+                <span>Kantong darah terkumpul</span>
+                <i class="fas fa-arrow-right"></i>
             </div>
 
         </a>
 
-    </div>
+    </section>
 
 
-    {{-- Bagian bawah --}}
-    <div class="dashboard-grid">
+    {{-- Konten --}}
+    <section class="main-grid">
 
-        {{-- Kegiatan Terdekat --}}
-        <div class="dashboard-card">
 
-            <div class="card-header-custom">
+        {{-- Kegiatan --}}
+        <div class="dashboard-card activity-card">
 
-                <div class="card-header-icon">
+            <div class="card-heading">
+
+                <div class="heading-icon">
                     <i class="fas fa-calendar-check"></i>
                 </div>
 
-                <div>
-                    <h3>Kegiatan Terdekat</h3>
-                    <p>Kegiatan donor yang akan datang</p>
+                <div class="heading-text">
+
+                    <span class="heading-label">
+                        KEGIATAN
+                    </span>
+
+                    <h2>
+                        Kegiatan Terdekat
+                    </h2>
+
+                    <p>
+                        Kegiatan donor yang akan datang
+                    </p>
+
                 </div>
+
+                <a href="{{ route('kegiatan-donor.index') }}"
+                   class="heading-link">
+                    Lihat semua
+                    <i class="fas fa-arrow-right"></i>
+                </a>
 
             </div>
 
@@ -224,28 +248,29 @@
 
                         <div class="activity-date">
 
-                            <span>
+                            <strong>
                                 {{ \Carbon\Carbon::parse($kegiatan->tanggal)->format('d') }}
-                            </span>
+                            </strong>
 
-                            <small>
-                                {{ \Carbon\Carbon::parse($kegiatan->tanggal)->translatedFormat('M') }}
-                            </small>
+                            <span>
+                                {{ \Carbon\Carbon::parse($kegiatan->tanggal)->format('M') }}
+                            </span>
 
                         </div>
 
 
-                        <div class="activity-info">
+                        <div class="activity-content">
 
-                            <span class="activity-label">
+                            <span class="activity-status">
+                                <span></span>
                                 KEGIATAN DONOR
                             </span>
 
-                            <h4>
+                            <h3>
                                 {{ $kegiatan->nama_kegiatan }}
-                            </h4>
+                            </h3>
 
-                            <div class="activity-detail">
+                            <div class="activity-details">
 
                                 <span>
                                     <i class="fas fa-clock"></i>
@@ -261,6 +286,11 @@
 
                         </div>
 
+
+                        <div class="activity-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+
                     </div>
 
                 @empty
@@ -271,10 +301,12 @@
                             <i class="fas fa-calendar-times"></i>
                         </div>
 
-                        <h4>Belum ada kegiatan</h4>
+                        <h3>
+                            Belum ada kegiatan
+                        </h3>
 
                         <p>
-                            Belum ada kegiatan donor yang tersedia.
+                            Kegiatan donor yang tersedia akan muncul di sini.
                         </p>
 
                     </div>
@@ -287,25 +319,65 @@
 
 
         {{-- Grafik --}}
-        <div class="dashboard-card">
+        <div class="dashboard-card donor-chart-card">
 
-            <div class="card-header-custom">
+            <div class="donor-chart-header">
 
-                <div class="card-header-icon">
-                    <i class="fas fa-chart-bar"></i>
+                <div class="donor-chart-title">
+
+                    <div class="donor-chart-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+
+                    <div>
+
+                        <span>
+                            STATISTIK DONOR
+                        </span>
+
+                        <h2>
+                            Perkembangan Donor
+                        </h2>
+
+                        <p>
+                            Jumlah kantong darah tahun {{ now()->year }}
+                        </p>
+
+                    </div>
+
                 </div>
 
-                <div>
-                    <h3>Grafik Donor per Bulan</h3>
-                    <p>Jumlah kantong darah tahun {{ now()->year }}</p>
+
+                <div class="donor-chart-total">
+
+                    <small>
+                        Total
+                    </small>
+
+                    <strong>
+                        {{ $totalDonorTahun }}
+                    </strong>
+
+                    <span>
+                        kantong
+                    </span>
+
                 </div>
 
             </div>
 
 
-            <div class="chart-wrapper">
+            <div class="donor-chart-area">
 
-                <div class="chart-area">
+                <div class="donor-chart-grid">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+
+                <div class="donor-chart-bars">
 
                     @foreach ($grafikDonor as $index => $jumlah)
 
@@ -313,26 +385,33 @@
                             $tinggi = ($jumlah / $nilaiMaksimal) * 100;
 
                             if ($jumlah == 0) {
-                                $tinggi = 5;
+                                $tinggi = 3;
                             }
+
+                            $bulanAktif =
+                                $jumlah == $donorTertinggi &&
+                                $jumlah > 0;
                         @endphp
 
-                        <div class="chart-column">
 
-                            <div class="chart-value">
+                        <div class="donor-chart-column">
+
+                            <div class="donor-chart-number">
                                 {{ $jumlah }}
                             </div>
 
-                            <div class="chart-bar-container">
+
+                            <div class="donor-chart-track">
 
                                 <div
-                                    class="chart-bar"
-                                    style="height: {{ $tinggi }}%;"
-                                ></div>
+                                    class="donor-chart-bar {{ $bulanAktif ? 'highest' : '' }}"
+                                    style="height: {{ $tinggi }}%;">
+                                </div>
 
                             </div>
 
-                            <span class="chart-label">
+
+                            <span class="donor-chart-month">
                                 {{ $bulan[$index] }}
                             </span>
 
@@ -344,12 +423,46 @@
 
             </div>
 
+
+            <div class="donor-chart-footer">
+
+                <div class="donor-chart-indicator">
+
+                    <span></span>
+
+                    <p>
+                        Data donor {{ now()->year }}
+                    </p>
+
+                </div>
+
+
+                <div class="donor-chart-info">
+
+                    <i class="fas fa-tint"></i>
+
+                    <strong>
+                        {{ $donorTertinggi }}
+                    </strong>
+
+                    <span>
+                        tertinggi
+                    </span>
+
+                </div>
+
+            </div>
+
         </div>
 
-    </div>
+    </section>
 
 </div>
 
+@endsection
+
+
+@push('styles')
 
 <style>
 
@@ -357,133 +470,170 @@
 
 .petugas-dashboard {
     width: 100%;
-    padding-bottom: 30px;
+    min-height: calc(100vh - 80px);
+    padding: 26px 30px 40px;
+    box-sizing: border-box;
+    background: #fff9f6;
 }
 
 
 /* Header */
 
-.dashboard-header {
+.dashboard-hero {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    min-height: 205px;
-
-    padding: 35px 42px;
-
-    margin-bottom: 28px;
-
-    border-radius: 24px;
-
+    min-height: 185px;
+    padding: 32px 40px;
+    margin-bottom: 22px;
     overflow: hidden;
-
-    background:
-        linear-gradient(
-            135deg,
-            #a91432 0%,
-            #d51f43 55%,
-            #c51a58 100%
-        );
-
-    box-shadow:
-        0 12px 30px rgba(174, 25, 58, 0.20);
+    background: linear-gradient(
+        135deg,
+        #ed5573 0%,
+        #d93659 100%
+    );
+    border-radius: 24px;
+    box-shadow: 0 12px 30px rgba(217,54,89,.14);
 }
 
-
-.dashboard-header::before {
-    content: "";
-
-    position: absolute;
-
-    width: 230px;
-    height: 230px;
-
-    right: -70px;
-    top: -100px;
-
-    border-radius: 50%;
-
-    background: rgba(255,255,255,0.08);
-}
-
-
-.dashboard-header::after {
-    content: "";
-
-    position: absolute;
-
-    width: 160px;
-    height: 160px;
-
-    right: 70px;
-    bottom: -100px;
-
-    border-radius: 50%;
-
-    background: rgba(255,255,255,0.06);
-}
-
-
-.header-label {
+.hero-content {
     position: relative;
     z-index: 2;
+    max-width: 700px;
+}
 
-    margin-bottom: 8px;
-
-    color: rgba(255,255,255,0.80);
-
-    font-size: 12px;
+.hero-label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 9px;
+    color: rgba(255,255,255,.78);
+    font-size: 10px;
     font-weight: 800;
-
-    letter-spacing: 2px;
+    letter-spacing: 1.1px;
 }
 
+.hero-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #fff;
+}
 
-.dashboard-header h1 {
-    position: relative;
-    z-index: 2;
+.hero-divider {
+    opacity: .55;
+}
 
+.dashboard-hero h1 {
     margin: 0 0 8px;
-
-    color: #ffffff;
-
-    font-size: 34px;
+    color: #fff;
+    font-size: 30px;
+    line-height: 1.2;
     font-weight: 800;
 }
 
-
-.dashboard-header p {
-    position: relative;
-    z-index: 2;
-
-    margin: 0;
-
-    color: rgba(255,255,255,0.88);
-
-    font-size: 14px;
+.dashboard-hero p {
+    max-width: 610px;
+    margin: 0 0 14px;
+    color: rgba(255,255,255,.86);
+    font-size: 13px;
+    line-height: 1.7;
 }
 
+.hero-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 11px;
+    color: rgba(255,255,255,.92);
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.16);
+    border-radius: 9px;
+    font-size: 9px;
+}
 
-.header-icon {
+.hero-date i {
+    font-size: 9px;
+}
+
+.hero-illustration {
     position: relative;
-    z-index: 2;
+    width: 145px;
+    height: 145px;
+    flex-shrink: 0;
+    margin-right: 15px;
+}
 
-    width: 95px;
-    height: 95px;
-
+.hero-heart {
+    position: absolute;
+    top: 20px;
+    right: 16px;
+    width: 105px;
+    height: 105px;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #d93659;
+    background: rgba(255,255,255,.95);
+    border-radius: 50%;
+    box-shadow: 0 15px 30px rgba(100,20,40,.14);
+}
 
-    border-radius: 24px;
+.hero-heart i {
+    font-size: 40px;
+}
 
-    background: rgba(255,255,255,0.13);
+.hero-small-circle {
+    position: absolute;
+    display: block;
+    border-radius: 50%;
+}
 
-    color: #ffffff;
+.circle-a {
+    width: 16px;
+    height: 16px;
+    top: 4px;
+    left: 20px;
+    background: #ffd5df;
+}
 
-    font-size: 42px;
+.circle-b {
+    width: 11px;
+    height: 11px;
+    right: 0;
+    bottom: 15px;
+    background: #f6d879;
+}
+
+.circle-c {
+    width: 13px;
+    height: 13px;
+    left: 5px;
+    bottom: 25px;
+    background: #b9def0;
+}
+
+.hero-decoration {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.hero-circle-one {
+    width: 230px;
+    height: 230px;
+    right: 50px;
+    top: -150px;
+    background: rgba(255,255,255,.05);
+}
+
+.hero-circle-two {
+    width: 180px;
+    height: 180px;
+    right: -70px;
+    bottom: -115px;
+    background: rgba(255,255,255,.06);
 }
 
 
@@ -491,586 +641,1127 @@
 
 .stats-grid {
     display: grid;
-
-    grid-template-columns:
-        repeat(4, minmax(0, 1fr));
-
-    gap: 20px;
-
-    margin-bottom: 28px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 15px;
+    margin-bottom: 22px;
 }
-
 
 .stat-card {
     position: relative;
+    min-width: 0;
+    padding: 18px 19px;
+    background: #fff;
+    border: 1px solid #f1e4e1;
+    border-radius: 18px;
+    box-shadow: 0 5px 18px rgba(70,40,40,.045);
+    text-decoration: none !important;
+    transition: .2s ease;
+}
 
-    min-height: 175px;
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(70,40,40,.08);
+}
 
+.stat-card-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    padding: 25px;
-
-    border-radius: 20px;
-
-    text-decoration: none !important;
-
-    overflow: hidden;
-
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
-
-    box-shadow:
-        0 8px 24px rgba(50, 35, 50, 0.08);
+    gap: 10px;
 }
 
-
-.stat-card::before {
-    content: "";
-
-    position: absolute;
-
-    width: 130px;
-    height: 130px;
-
-    right: -50px;
-    bottom: -60px;
-
-    border-radius: 50%;
-
-    background: rgba(255,255,255,0.18);
-}
-
-
-.stat-card:hover {
-    transform: translateY(-6px);
-
-    box-shadow:
-        0 14px 30px rgba(50, 35, 50, 0.14);
-}
-
-
-.stat-content {
-    position: relative;
-    z-index: 2;
-}
-
-
-.stat-title {
-    display: block;
-
-    margin-bottom: 7px;
-
-    font-size: 11px;
+.stat-label {
+    color: #9f9998;
+    font-size: 9px;
     font-weight: 800;
-
-    letter-spacing: 1px;
+    letter-spacing: .8px;
 }
-
-
-.stat-number {
-    display: block;
-
-    margin-bottom: 6px;
-
-    font-size: 34px;
-    font-weight: 800;
-
-    line-height: 1;
-}
-
-
-.stat-description {
-    display: block;
-
-    font-size: 12px;
-}
-
 
 .stat-icon {
-    position: relative;
-    z-index: 2;
-
-    width: 62px;
-    height: 62px;
-
+    width: 43px;
+    height: 43px;
     display: flex;
     align-items: center;
     justify-content: center;
-
     flex-shrink: 0;
-
-    border-radius: 17px;
-
-    background: rgba(255,255,255,0.25);
-
-    color: #ffffff;
-
-    font-size: 24px;
-}
-
-
-/* Warna card */
-
-.stat-pendonor {
-    background: linear-gradient(
-        135deg,
-        #f9dce4,
-        #f4c7d3
-    );
-
-    color: #74223d;
-}
-
-
-.stat-kegiatan {
-    background: linear-gradient(
-        135deg,
-        #ffe0d5,
-        #f6c2b2
-    );
-
-    color: #8d3828;
-}
-
-
-.stat-hasil {
-    background: linear-gradient(
-        135deg,
-        #eadcf3,
-        #d9c3e8
-    );
-
-    color: #632d78;
-}
-
-
-.stat-kantong {
-    background: linear-gradient(
-        135deg,
-        #f8ddd9,
-        #efc1bd
-    );
-
-    color: #812f35;
-}
-
-
-/* Card bawah */
-
-.dashboard-grid {
-    display: grid;
-
-    grid-template-columns:
-        minmax(0, 1fr)
-        minmax(0, 1fr);
-
-    gap: 24px;
-}
-
-
-.dashboard-card {
-    min-height: 470px;
-
-    padding: 28px;
-
-    background: #ffffff;
-
-    border: 1px solid #f0e1e4;
-
-    border-radius: 22px;
-
-    box-shadow:
-        0 7px 24px rgba(60, 40, 50, 0.06);
-}
-
-
-/* Card header */
-
-.card-header-custom {
-    display: flex;
-    align-items: center;
-
-    gap: 14px;
-
-    margin-bottom: 26px;
-}
-
-
-.card-header-icon {
-    width: 46px;
-    height: 46px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 13px;
-
-    background: #fce6eb;
-
-    color: #c22d50;
-
+    border-radius: 12px;
     font-size: 17px;
 }
 
+.stat-icon.pink {
+    color: #df5570;
+    background: #fff0f3;
+}
 
-.card-header-custom h3 {
-    margin: 0;
+.stat-icon.blue {
+    color: #7092c4;
+    background: #eef4fc;
+}
 
-    color: #382d48;
+.stat-icon.purple {
+    color: #906fc3;
+    background: #f3effa;
+}
 
-    font-size: 20px;
+.stat-icon.red {
+    color: #df5971;
+    background: #fff0f2;
+}
+
+.stat-number {
+    display: block;
+    margin: 12px 0 7px;
+    color: #303030;
+    font-size: 28px;
     font-weight: 800;
+    line-height: 1;
+}
+
+.stat-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.stat-bottom span {
+    color: #aaa4a3;
+    font-size: 9px;
+    line-height: 1.4;
+}
+
+.stat-bottom i {
+    color: #d8b6bd;
+    font-size: 9px;
 }
 
 
-.card-header-custom p {
-    margin: 3px 0 0;
+/* Konten */
 
-    color: #a4949b;
+.main-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.04fr) minmax(0, .96fr);
+    gap: 18px;
+}
 
-    font-size: 11px;
+.dashboard-card {
+    min-width: 0;
+    padding: 22px;
+    background: #fff;
+    border: 1px solid #f1e4e1;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(70,40,40,.045);
+}
+
+
+/* Judul */
+
+.card-heading {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-bottom: 19px;
+}
+
+.heading-icon {
+    width: 43px;
+    height: 43px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #df526d;
+    background: #fff0f3;
+    border-radius: 12px;
+    font-size: 17px;
+}
+
+.heading-text {
+    min-width: 0;
+}
+
+.heading-label {
+    display: block;
+    margin-bottom: 2px;
+    color: #dc6177;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.card-heading h2 {
+    margin: 0 0 3px;
+    color: #303030;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.card-heading p {
+    margin: 0;
+    color: #a4a0a0;
+    font-size: 10px;
+}
+
+.heading-link {
+    margin-left: auto;
+    flex-shrink: 0;
+    color: #d94f6b !important;
+    font-size: 10px;
+    font-weight: 700;
+    text-decoration: none !important;
+}
+
+.heading-link i {
+    margin-left: 3px;
+    font-size: 8px;
 }
 
 
 /* Kegiatan */
 
 .activity-list {
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
-
 
 .activity-item {
     display: flex;
-
-    gap: 17px;
-
-    padding: 17px 0;
-
-    border-bottom: 1px solid #f3e9eb;
+    align-items: center;
+    gap: 13px;
+    padding: 12px;
+    background: #fff9fa;
+    border: 1px solid #f5e7e9;
+    border-radius: 14px;
+    transition: .2s ease;
 }
 
-
-.activity-item:first-child {
-    padding-top: 4px;
+.activity-item:hover {
+    background: #fff5f7;
+    border-color: #f2d9de;
 }
-
-
-.activity-item:last-child {
-    border-bottom: 0;
-}
-
 
 .activity-date {
-    width: 53px;
+    width: 55px;
     height: 61px;
-
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
     flex-shrink: 0;
-
-    border-radius: 13px;
-
-    background: #fce8ec;
-
-    color: #c42c4e;
+    background: #fff;
+    border: 1px solid #f6eeee;
+    border-radius: 11px;
+    box-shadow: 0 3px 10px rgba(60,40,40,.04);
 }
 
-
-.activity-date span {
-    font-size: 20px;
+.activity-date strong {
+    color: #d94e6a;
+    font-size: 21px;
     font-weight: 800;
-
     line-height: 1;
 }
 
-
-.activity-date small {
-    margin-top: 4px;
-
-    font-size: 9px;
+.activity-date span {
+    margin-top: 5px;
+    color: #999;
+    font-size: 8px;
     font-weight: 800;
-
     text-transform: uppercase;
 }
 
-
-.activity-info {
+.activity-content {
     min-width: 0;
+    flex: 1;
 }
 
-
-.activity-label {
-    display: block;
-
-    margin-bottom: 4px;
-
-    color: #bd6c82;
-
-    font-size: 9px;
-    font-weight: 800;
-
-    letter-spacing: 1px;
-}
-
-
-.activity-info h4 {
-    margin: 0 0 8px;
-
-    color: #44394f;
-
-    font-size: 14px;
-    font-weight: 800;
-
-    line-height: 1.4;
-}
-
-
-.activity-detail {
-    display: flex;
-    flex-wrap: wrap;
-
-    gap: 12px;
-
-    color: #9b8e96;
-
-    font-size: 10px;
-}
-
-
-.activity-detail span {
+.activity-status {
     display: flex;
     align-items: center;
-
     gap: 5px;
+    margin-bottom: 4px;
+    color: #d55a71;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: .7px;
 }
 
-
-.activity-detail i {
-    color: #c53254;
+.activity-status span {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #df6078;
 }
 
-
-/* Empty */
-
-.empty-state {
-    padding: 55px 20px;
-
-    text-align: center;
+.activity-content h3 {
+    margin: 0 0 7px;
+    color: #353535;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.4;
+    word-break: break-word;
 }
 
+.activity-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px 14px;
+}
 
-.empty-icon {
-    width: 58px;
-    height: 58px;
+.activity-details span {
+    color: #969090;
+    font-size: 9px;
+}
 
+.activity-details i {
+    margin-right: 3px;
+    color: #d95b72;
+}
+
+.activity-arrow {
+    width: 27px;
+    height: 27px;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
+    color: #d98b99;
+    background: #fff;
+    border-radius: 8px;
+    font-size: 9px;
+}
 
-    margin: 0 auto 13px;
 
+/* Kosong */
+
+.empty-state {
+    padding: 35px 15px;
+    text-align: center;
+}
+
+.empty-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+    color: #dc6b80;
+    background: #fff1f4;
     border-radius: 50%;
-
-    background: #fce8ec;
-
-    color: #c43253;
-
-    font-size: 22px;
 }
 
-
-.empty-state h4 {
+.empty-state h3 {
     margin: 0 0 5px;
-
-    color: #4a3d4d;
-
-    font-size: 15px;
+    color: #444;
+    font-size: 14px;
 }
-
 
 .empty-state p {
     margin: 0;
-
-    color: #a99ba1;
-
-    font-size: 11px;
+    color: #aaa;
+    font-size: 10px;
 }
 
 
 /* Grafik */
 
-.chart-wrapper {
-    width: 100%;
-
-    padding-top: 10px;
+.donor-chart-card {
+    overflow: hidden;
 }
 
-
-.chart-area {
-    height: 330px;
-
+.donor-chart-header {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 21px;
+}
 
+.donor-chart-title {
+    display: flex;
+    align-items: center;
     gap: 12px;
+    min-width: 0;
+}
 
-    padding:
-        25px 5px 0;
+.donor-chart-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #d94364;
+    background: linear-gradient(145deg,#fff0f4,#ffe4eb);
+    border-radius: 13px;
+    font-size: 17px;
+}
 
-    border-bottom: 1px solid #eadfe2;
+.donor-chart-title > div:last-child {
+    min-width: 0;
+}
+
+.donor-chart-title span {
+    display: block;
+    margin-bottom: 3px;
+    color: #d85b73;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.donor-chart-title h2 {
+    margin: 0 0 3px;
+    color: #303030;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.donor-chart-title p {
+    margin: 0;
+    color: #aaa;
+    font-size: 10px;
+}
+
+.donor-chart-total {
+    min-width: 72px;
+    padding: 9px 12px;
+    text-align: center;
+    background: #fff7f8;
+    border: 1px solid #f8e4e8;
+    border-radius: 11px;
+}
+
+.donor-chart-total small {
+    display: block;
+    margin-bottom: 2px;
+    color: #aaa;
+    font-size: 7px;
+    font-weight: 700;
+}
+
+.donor-chart-total strong {
+    color: #d83f60;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.donor-chart-total span {
+    margin-left: 2px;
+    color: #999;
+    font-size: 7px;
 }
 
 
-.chart-column {
-    height: 100%;
+/* Area grafik */
 
-    flex: 1;
+.donor-chart-area {
+    position: relative;
+    height: 275px;
+    padding: 10px 5px 0;
+}
 
+.donor-chart-grid {
+    position: absolute;
+    top: 15px;
+    right: 5px;
+    bottom: 35px;
+    left: 5px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    pointer-events: none;
+}
 
+.donor-chart-grid span {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: #f4eeee;
+}
+
+.donor-chart-bars {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 7px;
+}
+
+.donor-chart-column {
+    height: 100%;
+    min-width: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: flex-end;
 }
 
-
-.chart-value {
-    min-height: 17px;
-
-    margin-bottom: 7px;
-
-    color: #8e6574;
-
-    font-size: 9px;
-    font-weight: 800;
-}
-
-
-.chart-bar-container {
-    width: 100%;
-    height: 240px;
-
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-}
-
-
-.chart-bar {
-    width: 72%;
-
-    min-height: 7px;
-
-    border-radius: 8px 8px 2px 2px;
-
-    background:
-        linear-gradient(
-            180deg,
-            #e52d58 0%,
-            #bd2850 100%
-        );
-
-    box-shadow:
-        0 5px 12px rgba(197, 40, 79, 0.16);
-
-    transition:
-        height 0.4s ease,
-        transform 0.2s ease;
-}
-
-
-.chart-bar:hover {
-    transform: translateY(-4px);
-}
-
-
-.chart-label {
-    margin-top: 10px;
-
-    color: #998b91;
-
-    font-size: 9px;
+.donor-chart-number {
+    min-height: 18px;
+    margin-bottom: 6px;
+    color: #858080;
+    font-size: 8px;
     font-weight: 700;
 }
 
+.donor-chart-track {
+    position: relative;
+    width: 24px;
+    height: 205px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+    background: #fff4f6;
+    border-radius: 10px 10px 5px 5px;
+}
 
-/* Responsive */
+.donor-chart-bar {
+    width: 100%;
+    min-height: 5px;
+    background: linear-gradient(
+        to top,
+        #f3dce1,
+        #f9e9ec
+    );
+    border-radius: 10px 10px 5px 5px;
+    transition: .3s ease;
+}
+
+.donor-chart-bar.highest {
+    background: linear-gradient(
+        to top,
+        #d82f55,
+        #f06d87
+    );
+    box-shadow: 0 6px 15px rgba(216,47,85,.18);
+}
+
+.donor-chart-month {
+    margin-top: 9px;
+    color: #8f8989;
+    font-size: 8px;
+    font-weight: 600;
+}
+
+
+/* Footer grafik */
+
+.donor-chart-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid #f5eeee;
+}
+
+.donor-chart-indicator {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.donor-chart-indicator span {
+    width: 7px;
+    height: 7px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #df5570;
+    box-shadow: 0 0 0 4px #fff0f3;
+}
+
+.donor-chart-indicator p {
+    margin: 0;
+    color: #aaa;
+    font-size: 9px;
+}
+
+.donor-chart-info {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #999;
+    font-size: 8px;
+}
+
+.donor-chart-info i {
+    color: #df5570;
+}
+
+.donor-chart-info strong {
+    color: #d84a67;
+    font-size: 10px;
+}
+
+
+/* Tablet */
 
 @media (max-width: 1100px) {
 
-    .stats-grid {
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
+    .petugas-dashboard {
+        padding: 22px 20px 35px;
     }
 
-    .dashboard-grid {
+    .stats-grid {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+    }
+
+    .main-grid {
         grid-template-columns: 1fr;
+    }
+
+    .dashboard-hero {
+        padding: 30px 32px;
     }
 
 }
 
 
-@media (max-width: 768px) {
+/* HP */
 
-    .dashboard-header {
-        padding: 28px;
+@media (max-width: 767px) {
 
-        min-height: 180px;
+    .petugas-dashboard {
+        padding: 15px 13px 28px;
     }
 
-    .dashboard-header h1 {
-        font-size: 27px;
+
+    /* Header */
+
+    .dashboard-hero {
+        min-height: auto;
+        padding: 22px 20px;
+        margin-bottom: 15px;
+        border-radius: 19px;
     }
 
-    .header-icon {
-        width: 70px;
-        height: 70px;
-
-        font-size: 30px;
+    .dashboard-hero h1 {
+        font-size: 22px;
     }
 
-}
+    .dashboard-hero p {
+        margin-bottom: 11px;
+        font-size: 10px;
+        line-height: 1.65;
+    }
+
+    .hero-label {
+        font-size: 8px;
+        letter-spacing: .8px;
+    }
+
+    .hero-date {
+        padding: 6px 9px;
+        font-size: 8px;
+    }
+
+    .hero-illustration {
+        width: 85px;
+        height: 85px;
+        margin-right: 0;
+    }
+
+    .hero-heart {
+        top: 10px;
+        right: 0;
+        width: 65px;
+        height: 65px;
+    }
+
+    .hero-heart i {
+        font-size: 25px;
+    }
+
+    .circle-a {
+        width: 10px;
+        height: 10px;
+    }
+
+    .circle-b {
+        width: 8px;
+        height: 8px;
+    }
+
+    .circle-c {
+        width: 9px;
+        height: 9px;
+    }
 
 
-@media (max-width: 576px) {
+    /* Statistik */
 
     .stats-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2,minmax(0,1fr));
+        gap: 9px;
+        margin-bottom: 15px;
     }
 
-    .dashboard-header {
-        padding: 24px;
+    .stat-card {
+        padding: 13px;
+        border-radius: 15px;
     }
 
-    .dashboard-header p {
-        max-width: 90%;
+    .stat-label {
+        font-size: 7px;
     }
 
-    .header-icon {
+    .stat-icon {
+        width: 35px;
+        height: 35px;
+        border-radius: 10px;
+        font-size: 14px;
+    }
+
+    .stat-number {
+        margin: 10px 0 6px;
+        font-size: 21px;
+    }
+
+    .stat-bottom span {
+        font-size: 8px;
+    }
+
+    .stat-bottom i {
         display: none;
     }
 
+
+    /* Card */
+
+    .main-grid {
+        gap: 13px;
+    }
+
     .dashboard-card {
-        padding: 20px;
+        padding: 16px;
+        border-radius: 17px;
     }
 
-    .chart-area {
-        gap: 5px;
+    .card-heading {
+        gap: 9px;
+        margin-bottom: 14px;
     }
 
-    .chart-bar {
-        width: 80%;
+    .heading-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        font-size: 14px;
+    }
+
+    .heading-label {
+        font-size: 7px;
+    }
+
+    .card-heading h2 {
+        font-size: 15px;
+    }
+
+    .card-heading p {
+        font-size: 8px;
+    }
+
+    .heading-link {
+        font-size: 8px;
+    }
+
+
+    /* Kegiatan */
+
+    .activity-list {
+        gap: 8px;
+    }
+
+    .activity-item {
+        gap: 9px;
+        padding: 10px;
+        border-radius: 12px;
+    }
+
+    .activity-date {
+        width: 44px;
+        height: 51px;
+        border-radius: 9px;
+    }
+
+    .activity-date strong {
+        font-size: 17px;
+    }
+
+    .activity-date span {
+        margin-top: 4px;
+        font-size: 7px;
+    }
+
+    .activity-status {
+        font-size: 7px;
+    }
+
+    .activity-content h3 {
+        margin-bottom: 6px;
+        font-size: 11px;
+    }
+
+    .activity-details {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .activity-details span {
+        font-size: 8px;
+    }
+
+    .activity-arrow {
+        width: 23px;
+        height: 23px;
+        font-size: 7px;
+    }
+
+
+    /* Grafik */
+
+    .donor-chart-header {
+        margin-bottom: 18px;
+    }
+
+    .donor-chart-icon {
+        width: 37px;
+        height: 37px;
+        font-size: 14px;
+        border-radius: 10px;
+    }
+
+    .donor-chart-title {
+        gap: 9px;
+    }
+
+    .donor-chart-title span {
+        font-size: 7px;
+    }
+
+    .donor-chart-title h2 {
+        font-size: 15px;
+    }
+
+    .donor-chart-title p {
+        font-size: 8px;
+    }
+
+    .donor-chart-total {
+        min-width: 58px;
+        padding: 7px 9px;
+    }
+
+    .donor-chart-total strong {
+        font-size: 17px;
+    }
+
+    .donor-chart-area {
+        height: 235px;
+        padding-top: 5px;
+    }
+
+    .donor-chart-grid {
+        top: 10px;
+        bottom: 31px;
+    }
+
+    .donor-chart-track {
+        width: 16px;
+        height: 170px;
+        border-radius: 8px 8px 4px 4px;
+    }
+
+    .donor-chart-bar {
+        border-radius: 8px 8px 4px 4px;
+    }
+
+    .donor-chart-number {
+        font-size: 7px;
+        margin-bottom: 4px;
+    }
+
+    .donor-chart-month {
+        margin-top: 7px;
+        font-size: 7px;
+    }
+
+    .donor-chart-footer {
+        margin-top: 9px;
+        padding-top: 9px;
+    }
+
+    .donor-chart-indicator p {
+        font-size: 8px;
+    }
+
+    .donor-chart-info {
+        font-size: 7px;
+    }
+
+}
+
+
+/* HP kecil */
+
+@media (max-width: 480px) {
+
+    .petugas-dashboard {
+        padding: 11px 9px 24px;
+    }
+
+
+    /* Header */
+
+    .dashboard-hero {
+        display: block;
+        padding: 19px 17px;
+        border-radius: 17px;
+    }
+
+    .dashboard-hero h1 {
+        font-size: 20px;
+    }
+
+    .dashboard-hero p {
+        max-width: 100%;
+        font-size: 9px;
+    }
+
+    .hero-label {
+        font-size: 7px;
+    }
+
+    .hero-date {
+        font-size: 7px;
+    }
+
+    .hero-illustration {
+        display: none;
+    }
+
+
+    /* Statistik */
+
+    .stats-grid {
+        gap: 7px;
+    }
+
+    .stat-card {
+        min-height: 86px;
+        padding: 10px;
+    }
+
+    .stat-label {
+        font-size: 6.5px;
+    }
+
+    .stat-icon {
+        width: 31px;
+        height: 31px;
+        font-size: 12px;
+        border-radius: 9px;
+    }
+
+    .stat-number {
+        font-size: 19px;
+    }
+
+    .stat-bottom span {
+        font-size: 7px;
+    }
+
+
+    /* Card */
+
+    .dashboard-card {
+        padding: 13px;
+        border-radius: 15px;
+    }
+
+    .heading-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+    }
+
+    .heading-label {
+        font-size: 6px;
+    }
+
+    .card-heading h2 {
+        font-size: 14px;
+    }
+
+    .card-heading p {
+        font-size: 7px;
+    }
+
+    .heading-link {
+        font-size: 7px;
+    }
+
+
+    /* Kegiatan */
+
+    .activity-item {
+        padding: 8px;
+    }
+
+    .activity-date {
+        width: 40px;
+        height: 47px;
+    }
+
+    .activity-date strong {
+        font-size: 16px;
+    }
+
+    .activity-content h3 {
+        font-size: 10px;
+    }
+
+    .activity-details span {
+        font-size: 7px;
+    }
+
+    .activity-status {
+        font-size: 6px;
+    }
+
+    .activity-arrow {
+        display: none;
+    }
+
+
+    /* Grafik */
+
+    .donor-chart-header {
+        align-items: flex-start;
+    }
+
+    .donor-chart-title h2 {
+        font-size: 14px;
+    }
+
+    .donor-chart-title p {
+        font-size: 7px;
+    }
+
+    .donor-chart-total {
+        min-width: 52px;
+        padding: 6px 7px;
+    }
+
+    .donor-chart-total small {
+        font-size: 6px;
+    }
+
+    .donor-chart-total strong {
+        font-size: 15px;
+    }
+
+    .donor-chart-total span {
+        font-size: 6px;
+    }
+
+    .donor-chart-area {
+        height: 220px;
+    }
+
+    .donor-chart-track {
+        width: 13px;
+        height: 155px;
+    }
+
+    .donor-chart-number {
+        font-size: 6px;
+    }
+
+    .donor-chart-month {
+        font-size: 6px;
+    }
+
+    .donor-chart-info {
+        display: none;
+    }
+
+}
+
+
+/* HP sangat kecil */
+
+@media (max-width: 360px) {
+
+    .petugas-dashboard {
+        padding: 9px 7px 20px;
+    }
+
+    .dashboard-hero {
+        padding: 17px 14px;
+    }
+
+    .dashboard-hero h1 {
+        font-size: 18px;
+    }
+
+    .dashboard-hero p {
+        font-size: 8px;
+    }
+
+    .stats-grid {
+        gap: 6px;
+    }
+
+    .stat-card {
+        min-height: 78px;
+        padding: 8px;
+    }
+
+    .stat-number {
+        font-size: 17px;
+    }
+
+    .stat-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 11px;
+    }
+
+    .dashboard-card {
+        padding: 11px;
+    }
+
+    .card-heading h2 {
+        font-size: 13px;
+    }
+
+    .activity-content h3 {
+        font-size: 9px;
+    }
+
+    .donor-chart-area {
+        height: 205px;
+    }
+
+    .donor-chart-track {
+        width: 11px;
+        height: 145px;
+    }
+
+    .donor-chart-title h2 {
+        font-size: 13px;
     }
 
 }
 
 </style>
 
-@endsection
+@endpush

@@ -4,548 +4,81 @@
 
 @section('content')
 
-<style>
-    .pendonor-page {
-        color: #3b3034;
-    }
-
-    /* Header */
-    .page-header {
-        margin-bottom: 24px;
-    }
-
-    .page-title {
-        color: #3b3034;
-        font-size: 27px;
-        font-weight: 900;
-        margin: 0 0 5px;
-        letter-spacing: -0.5px;
-    }
-
-    .page-subtitle {
-        color: #8d7b80;
-        font-size: 13px;
-        margin: 0;
-    }
-
-    /* Total Pendonor */
-    .total-card {
-        position: relative;
-        overflow: hidden;
-        min-height: 125px;
-        padding: 23px 27px;
-        margin-bottom: 24px;
-        border-radius: 18px;
-        color: #fff;
-
-        background: linear-gradient(
-            135deg,
-            #9d001f 0%,
-            #c91845 52%,
-            #d84a91 100%
-        );
-
-        box-shadow: 0 9px 24px rgba(151, 15, 53, .20);
-    }
-
-    .total-card::before {
-        content: '';
-        position: absolute;
-        width: 180px;
-        height: 180px;
-        border-radius: 50%;
-        right: -65px;
-        top: -85px;
-        background: rgba(255,255,255,.09);
-    }
-
-    .total-card::after {
-        content: '';
-        position: absolute;
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        right: 105px;
-        bottom: -70px;
-        background: rgba(255,255,255,.06);
-    }
-
-    .total-content {
-        position: relative;
-        z-index: 2;
-    }
-
-    .total-label {
-        font-size: 11px;
-        font-weight: 800;
-        letter-spacing: 1px;
-        opacity: .88;
-        margin-bottom: 6px;
-    }
-
-    .total-number {
-        font-size: 35px;
-        font-weight: 900;
-        line-height: 1;
-    }
-
-    .total-description {
-        margin-top: 8px;
-        font-size: 12px;
-        opacity: .86;
-    }
-
-    .total-icon {
-        position: absolute;
-        z-index: 3;
-        right: 28px;
-        bottom: 22px;
-
-        width: 57px;
-        height: 57px;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        border-radius: 16px;
-        background: rgba(255,255,255,.15);
-
-        font-size: 25px;
-    }
-
-    /* Card Data */
-    .data-card {
-        background: #fff;
-        border-radius: 18px;
-        border: 1px solid #f0dfe3;
-        overflow: hidden;
-
-        box-shadow:
-            0 8px 25px rgba(87, 43, 53, .07);
-    }
-
-    .data-card-header {
-        padding: 21px 23px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 18px;
-        flex-wrap: wrap;
-
-        border-bottom: 1px solid #f0e3e5;
-    }
-
-    .title-wrapper {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-
-    .title-icon {
-        width: 43px;
-        height: 43px;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        border-radius: 13px;
-
-        background: linear-gradient(
-            135deg,
-            #fff0f3,
-            #ffe5ed
-        );
-
-        color: #b6173c;
-        font-size: 17px;
-    }
-
-    .data-card-title {
-        margin: 0;
-        color: #3b3034;
-        font-size: 17px;
-        font-weight: 900;
-    }
-
-    .data-card-subtitle {
-        margin: 3px 0 0;
-        color: #9a898e;
-        font-size: 11px;
-    }
-
-    /* Search */
-    .search-box {
-        position: relative;
-        width: 305px;
-    }
-
-    .search-box i {
-        position: absolute;
-        left: 15px;
-        top: 50%;
-        transform: translateY(-50%);
-
-        color: #a78d94;
-        font-size: 13px;
-    }
-
-    .search-box input {
-        width: 100%;
-        height: 42px;
-
-        padding: 0 15px 0 40px;
-
-        border: 1px solid #eadadd;
-        border-radius: 12px;
-
-        background: #fffafa;
-        color: #44373c;
-
-        font-size: 12px;
-        outline: none;
-
-        transition: .2s;
-    }
-
-    .search-box input::placeholder {
-        color: #a9959a;
-    }
-
-    .search-box input:focus {
-        background: #fff;
-
-        border-color: #c91845;
-
-        box-shadow:
-            0 0 0 4px rgba(201, 24, 69, .08);
-    }
-
-    /* Table */
-    .table-wrapper {
-        width: 100%;
-        overflow-x: auto;
-    }
-
-    .pendonor-table {
-        width: 100%;
-        min-width: 950px;
-        border-collapse: collapse;
-    }
-
-    .pendonor-table thead th {
-        padding: 15px 16px;
-
-        background: linear-gradient(
-            90deg,
-            #a80e2c,
-            #c91845
-        );
-
-        color: #fff;
-
-        font-size: 10px;
-        font-weight: 900;
-
-        text-transform: uppercase;
-        letter-spacing: .5px;
-
-        white-space: nowrap;
-        border: none;
-    }
-
-    .pendonor-table thead th:first-child {
-        padding-left: 23px;
-    }
-
-    .pendonor-table tbody td {
-        padding: 16px;
-
-        color: #55484d;
-        font-size: 12px;
-
-        border-bottom: 1px solid #f1e6e8;
-        vertical-align: middle;
-    }
-
-    .pendonor-table tbody tr {
-        transition: .2s ease;
-    }
-
-    .pendonor-table tbody tr:hover {
-        background: #fff7f9;
-    }
-
-    .pendonor-table tbody tr:last-child td {
-        border-bottom: none;
-    }
-
-    /* Nomor */
-    .nomor {
-        width: 55px;
-        padding-left: 23px !important;
-
-        color: #a18f94 !important;
-        font-weight: 800;
-    }
-
-    /* User */
-    .user-info {
-        display: flex;
-        align-items: center;
-        gap: 11px;
-
-        min-width: 190px;
-    }
-
-    .user-avatar {
-        width: 39px;
-        height: 39px;
-
-        flex-shrink: 0;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        border-radius: 12px;
-
-        background: linear-gradient(
-            135deg,
-            #a80e2c,
-            #d44983
-        );
-
-        color: #fff;
-
-        font-size: 13px;
-        font-weight: 900;
-
-        box-shadow:
-            0 5px 12px rgba(169, 22, 58, .17);
-    }
-
-    .nama-pendonor {
-        color: #3d3035;
-        font-size: 12px;
-        font-weight: 900;
-    }
-
-    .user-label {
-        margin-top: 2px;
-
-        color: #a08e93;
-        font-size: 10px;
-    }
-
-    /* Status */
-    .status-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-
-        padding: 6px 11px;
-
-        border-radius: 20px;
-
-        background: #fff0f3;
-        color: #b6173c;
-
-        font-size: 10px;
-        font-weight: 800;
-
-        white-space: nowrap;
-    }
-
-    .status-dot {
-        width: 6px;
-        height: 6px;
-
-        border-radius: 50%;
-
-        background: #d92d58;
-    }
-
-    /* Golongan Darah */
-    .darah-badge {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-
-        min-width: 42px;
-        height: 32px;
-
-        padding: 0 9px;
-
-        border-radius: 10px;
-
-        background: linear-gradient(
-            135deg,
-            #a80e2c,
-            #c91845
-        );
-
-        color: #fff;
-
-        font-size: 11px;
-        font-weight: 900;
-
-        box-shadow:
-            0 4px 10px rgba(169, 22, 58, .16);
-    }
-
-    /* Informasi kesehatan */
-    .info-text {
-        max-width: 190px;
-
-        color: #66575c;
-        line-height: 1.5;
-    }
-
-    /* Empty */
-    .empty-state {
-        padding: 55px 20px !important;
-
-        text-align: center;
-
-        color: #a49398 !important;
-    }
-
-    .empty-icon {
-        width: 66px;
-        height: 66px;
-
-        margin: 0 auto 14px;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        border-radius: 18px;
-
-        background: #fff0f3;
-        color: #d29aa7;
-
-        font-size: 25px;
-    }
-
-    .empty-state strong {
-        display: block;
-
-        margin-bottom: 5px;
-
-        color: #5c4c52;
-        font-size: 14px;
-    }
-
-    .empty-state span {
-        font-size: 11px;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-
-        .page-title {
-            font-size: 23px;
-        }
-
-        .search-box {
-            width: 100%;
-        }
-
-        .data-card-header {
-            align-items: stretch;
-        }
-
-        .total-card {
-            min-height: 115px;
-        }
-
-        .total-icon {
-            right: 20px;
-        }
-    }
-</style>
-
-
 <div class="pendonor-page">
 
-    <!-- Header -->
-    <div class="page-header">
+    {{-- Banner --}}
+    <div class="page-banner">
 
-        <h1 class="page-title">
-            Data Pendonor
-        </h1>
+        <div class="banner-content">
 
-        <p class="page-subtitle">
-            Kelola dan lihat data pendonor yang terdaftar di DonorConnect.
-        </p>
-
-    </div>
-
-
-    <!-- Total Pendonor -->
-    <div class="total-card">
-
-        <div class="total-content">
-
-            <div class="total-label">
-                TOTAL PENDONOR
+            <div class="banner-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M16 11a4 4 0 1 0-3.9-5h-.2A4 4 0 0 0 16 11Z"/>
+                    <path d="M8 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"/>
+                    <path d="M2.5 20a5.5 5.5 0 0 1 11 0"/>
+                    <path d="M13 15.5a5.5 5.5 0 0 1 8.5 4.5"/>
+                </svg>
             </div>
 
-            <div class="total-number">
-                {{ $pendonor->count() }}
-            </div>
+            <div class="banner-text">
+                <span class="banner-label">DATA PENDONOR</span>
 
-            <div class="total-description">
-                Pendonor yang telah terdaftar di DonorConnect
+                <h1>Data Pendonor</h1>
+
+                <p>
+                    Kelola data pendonor DonorConnect dengan mudah.
+                </p>
             </div>
 
         </div>
 
-        <div class="total-icon">
-            <i class="fas fa-users"></i>
+        {{-- Hati --}}
+        <div class="banner-heart">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20.8 8.6c0 5.5-8.8 10.2-8.8 10.2S3.2 14.1 3.2 8.6A4.6 4.6 0 0 1 12 6.3a4.6 4.6 0 0 1 8.8 2.3Z"/>
+            </svg>
+        </div>
+
+        {{-- Total --}}
+        <div class="total-box">
+
+            <div class="total-box-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M16 11a4 4 0 1 0-3.9-5h-.2A4 4 0 0 0 16 11Z"/>
+                    <path d="M8 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"/>
+                    <path d="M2.5 20a5.5 5.5 0 0 1 11 0"/>
+                    <path d="M13 15.5a5.5 5.5 0 0 1 8.5 4.5"/>
+                </svg>
+            </div>
+
+            <div class="total-info">
+                <strong>{{ $pendonor->count() }}</strong>
+                <span>Total Pendonor</span>
+            </div>
+
         </div>
 
     </div>
 
 
-    <!-- Data Pendonor -->
+    {{-- Data --}}
     <div class="data-card">
 
-        <div class="data-card-header">
+        {{-- Search --}}
+        <div class="table-top">
 
-            <div class="title-wrapper">
-
-                <div class="title-icon">
-                    <i class="fas fa-user-friends"></i>
-                </div>
-
-                <div>
-
-                    <h2 class="data-card-title">
-                        Daftar Pendonor
-                    </h2>
-
-                    <p class="data-card-subtitle">
-                        Informasi pendonor yang terdaftar
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <!-- Search -->
             <div class="search-box">
 
-                <i class="fas fa-search"></i>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="11" cy="11" r="6.5"></circle>
+                    <path d="m16 16 5 5"></path>
+                </svg>
 
                 <input
                     type="text"
                     id="searchPendonor"
                     placeholder="Cari nama, status, golongan darah..."
+                    autocomplete="off"
                 >
 
             </div>
@@ -553,139 +86,185 @@
         </div>
 
 
-        <!-- Tabel -->
-        <div class="table-wrapper">
+        {{-- Tabel --}}
+        <div class="table-scroll">
 
-            <table class="pendonor-table">
+            <table id="pendonorTable">
 
                 <thead>
-
                     <tr>
-                        <th>No</th>
-                        <th>Nama Pendonor</th>
-                        <th>Status</th>
-                        <th>Kelas / Jabatan</th>
-                        <th>Gol. Darah</th>
-                        <th>No. Telepon</th>
-                        <th>Informasi Kesehatan</th>
+                        <th class="col-no">NO</th>
+                        <th class="col-name">NAMA</th>
+                        <th>STATUS</th>
+                        <th>KELAS / JABATAN</th>
+                        <th>TANGGAL LAHIR</th>
+                        <th>GOL. DARAH</th>
+                        <th>NO. TELEPON</th>
+                        <th>INFORMASI KESEHATAN</th>
+                        <th class="col-action">AKSI</th>
                     </tr>
-
                 </thead>
 
+                <tbody>
 
-                <tbody id="pendonorTable">
+                    @forelse($pendonor as $item)
 
-                    @forelse ($pendonor as $index => $item)
+                    <tr>
 
-                        @php
-                            $nama = $item->user->nama ?? '-';
-                            $inisial = $nama !== '-'
-                                ? strtoupper(substr($nama, 0, 1))
-                                : '?';
-                        @endphp
+                        <td class="number">
+                            {{ $loop->iteration }}
+                        </td>
 
-                        <tr>
+                        <td>
 
-                            <!-- Nomor -->
-                            <td class="nomor">
-                                {{ $index + 1 }}
-                            </td>
+                            <div class="donor-name">
 
-
-                            <!-- Nama -->
-                            <td>
-
-                                <div class="user-info">
-
-                                    <div class="user-avatar">
-                                        {{ $inisial }}
-                                    </div>
-
-                                    <div>
-
-                                        <div class="nama-pendonor">
-                                            {{ $nama }}
-                                        </div>
-
-                                        <div class="user-label">
-                                            Pendonor
-                                        </div>
-
-                                    </div>
-
+                                <div class="name-icon">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                                        <circle cx="12" cy="8" r="3.5"/>
+                                        <path d="M5 20a7 7 0 0 1 14 0"/>
+                                    </svg>
                                 </div>
 
-                            </td>
+                                <span>
+                                    {{ $item->user->nama ?? '-' }}
+                                </span>
 
+                            </div>
 
-                            <!-- Status -->
-                            <td>
+                        </td>
+
+                        <td>
+                            @if($item->status)
 
                                 <span class="status-badge">
-
-                                    <span class="status-dot"></span>
-
-                                    {{ $item->status ?? '-' }}
-
+                                    {{ $item->status }}
                                 </span>
 
-                            </td>
+                            @else
 
+                                <span class="empty-text">-</span>
 
-                            <!-- Kelas / Jabatan -->
-                            <td>
-                                {{ $item->kelas_jabatan ?? '-' }}
-                            </td>
+                            @endif
+                        </td>
 
+                        <td>
+                            {{ $item->kelas_jabatan ?? '-' }}
+                        </td>
 
-                            <!-- Golongan Darah -->
-                            <td>
+                        <td>
 
-                                <span class="darah-badge">
-                                    {{ $item->golongan_darah ?? '-' }}
+                            @if($item->tanggal_lahir)
+                                {{ $item->tanggal_lahir->format('d M Y') }}
+                            @else
+                                -
+                            @endif
+
+                        </td>
+
+                        <td>
+
+                            @if($item->golongan_darah)
+
+                                <span class="blood-badge">
+                                    {{ $item->golongan_darah }}
                                 </span>
 
-                            </td>
+                            @else
 
+                                <span class="empty-text">-</span>
 
-                            <!-- Telepon -->
-                            <td>
-                                {{ $item->nomor_telepon ?? '-' }}
-                            </td>
+                            @endif
 
+                        </td>
 
-                            <!-- Kesehatan -->
-                            <td>
+                        <td>
+                            {{ $item->nomor_telepon ?? '-' }}
+                        </td>
 
-                                <div class="info-text">
-                                    {{ $item->informasi_kesehatan ?? '-' }}
-                                </div>
+                        <td>
+                            {{ $item->informasi_kesehatan ?? '-' }}
+                        </td>
 
-                            </td>
+                        <td class="action-column">
 
-                        </tr>
+                            <div class="action-buttons">
+
+                                {{-- Detail --}}
+                                <a
+                                    href="{{ route('pendonor.show', $item->id_pendonor) }}"
+                                    class="action-btn detail-btn"
+                                    title="Detail"
+                                >
+                                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                                        <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/>
+                                        <circle cx="12" cy="12" r="2.5"/>
+                                    </svg>
+                                </a>
+
+                                {{-- Edit --}}
+                                <a
+                                    href="{{ route('pendonor.edit', $item->id_pendonor) }}"
+                                    class="action-btn edit-btn"
+                                    title="Edit"
+                                >
+                                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                                        <path d="M4 20h4L19 9a2.1 2.1 0 0 0-3-3L5 18l-1 2Z"/>
+                                        <path d="m14.5 7.5 2 2"/>
+                                    </svg>
+                                </a>
+
+                                {{-- Hapus --}}
+                                <form
+                                    action="{{ route('pendonor.destroy', $item->id_pendonor) }}"
+                                    method="POST"
+                                    onsubmit="return confirm('Yakin ingin menghapus data pendonor ini?')"
+                                >
+
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button
+                                        type="submit"
+                                        class="action-btn delete-btn"
+                                        title="Hapus"
+                                    >
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M5 7h14"/>
+                                            <path d="M9 7V4h6v3"/>
+                                            <path d="m7 7 1 14h8l1-14"/>
+                                            <path d="M10 11v6M14 11v6"/>
+                                        </svg>
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
 
                     @empty
 
-                        <tr>
+                    <tr>
 
-                            <td colspan="7" class="empty-state">
+                        <td colspan="9" class="empty-row">
 
-                                <div class="empty-icon">
-                                    <i class="fas fa-user-slash"></i>
-                                </div>
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <circle cx="9" cy="8" r="3"/>
+                                <circle cx="16" cy="9" r="2.5"/>
+                                <path d="M3 20a6 6 0 0 1 12 0"/>
+                                <path d="M14 20a5 5 0 0 1 7 0"/>
+                            </svg>
 
-                                <strong>
-                                    Belum ada data pendonor
-                                </strong>
+                            <span>
+                                Belum ada data pendonor.
+                            </span>
 
-                                <span>
-                                    Belum terdapat pendonor yang terdaftar.
-                                </span>
+                        </td>
 
-                            </td>
-
-                        </tr>
+                    </tr>
 
                     @endforelse
 
@@ -695,41 +274,1220 @@
 
         </div>
 
+
+        {{-- Petunjuk --}}
+        @if($pendonor->count() > 0)
+
+        <div class="table-hint">
+
+            <span class="hint-icon">→</span>
+
+            <span>
+                Geser tabel ke kiri dan kanan untuk melihat data lainnya.
+            </span>
+
+        </div>
+
+        @endif
+
+
+        {{-- Footer --}}
+        @if($pendonor->count() > 0)
+
+        <div class="table-footer">
+
+            <span>
+                Menampilkan 1 - {{ $pendonor->count() }}
+                dari {{ $pendonor->count() }} data
+            </span>
+
+            <div class="pagination">
+
+                <button type="button" disabled>‹</button>
+
+                <button type="button" class="active">1</button>
+
+                <button type="button" disabled>›</button>
+
+            </div>
+
+        </div>
+
+        @endif
+
     </div>
 
 </div>
 
 
-<!-- Pencarian -->
-@push('scripts')
+<style>
+
+/* Halaman */
+
+.pendonor-page {
+    min-height: 100vh;
+    padding: 24px;
+    background: #fff9f6;
+}
+
+
+/* Banner */
+
+.page-banner {
+    position: relative;
+
+    min-height: 220px;
+
+    padding: 28px 30px;
+
+    margin-bottom: 22px;
+
+    overflow: hidden;
+
+    border-radius: 22px;
+
+    background: linear-gradient(
+        135deg,
+        #ed5573,
+        #d93659
+    );
+
+    color: white;
+
+    box-shadow:
+        0 10px 24px rgba(217, 54, 89, .14);
+}
+
+.page-banner::before {
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    right: -100px;
+    bottom: -180px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.07);
+}
+
+.page-banner::after {
+    content: "";
+
+    position: absolute;
+
+    width: 230px;
+    height: 230px;
+
+    right: 70px;
+    bottom: -160px;
+
+    border-radius: 50%;
+
+    border: 38px solid rgba(255,255,255,.05);
+}
+
+
+/* Banner content */
+
+.banner-content {
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+}
+
+.banner-icon {
+    width: 64px;
+    height: 64px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 17px;
+
+    background: rgba(255,255,255,.15);
+}
+
+.banner-icon svg {
+    width: 31px;
+    height: 31px;
+
+    fill: none;
+
+    stroke: white;
+
+    stroke-width: 1.7;
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.banner-label {
+    display: block;
+
+    margin-bottom: 3px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: .9px;
+
+    opacity: .9;
+}
+
+.banner-text h1 {
+    margin: 0;
+
+    font-size: 31px;
+
+    line-height: 1.2;
+
+    font-weight: 700;
+}
+
+.banner-text p {
+    margin: 7px 0 0;
+
+    font-size: 14px;
+
+    line-height: 1.45;
+
+    opacity: .9;
+}
+
+
+/* Hati */
+
+.banner-heart {
+    position: absolute;
+
+    z-index: 3;
+
+    top: 48px;
+    right: 48px;
+
+    width: 72px;
+    height: 72px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.96);
+
+    box-shadow:
+        0 7px 18px rgba(100,20,40,.10);
+}
+
+.banner-heart svg {
+    width: 35px;
+    height: 35px;
+
+    fill: #d93659;
+
+    stroke: #d93659;
+}
+
+
+/* Total */
+
+.total-box {
+    position: absolute;
+
+    z-index: 4;
+
+    left: 30px;
+    bottom: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    min-width: 195px;
+
+    padding: 10px 14px;
+
+    border-radius: 14px;
+
+    background: rgba(255,255,255,.14);
+
+    border: 1px solid rgba(255,255,255,.1);
+}
+
+.total-box-icon {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background: rgba(255,255,255,.14);
+}
+
+.total-box-icon svg {
+    width: 21px;
+    height: 21px;
+
+    fill: none;
+
+    stroke: white;
+
+    stroke-width: 1.7;
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.total-info strong {
+    display: block;
+
+    font-size: 25px;
+
+    line-height: 1;
+
+    font-weight: 700;
+}
+
+.total-info span {
+    display: block;
+
+    margin-top: 4px;
+
+    font-size: 11px;
+
+    opacity: .9;
+}
+
+
+/* Card */
+
+.data-card {
+    padding: 18px;
+
+    background: white;
+
+    border: 1px solid #f0e4e7;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 5px 18px rgba(90,40,50,.05);
+}
+
+
+/* Search */
+
+.table-top {
+    margin-bottom: 15px;
+}
+
+.search-box {
+    position: relative;
+
+    width: 560px;
+
+    max-width: 100%;
+}
+
+.search-box svg {
+    position: absolute;
+
+    left: 16px;
+    top: 50%;
+
+    width: 19px;
+    height: 19px;
+
+    transform: translateY(-50%);
+
+    fill: none;
+
+    stroke: #d93659;
+
+    stroke-width: 1.8;
+
+    stroke-linecap: round;
+
+    pointer-events: none;
+}
+
+.search-box input {
+    width: 100%;
+
+    height: 48px;
+
+    padding: 0 16px 0 46px;
+
+    border: 1px solid #e4dfe1;
+
+    border-radius: 13px;
+
+    outline: none;
+
+    background: white;
+
+    color: #333;
+
+    font-size: 13px;
+}
+
+.search-box input:focus {
+    border-color: #ed5573;
+
+    box-shadow:
+        0 0 0 3px rgba(237,85,115,.07);
+}
+
+
+/* Tabel */
+
+.table-scroll {
+    width: 100%;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    -webkit-overflow-scrolling: touch;
+
+    touch-action: pan-x;
+
+    overscroll-behavior-x: contain;
+
+    border: 1px solid #eee5e7;
+
+    border-radius: 14px;
+
+    scrollbar-width: thin;
+
+    scrollbar-color:
+        #ed5573
+        #f8eef0;
+}
+
+.table-scroll::-webkit-scrollbar {
+    height: 7px;
+}
+
+.table-scroll::-webkit-scrollbar-track {
+    background: #f8eef0;
+}
+
+.table-scroll::-webkit-scrollbar-thumb {
+    background: #ed5573;
+
+    border-radius: 10px;
+}
+
+#pendonorTable {
+    width: 1050px;
+
+    min-width: 1050px;
+
+    border-collapse: separate;
+
+    border-spacing: 0;
+
+    font-size: 12px;
+
+    table-layout: fixed;
+}
+
+
+/* Header */
+
+#pendonorTable thead th {
+    height: 46px;
+
+    padding: 10px 11px;
+
+    background: linear-gradient(
+        135deg,
+        #ed5573,
+        #d93659
+    );
+
+    color: white;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    text-align: left;
+
+    border-right:
+        1px solid rgba(255,255,255,.12);
+}
+
+#pendonorTable thead th:first-child {
+    text-align: center;
+}
+
+#pendonorTable thead th:last-child {
+    text-align: center;
+
+    border-right: none;
+}
+
+
+/* Isi */
+
+#pendonorTable tbody td {
+    height: 62px;
+
+    padding: 9px 11px;
+
+    background: white;
+
+    color: #4f484b;
+
+    border-right: 1px solid #eee8e9;
+
+    border-bottom: 1px solid #eee8e9;
+
+    vertical-align: middle;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+#pendonorTable tbody tr:last-child td {
+    border-bottom: none;
+}
+
+#pendonorTable tbody td:last-child {
+    border-right: none;
+}
+
+#pendonorTable tbody tr:hover td {
+    background: #fff9fb;
+}
+
+
+/* Lebar kolom */
+
+.col-no {
+    width: 48px;
+}
+
+.col-name {
+    width: 190px;
+}
+
+.col-action {
+    width: 125px;
+}
+
+
+/* Nama */
+
+.number {
+    text-align: center;
+
+    font-weight: 600;
+
+    color: #5c5356;
+}
+
+.donor-name {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    font-weight: 600;
+
+    color: #343033;
+
+    min-width: 0;
+}
+
+.donor-name span {
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+.name-icon {
+    width: 34px;
+    height: 34px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #ffe5eb;
+}
+
+.name-icon svg {
+    width: 17px;
+    height: 17px;
+
+    fill: none;
+
+    stroke: #d93659;
+
+    stroke-width: 1.8;
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+
+/* Badge */
+
+.status-badge {
+    display: inline-flex;
+
+    align-items: center;
+
+    max-width: 100%;
+
+    padding: 5px 9px;
+
+    border-radius: 18px;
+
+    background: #ffe5eb;
+
+    color: #d93659;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+.blood-badge {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 34px;
+
+    padding: 5px 8px;
+
+    border-radius: 18px;
+
+    background: #ffe5eb;
+
+    color: #d93659;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+.empty-text {
+    color: #aaa;
+}
+
+
+/* Aksi */
+
+.action-column {
+    width: 125px;
+
+    text-align: center;
+}
+
+.action-buttons {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 5px;
+}
+
+.action-buttons form {
+    margin: 0;
+    padding: 0;
+}
+
+.action-btn {
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    text-decoration: none;
+
+    transition: .2s ease;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+}
+
+.action-btn svg {
+    width: 15px;
+    height: 15px;
+
+    fill: none;
+
+    stroke-width: 1.8;
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.detail-btn {
+    background: #ffe5eb;
+}
+
+.detail-btn svg {
+    stroke: #d93659;
+}
+
+.edit-btn {
+    background: #fff0d9;
+}
+
+.edit-btn svg {
+    stroke: #d48618;
+}
+
+.delete-btn {
+    background: #ffe1e1;
+}
+
+.delete-btn svg {
+    stroke: #d33b3b;
+}
+
+
+/* Kosong */
+
+.empty-row {
+    height: 150px !important;
+
+    text-align: center;
+
+    color: #999 !important;
+}
+
+.empty-row svg {
+    display: block;
+
+    width: 38px;
+    height: 38px;
+
+    margin: 0 auto 9px;
+
+    fill: none;
+
+    stroke: #ed5573;
+
+    stroke-width: 1.5;
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+
+/* Petunjuk */
+
+.table-hint {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 10px;
+
+    color: #9a8f93;
+
+    font-size: 11px;
+}
+
+.hint-icon {
+    width: 27px;
+    height: 27px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #ffe5eb;
+
+    color: #d93659;
+
+    font-size: 16px;
+}
+
+
+/* Footer */
+
+.table-footer {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 15px 3px 0;
+
+    color: #71809a;
+
+    font-size: 12px;
+}
+
+.pagination {
+    display: flex;
+
+    gap: 7px;
+}
+
+.pagination button {
+    width: 36px;
+    height: 36px;
+
+    border: 1px solid #e2e5eb;
+
+    border-radius: 10px;
+
+    background: white;
+
+    color: #9aa5b5;
+
+    font-size: 17px;
+}
+
+.pagination button.active {
+    background: #ed5573;
+
+    border-color: #ed5573;
+
+    color: white;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+
+/* Tablet */
+
+@media (max-width: 900px) {
+
+    .pendonor-page {
+        padding: 18px;
+    }
+
+    .page-banner {
+        min-height: 215px;
+
+        padding: 25px;
+    }
+
+    .banner-heart {
+        right: 32px;
+        top: 48px;
+    }
+
+    .total-box {
+        left: 25px;
+        bottom: 18px;
+    }
+}
+
+
+/* HP */
+
+@media (max-width: 600px) {
+
+    .pendonor-page {
+        padding: 12px;
+
+        width: 100%;
+
+        overflow-x: hidden;
+    }
+
+    .page-banner {
+        min-height: 235px;
+
+        padding: 20px;
+
+        margin-bottom: 16px;
+
+        border-radius: 19px;
+    }
+
+    .banner-content {
+        gap: 12px;
+
+        align-items: flex-start;
+    }
+
+    .banner-icon {
+        width: 52px;
+        height: 52px;
+
+        border-radius: 14px;
+    }
+
+    .banner-icon svg {
+        width: 26px;
+        height: 26px;
+    }
+
+    .banner-label {
+        font-size: 10px;
+    }
+
+    .banner-text h1 {
+        font-size: 23px;
+    }
+
+    .banner-text p {
+        max-width: 205px;
+
+        margin-top: 5px;
+
+        font-size: 11px;
+
+        line-height: 1.45;
+    }
+
+    .banner-heart {
+        width: 55px;
+        height: 55px;
+
+        right: 17px;
+        top: 92px;
+    }
+
+    .banner-heart svg {
+        width: 27px;
+        height: 27px;
+    }
+
+    .total-box {
+        left: 20px;
+        right: 20px;
+
+        bottom: 17px;
+
+        min-width: 0;
+
+        padding: 9px 12px;
+
+        border-radius: 13px;
+    }
+
+    .total-box-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .total-box-icon svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .total-info strong {
+        font-size: 24px;
+    }
+
+    .total-info span {
+        font-size: 11px;
+    }
+
+
+    /* Card */
+
+    .data-card {
+        padding: 13px;
+
+        border-radius: 18px;
+    }
+
+
+    /* Search */
+
+    .table-top {
+        margin-bottom: 13px;
+    }
+
+    .search-box input {
+        height: 46px;
+
+        font-size: 12px;
+
+        padding-left: 44px;
+    }
+
+    .search-box svg {
+        left: 15px;
+
+        width: 18px;
+        height: 18px;
+    }
+
+
+    /* Tabel HP */
+
+    .table-scroll {
+        width: 100%;
+
+        max-width: 100%;
+
+        overflow-x: scroll;
+
+        overflow-y: hidden;
+
+        -webkit-overflow-scrolling: touch;
+
+        touch-action: pan-x;
+    }
+
+    #pendonorTable {
+        width: 1050px;
+
+        min-width: 1050px;
+
+        table-layout: fixed;
+    }
+
+    #pendonorTable thead th {
+        height: 44px;
+
+        padding: 9px 10px;
+
+        font-size: 10px;
+    }
+
+    #pendonorTable tbody td {
+        height: 60px;
+
+        padding: 8px 10px;
+
+        font-size: 11px;
+    }
+
+
+    /* Kolom HP */
+
+    .col-no {
+        width: 45px !important;
+    }
+
+    .col-name {
+        width: 180px !important;
+    }
+
+    .col-action {
+        width: 120px !important;
+    }
+
+
+    /* Nama HP */
+
+    .name-icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .name-icon svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .donor-name {
+        gap: 7px;
+    }
+
+
+    /* Tombol HP */
+
+    .action-column {
+        width: 120px;
+    }
+
+    .action-buttons {
+        gap: 5px;
+    }
+
+    .action-btn {
+        width: 31px;
+        height: 31px;
+    }
+
+    .action-btn svg {
+        width: 14px;
+        height: 14px;
+    }
+
+
+    /* Footer */
+
+    .table-footer {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 12px;
+
+        padding-top: 14px;
+    }
+
+}
+
+
+/* HP kecil */
+
+@media (max-width: 400px) {
+
+    .pendonor-page {
+        padding: 10px;
+    }
+
+    .page-banner {
+        min-height: 225px;
+
+        padding: 18px;
+    }
+
+    .banner-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .banner-text h1 {
+        font-size: 21px;
+    }
+
+    .banner-text p {
+        max-width: 185px;
+
+        font-size: 10px;
+    }
+
+    .banner-heart {
+        width: 50px;
+        height: 50px;
+
+        right: 15px;
+        top: 88px;
+    }
+
+    .banner-heart svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .total-box {
+        left: 17px;
+        right: 17px;
+
+        bottom: 15px;
+    }
+
+    .data-card {
+        padding: 11px;
+    }
+
+    #pendonorTable {
+        width: 1050px;
+
+        min-width: 1050px;
+    }
+}
+
+</style>
+
 
 <script>
-    const searchPendonor = document.getElementById('searchPendonor');
 
-    if (searchPendonor) {
+document.addEventListener('DOMContentLoaded', function () {
 
-        searchPendonor.addEventListener('keyup', function () {
+    const searchInput =
+        document.getElementById('searchPendonor');
 
-            const keyword = this.value.toLowerCase();
+    const rows =
+        document.querySelectorAll(
+            '#pendonorTable tbody tr'
+        );
 
-            const rows = document.querySelectorAll(
-                '#pendonorTable tr'
-            );
+    if (!searchInput) {
+        return;
+    }
 
-            rows.forEach(function (row) {
+    searchInput.addEventListener('input', function () {
 
-                const text = row.innerText.toLowerCase();
+        const keyword =
+            this.value.toLowerCase().trim();
 
-                row.style.display =
-                    text.includes(keyword) ? '' : 'none';
+        rows.forEach(function (row) {
 
-            });
+            const text =
+                row.textContent.toLowerCase();
+
+            row.style.display =
+                text.includes(keyword) ? '' : 'none';
 
         });
 
-    }
-</script>
+    });
 
-@endpush
+});
+
+</script>
 
 @endsection
