@@ -336,15 +336,15 @@
 .page-banner {
     position: relative;
 
-    min-height: 220px;
+    min-height: 175px;
 
-    padding: 28px 30px;
+    padding: 22px 26px;
 
     margin-bottom: 22px;
 
     overflow: hidden;
 
-    border-radius: 22px;
+    border-radius: 20px;
 
     background: linear-gradient(
         135deg,
@@ -355,7 +355,7 @@
     color: white;
 
     box-shadow:
-        0 10px 24px rgba(217, 54, 89, .14);
+        0 8px 20px rgba(217, 54, 89, .12);
 }
 
 .page-banner::before {
@@ -363,11 +363,11 @@
 
     position: absolute;
 
-    width: 300px;
-    height: 300px;
+    width: 250px;
+    height: 250px;
 
-    right: -100px;
-    bottom: -180px;
+    right: -85px;
+    bottom: -150px;
 
     border-radius: 50%;
 
@@ -379,15 +379,15 @@
 
     position: absolute;
 
-    width: 230px;
-    height: 230px;
+    width: 190px;
+    height: 190px;
 
-    right: 70px;
-    bottom: -160px;
+    right: 55px;
+    bottom: -135px;
 
     border-radius: 50%;
 
-    border: 38px solid rgba(255,255,255,.05);
+    border: 28px solid rgba(255,255,255,.05);
 }
 
 
@@ -402,12 +402,12 @@
 
     align-items: center;
 
-    gap: 16px;
+    gap: 13px;
 }
 
 .banner-icon {
-    width: 64px;
-    height: 64px;
+    width: 52px;
+    height: 52px;
 
     flex-shrink: 0;
 
@@ -416,14 +416,14 @@
     align-items: center;
     justify-content: center;
 
-    border-radius: 17px;
+    border-radius: 14px;
 
     background: rgba(255,255,255,.15);
 }
 
 .banner-icon svg {
-    width: 31px;
-    height: 31px;
+    width: 26px;
+    height: 26px;
 
     fill: none;
 
@@ -438,13 +438,13 @@
 .banner-label {
     display: block;
 
-    margin-bottom: 3px;
+    margin-bottom: 2px;
 
-    font-size: 12px;
+    font-size: 10px;
 
     font-weight: 700;
 
-    letter-spacing: .9px;
+    letter-spacing: .8px;
 
     opacity: .9;
 }
@@ -452,7 +452,7 @@
 .banner-text h1 {
     margin: 0;
 
-    font-size: 31px;
+    font-size: 26px;
 
     line-height: 1.2;
 
@@ -460,11 +460,11 @@
 }
 
 .banner-text p {
-    margin: 7px 0 0;
+    margin: 5px 0 0;
 
-    font-size: 14px;
+    font-size: 12px;
 
-    line-height: 1.45;
+    line-height: 1.4;
 
     opacity: .9;
 }
@@ -477,11 +477,11 @@
 
     z-index: 3;
 
-    top: 48px;
-    right: 48px;
+    top: 25px;
+    right: 27px;
 
-    width: 72px;
-    height: 72px;
+    width: 55px;
+    height: 55px;
 
     display: flex;
 
@@ -493,12 +493,12 @@
     background: rgba(255,255,255,.96);
 
     box-shadow:
-        0 7px 18px rgba(100,20,40,.10);
+        0 6px 16px rgba(100,20,40,.09);
 }
 
 .banner-heart svg {
-    width: 35px;
-    height: 35px;
+    width: 27px;
+    height: 27px;
 
     fill: #d93659;
 
@@ -513,20 +513,20 @@
 
     z-index: 4;
 
-    left: 30px;
-    bottom: 20px;
+    left: 26px;
+    bottom: 12px;
 
     display: flex;
 
     align-items: center;
 
-    gap: 11px;
+    gap: 8px;
 
-    min-width: 195px;
+    min-width: 155px;
 
-    padding: 10px 14px;
+    padding: 6px 9px;
 
-    border-radius: 14px;
+    border-radius: 11px;
 
     background: rgba(255,255,255,.14);
 
@@ -534,8 +534,8 @@
 }
 
 .total-box-icon {
-    width: 42px;
-    height: 42px;
+    width: 32px;
+    height: 32px;
 
     flex-shrink: 0;
 
@@ -544,14 +544,14 @@
     align-items: center;
     justify-content: center;
 
-    border-radius: 11px;
+    border-radius: 9px;
 
     background: rgba(255,255,255,.14);
 }
 
 .total-box-icon svg {
-    width: 21px;
-    height: 21px;
+    width: 17px;
+    height: 17px;
 
     fill: none;
 
@@ -566,7 +566,7 @@
 .total-info strong {
     display: block;
 
-    font-size: 25px;
+    font-size: 20px;
 
     line-height: 1;
 
@@ -576,9 +576,9 @@
 .total-info span {
     display: block;
 
-    margin-top: 4px;
+    margin-top: 3px;
 
-    font-size: 11px;
+    font-size: 9px;
 
     opacity: .9;
 }
@@ -1130,19 +1130,19 @@
     }
 
     .page-banner {
-        min-height: 215px;
+        min-height: 170px;
 
-        padding: 25px;
+        padding: 21px 23px;
     }
 
     .banner-heart {
-        right: 32px;
-        top: 48px;
+        right: 23px;
+        top: 24px;
     }
 
     .total-box {
-        left: 25px;
-        bottom: 18px;
+        left: 23px;
+        bottom: 11px;
     }
 }
 
@@ -1160,93 +1160,93 @@
     }
 
     .page-banner {
-        min-height: 235px;
+        min-height: 180px;
 
-        padding: 20px;
+        padding: 17px;
 
         margin-bottom: 16px;
 
-        border-radius: 19px;
+        border-radius: 18px;
     }
 
     .banner-content {
-        gap: 12px;
+        gap: 9px;
 
         align-items: flex-start;
     }
 
     .banner-icon {
-        width: 52px;
-        height: 52px;
+        width: 44px;
+        height: 44px;
 
-        border-radius: 14px;
+        border-radius: 12px;
     }
 
     .banner-icon svg {
-        width: 26px;
-        height: 26px;
+        width: 22px;
+        height: 22px;
     }
 
     .banner-label {
-        font-size: 10px;
+        font-size: 8px;
     }
 
     .banner-text h1 {
-        font-size: 23px;
+        font-size: 20px;
     }
 
     .banner-text p {
-        max-width: 205px;
+        max-width: 190px;
 
-        margin-top: 5px;
+        margin-top: 3px;
 
-        font-size: 11px;
+        font-size: 9px;
 
-        line-height: 1.45;
+        line-height: 1.4;
     }
 
     .banner-heart {
-        width: 55px;
-        height: 55px;
+        width: 45px;
+        height: 45px;
 
-        right: 17px;
-        top: 92px;
+        right: 15px;
+        top: 21px;
     }
 
     .banner-heart svg {
-        width: 27px;
-        height: 27px;
+        width: 22px;
+        height: 22px;
     }
 
     .total-box {
-        left: 20px;
-        right: 20px;
+        left: 17px;
+        right: 17px;
 
-        bottom: 17px;
+        bottom: 11px;
 
         min-width: 0;
 
-        padding: 9px 12px;
+        padding: 6px 9px;
 
-        border-radius: 13px;
+        border-radius: 10px;
     }
 
     .total-box-icon {
-        width: 40px;
-        height: 40px;
+        width: 32px;
+        height: 32px;
     }
 
     .total-box-icon svg {
-        width: 20px;
-        height: 20px;
+        width: 17px;
+        height: 17px;
     }
 
     .total-info strong {
-        font-size: 24px;
+        font-size: 20px;
     }
 
     .total-info span {
-        font-size: 11px;
+        font-size: 9px;
     }
 
 
@@ -1399,44 +1399,64 @@
     }
 
     .page-banner {
-        min-height: 225px;
+        min-height: 175px;
 
-        padding: 18px;
+        padding: 16px;
     }
 
     .banner-icon {
-        width: 48px;
-        height: 48px;
+        width: 41px;
+        height: 41px;
     }
 
     .banner-text h1 {
-        font-size: 21px;
+        font-size: 19px;
     }
 
     .banner-text p {
-        max-width: 185px;
+        max-width: 165px;
 
-        font-size: 10px;
+        font-size: 8.5px;
     }
 
     .banner-heart {
-        width: 50px;
-        height: 50px;
+        width: 42px;
+        height: 42px;
 
-        right: 15px;
-        top: 88px;
+        right: 13px;
+        top: 19px;
     }
 
     .banner-heart svg {
-        width: 24px;
-        height: 24px;
+        width: 20px;
+        height: 20px;
     }
 
     .total-box {
-        left: 17px;
-        right: 17px;
+        left: 16px;
+        right: 16px;
 
-        bottom: 15px;
+        bottom: 10px;
+
+        padding: 6px 8px;
+    }
+
+    .total-box-icon {
+        width: 30px;
+        height: 30px;
+    }
+
+    .total-box-icon svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .total-info strong {
+        font-size: 19px;
+    }
+
+    .total-info span {
+        font-size: 8.5px;
     }
 
     .data-card {

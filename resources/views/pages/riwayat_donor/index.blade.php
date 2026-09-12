@@ -1,173 +1,176 @@
 @extends('layouts.app')
 
+@section('title', 'Profil Petugas - DonorConnect')
+
 @section('content')
 
-<div class="container-fluid donor-page">
+<div class="profile-page">
 
-    <!-- Header -->
-    <div class="donor-header">
+    {{-- Header --}}
+    <div class="page-header">
         <div>
-            <div class="donor-small-title">DONORCONNECT</div>
-
-            <h1>Riwayat Donor</h1>
-
-            <p>
-                Lihat seluruh riwayat donor yang telah dilakukan pendonor.
-            </p>
+            <span class="page-label">DONORCONNECT</span>
+            <h1>Profil Saya</h1>
+            <p>Informasi akun dan data petugas PMR.</p>
         </div>
 
-        <div class="donor-header-icon">
-            <i class="fas fa-history"></i>
+        <div class="role-badge">
+            <i class="fas fa-user-shield"></i>
+            Petugas PMR
         </div>
     </div>
 
-    <!-- Card -->
-    <div class="donor-card">
 
-        <div class="card-title-area">
+    {{-- Profile --}}
+    <div class="profile-card">
 
-            <div class="title-icon">
-                <i class="fas fa-history"></i>
+        {{-- Banner --}}
+        <div class="profile-banner">
+
+            <div class="banner-content">
+
+                <div class="avatar">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+
+                <div class="identity">
+
+                    <span class="identity-label">
+                        PROFIL PETUGAS
+                    </span>
+
+                    <h2>
+                        {{ $petugas->user->nama }}
+                    </h2>
+
+                    <div class="identity-status">
+                        <span class="status-dot"></span>
+                        Petugas PMR
+                    </div>
+
+                </div>
+
             </div>
 
-            <div>
-                <h3>Data Riwayat Donor</h3>
-                <p>Daftar hasil donor yang telah disimpan</p>
+            <div class="banner-shape shape-one"></div>
+            <div class="banner-shape shape-two"></div>
+            <div class="banner-line"></div>
+
+        </div>
+
+
+        {{-- Information --}}
+        <div class="profile-information">
+
+            <div class="information-header">
+
+                <div class="information-icon">
+                    <i class="fas fa-id-card"></i>
+                </div>
+
+                <div>
+                    <h3>Informasi Akun</h3>
+                    <p>Data yang terdaftar pada akun petugas.</p>
+                </div>
+
+            </div>
+
+
+            <div class="information-list">
+
+                {{-- Nama --}}
+                <div class="information-item">
+
+                    <div class="item-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+
+                    <div class="item-content">
+                        <span>Nama Lengkap</span>
+                        <strong>
+                            {{ $petugas->user->nama }}
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                {{-- Email --}}
+                <div class="information-item">
+
+                    <div class="item-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+
+                    <div class="item-content">
+                        <span>Email</span>
+                        <strong>
+                            {{ $petugas->user->email }}
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                {{-- Jabatan --}}
+                <div class="information-item">
+
+                    <div class="item-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+
+                    <div class="item-content">
+                        <span>Jabatan</span>
+                        <strong>Petugas PMR</strong>
+                    </div>
+
+                </div>
+
+
+                {{-- ID --}}
+                <div class="information-item">
+
+                    <div class="item-icon">
+                        <i class="fas fa-fingerprint"></i>
+                    </div>
+
+                    <div class="item-content">
+                        <span>ID Petugas</span>
+                        <strong>
+                            {{ $petugas->id_petugas }}
+                        </strong>
+                    </div>
+
+                </div>
+
             </div>
 
         </div>
 
-        <!-- Tabel -->
-        <div class="table-responsive">
 
-            <table class="table donor-table">
+        {{-- Footer --}}
+        <div class="profile-footer">
 
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Pendonor</th>
-                        <th>Kegiatan</th>
-                        <th>Tanggal Donor</th>
-                        <th>Jumlah Kantong</th>
-                        <th>Keterangan</th>
-                    </tr>
-                </thead>
+            <div class="footer-info">
 
-                <tbody>
+                <div class="footer-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
 
-                    @forelse ($riwayat as $item)
+                <div>
+                    <strong>Akun Petugas PMR</strong>
+                    <span>Kelola informasi profil Anda.</span>
+                </div>
 
-                    <tr>
+            </div>
 
-                        <td>
-                            {{ $loop->iteration }}
-                        </td>
-
-                        <td>
-                            <div class="donor-name">
-
-                                <div class="donor-avatar">
-                                    <i class="fas fa-user"></i>
-                                </div>
-
-                                <div>
-                                    <strong>
-                                        {{ $item->pendonor->user->nama ?? 'Pendonor' }}
-                                    </strong>
-
-                                    <small>
-                                        {{ $item->pendonor->golongan_darah ?? '-' }}
-                                    </small>
-                                </div>
-
-                            </div>
-                        </td>
-
-                        <td>
-                            <div class="activity-name">
-
-                                <div class="activity-icon">
-                                    <i class="fas fa-tint"></i>
-                                </div>
-
-                                <span>
-                                    {{ $item->hasilDonor->kegiatanDonor->nama_kegiatan ?? '-' }}
-                                </span>
-
-                            </div>
-                        </td>
-
-                        <td>
-                            {{ $item->hasilDonor->tanggal_donor
-                                ? $item->hasilDonor->tanggal_donor->format('d/m/Y')
-                                : '-' }}
-                        </td>
-
-                        <td>
-
-                            <span class="blood-bag">
-
-                                <i class="fas fa-tint"></i>
-
-                                {{ $item->hasilDonor->jumlah_kantong ?? 0 }}
-
-                                kantong
-
-                            </span>
-
-                        </td>
-
-                        <td>
-
-                            <span class="status-sehat">
-
-                                {{ $item->hasilDonor->keterangan ?? 'Sehat' }}
-
-                            </span>
-
-                        </td>
-
-                    </tr>
-
-                    @empty
-
-                    <tr>
-
-                        <td colspan="6">
-
-                            <div class="empty-state">
-
-                                <div class="empty-icon">
-                                    <i class="fas fa-history"></i>
-                                </div>
-
-                                <h4>Belum Ada Riwayat Donor</h4>
-
-                                <p>
-                                    Riwayat donor akan muncul setelah petugas
-                                    mencatat hasil donor.
-                                </p>
-
-                                <a href="{{ route('hasil-donor.create') }}"
-                                   class="btn-donor">
-
-                                    <i class="fas fa-plus"></i>
-
-                                    Catat Hasil Donor
-
-                                </a>
-
-                            </div>
-
-                        </td>
-
-                    </tr>
-
-                    @endforelse
-
-                </tbody>
-
-            </table>
+            <a
+                href="{{ route('profile.edit') }}"
+                class="edit-button"
+            >
+                <i class="fas fa-edit"></i>
+                <span>Ubah Profil</span>
+            </a>
 
         </div>
 
@@ -175,295 +178,570 @@
 
 </div>
 
+
+@endsection
+
+
+@push('styles')
+
 <style>
 
-.donor-page {
-    padding: 25px 28px;
-    background: #fffaf7;
-    min-height: calc(100vh - 72px);
+/* Page */
+
+.profile-page {
+    min-height: calc(100vh - 80px);
+    padding: 28px 30px 40px;
+    background: #fff9f6;
 }
 
-.donor-header {
+
+/* Header */
+
+.page-header {
+    max-width: 1180px;
+    margin: 0 auto 22px;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
-    background: linear-gradient(135deg, #fff5f3, #fffdfb);
-    border: 1px solid #f1dddd;
-    border-radius: 16px;
-    padding: 22px 25px;
-    margin-bottom: 20px;
-    box-shadow: 0 5px 18px rgba(185, 91, 91, 0.06);
+    gap: 20px;
 }
 
-.donor-small-title {
-    color: #c9183b;
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    margin-bottom: 4px;
+.page-label {
+    display: block;
+    margin-bottom: 5px;
+    color: #b0143b;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 2px;
 }
 
-.donor-header h1 {
+.page-header h1 {
     margin: 0;
-    color: #3f3437;
-    font-size: 23px;
+    color: #283252;
+    font-size: 28px;
     font-weight: 800;
+    line-height: 1.2;
 }
 
-.donor-header p {
-    margin: 6px 0 0;
-    color: #9b898c;
+.page-header p {
+    margin: 5px 0 0;
+    color: #918a90;
     font-size: 11px;
 }
 
-.donor-header-icon {
-    width: 52px;
-    height: 52px;
+.role-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 15px;
+    background: #fff;
+    border: 1px solid #efdce2;
+    border-radius: 30px;
+    color: #ad123b;
+    font-size: 10px;
+    font-weight: 800;
+    box-shadow: 0 4px 12px rgba(168,14,44,.04);
+}
+
+
+/* Card */
+
+.profile-card {
+    max-width: 1180px;
+    margin: 0 auto;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #f0dfe4;
+    border-radius: 22px;
+    box-shadow: 0 10px 30px rgba(168,14,44,.06);
+}
+
+
+/* Banner */
+
+.profile-banner {
+    min-height: 190px;
+    padding: 30px 38px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    background:
+        linear-gradient(
+            110deg,
+            #a90f35 0%,
+            #c72e5d 48%,
+            #dc6796 100%
+        );
+}
+
+.banner-content {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.avatar {
+    width: 84px;
+    height: 84px;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 14px;
-    background: linear-gradient(135deg, #c90000, #d94b91);
-    color: #ffffff;
-    font-size: 21px;
-    box-shadow: 0 7px 16px rgba(201, 0, 0, 0.18);
+    background: rgba(255,255,255,.16);
+    border: 2px solid rgba(255,255,255,.5);
+    border-radius: 24px;
+    color: #fff;
+    font-size: 31px;
+    box-shadow: 0 8px 20px rgba(80,0,20,.12);
+    backdrop-filter: blur(4px);
 }
 
-.donor-card {
-    background: #ffffff;
-    border: 1px solid #f0dddd;
-    border-radius: 16px;
-    padding: 22px;
-    box-shadow: 0 5px 20px rgba(185, 91, 91, 0.06);
+.identity-label {
+    display: block;
+    margin-bottom: 6px;
+    color: rgba(255,255,255,.72);
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
 }
 
-.card-title-area {
+.identity h2 {
+    margin: 0 0 10px;
+    color: #fff;
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.identity-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 11px;
+    background: rgba(255,255,255,.15);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 20px;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #fff;
+}
+
+
+/* Banner Decoration */
+
+.banner-shape {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.13);
+}
+
+.shape-one {
+    width: 250px;
+    height: 250px;
+    right: -65px;
+    top: -105px;
+}
+
+.shape-two {
+    width: 170px;
+    height: 170px;
+    right: 100px;
+    bottom: -125px;
+}
+
+.banner-line {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    right: 30px;
+    bottom: -145px;
+    border-radius: 50%;
+    border: 30px solid rgba(255,255,255,.045);
+}
+
+
+/* Information */
+
+.profile-information {
+    padding: 30px 38px;
+}
+
+.information-header {
     display: flex;
     align-items: center;
     gap: 12px;
     margin-bottom: 20px;
 }
 
-.title-icon {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    background: linear-gradient(135deg, #fde3e5, #f8d8e8);
-    color: #c9183b;
-    font-size: 15px;
-}
-
-.card-title-area h3 {
-    margin: 0;
-    color: #493d40;
-    font-size: 15px;
-    font-weight: 800;
-}
-
-.card-title-area p {
-    margin: 3px 0 0;
-    color: #a18e91;
-    font-size: 10px;
-}
-
-.donor-table {
-    width: 100%;
-    margin: 0;
-    border-collapse: separate;
-    border-spacing: 0;
-    overflow: hidden;
-    border: 1px solid #f1e4e2;
-    border-radius: 12px;
-}
-
-.donor-table thead th {
-    background: linear-gradient(135deg, #a80e2c, #c91845);
-    color: #ffffff;
-    border: none;
-    padding: 13px 12px;
-    font-size: 10px;
-    font-weight: 800;
-    white-space: nowrap;
-}
-
-.donor-table tbody td {
-    padding: 14px 12px;
-    border-top: 1px solid #f4e9e7;
-    color: #5d5154;
-    font-size: 10px;
-    vertical-align: middle;
-}
-
-.donor-table tbody tr:hover {
-    background: #fff8f8;
-}
-
-.donor-name {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    min-width: 160px;
-}
-
-.donor-avatar {
-    width: 34px;
-    height: 34px;
+.information-icon {
+    width: 43px;
+    height: 43px;
     flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #a80e2c, #d44983);
-    color: #ffffff;
-    font-size: 11px;
+    background: #fce8ef;
+    color: #b0143b;
+    border-radius: 12px;
+    font-size: 14px;
 }
 
-.donor-name strong {
-    display: block;
-    color: #493d40;
-    font-size: 10px;
+.information-header h3 {
+    margin: 0;
+    color: #354056;
+    font-size: 16px;
     font-weight: 800;
 }
 
-.donor-name small {
-    display: block;
-    margin-top: 2px;
-    color: #a18e91;
-    font-size: 8px;
+.information-header p {
+    margin: 3px 0 0;
+    color: #a29ba0;
+    font-size: 10px;
 }
 
-.activity-name {
+
+/* Information List */
+
+.information-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.information-item {
+    min-height: 78px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    background: #fffafa;
+    border: 1px solid #f1e5e8;
+    border-radius: 14px;
+    transition: .2s ease;
+}
+
+.information-item:hover {
+    border-color: #e9cbd4;
+    box-shadow: 0 5px 14px rgba(168,14,44,.05);
+}
+
+.item-icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fce8ef;
+    color: #c01947;
+    border-radius: 11px;
+    font-size: 13px;
+}
+
+.item-content {
+    min-width: 0;
+}
+
+.item-content span {
+    display: block;
+    margin-bottom: 4px;
+    color: #999096;
+    font-size: 9px;
+    font-weight: 600;
+}
+
+.item-content strong {
+    display: block;
+    overflow: hidden;
+    color: #3d465a;
+    font-size: 12px;
+    font-weight: 750;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* Footer */
+
+.profile-footer {
+    min-height: 75px;
+    padding: 15px 38px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background: #fffafa;
+    border-top: 1px solid #f1e3e7;
+}
+
+.footer-info {
     display: flex;
     align-items: center;
     gap: 9px;
-    min-width: 190px;
 }
 
-.activity-icon {
+.footer-icon {
     width: 31px;
     height: 31px;
     flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
-    background: #fde6e8;
-    color: #c9183b;
-    font-size: 11px;
+    background: #fce8ef;
+    color: #b0143b;
+    border-radius: 9px;
+    font-size: 10px;
 }
 
-.activity-name span {
-    color: #4a3e41;
-    font-weight: 700;
-    line-height: 1.4;
+.footer-info strong {
+    display: block;
+    margin-bottom: 2px;
+    color: #51474b;
+    font-size: 10px;
 }
 
-.blood-bag {
+.footer-info span {
+    display: block;
+    color: #a79da2;
+    font-size: 9px;
+}
+
+.edit-button {
     display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    background: #fff0f0;
-    color: #c9183b;
-    padding: 6px 9px;
-    border-radius: 7px;
-    font-size: 9px;
-    font-weight: 700;
-    white-space: nowrap;
-}
-
-.blood-bag i {
-    font-size: 9px;
-}
-
-.status-sehat {
-    display: inline-block;
-    padding: 6px 10px;
-    border-radius: 7px;
-    background: #eaf7ed;
-    color: #39814c;
-    font-size: 9px;
-    font-weight: 700;
-}
-
-.empty-state {
-    text-align: center;
-    padding: 45px 20px;
-}
-
-.empty-icon {
-    width: 60px;
-    height: 60px;
-    margin: 0 auto 12px;
-    display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    background: #fde7e8;
-    color: #c9183b;
-    font-size: 22px;
-}
-
-.empty-state h4 {
-    margin: 0 0 6px;
-    color: #514548;
-    font-size: 14px;
-    font-weight: 800;
-}
-
-.empty-state p {
-    margin: 0 auto 17px;
-    max-width: 380px;
-    color: #a28f92;
-    font-size: 10px;
-    line-height: 1.6;
-}
-
-.btn-donor {
-    display: inline-flex;
-    align-items: center;
     gap: 7px;
-    padding: 9px 15px;
-    border-radius: 8px;
-    background: linear-gradient(135deg, #c90000, #d92b63);
-    color: #ffffff !important;
+    min-width: 120px;
+    padding: 11px 18px;
+    background: linear-gradient(
+        135deg,
+        #a80e2c,
+        #d94b91
+    );
+    color: #fff !important;
+    border-radius: 10px;
     font-size: 10px;
-    font-weight: 700;
-    text-decoration: none;
+    font-weight: 800;
+    text-decoration: none !important;
+    box-shadow: 0 6px 15px rgba(168,14,44,.15);
+    transition: .2s ease;
 }
 
-.btn-donor:hover {
-    background: linear-gradient(135deg, #a80000, #c62055);
-    color: #ffffff !important;
-    text-decoration: none;
+.edit-button:hover {
+    color: #fff !important;
+    transform: translateY(-1px);
 }
 
-@media (max-width: 768px) {
 
-    .donor-page {
-        padding: 15px;
+/* Tablet */
+
+@media (max-width: 850px) {
+
+    .profile-page {
+        padding: 24px;
     }
 
-    .donor-header {
-        padding: 18px;
+    .profile-banner {
+        padding: 28px;
     }
 
-    .donor-header h1 {
-        font-size: 19px;
+    .profile-information {
+        padding: 26px 28px;
     }
 
-    .donor-card {
-        padding: 15px;
+    .profile-footer {
+        padding: 15px 28px;
     }
 
-    .donor-table {
-        min-width: 900px;
+}
+
+
+/* HP */
+
+@media (max-width: 700px) {
+
+    .profile-page {
+        padding: 17px 14px 28px;
+    }
+
+    .page-header {
+        margin-bottom: 17px;
+    }
+
+    .page-header h1 {
+        font-size: 23px;
+    }
+
+    .page-header p {
+        font-size: 10px;
+        line-height: 1.5;
+    }
+
+    .role-badge {
+        display: none;
+    }
+
+    .profile-card {
+        border-radius: 18px;
+    }
+
+
+    /* Banner HP */
+
+    .profile-banner {
+        min-height: 145px;
+        padding: 22px 19px;
+    }
+
+    .banner-content {
+        gap: 13px;
+    }
+
+    .avatar {
+        width: 61px;
+        height: 61px;
+        border-radius: 17px;
+        font-size: 23px;
+    }
+
+    .identity-label {
+        margin-bottom: 4px;
+        font-size: 7px;
+    }
+
+    .identity h2 {
+        margin-bottom: 7px;
+        font-size: 18px;
+    }
+
+    .identity-status {
+        padding: 5px 9px;
+        font-size: 8px;
+    }
+
+    .shape-one {
+        width: 170px;
+        height: 170px;
+        right: -75px;
+        top: -75px;
+    }
+
+    .shape-two {
+        width: 110px;
+        height: 110px;
+        right: 45px;
+        bottom: -80px;
+    }
+
+
+    /* Information HP */
+
+    .profile-information {
+        padding: 22px 18px;
+    }
+
+    .information-header {
+        margin-bottom: 15px;
+    }
+
+    .information-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 11px;
+    }
+
+    .information-header h3 {
+        font-size: 14px;
+    }
+
+    .information-header p {
+        font-size: 9px;
+    }
+
+    .information-list {
+        grid-template-columns: 1fr;
+        gap: 9px;
+    }
+
+    .information-item {
+        min-height: 68px;
+        padding: 12px;
+        border-radius: 12px;
+    }
+
+    .item-icon {
+        width: 37px;
+        height: 37px;
+        border-radius: 10px;
+    }
+
+    .item-content span {
+        font-size: 8px;
+    }
+
+    .item-content strong {
+        font-size: 11px;
+    }
+
+
+    /* Footer HP */
+
+    .profile-footer {
+        padding: 15px 18px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 13px;
+    }
+
+    .edit-button {
+        width: 100%;
+        min-height: 43px;
+    }
+
+}
+
+
+/* HP kecil */
+
+@media (max-width: 380px) {
+
+    .profile-page {
+        padding: 14px 11px 23px;
+    }
+
+    .profile-banner {
+        padding: 20px 16px;
+    }
+
+    .avatar {
+        width: 55px;
+        height: 55px;
+        font-size: 21px;
+    }
+
+    .identity h2 {
+        font-size: 16px;
+    }
+
+    .profile-information {
+        padding: 20px 15px;
+    }
+
+    .profile-footer {
+        padding: 14px 15px;
     }
 
 }
 
 </style>
 
-@endsection
+@endpush

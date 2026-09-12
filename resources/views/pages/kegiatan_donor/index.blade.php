@@ -12,6 +12,7 @@
     }
 
     .kegiatan-container {
+        width: 100%;
         max-width: 1250px;
         margin: 0 auto;
     }
@@ -21,38 +22,44 @@
     .kegiatan-banner {
         position: relative;
         overflow: hidden;
+        min-height: 105px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 20px;
-        padding: 20px 23px;
-        margin-bottom: 22px;
-        border-radius: 18px;
-        background: linear-gradient(135deg, #ed5573, #d93659);
+        padding: 18px 22px;
+        margin-bottom: 18px;
+        border-radius: 20px;
+        background: linear-gradient(
+            135deg,
+            #e83e68,
+            #c92f55
+        );
         color: #fff;
-        box-shadow: 0 8px 22px rgba(217, 54, 89, .16);
+        box-shadow:
+            0 10px 25px rgba(201, 47, 85, .16);
     }
 
     .kegiatan-banner::before {
         content: "";
         position: absolute;
-        width: 150px;
-        height: 150px;
+        width: 190px;
+        height: 190px;
         border-radius: 50%;
-        background: rgba(255, 255, 255, .06);
-        right: 80px;
-        top: -85px;
+        background: rgba(255,255,255,.07);
+        right: 110px;
+        top: -120px;
     }
 
     .kegiatan-banner::after {
         content: "";
         position: absolute;
-        width: 100px;
-        height: 100px;
+        width: 120px;
+        height: 120px;
         border-radius: 50%;
-        border: 1px solid rgba(255, 255, 255, .08);
-        right: -25px;
-        bottom: -55px;
+        border: 1px solid rgba(255,255,255,.10);
+        right: -35px;
+        bottom: -70px;
     }
 
     .banner-left {
@@ -60,33 +67,36 @@
         z-index: 2;
         display: flex;
         align-items: center;
-        gap: 15px;
+        gap: 14px;
         min-width: 0;
     }
-
-    /* Ikon Banner */
 
     .banner-icon {
         width: 58px;
         height: 58px;
         min-width: 58px;
         border-radius: 16px;
-        background: rgba(255, 255, 255, .18);
-        border: 1px solid rgba(255, 255, 255, .18);
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #fff;
+        background: rgba(255,255,255,.15);
+        border: 1px solid rgba(255,255,255,.16);
+        box-shadow:
+            inset 0 1px 0 rgba(255,255,255,.10);
     }
 
     .banner-icon i {
-        font-size: 25px;
+        font-size: 24px;
+    }
+
+    .banner-text {
+        min-width: 0;
     }
 
     .banner-text small {
         display: block;
         margin-bottom: 4px;
-        font-size: 9px;
+        font-size: 8px;
         font-weight: 800;
         letter-spacing: 1px;
         text-transform: uppercase;
@@ -95,15 +105,15 @@
 
     .banner-text h1 {
         margin: 0;
-        font-size: 23px;
-        line-height: 1.2;
+        font-size: 24px;
+        line-height: 1.15;
         font-weight: 900;
     }
 
     .banner-text p {
         margin: 5px 0 0;
-        font-size: 11px;
-        opacity: .88;
+        font-size: 10px;
+        opacity: .82;
     }
 
     .banner-right {
@@ -112,25 +122,26 @@
         display: flex;
         align-items: center;
         gap: 18px;
+        flex-shrink: 0;
     }
 
     .banner-total {
-        min-width: 65px;
         text-align: center;
+        min-width: 65px;
     }
 
     .banner-total strong {
         display: block;
-        font-size: 23px;
-        font-weight: 900;
+        font-size: 24px;
         line-height: 1;
+        font-weight: 900;
     }
 
     .banner-total span {
         display: block;
         margin-top: 5px;
-        font-size: 9px;
-        opacity: .85;
+        font-size: 8px;
+        opacity: .82;
         white-space: nowrap;
     }
 
@@ -139,144 +150,179 @@
         align-items: center;
         justify-content: center;
         gap: 7px;
-        padding: 10px 15px;
-        border-radius: 10px;
+        min-height: 40px;
+        padding: 0 15px;
+        border-radius: 11px;
         background: #fff;
-        color: #d93659 !important;
+        color: #c92f55 !important;
         text-decoration: none;
-        font-size: 11px;
+        font-size: 10px;
         font-weight: 800;
-        box-shadow: 0 5px 12px rgba(0, 0, 0, .10);
+        box-shadow: 0 6px 15px rgba(0,0,0,.10);
         transition: .2s ease;
         white-space: nowrap;
     }
 
     .btn-add:hover {
-        color: #c72f50 !important;
+        color: #b7284b !important;
         transform: translateY(-2px);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, .13);
     }
+
+    .btn-add i {
+        font-size: 12px;
+    }
+
 
     /* Alert */
 
     .success-alert {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 9px;
+        padding: 10px 13px;
+        margin-bottom: 16px;
+        border-radius: 11px;
         background: #effaf2;
         border: 1px solid #ccebd4;
         color: #28743b;
-        padding: 11px 14px;
-        border-radius: 11px;
-        margin-bottom: 18px;
-        font-size: 12px;
+        font-size: 11px;
         font-weight: 600;
     }
 
     .success-icon {
         width: 24px;
         height: 24px;
-        flex-shrink: 0;
-        border-radius: 50%;
-        background: #d6f2dd;
+        min-width: 24px;
         display: flex;
         align-items: center;
         justify-content: center;
+        border-radius: 50%;
+        background: #d6f2dd;
         font-size: 11px;
         font-weight: 900;
     }
 
-    /* Total */
 
-    .summary-card {
+    /* Statistik */
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 13px;
+        margin-bottom: 22px;
+    }
+
+    .stat-card {
         display: flex;
         align-items: center;
-        gap: 13px;
-        width: 225px;
+        gap: 12px;
+        min-height: 78px;
+        padding: 12px 15px;
         box-sizing: border-box;
         background: #fff;
         border: 1px solid #f0e5e9;
-        border-radius: 15px;
-        padding: 13px 16px;
-        margin-bottom: 21px;
-        box-shadow: 0 5px 17px rgba(120, 45, 70, .045);
+        border-radius: 16px;
+        box-shadow: 0 5px 17px rgba(120,45,70,.045);
     }
 
-    .summary-icon {
+    .stat-icon {
         width: 42px;
         height: 42px;
-        flex-shrink: 0;
-        border-radius: 12px;
-        background: #fde9ef;
-        color: #d93659;
+        min-width: 42px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 17px;
+        border-radius: 12px;
+        font-size: 16px;
     }
 
-    .summary-card strong {
+    .stat-icon.pink {
+        background: #fde9ef;
+        color: #d93659;
+    }
+
+    .stat-icon.yellow {
+        background: #fff3dc;
+        color: #c48a16;
+    }
+
+    .stat-icon.blue {
+        background: #e6f1ff;
+        color: #3283d1;
+    }
+
+    .stat-info strong {
         display: block;
+        margin-bottom: 3px;
         color: #30313f;
         font-size: 20px;
-        font-weight: 900;
         line-height: 1;
-        margin-bottom: 4px;
+        font-weight: 900;
     }
 
-    .summary-card span {
+    .stat-info span {
         color: #9999a3;
-        font-size: 10px;
+        font-size: 9px;
     }
 
-    /* Section */
+
+    /* Heading */
 
     .section-heading {
         display: flex;
-        justify-content: space-between;
         align-items: center;
+        justify-content: space-between;
+        gap: 15px;
         margin-bottom: 13px;
     }
 
     .section-title {
         display: flex;
         align-items: center;
-        gap: 9px;
+        gap: 10px;
+        min-width: 0;
     }
 
     .section-icon {
         width: 38px;
         height: 38px;
         min-width: 38px;
-        border-radius: 11px;
-        background: #fde9ef;
-        color: #d93659;
         display: flex;
         align-items: center;
         justify-content: center;
+        border-radius: 11px;
+        background: #fde9ef;
+        color: #d93659;
         font-size: 15px;
-        box-shadow: 0 3px 8px rgba(217, 54, 89, .08);
+        box-shadow: 0 3px 8px rgba(217,54,89,.08);
     }
 
     .section-heading h2 {
         margin: 0;
         color: #30313f;
         font-size: 17px;
+        line-height: 1.2;
         font-weight: 900;
     }
 
     .section-heading p {
-        margin: 2px 0 0;
-        color: #9999a3;
-        font-size: 10px;
+        margin: 3px 0 0;
+        color: #a1a1aa;
+        font-size: 9px;
     }
 
     .section-count {
-        color: #9999a3;
-        font-size: 10px;
+        flex-shrink: 0;
+        padding: 7px 11px;
+        border-radius: 20px;
+        background: #fde9ef;
+        color: #c9365c;
+        font-size: 9px;
+        font-weight: 700;
     }
 
-    /* Kartu */
+
+    /* Card */
 
     .kegiatan-grid {
         display: grid;
@@ -285,51 +331,60 @@
     }
 
     .kegiatan-card {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        overflow: hidden;
         background: #fff;
         border: 1px solid #f0e5e9;
         border-radius: 17px;
-        overflow: hidden;
-        box-shadow: 0 5px 18px rgba(120, 45, 70, .05);
+        box-shadow: 0 5px 18px rgba(120,45,70,.05);
         transition: .2s ease;
     }
 
     .kegiatan-card:hover {
         transform: translateY(-3px);
         border-color: #efcbd5;
-        box-shadow: 0 10px 25px rgba(120, 45, 70, .09);
+        box-shadow: 0 10px 25px rgba(120,45,70,.09);
     }
+
 
     /* Card Header */
 
     .card-top {
         position: relative;
         overflow: hidden;
-        padding: 15px 16px;
-        min-height: 94px;
-        background: linear-gradient(135deg, #ed5573, #d93659);
+        min-height: 108px;
+        padding: 14px 15px;
+        box-sizing: border-box;
+        background: linear-gradient(
+            135deg,
+            #e83e68,
+            #d82f59
+        );
         color: #fff;
     }
 
     .card-top::before {
         content: "";
         position: absolute;
-        width: 90px;
-        height: 90px;
+        width: 110px;
+        height: 110px;
         border-radius: 50%;
-        background: rgba(255, 255, 255, .07);
-        right: -28px;
-        top: -35px;
+        background: rgba(255,255,255,.07);
+        right: -32px;
+        top: -48px;
     }
 
     .card-top::after {
         content: "";
         position: absolute;
-        width: 55px;
-        height: 55px;
+        width: 60px;
+        height: 60px;
         border-radius: 50%;
-        border: 1px solid rgba(255, 255, 255, .08);
+        border: 1px solid rgba(255,255,255,.09);
         right: 35px;
-        bottom: -35px;
+        bottom: -37px;
     }
 
     .event-top {
@@ -338,31 +393,31 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 11px;
+        margin-bottom: 12px;
     }
 
     .event-number {
-        width: 29px;
-        height: 29px;
-        border-radius: 9px;
-        background: rgba(255, 255, 255, .17);
-        border: 1px solid rgba(255, 255, 255, .13);
+        width: 32px;
+        height: 32px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 10px;
+        border-radius: 9px;
+        background: rgba(255,255,255,.16);
+        border: 1px solid rgba(255,255,255,.14);
+        font-size: 9px;
         font-weight: 800;
     }
 
     .event-icon {
-        width: 29px;
-        height: 29px;
-        border-radius: 9px;
-        background: rgba(255, 255, 255, .14);
+        width: 32px;
+        height: 32px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 11px;
+        border-radius: 9px;
+        background: rgba(255,255,255,.14);
+        font-size: 13px;
     }
 
     .card-top h3 {
@@ -371,21 +426,23 @@
         margin: 0;
         max-width: 92%;
         color: #fff;
-        font-size: 14px;
+        font-size: 13px;
         line-height: 1.4;
         font-weight: 800;
     }
 
-    /* Card Body */
+
+    /* Data */
 
     .card-body {
-        padding: 15px 16px 13px;
+        flex: 1;
+        padding: 14px 15px 12px;
     }
 
     .info-item {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 9px;
         margin-bottom: 10px;
     }
 
@@ -394,15 +451,15 @@
     }
 
     .info-icon {
-        width: 30px;
-        height: 30px;
-        flex-shrink: 0;
-        border-radius: 9px;
-        background: #fff1f4;
-        color: #d93659;
+        width: 31px;
+        height: 31px;
+        min-width: 31px;
         display: flex;
         align-items: center;
         justify-content: center;
+        border-radius: 9px;
+        background: #fff1f4;
+        color: #d93659;
         font-size: 11px;
     }
 
@@ -412,44 +469,46 @@
 
     .info-text small {
         display: block;
-        color: #aaaab2;
-        font-size: 8px;
-        font-weight: 700;
         margin-bottom: 2px;
+        color: #aaaab2;
+        font-size: 7px;
+        font-weight: 700;
+        letter-spacing: .5px;
         text-transform: uppercase;
-        letter-spacing: .4px;
     }
 
     .info-text span {
         display: block;
         color: #444551;
-        font-size: 11px;
-        font-weight: 700;
+        font-size: 10px;
         line-height: 1.35;
+        font-weight: 700;
         word-break: break-word;
     }
+
 
     /* Keterangan */
 
     .description {
-        margin-top: 13px;
-        padding: 10px 11px;
+        margin-top: 11px;
+        padding: 10px;
+        border-radius: 10px;
         background: #fff8f9;
         border: 1px solid #fbecef;
-        border-radius: 10px;
         color: #777781;
-        font-size: 10px;
+        font-size: 9px;
         line-height: 1.5;
     }
 
     .description strong {
         display: block;
-        color: #555561;
         margin-bottom: 3px;
-        font-size: 9px;
+        color: #555561;
+        font-size: 8px;
+        letter-spacing: .4px;
         text-transform: uppercase;
-        letter-spacing: .3px;
     }
+
 
     /* Tombol */
 
@@ -457,21 +516,21 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 6px;
-        padding: 0 16px 16px;
+        padding: 0 15px 15px;
     }
 
     .action-btn {
-        min-height: 33px;
-        border: none;
-        border-radius: 8px;
+        min-height: 34px;
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 5px;
+        border: none;
+        border-radius: 9px;
         text-decoration: none;
         cursor: pointer;
         font-family: inherit;
-        font-size: 10px;
+        font-size: 9px;
         font-weight: 700;
         transition: .2s ease;
     }
@@ -480,13 +539,17 @@
         transform: translateY(-1px);
     }
 
+    .action-btn i {
+        font-size: 9px;
+    }
+
     .action-detail {
         background: #fde9ef;
         color: #c9365c;
     }
 
     .action-edit {
-        background: #fff5df;
+        background: #fff4dd;
         color: #a96e00;
     }
 
@@ -495,27 +558,28 @@
         color: #c9365c;
     }
 
+
     /* Kosong */
 
     .empty-card {
+        padding: 50px 20px;
+        text-align: center;
         background: #fff;
         border: 1px solid #f0e5e9;
         border-radius: 17px;
-        padding: 50px 20px;
-        text-align: center;
-        box-shadow: 0 5px 18px rgba(120, 45, 70, .05);
+        box-shadow: 0 5px 18px rgba(120,45,70,.05);
     }
 
     .empty-icon {
         width: 62px;
         height: 62px;
         margin: 0 auto 13px;
-        border-radius: 18px;
-        background: #fde9ef;
-        color: #d93659;
         display: flex;
         align-items: center;
         justify-content: center;
+        border-radius: 18px;
+        background: #fde9ef;
+        color: #d93659;
         font-size: 23px;
     }
 
@@ -529,10 +593,63 @@
     .empty-card p {
         margin: 0;
         color: #9999a3;
-        font-size: 11px;
+        font-size: 10px;
     }
 
-    /* Responsive */
+
+    /* Pagination */
+
+    .pagination-area {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .pagination-area nav {
+        display: flex;
+        justify-content: center;
+    }
+
+    .pagination-area .pagination {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin: 0;
+    }
+
+    .pagination-area .page-item {
+        list-style: none;
+    }
+
+    .pagination-area .page-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 32px;
+        height: 32px;
+        padding: 0 8px;
+        border: 1px solid #f0e5e9;
+        border-radius: 8px;
+        background: #fff;
+        color: #777781;
+        text-decoration: none;
+        font-size: 9px;
+        font-weight: 700;
+    }
+
+    .pagination-area .page-item.active .page-link {
+        background: #d93659;
+        border-color: #d93659;
+        color: #fff;
+    }
+
+    .pagination-area .page-item.disabled .page-link {
+        opacity: .45;
+        pointer-events: none;
+    }
+
+
+    /* Tablet */
 
     @media (max-width: 1100px) {
         .kegiatan-grid {
@@ -540,27 +657,59 @@
         }
     }
 
+
+    /* HP */
+
     @media (max-width: 700px) {
 
         .kegiatan-page {
-            padding: 18px 15px 30px;
+            padding: 15px 15px 28px;
         }
 
         .kegiatan-banner {
-            align-items: flex-start;
-            padding: 17px;
+            min-height: 82px;
+            padding: 12px 13px;
+            margin-bottom: 14px;
+            border-radius: 17px;
+        }
+
+        .kegiatan-banner::before {
+            width: 140px;
+            height: 140px;
+            right: 20px;
+            top: -95px;
+        }
+
+        .banner-left {
+            gap: 10px;
+        }
+
+        .banner-icon {
+            width: 43px;
+            height: 43px;
+            min-width: 43px;
+            border-radius: 11px;
+        }
+
+        .banner-icon i {
+            font-size: 18px;
+        }
+
+        .banner-text small {
+            font-size: 6.5px;
+            letter-spacing: .5px;
         }
 
         .banner-text h1 {
-            font-size: 20px;
+            font-size: 17px;
         }
 
         .banner-text p {
-            font-size: 10px;
+            display: none;
         }
 
         .banner-right {
-            gap: 10px;
+            gap: 0;
         }
 
         .banner-total {
@@ -568,83 +717,224 @@
         }
 
         .btn-add {
-            padding: 10px 13px;
-        }
-
-        .summary-card {
-            width: 100%;
-        }
-
-        .kegiatan-grid {
-            grid-template-columns: 1fr;
-            gap: 13px;
-        }
-    }
-
-    @media (max-width: 480px) {
-
-        .kegiatan-page {
-            padding: 15px 12px 25px;
-        }
-
-        .kegiatan-banner {
-            padding: 15px;
-            border-radius: 15px;
-        }
-
-        .banner-icon {
-            width: 46px;
-            height: 46px;
-            min-width: 46px;
-            border-radius: 12px;
-        }
-
-        .banner-icon i {
-            font-size: 20px;
-        }
-
-        .banner-text small {
-            font-size: 8px;
-        }
-
-        .banner-text h1 {
-            font-size: 18px;
-        }
-
-        .banner-text p {
-            display: none;
-        }
-
-        .btn-add {
-            width: 38px;
-            height: 38px;
+            width: 39px;
+            height: 39px;
+            min-width: 39px;
+            min-height: 39px;
             padding: 0;
-            border-radius: 9px;
+            border-radius: 10px;
         }
 
         .btn-add span {
             display: none;
         }
 
-        .summary-card {
-            padding: 12px 14px;
+        .btn-add i {
+            font-size: 14px;
+        }
+
+
+        /* Statistik HP */
+
+        .stats-grid {
+            gap: 8px;
+            margin-bottom: 19px;
+        }
+
+        .stat-card {
+            min-height: 72px;
+            padding: 8px 5px;
+            flex-direction: column;
+            justify-content: center;
+            gap: 4px;
+            text-align: center;
+            border-radius: 13px;
+        }
+
+        .stat-icon {
+            width: 30px;
+            height: 30px;
+            min-width: 30px;
+            border-radius: 9px;
+            font-size: 12px;
+        }
+
+        .stat-info strong {
+            margin-bottom: 2px;
+            font-size: 17px;
+        }
+
+        .stat-info span {
+            font-size: 7px;
+            white-space: nowrap;
+        }
+
+
+        /* Heading HP */
+
+        .section-heading {
+            gap: 8px;
+            margin-bottom: 11px;
+        }
+
+        .section-title {
+            gap: 8px;
+        }
+
+        .section-icon {
+            width: 35px;
+            height: 35px;
+            min-width: 35px;
+            border-radius: 10px;
+            font-size: 13px;
         }
 
         .section-heading h2 {
-            font-size: 16px;
+            font-size: 15px;
+        }
+
+        .section-heading p {
+            font-size: 8px;
+        }
+
+        .section-count {
+            padding: 6px 8px;
+            font-size: 7px;
+        }
+
+
+        /* Card HP */
+
+        .kegiatan-grid {
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .kegiatan-card {
+            border-radius: 16px;
         }
 
         .card-top {
-            min-height: 92px;
+            min-height: 105px;
+            padding: 13px 14px;
+        }
+
+        .event-number,
+        .event-icon {
+            width: 31px;
+            height: 31px;
+            border-radius: 9px;
+        }
+
+        .event-icon {
+            font-size: 12px;
+        }
+
+        .card-top h3 {
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .card-body {
+            padding: 13px 14px 11px;
+        }
+
+        .info-item {
+            gap: 9px;
+            margin-bottom: 9px;
+        }
+
+        .info-icon {
+            width: 30px;
+            height: 30px;
+            min-width: 30px;
+        }
+
+        .info-text small {
+            font-size: 7px;
+        }
+
+        .info-text span {
+            font-size: 10px;
+        }
+
+        .description {
+            padding: 9px 10px;
+            font-size: 9px;
+        }
+
+        .card-actions {
+            gap: 5px;
+            padding: 0 14px 14px;
+        }
+
+        .action-btn {
+            min-height: 34px;
+            font-size: 8.5px;
+        }
+    }
+
+
+    /* HP kecil */
+
+    @media (max-width: 380px) {
+
+        .kegiatan-page {
+            padding-left: 12px;
+            padding-right: 12px;
+        }
+
+        .kegiatan-banner {
+            padding: 11px 12px;
+        }
+
+        .banner-icon {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+        }
+
+        .banner-text h1 {
+            font-size: 16px;
+        }
+
+        .stats-grid {
+            gap: 6px;
+        }
+
+        .stat-card {
+            min-height: 69px;
+        }
+
+        .stat-info strong {
+            font-size: 16px;
+        }
+
+        .stat-info span {
+            font-size: 6.5px;
+        }
+
+        .section-heading h2 {
+            font-size: 14px;
+        }
+
+        .section-heading p {
+            font-size: 7px;
+        }
+
+        .section-count {
+            padding: 5px 7px;
         }
     }
 </style>
+
 
 <div class="kegiatan-page">
 
     <div class="kegiatan-container">
 
         {{-- Banner --}}
+
         <div class="kegiatan-banner">
 
             <div class="banner-left">
@@ -655,9 +945,13 @@
 
                 <div class="banner-text">
 
-                    <small>DonorConnect • Petugas PMR</small>
+                    <small>
+                        DonorConnect • Petugas PMR
+                    </small>
 
-                    <h1>Kegiatan Donor</h1>
+                    <h1>
+                        Kegiatan Donor
+                    </h1>
 
                     <p>
                         Kelola jadwal dan informasi kegiatan donor darah.
@@ -671,13 +965,20 @@
 
                 <div class="banner-total">
 
-                    <strong>{{ $kegiatan->count() }}</strong>
+                    <strong>
+                        {{ $jumlahTotal }}
+                    </strong>
 
-                    <span>Total Kegiatan</span>
+                    <span>
+                        Total Kegiatan
+                    </span>
 
                 </div>
 
-                <a href="{{ route('kegiatan-donor.create') }}" class="btn-add">
+                <a
+                    href="{{ route('kegiatan-donor.create') }}"
+                    class="btn-add"
+                >
                     <i class="fas fa-plus"></i>
                     <span>Tambah Kegiatan</span>
                 </a>
@@ -686,7 +987,9 @@
 
         </div>
 
+
         {{-- Alert --}}
+
         @if (session('success'))
 
             <div class="success-alert">
@@ -703,24 +1006,78 @@
 
         @endif
 
-        {{-- Total --}}
-        <div class="summary-card">
 
-            <div class="summary-icon">
-                <i class="fas fa-calendar-check"></i>
+        {{-- Statistik --}}
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+
+                <div class="stat-icon pink">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+
+                <div class="stat-info">
+
+                    <strong>
+                        {{ $jumlahTotal }}
+                    </strong>
+
+                    <span>
+                        Total Kegiatan
+                    </span>
+
+                </div>
+
             </div>
 
-            <div>
 
-                <strong>{{ $kegiatan->count() }}</strong>
+            <div class="stat-card">
 
-                <span>Total Kegiatan Donor</span>
+                <div class="stat-icon yellow">
+                    <i class="fas fa-calendar-plus"></i>
+                </div>
+
+                <div class="stat-info">
+
+                    <strong>
+                        {{ $jumlahMendatang }}
+                    </strong>
+
+                    <span>
+                        Kegiatan Mendatang
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon blue">
+                    <i class="fas fa-calendar-day"></i>
+                </div>
+
+                <div class="stat-info">
+
+                    <strong>
+                        {{ $jumlahHariIni }}
+                    </strong>
+
+                    <span>
+                        Kegiatan Hari Ini
+                    </span>
+
+                </div>
 
             </div>
 
         </div>
 
-        {{-- Daftar Kegiatan --}}
+
+        {{-- Heading --}}
+
         <div class="section-heading">
 
             <div class="section-title">
@@ -731,7 +1088,9 @@
 
                 <div>
 
-                    <h2>Daftar Kegiatan</h2>
+                    <h2>
+                        Daftar Kegiatan
+                    </h2>
 
                     <p>
                         Informasi kegiatan donor yang tersedia
@@ -742,27 +1101,30 @@
             </div>
 
             <span class="section-count">
-                {{ $kegiatan->count() }} kegiatan
+                {{ $jumlahTotal }} kegiatan
             </span>
 
         </div>
 
+
+        {{-- Kegiatan --}}
+
         @if ($kegiatan->count() > 0)
 
-            {{-- Kegiatan --}}
             <div class="kegiatan-grid">
 
                 @foreach ($kegiatan as $item)
 
                     <div class="kegiatan-card">
 
-                        {{-- Card Header --}}
+                        {{-- Header --}}
+
                         <div class="card-top">
 
                             <div class="event-top">
 
                                 <div class="event-number">
-                                    {{ sprintf('%02d', $loop->iteration) }}
+                                    {{ sprintf('%02d', $kegiatan->firstItem() + $loop->index) }}
                                 </div>
 
                                 <div class="event-icon">
@@ -777,7 +1139,9 @@
 
                         </div>
 
-                        {{-- Card Body --}}
+
+                        {{-- Data --}}
+
                         <div class="card-body">
 
                             <div class="info-item">
@@ -788,7 +1152,9 @@
 
                                 <div class="info-text">
 
-                                    <small>Tanggal</small>
+                                    <small>
+                                        Tanggal
+                                    </small>
 
                                     <span>
                                         {{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y') }}
@@ -798,6 +1164,7 @@
 
                             </div>
 
+
                             <div class="info-item">
 
                                 <div class="info-icon">
@@ -806,7 +1173,9 @@
 
                                 <div class="info-text">
 
-                                    <small>Waktu</small>
+                                    <small>
+                                        Waktu
+                                    </small>
 
                                     <span>
                                         {{ $item->waktu }}
@@ -816,6 +1185,7 @@
 
                             </div>
 
+
                             <div class="info-item">
 
                                 <div class="info-icon">
@@ -824,7 +1194,9 @@
 
                                 <div class="info-text">
 
-                                    <small>Lokasi</small>
+                                    <small>
+                                        Lokasi
+                                    </small>
 
                                     <span>
                                         {{ $item->lokasi }}
@@ -834,11 +1206,14 @@
 
                             </div>
 
+
                             @if ($item->keterangan)
 
                                 <div class="description">
 
-                                    <strong>Keterangan</strong>
+                                    <strong>
+                                        Keterangan
+                                    </strong>
 
                                     {{ $item->keterangan }}
 
@@ -848,7 +1223,9 @@
 
                         </div>
 
+
                         {{-- Aksi --}}
+
                         <div class="card-actions">
 
                             <a
@@ -884,16 +1261,32 @@
 
             </div>
 
+
+            {{-- Pagination --}}
+
+            @if ($kegiatan->hasPages())
+
+                <div class="pagination-area">
+
+                    {{ $kegiatan->links() }}
+
+                </div>
+
+            @endif
+
         @else
 
             {{-- Kosong --}}
+
             <div class="empty-card">
 
                 <div class="empty-icon">
                     <i class="fas fa-calendar-xmark"></i>
                 </div>
 
-                <h3>Belum Ada Kegiatan</h3>
+                <h3>
+                    Belum Ada Kegiatan
+                </h3>
 
                 <p>
                     Belum ada kegiatan donor yang tersedia.
@@ -908,15 +1301,18 @@
 
 </div>
 
+
 {{-- Form Hapus --}}
+
 <form
     id="form-destroy"
     method="POST"
-    style="display:none;"
+    style="display: none;"
 >
     @csrf
     @method('DELETE')
 </form>
+
 
 @push('scripts')
 
@@ -936,14 +1332,11 @@
 
             if (result.isConfirmed) {
 
-                document
-                    .getElementById('form-destroy')
-                    .setAttribute('action', url);
+                const form = document.getElementById('form-destroy');
 
-                document
-                    .getElementById('form-destroy')
-                    .submit();
+                form.setAttribute('action', url);
 
+                form.submit();
             }
 
         });

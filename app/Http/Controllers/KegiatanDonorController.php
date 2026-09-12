@@ -4,28 +4,53 @@ namespace App\Http\Controllers;
 
 use App\Models\KegiatanDonor;
 use App\Models\Pendonor;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class KegiatanDonorController extends Controller
 {
-    // Daftar kegiatan untuk petugas
+    // Daftar kegiatan petugas
+
     public function index()
     {
-        $kegiatan = KegiatanDonor::orderBy('tanggal', 'asc')->get();
+        $jumlahTotal = KegiatanDonor::count();
+
+        $jumlahMendatang = KegiatanDonor::whereDate(
+            'tanggal',
+            '>',
+            Carbon::today()
+        )->count();
+
+        $jumlahHariIni = KegiatanDonor::whereDate(
+            'tanggal',
+            Carbon::today()
+        )->count();
+
+        $kegiatan = KegiatanDonor::orderBy(
+            'tanggal',
+            'asc'
+        )->paginate(6);
 
         return view(
             'pages.kegiatan_donor.index',
-            compact('kegiatan')
+            compact(
+                'kegiatan',
+                'jumlahTotal',
+                'jumlahMendatang',
+                'jumlahHariIni'
+            )
         );
     }
 
-    // Form tambah kegiatan
+    // Form tambah
+
     public function create()
     {
         return view('pages.kegiatan_donor.create');
     }
 
     // Simpan kegiatan
+
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -47,6 +72,7 @@ class KegiatanDonorController extends Controller
     }
 
     // Detail kegiatan
+
     public function show($id)
     {
         $kegiatan = KegiatanDonor::with([
@@ -60,6 +86,7 @@ class KegiatanDonorController extends Controller
     }
 
     // Form edit
+
     public function edit($id)
     {
         $kegiatan = KegiatanDonor::findOrFail($id);
@@ -71,6 +98,7 @@ class KegiatanDonorController extends Controller
     }
 
     // Update kegiatan
+
     public function update(Request $request, $id)
     {
         $kegiatan = KegiatanDonor::findOrFail($id);
@@ -94,6 +122,7 @@ class KegiatanDonorController extends Controller
     }
 
     // Hapus kegiatan
+
     public function destroy($id)
     {
         $kegiatan = KegiatanDonor::findOrFail($id);
@@ -108,7 +137,8 @@ class KegiatanDonorController extends Controller
             );
     }
 
-    // Daftar kegiatan untuk pendonor
+    // Daftar kegiatan pendonor
+
     public function pendonor()
     {
         $kegiatan = KegiatanDonor::orderBy(
@@ -123,6 +153,7 @@ class KegiatanDonorController extends Controller
     }
 
     // Detail kegiatan pendonor
+
     public function detailPendonor($id)
     {
         $kegiatan = KegiatanDonor::findOrFail($id);
@@ -133,7 +164,8 @@ class KegiatanDonorController extends Controller
         );
     }
 
-    // Form pendaftaran donor
+    // Form pendaftaran
+
     public function formPendaftaran($id)
     {
         $kegiatan = KegiatanDonor::findOrFail($id);
