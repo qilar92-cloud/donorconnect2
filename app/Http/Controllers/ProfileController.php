@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pendonor;
+use App\Models\PetugasPMR;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Pendonor;
-use App\Models\PetugasPMR;
+use Illuminate\Validation\Rule;
 
 class ProfileController extends Controller
 {
@@ -17,25 +18,31 @@ class ProfileController extends Controller
 
         if ($user->role === 'petugas') {
 
-            $petugas = PetugasPMR::firstOrCreate([
-                'id_user' => $user->id_user
-            ]);
+            $petugas = PetugasPMR::with('user')
+                ->where('id_user', $user->id_user)
+                ->firstOrFail();
 
             return view(
-                'pages.pendonor.profile.profile',
+                'pages.petugas.profile.profile',
                 compact('user', 'petugas')
             );
         }
 
-        $pendonor = Pendonor::with('user')
-            ->where('id_user', $user->id_user)
-            ->firstOrFail();
+        if ($user->role === 'pendonor') {
 
-        return view(
-            'pages.pendonor.profile.profile',
-            compact('user', 'pendonor')
-        );
+            $pendonor = Pendonor::with('user')
+                ->where('id_user', $user->id_user)
+                ->firstOrFail();
+
+            return view(
+                'pages.pendonor.profile.profile',
+                compact('user', 'pendonor')
+            );
+        }
+
+        abort(403);
     }
+
 
     // Form edit profil
     public function edit()
@@ -44,26 +51,31 @@ class ProfileController extends Controller
 
         if ($user->role === 'petugas') {
 
-            $petugas = PetugasPMR::firstOrCreate([
-                'id_user' => $user->id_user
-            ]);
+            $petugas = PetugasPMR::with('user')
+                ->where('id_user', $user->id_user)
+                ->firstOrFail();
 
             return view(
-                'pages.pendonor.profile.edit',
+                'pages.petugas.profile.edit',
                 compact('user', 'petugas')
             );
         }
 
-        $pendonor = Pendonor::where(
-            'id_user',
-            $user->id_user
-        )->firstOrFail();
+        if ($user->role === 'pendonor') {
 
-        return view(
-            'pages.pendonor.profile.edit',
-            compact('user', 'pendonor')
-        );
+            $pendonor = Pendonor::with('user')
+                ->where('id_user', $user->id_user)
+                ->firstOrFail();
+
+            return view(
+                'pages.pendonor.profile.edit',
+                compact('user', 'pendonor')
+            );
+        }
+
+        abort(403);
     }
+
 
     // Update profil
     public function update(Request $request)
@@ -71,20 +83,42 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         $data = $request->validate([
-            'nama' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'password' => 'nullable|min:6|confirmed',
+            'nama' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+                Rule::unique('users', 'email')
+                    ->ignore($user->id_user, 'id_user'),
+            ],
+
+            'password' => [
+                'nullable',
+                'string',
+                'min:6',
+                'confirmed',
+            ],
         ]);
 
+        // Update akun
         $user->nama = $data['nama'];
         $user->email = $data['email'];
 
         if (!empty($data['password'])) {
-            $user->password = Hash::make($data['password']);
+            $user->password = Hash::make(
+                $data['password']
+            );
         }
 
         $user->save();
 
+
+        // Update data Pendonor
         if ($user->role === 'pendonor') {
 
             $pendonor = Pendonor::where(
@@ -104,15 +138,30 @@ class ProfileController extends Controller
             $pendonor->update($pendonorData);
         }
 
+
+        // Petugas tidak punya data tambahan
         if ($user->role === 'petugas') {
 
-            PetugasPMR::firstOrCreate([
-                'id_user' => $user->id_user
-            ]);
+            PetugasPMR::where(
+                'id_user',
+                $user->id_user
+            )->firstOrFail();
         }
+
+
+        if (
+            $user->role !== 'petugas' &&
+            $user->role !== 'pendonor'
+        ) {
+            abort(403);
+        }
+
 
         return redirect()
             ->route('profile')
-            ->with('success', 'Profil berhasil diperbarui.');
+            ->with(
+                'success',
+                'Profil berhasil diperbarui.'
+            );
     }
 }

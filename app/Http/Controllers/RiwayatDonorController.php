@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\RiwayatDonor;
+use App\Models\PetugasPmr;
 
 class RiwayatDonorController extends Controller
 {
@@ -16,9 +17,13 @@ class RiwayatDonorController extends Controller
             ->latest('id_riwayat')
             ->get();
 
+        $petugas = PetugasPmr::with('user')
+            ->where('id_user', session('id_user'))
+            ->firstOrFail();
+
         return view(
             'pages.riwayat_donor.index',
-            compact('riwayat')
+            compact('riwayat', 'petugas')
         );
     }
 

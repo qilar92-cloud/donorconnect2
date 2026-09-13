@@ -55,41 +55,45 @@ class LaporanDonorController extends Controller
             ->latest('id_laporan')
             ->get();
 
-        // Statistik
+        // Total pendonor
         $totalPendonor = $laporan
             ->pluck('hasilDonor.id_pendonor')
             ->filter()
             ->unique()
             ->count();
 
+        // Total kegiatan
         $totalKegiatan = $laporan
             ->pluck('hasilDonor.id_kegiatan')
             ->filter()
             ->unique()
             ->count();
 
+        // Total kantong
         $totalKantong = $laporan->sum(function ($item) {
             return $item->hasilDonor->jumlah_kantong ?? 0;
         });
 
+        // Total donor
         $totalDonor = $laporan->count();
 
-        // Grafik per bulan
-        $grafik = [];
+        // Data grafik 12 bulan
+        $dataGrafik = array_fill(0, 12, 0);
 
-        for ($bulan = 1; $bulan <= 12; $bulan++) {
+        foreach ($laporan as $item) {
 
-            $jumlah = $laporan
-                ->filter(function ($item) use ($bulan) {
-                    return $item->hasilDonor &&
-                        $item->hasilDonor->tanggal_donor &&
-                        $item->hasilDonor->tanggal_donor->month == $bulan;
-                })
-                ->sum(function ($item) {
-                    return $item->hasilDonor->jumlah_kantong ?? 0;
-                });
+            if (
+                $item->hasilDonor &&
+                $item->hasilDonor->tanggal_donor
+            ) {
 
-            $grafik[] = $jumlah;
+                $bulan = $item->hasilDonor
+                    ->tanggal_donor
+                    ->month;
+
+                $dataGrafik[$bulan - 1] +=
+                    $item->hasilDonor->jumlah_kantong ?? 0;
+            }
         }
 
         return view(
@@ -101,7 +105,7 @@ class LaporanDonorController extends Controller
                 'totalKegiatan',
                 'totalKantong',
                 'totalDonor',
-                'grafik'
+                'dataGrafik'
             )
         );
     }

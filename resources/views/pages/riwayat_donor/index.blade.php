@@ -1,183 +1,324 @@
 @extends('layouts.app')
 
-@section('title', 'Profil Petugas - DonorConnect')
+@section('title', 'Riwayat Donor - DonorConnect')
 
 @section('content')
 
-<div class="profile-page">
+<div class="history-page">
 
     {{-- Header --}}
-    <div class="page-header">
-        <div>
-            <span class="page-label">DONORCONNECT</span>
-            <h1>Profil Saya</h1>
-            <p>Informasi akun dan data petugas PMR.</p>
+    <div class="history-header">
+
+        <div class="header-content">
+
+            <span class="eyebrow">
+                <i class="fas fa-heart"></i>
+                DONORCONNECT
+            </span>
+
+            <h1>Riwayat Donor</h1>
+
+            <p>
+                Catatan hasil donor yang telah tersimpan dalam sistem.
+            </p>
+
         </div>
 
-        <div class="role-badge">
-            <i class="fas fa-user-shield"></i>
-            Petugas PMR
+        <div class="header-icon">
+            <i class="fas fa-tint"></i>
         </div>
+
     </div>
 
 
-    {{-- Profile --}}
-    <div class="profile-card">
+    {{-- Statistik --}}
+    <div class="stats-grid">
 
-        {{-- Banner --}}
-        <div class="profile-banner">
+        <div class="stat-card">
 
-            <div class="banner-content">
-
-                <div class="avatar">
-                    <i class="fas fa-user-shield"></i>
-                </div>
-
-                <div class="identity">
-
-                    <span class="identity-label">
-                        PROFIL PETUGAS
-                    </span>
-
-                    <h2>
-                        {{ $petugas->user->nama }}
-                    </h2>
-
-                    <div class="identity-status">
-                        <span class="status-dot"></span>
-                        Petugas PMR
-                    </div>
-
-                </div>
-
+            <div class="stat-icon pink">
+                <i class="fas fa-users"></i>
             </div>
 
-            <div class="banner-shape shape-one"></div>
-            <div class="banner-shape shape-two"></div>
-            <div class="banner-line"></div>
+            <div class="stat-info">
 
-        </div>
+                <span>Total Pendonor</span>
 
-
-        {{-- Information --}}
-        <div class="profile-information">
-
-            <div class="information-header">
-
-                <div class="information-icon">
-                    <i class="fas fa-id-card"></i>
-                </div>
-
-                <div>
-                    <h3>Informasi Akun</h3>
-                    <p>Data yang terdaftar pada akun petugas.</p>
-                </div>
-
-            </div>
-
-
-            <div class="information-list">
-
-                {{-- Nama --}}
-                <div class="information-item">
-
-                    <div class="item-icon">
-                        <i class="fas fa-user"></i>
-                    </div>
-
-                    <div class="item-content">
-                        <span>Nama Lengkap</span>
-                        <strong>
-                            {{ $petugas->user->nama }}
-                        </strong>
-                    </div>
-
-                </div>
-
-
-                {{-- Email --}}
-                <div class="information-item">
-
-                    <div class="item-icon">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-
-                    <div class="item-content">
-                        <span>Email</span>
-                        <strong>
-                            {{ $petugas->user->email }}
-                        </strong>
-                    </div>
-
-                </div>
-
-
-                {{-- Jabatan --}}
-                <div class="information-item">
-
-                    <div class="item-icon">
-                        <i class="fas fa-user-shield"></i>
-                    </div>
-
-                    <div class="item-content">
-                        <span>Jabatan</span>
-                        <strong>Petugas PMR</strong>
-                    </div>
-
-                </div>
-
-
-                {{-- ID --}}
-                <div class="information-item">
-
-                    <div class="item-icon">
-                        <i class="fas fa-fingerprint"></i>
-                    </div>
-
-                    <div class="item-content">
-                        <span>ID Petugas</span>
-                        <strong>
-                            {{ $petugas->id_petugas }}
-                        </strong>
-                    </div>
-
-                </div>
+                <strong>
+                    {{ $riwayat->pluck('id_pendonor')->filter()->unique()->count() }}
+                </strong>
 
             </div>
 
         </div>
 
 
-        {{-- Footer --}}
-        <div class="profile-footer">
+        <div class="stat-card">
 
-            <div class="footer-info">
+            <div class="stat-icon purple">
+                <i class="fas fa-history"></i>
+            </div>
 
-                <div class="footer-icon">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
+            <div class="stat-info">
 
-                <div>
-                    <strong>Akun Petugas PMR</strong>
-                    <span>Kelola informasi profil Anda.</span>
-                </div>
+                <span>Total Riwayat</span>
+
+                <strong>
+                    {{ $riwayat->count() }}
+                </strong>
 
             </div>
 
-            <a
-                href="{{ route('profile.edit') }}"
-                class="edit-button"
-            >
-                <i class="fas fa-edit"></i>
-                <span>Ubah Profil</span>
-            </a>
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon red">
+                <i class="fas fa-tint"></i>
+            </div>
+
+            <div class="stat-info">
+
+                <span>Total Kantong</span>
+
+                <strong>
+                    {{ $riwayat->sum(function ($item) {
+                        return $item->hasilDonor->jumlah_kantong ?? 0;
+                    }) }}
+                </strong>
+
+            </div>
 
         </div>
+
+    </div>
+
+
+    {{-- History --}}
+    <div class="history-card-wrapper">
+
+        <div class="section-title">
+
+            <div>
+
+                <span class="section-label">
+                    DONOR JOURNEY
+                </span>
+
+                <h2>Perjalanan Donor</h2>
+
+                <p>
+                    Semua hasil donor yang sudah tercatat.
+                </p>
+
+            </div>
+
+            <div class="history-count">
+
+                <i class="fas fa-heart"></i>
+
+                {{ $riwayat->count() }} Riwayat
+
+            </div>
+
+        </div>
+
+
+        @if($riwayat->count())
+
+            <div class="timeline">
+
+                @foreach($riwayat as $index => $item)
+
+                    @php
+
+                        $hasil = $item->hasilDonor;
+
+                        $pendonor = $item->pendonor;
+
+                        $kegiatan = $hasil?->kegiatanDonor;
+
+                        $tanggal = $hasil?->tanggal_donor;
+
+                    @endphp
+
+
+                    <div class="timeline-item">
+
+                        {{-- Timeline --}}
+                        @if(!$loop->last)
+                            <div class="timeline-line"></div>
+                        @endif
+
+
+                        <div class="timeline-icon">
+
+                            <i class="fas fa-tint"></i>
+
+                        </div>
+
+
+                        <div class="donor-card">
+
+                            {{-- Informasi Utama --}}
+                            <div class="donor-main">
+
+                                <div class="date-box">
+
+                                    <span>
+                                        {{ $tanggal ? $tanggal->format('M') : '-' }}
+                                    </span>
+
+                                    <strong>
+                                        {{ $tanggal ? $tanggal->format('d') : '-' }}
+                                    </strong>
+
+                                    <small>
+                                        {{ $tanggal ? $tanggal->format('Y') : '-' }}
+                                    </small>
+
+                                </div>
+
+
+                                <div class="donor-info">
+
+                                    <span class="info-label">
+                                        PENDONOR
+                                    </span>
+
+                                    <h3>
+                                        {{ $pendonor?->user?->nama ?? 'Data Pendonor' }}
+                                    </h3>
+
+                                    <small>
+                                        ID Pendonor:
+                                        {{ $pendonor?->id_pendonor ?? '-' }}
+                                    </small>
+
+                                </div>
+
+
+                                <div class="blood-result">
+
+                                    <span class="info-label">
+                                        HASIL DONOR
+                                    </span>
+
+                                    <div class="blood-value">
+
+                                        <i class="fas fa-tint"></i>
+
+                                        <strong>
+                                            {{ $hasil?->jumlah_kantong ?? 0 }}
+                                        </strong>
+
+                                        <span>
+                                            kantong
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            {{-- Detail --}}
+                            <div class="donor-details">
+
+                                <div class="detail-item">
+
+                                    <div class="detail-icon">
+                                        <i class="fas fa-calendar-check"></i>
+                                    </div>
+
+                                    <div class="detail-content">
+
+                                        <span>
+                                            KEGIATAN
+                                        </span>
+
+                                        <strong>
+                                            {{ $kegiatan?->nama_kegiatan ?? '-' }}
+                                        </strong>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="detail-item">
+
+                                    <div class="detail-icon">
+                                        <i class="fas fa-comment-medical"></i>
+                                    </div>
+
+                                    <div class="detail-content">
+
+                                        <span>
+                                            KETERANGAN
+                                        </span>
+
+                                        <strong>
+                                            {{ $hasil?->keterangan ?? 'Tidak ada keterangan' }}
+                                        </strong>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            {{-- Footer --}}
+                            <div class="donor-footer">
+
+                                <span class="success">
+
+                                    <i class="fas fa-check-circle"></i>
+
+                                    Donor Tersimpan
+
+                                </span>
+
+                                <span>
+                                    Riwayat #{{ $index + 1 }}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                @endforeach
+
+            </div>
+
+        @else
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    <i class="fas fa-tint"></i>
+                </div>
+
+                <h3>
+                    Belum Ada Riwayat
+                </h3>
+
+                <p>
+                    Riwayat donor akan muncul di sini setelah hasil donor tersimpan.
+                </p>
+
+            </div>
+
+        @endif
 
     </div>
 
 </div>
-
 
 @endsection
 
@@ -186,380 +327,725 @@
 
 <style>
 
+* {
+    box-sizing: border-box;
+}
+
+
 /* Page */
 
-.profile-page {
+.history-page {
     min-height: calc(100vh - 80px);
-    padding: 28px 30px 40px;
-    background: #fff9f6;
+
+    padding: 28px 30px 45px;
+
+    background: #fff9f7;
+
+    color: #30364d;
 }
 
 
 /* Header */
 
-.page-header {
-    max-width: 1180px;
+.history-header {
+    max-width: 1160px;
+
+    min-height: 145px;
+
     margin: 0 auto 22px;
+
+    padding: 28px 32px;
+
     display: flex;
-    align-items: flex-end;
+
+    align-items: center;
+
     justify-content: space-between;
+
     gap: 20px;
-}
 
-.page-label {
-    display: block;
-    margin-bottom: 5px;
-    color: #b0143b;
-    font-size: 9px;
-    font-weight: 900;
-    letter-spacing: 2px;
-}
-
-.page-header h1 {
-    margin: 0;
-    color: #283252;
-    font-size: 28px;
-    font-weight: 800;
-    line-height: 1.2;
-}
-
-.page-header p {
-    margin: 5px 0 0;
-    color: #918a90;
-    font-size: 11px;
-}
-
-.role-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding: 9px 15px;
-    background: #fff;
-    border: 1px solid #efdce2;
-    border-radius: 30px;
-    color: #ad123b;
-    font-size: 10px;
-    font-weight: 800;
-    box-shadow: 0 4px 12px rgba(168,14,44,.04);
-}
-
-
-/* Card */
-
-.profile-card {
-    max-width: 1180px;
-    margin: 0 auto;
-    overflow: hidden;
-    background: #fff;
-    border: 1px solid #f0dfe4;
     border-radius: 22px;
-    box-shadow: 0 10px 30px rgba(168,14,44,.06);
-}
 
-
-/* Banner */
-
-.profile-banner {
-    min-height: 190px;
-    padding: 30px 38px;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
     background:
         linear-gradient(
-            110deg,
-            #a90f35 0%,
-            #c72e5d 48%,
-            #dc6796 100%
+            135deg,
+            #d92f59,
+            #ed5b7d
         );
+
+    box-shadow:
+        0 10px 25px rgba(210, 45, 87, .13);
 }
 
-.banner-content {
-    position: relative;
-    z-index: 3;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.avatar {
-    width: 84px;
-    height: 84px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255,255,255,.16);
-    border: 2px solid rgba(255,255,255,.5);
-    border-radius: 24px;
-    color: #fff;
-    font-size: 31px;
-    box-shadow: 0 8px 20px rgba(80,0,20,.12);
-    backdrop-filter: blur(4px);
-}
-
-.identity-label {
-    display: block;
-    margin-bottom: 6px;
-    color: rgba(255,255,255,.72);
-    font-size: 8px;
-    font-weight: 800;
-    letter-spacing: 1.5px;
-}
-
-.identity h2 {
-    margin: 0 0 10px;
-    color: #fff;
-    font-size: 25px;
-    font-weight: 800;
-}
-
-.identity-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding: 6px 11px;
-    background: rgba(255,255,255,.15);
-    border: 1px solid rgba(255,255,255,.2);
-    border-radius: 20px;
-    color: #fff;
-    font-size: 9px;
-    font-weight: 700;
-}
-
-.status-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #fff;
-}
-
-
-/* Banner Decoration */
-
-.banner-shape {
-    position: absolute;
-    border-radius: 50%;
-    border: 1px solid rgba(255,255,255,.13);
-}
-
-.shape-one {
-    width: 250px;
-    height: 250px;
-    right: -65px;
-    top: -105px;
-}
-
-.shape-two {
-    width: 170px;
-    height: 170px;
-    right: 100px;
-    bottom: -125px;
-}
-
-.banner-line {
-    position: absolute;
-    width: 180px;
-    height: 180px;
-    right: 30px;
-    bottom: -145px;
-    border-radius: 50%;
-    border: 30px solid rgba(255,255,255,.045);
-}
-
-
-/* Information */
-
-.profile-information {
-    padding: 30px 38px;
-}
-
-.information-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 20px;
-}
-
-.information-icon {
-    width: 43px;
-    height: 43px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #fce8ef;
-    color: #b0143b;
-    border-radius: 12px;
-    font-size: 14px;
-}
-
-.information-header h3 {
-    margin: 0;
-    color: #354056;
-    font-size: 16px;
-    font-weight: 800;
-}
-
-.information-header p {
-    margin: 3px 0 0;
-    color: #a29ba0;
-    font-size: 10px;
-}
-
-
-/* Information List */
-
-.information-list {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-}
-
-.information-item {
-    min-height: 78px;
-    padding: 14px 16px;
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    background: #fffafa;
-    border: 1px solid #f1e5e8;
-    border-radius: 14px;
-    transition: .2s ease;
-}
-
-.information-item:hover {
-    border-color: #e9cbd4;
-    box-shadow: 0 5px 14px rgba(168,14,44,.05);
-}
-
-.item-icon {
-    width: 40px;
-    height: 40px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #fce8ef;
-    color: #c01947;
-    border-radius: 11px;
-    font-size: 13px;
-}
-
-.item-content {
+.header-content {
     min-width: 0;
 }
 
-.item-content span {
+.eyebrow {
     display: block;
-    margin-bottom: 4px;
-    color: #999096;
+
+    margin-bottom: 6px;
+
+    color: rgba(255,255,255,.85);
+
     font-size: 9px;
-    font-weight: 600;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
 }
 
-.item-content strong {
+.history-header h1 {
+    margin: 0 0 5px;
+
+    color: #fff;
+
+    font-size: 30px;
+
+    line-height: 1.2;
+
+    font-weight: 800;
+}
+
+.history-header p {
+    margin: 0;
+
+    color: rgba(255,255,255,.82);
+
+    font-size: 11px;
+
+    line-height: 1.5;
+}
+
+.header-icon {
+    width: 62px;
+
+    height: 62px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 18px;
+
+    background: rgba(255,255,255,.15);
+
+    color: #fff;
+
+    font-size: 24px;
+}
+
+
+/* Statistik */
+
+.stats-grid {
+    max-width: 1160px;
+
+    margin: 0 auto 24px;
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 14px;
+}
+
+.stat-card {
+    min-height: 82px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 15px 18px;
+
+    background: #fff;
+
+    border: 1px solid #f0e1e6;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 5px 18px rgba(130,30,60,.045);
+}
+
+.stat-icon {
+    width: 43px;
+
+    height: 43px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 12px;
+
+    font-size: 15px;
+}
+
+.stat-icon.pink {
+    background: #fde8ef;
+
+    color: #cc315b;
+}
+
+.stat-icon.purple {
+    background: #f4eaf7;
+
+    color: #9b4e9b;
+}
+
+.stat-icon.red {
+    background: #fde6e8;
+
+    color: #d53855;
+}
+
+.stat-info span {
     display: block;
-    overflow: hidden;
-    color: #3d465a;
+
+    margin-bottom: 2px;
+
+    color: #99949a;
+
+    font-size: 9px;
+}
+
+.stat-info strong {
+    color: #30364d;
+
+    font-size: 21px;
+
+    font-weight: 800;
+}
+
+
+/* History Wrapper */
+
+.history-card-wrapper {
+    max-width: 1160px;
+
+    margin: 0 auto;
+
+    padding: 27px 30px 30px;
+
+    background: #fff;
+
+    border: 1px solid #f0e2e6;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 7px 25px rgba(130,30,60,.045);
+}
+
+
+/* Section */
+
+.section-title {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding-bottom: 20px;
+
+    border-bottom: 1px solid #f1e5e9;
+}
+
+.section-label {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #c32e57;
+
+    font-size: 8px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+}
+
+.section-title h2 {
+    margin: 0 0 4px;
+
+    color: #30364d;
+
+    font-size: 23px;
+
+    font-weight: 800;
+}
+
+.section-title p {
+    margin: 0;
+
+    color: #9b969b;
+
+    font-size: 10px;
+}
+
+.history-count {
+    flex-shrink: 0;
+
+    padding: 8px 13px;
+
+    border: 1px solid #f1dce3;
+
+    border-radius: 25px;
+
+    background: #fff8fa;
+
+    color: #b33157;
+
+    font-size: 9px;
+
+    font-weight: 700;
+}
+
+
+/* Timeline */
+
+.timeline {
+    padding-top: 25px;
+}
+
+.timeline-item {
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns: 42px minmax(0, 1fr);
+
+    gap: 14px;
+}
+
+.timeline-line {
+    position: absolute;
+
+    left: 20px;
+
+    top: 39px;
+
+    bottom: -23px;
+
+    width: 2px;
+
+    background: #f3dce3;
+}
+
+.timeline-icon {
+    position: relative;
+
+    z-index: 2;
+
+    width: 42px;
+
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    align-self: start;
+
+    border: 3px solid #fff;
+
+    border-radius: 50%;
+
+    background: #e74a6d;
+
+    color: #fff;
+
     font-size: 12px;
-    font-weight: 750;
+
+    box-shadow:
+        0 4px 12px rgba(205,39,82,.15);
+}
+
+
+/* Donor Card */
+
+.donor-card {
+    min-width: 0;
+
+    margin-bottom: 23px;
+
+    overflow: hidden;
+
+    background: #fff;
+
+    border: 1px solid #eee1e5;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 4px 15px rgba(120,30,60,.035);
+}
+
+
+/* Main Donor */
+
+.donor-main {
+    display: grid;
+
+    grid-template-columns: 72px minmax(0, 1fr) 145px;
+
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 18px 20px;
+
+    background: #fffafa;
+}
+
+
+/* Date */
+
+.date-box {
+    overflow: hidden;
+
+    text-align: center;
+
+    border: 1px solid #eddee3;
+
+    border-radius: 12px;
+
+    background: #fff;
+}
+
+.date-box span {
+    display: block;
+
+    padding: 5px;
+
+    background: #e84b6e;
+
+    color: #fff;
+
+    font-size: 8px;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+}
+
+.date-box strong {
+    display: block;
+
+    padding-top: 5px;
+
+    color: #30364d;
+
+    font-size: 23px;
+
+    line-height: 1.1;
+
+    font-weight: 900;
+}
+
+.date-box small {
+    display: block;
+
+    padding: 3px 0 7px;
+
+    color: #aaa3a8;
+
+    font-size: 8px;
+}
+
+
+/* Donor Info */
+
+.info-label {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #aaa1a6;
+
+    font-size: 7px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.2px;
+}
+
+.donor-info h3 {
+    overflow: hidden;
+
+    margin: 0 0 3px;
+
+    color: #30364d;
+
+    font-size: 16px;
+
+    line-height: 1.3;
+
+    font-weight: 800;
+
     text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+.donor-info small {
+    color: #aaa3a8;
+
+    font-size: 8px;
+}
+
+
+/* Blood Result */
+
+.blood-result {
+    padding: 11px 13px;
+
+    border-radius: 12px;
+
+    background: #fff0f4;
+}
+
+.blood-value {
+    display: flex;
+
+    align-items: baseline;
+
+    gap: 6px;
+}
+
+.blood-value i {
+    color: #d63158;
+
+    font-size: 12px;
+}
+
+.blood-value strong {
+    color: #c72c54;
+
+    font-size: 23px;
+
+    font-weight: 900;
+}
+
+.blood-value span {
+    color: #999398;
+
+    font-size: 8px;
+}
+
+
+/* Detail */
+
+.donor-details {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 0;
+
+    padding: 17px 20px;
+}
+
+.detail-item {
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding-right: 20px;
+}
+
+.detail-item + .detail-item {
+    padding-left: 20px;
+
+    padding-right: 0;
+
+    border-left: 1px solid #f1e5e8;
+}
+
+.detail-icon {
+    width: 35px;
+
+    height: 35px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background: #fff0f4;
+
+    color: #c6355d;
+
+    font-size: 11px;
+}
+
+.detail-content {
+    min-width: 0;
+}
+
+.detail-content span {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #aaa4a9;
+
+    font-size: 7px;
+
+    font-weight: 700;
+
+    letter-spacing: .7px;
+}
+
+.detail-content strong {
+    display: block;
+
+    overflow: hidden;
+
+    color: #454c5e;
+
+    font-size: 10px;
+
+    line-height: 1.45;
+
+    font-weight: 700;
+
+    text-overflow: ellipsis;
+
     white-space: nowrap;
 }
 
 
 /* Footer */
 
-.profile-footer {
-    min-height: 75px;
-    padding: 15px 38px;
+.donor-footer {
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
-    gap: 20px;
+
+    padding: 10px 20px;
+
+    border-top: 1px solid #f1e6e9;
+
     background: #fffafa;
-    border-top: 1px solid #f1e3e7;
+
+    color: #aaa3a8;
+
+    font-size: 8px;
+
+    font-weight: 700;
 }
 
-.footer-info {
+.success {
+    color: #5f9d7d;
+}
+
+.success i {
+    margin-right: 4px;
+}
+
+
+/* Empty */
+
+.empty-state {
+    padding: 60px 20px;
+
+    text-align: center;
+}
+
+.empty-icon {
+    width: 60px;
+
+    height: 60px;
+
+    margin: 0 auto 14px;
+
     display: flex;
-    align-items: center;
-    gap: 9px;
-}
 
-.footer-icon {
-    width: 31px;
-    height: 31px;
-    flex-shrink: 0;
-    display: flex;
     align-items: center;
+
     justify-content: center;
-    background: #fce8ef;
-    color: #b0143b;
-    border-radius: 9px;
+
+    border-radius: 18px;
+
+    background: #fde8ef;
+
+    color: #ce315a;
+
+    font-size: 23px;
+}
+
+.empty-state h3 {
+    margin: 0 0 6px;
+
+    color: #30364d;
+
+    font-size: 17px;
+}
+
+.empty-state p {
+    max-width: 340px;
+
+    margin: auto;
+
+    color: #9c979b;
+
     font-size: 10px;
-}
 
-.footer-info strong {
-    display: block;
-    margin-bottom: 2px;
-    color: #51474b;
-    font-size: 10px;
-}
-
-.footer-info span {
-    display: block;
-    color: #a79da2;
-    font-size: 9px;
-}
-
-.edit-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-    min-width: 120px;
-    padding: 11px 18px;
-    background: linear-gradient(
-        135deg,
-        #a80e2c,
-        #d94b91
-    );
-    color: #fff !important;
-    border-radius: 10px;
-    font-size: 10px;
-    font-weight: 800;
-    text-decoration: none !important;
-    box-shadow: 0 6px 15px rgba(168,14,44,.15);
-    transition: .2s ease;
-}
-
-.edit-button:hover {
-    color: #fff !important;
-    transform: translateY(-1px);
+    line-height: 1.6;
 }
 
 
 /* Tablet */
 
-@media (max-width: 850px) {
+@media (max-width: 900px) {
 
-    .profile-page {
+    .history-page {
+        padding: 22px 18px 40px;
+    }
+
+    .history-card-wrapper {
         padding: 24px;
     }
 
-    .profile-banner {
-        padding: 28px;
+    .donor-main {
+        grid-template-columns: 68px minmax(0, 1fr) 125px;
+
+        gap: 14px;
+
+        padding: 17px;
     }
 
-    .profile-information {
-        padding: 26px 28px;
-    }
-
-    .profile-footer {
-        padding: 15px 28px;
+    .blood-result {
+        padding: 10px;
     }
 
 }
@@ -567,144 +1053,285 @@
 
 /* HP */
 
-@media (max-width: 700px) {
+@media (max-width: 650px) {
 
-    .profile-page {
-        padding: 17px 14px 28px;
+    .history-page {
+        padding: 15px 12px 70px;
     }
 
-    .page-header {
-        margin-bottom: 17px;
-    }
 
-    .page-header h1 {
-        font-size: 23px;
-    }
+    /* Header */
 
-    .page-header p {
-        font-size: 10px;
-        line-height: 1.5;
-    }
+    .history-header {
+        min-height: 125px;
 
-    .role-badge {
-        display: none;
-    }
+        margin-bottom: 15px;
 
-    .profile-card {
+        padding: 21px 19px;
+
         border-radius: 18px;
     }
 
-
-    /* Banner HP */
-
-    .profile-banner {
-        min-height: 145px;
-        padding: 22px 19px;
-    }
-
-    .banner-content {
-        gap: 13px;
-    }
-
-    .avatar {
-        width: 61px;
-        height: 61px;
-        border-radius: 17px;
+    .history-header h1 {
         font-size: 23px;
     }
 
-    .identity-label {
-        margin-bottom: 4px;
-        font-size: 7px;
-    }
+    .history-header p {
+        max-width: 220px;
 
-    .identity h2 {
-        margin-bottom: 7px;
-        font-size: 18px;
-    }
-
-    .identity-status {
-        padding: 5px 9px;
-        font-size: 8px;
-    }
-
-    .shape-one {
-        width: 170px;
-        height: 170px;
-        right: -75px;
-        top: -75px;
-    }
-
-    .shape-two {
-        width: 110px;
-        height: 110px;
-        right: 45px;
-        bottom: -80px;
-    }
-
-
-    /* Information HP */
-
-    .profile-information {
-        padding: 22px 18px;
-    }
-
-    .information-header {
-        margin-bottom: 15px;
-    }
-
-    .information-icon {
-        width: 38px;
-        height: 38px;
-        border-radius: 11px;
-    }
-
-    .information-header h3 {
-        font-size: 14px;
-    }
-
-    .information-header p {
         font-size: 9px;
     }
 
-    .information-list {
-        grid-template-columns: 1fr;
-        gap: 9px;
-    }
-
-    .information-item {
-        min-height: 68px;
-        padding: 12px;
-        border-radius: 12px;
-    }
-
-    .item-icon {
-        width: 37px;
-        height: 37px;
-        border-radius: 10px;
-    }
-
-    .item-content span {
+    .eyebrow {
         font-size: 8px;
     }
 
-    .item-content strong {
+    .header-icon {
+        width: 49px;
+
+        height: 49px;
+
+        border-radius: 14px;
+
+        font-size: 19px;
+    }
+
+
+    /* Statistik */
+
+    .stats-grid {
+        gap: 7px;
+
+        margin-bottom: 15px;
+    }
+
+    .stat-card {
+        min-height: 72px;
+
+        flex-direction: column;
+
+        justify-content: center;
+
+        gap: 5px;
+
+        padding: 9px 4px;
+
+        text-align: center;
+
+        border-radius: 13px;
+    }
+
+    .stat-icon {
+        width: 31px;
+
+        height: 31px;
+
+        border-radius: 9px;
+
         font-size: 11px;
     }
 
+    .stat-info span {
+        margin-bottom: 1px;
 
-    /* Footer HP */
-
-    .profile-footer {
-        padding: 15px 18px;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 13px;
+        font-size: 7px;
     }
 
-    .edit-button {
-        width: 100%;
-        min-height: 43px;
+    .stat-info strong {
+        font-size: 16px;
+    }
+
+
+    /* Wrapper */
+
+    .history-card-wrapper {
+        padding: 18px 12px;
+
+        border-radius: 17px;
+    }
+
+
+    /* Section */
+
+    .section-title {
+        align-items: flex-start;
+
+        gap: 10px;
+
+        padding-bottom: 16px;
+    }
+
+    .section-title h2 {
+        font-size: 19px;
+    }
+
+    .section-title p {
+        font-size: 8px;
+    }
+
+    .history-count {
+        padding: 6px 8px;
+
+        font-size: 7px;
+    }
+
+
+    /* Timeline */
+
+    .timeline {
+        padding-top: 19px;
+    }
+
+    .timeline-item {
+        grid-template-columns: 30px minmax(0, 1fr);
+
+        gap: 8px;
+    }
+
+    .timeline-line {
+        left: 14px;
+
+        top: 29px;
+
+        bottom: -18px;
+    }
+
+    .timeline-icon {
+        width: 30px;
+
+        height: 30px;
+
+        border-width: 2px;
+
+        font-size: 9px;
+    }
+
+
+    /* Card */
+
+    .donor-card {
+        margin-bottom: 18px;
+
+        border-radius: 14px;
+    }
+
+    .donor-main {
+        grid-template-columns: 55px minmax(0, 1fr);
+
+        gap: 10px;
+
+        padding: 13px;
+    }
+
+
+    /* Date */
+
+    .date-box {
+        border-radius: 10px;
+    }
+
+    .date-box span {
+        padding: 4px;
+
+        font-size: 6px;
+    }
+
+    .date-box strong {
+        padding-top: 4px;
+
+        font-size: 19px;
+    }
+
+    .date-box small {
+        padding: 2px 0 6px;
+
+        font-size: 6px;
+    }
+
+
+    /* Name */
+
+    .info-label {
+        margin-bottom: 3px;
+
+        font-size: 6px;
+    }
+
+    .donor-info h3 {
+        font-size: 12px;
+    }
+
+    .donor-info small {
+        font-size: 7px;
+    }
+
+
+    /* Blood */
+
+    .blood-result {
+        grid-column: 1 / -1;
+
+        padding: 9px 11px;
+
+        border-radius: 10px;
+    }
+
+    .blood-value strong {
+        font-size: 20px;
+    }
+
+
+    /* Detail */
+
+    .donor-details {
+        grid-template-columns: 1fr;
+
+        gap: 11px;
+
+        padding: 13px;
+    }
+
+    .detail-item {
+        padding: 0;
+
+        gap: 9px;
+    }
+
+    .detail-item + .detail-item {
+        padding: 11px 0 0;
+
+        border-top: 1px solid #f1e5e8;
+
+        border-left: none;
+    }
+
+    .detail-icon {
+        width: 31px;
+
+        height: 31px;
+
+        border-radius: 8px;
+
+        font-size: 10px;
+    }
+
+    .detail-content span {
+        font-size: 6px;
+    }
+
+    .detail-content strong {
+        font-size: 9px;
+
+        white-space: normal;
+    }
+
+
+    /* Footer */
+
+    .donor-footer {
+        padding: 9px 13px;
+
+        font-size: 7px;
     }
 
 }
@@ -714,30 +1341,46 @@
 
 @media (max-width: 380px) {
 
-    .profile-page {
-        padding: 14px 11px 23px;
+    .history-page {
+        padding-left: 9px;
+
+        padding-right: 9px;
     }
 
-    .profile-banner {
-        padding: 20px 16px;
+    .history-header {
+        padding: 18px 15px;
     }
 
-    .avatar {
-        width: 55px;
-        height: 55px;
+    .history-header h1 {
         font-size: 21px;
     }
 
-    .identity h2 {
-        font-size: 16px;
+    .history-header p {
+        max-width: 175px;
+
+        font-size: 8px;
     }
 
-    .profile-information {
-        padding: 20px 15px;
+    .header-icon {
+        width: 43px;
+
+        height: 43px;
+
+        font-size: 17px;
     }
 
-    .profile-footer {
-        padding: 14px 15px;
+    .history-card-wrapper {
+        padding-left: 10px;
+
+        padding-right: 10px;
+    }
+
+    .history-count {
+        display: none;
+    }
+
+    .section-title h2 {
+        font-size: 18px;
     }
 
 }
