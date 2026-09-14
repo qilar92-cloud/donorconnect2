@@ -6,90 +6,151 @@
 
 <style>
     .pendonor-page {
-        padding: 30px;
-        background: #fff9f6;
         min-height: 100vh;
+        padding: 25px 30px 35px;
+        background: #fff9f6;
     }
 
+    /* Header */
     .page-header {
-        margin-bottom: 25px;
+        max-width: 1050px;
+        margin: 0 auto 18px;
     }
 
     .page-header small {
-        display: block;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        margin-bottom: 5px;
         color: #c9365c;
-        font-size: 13px;
-        font-weight: 700;
-        letter-spacing: .8px;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 1.3px;
         text-transform: uppercase;
-        margin-bottom: 6px;
+    }
+
+    .page-header small i {
+        font-size: 10px;
     }
 
     .page-header h1 {
         margin: 0;
-        color: #2f3040;
-        font-size: 30px;
+        color: #30313f;
+        font-size: 28px;
         font-weight: 800;
     }
 
     .page-header p {
-        margin: 7px 0 0;
-        color: #888894;
-        font-size: 14px;
+        margin: 5px 0 0;
+        color: #94919a;
+        font-size: 12px;
     }
 
+    /* Card */
     .form-card {
+        max-width: 1050px;
+        margin: 0 auto;
+        overflow: hidden;
         background: #fff;
-        border: 1px solid #f0e5e9;
-        border-radius: 22px;
-        padding: 30px;
-        box-shadow: 0 8px 25px rgba(120, 45, 70, .07);
-        max-width: 1000px;
+        border: 1px solid #f0e2e7;
+        border-radius: 20px;
+        box-shadow: 0 8px 28px rgba(120, 45, 70, .06);
     }
 
-    .form-title {
+    /* Account */
+    .account-info {
         display: flex;
         align-items: center;
-        gap: 14px;
-        margin-bottom: 25px;
-        padding-bottom: 22px;
-        border-bottom: 1px solid #f1e8eb;
+        gap: 13px;
+        padding: 19px 25px;
+        background: linear-gradient(
+            135deg,
+            #fff5f7,
+            #fff
+        );
+        border-bottom: 1px solid #f2e6e9;
     }
 
-    .form-icon {
-        width: 50px;
-        height: 50px;
-        border-radius: 14px;
-        background: #fde9ef;
-        color: #c9365c;
+    .avatar {
+        width: 53px;
+        height: 53px;
+        flex-shrink: 0;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 22px;
+        border-radius: 15px;
+        background: linear-gradient(135deg, #ed5573, #d93659);
+        color: #fff;
+        font-size: 21px;
+        font-weight: 800;
+        box-shadow: 0 6px 15px rgba(217, 54, 89, .15);
     }
 
-    .form-title h2 {
-        margin: 0 0 4px;
-        color: #30313f;
-        font-size: 19px;
+    .account-text {
+        min-width: 0;
+    }
+
+    .account-text span {
+        display: block;
+        margin-bottom: 3px;
+        color: #c9365c;
+        font-size: 8px;
+        font-weight: 800;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+    }
+
+    .account-text h2 {
+        overflow: hidden;
+        margin: 0 0 3px;
+        color: #34323e;
+        font-size: 16px;
+        font-weight: 800;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .account-text p {
+        overflow: hidden;
+        margin: 0;
+        color: #9a969e;
+        font-size: 10px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    /* Form */
+    .form-body {
+        padding: 20px 25px 21px;
+    }
+
+    .form-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 13px;
+    }
+
+    .form-heading h3 {
+        margin: 0;
+        color: #393744;
+        font-size: 14px;
         font-weight: 800;
     }
 
-    .form-title p {
-        margin: 0;
-        color: #9999a3;
-        font-size: 12px;
+    .form-heading span {
+        color: #aaa5ab;
+        font-size: 9px;
     }
 
     .form-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
+        gap: 10px;
     }
 
     .form-group {
-        display: flex;
-        flex-direction: column;
+        min-width: 0;
     }
 
     .form-group.full {
@@ -97,10 +158,11 @@
     }
 
     .form-group label {
-        margin-bottom: 8px;
-        color: #454653;
-        font-size: 13px;
-        font-weight: 700;
+        display: block;
+        margin: 0 0 5px 2px;
+        color: #55525c;
+        font-size: 9px;
+        font-weight: 800;
     }
 
     .form-group input,
@@ -108,24 +170,25 @@
     .form-group textarea {
         width: 100%;
         box-sizing: border-box;
-        border: 1px solid #e8dfe3;
-        border-radius: 12px;
-        background: #fff;
-        color: #383946;
-        padding: 12px 14px;
-        font-family: inherit;
-        font-size: 13px;
+        border: 1px solid #eadfe3;
+        border-radius: 10px;
         outline: none;
-        transition: .2s;
+        background: #fff;
+        color: #3c3a45;
+        font-family: inherit;
+        font-size: 10px;
+        transition: .2s ease;
     }
 
     .form-group input,
     .form-group select {
-        height: 45px;
+        height: 38px;
+        padding: 0 11px;
     }
 
     .form-group textarea {
-        min-height: 105px;
+        min-height: 65px;
+        padding: 10px 11px;
         resize: vertical;
     }
 
@@ -133,54 +196,58 @@
     .form-group select:focus,
     .form-group textarea:focus {
         border-color: #ed5573;
-        box-shadow: 0 0 0 3px rgba(237, 85, 115, .1);
+        box-shadow: 0 0 0 3px rgba(237, 85, 115, .08);
     }
 
     .readonly {
         background: #f8f5f6 !important;
-        color: #888894 !important;
+        color: #99949a !important;
         cursor: not-allowed;
     }
 
     .readonly-info {
-        margin-top: 6px;
-        color: #aaa;
-        font-size: 11px;
+        display: block;
+        margin: 4px 0 0 2px;
+        color: #aaa5aa;
+        font-size: 7px;
     }
 
     .error {
-        margin-top: 6px;
+        display: block;
+        margin: 4px 0 0 2px;
         color: #d93659;
-        font-size: 12px;
+        font-size: 8px;
     }
 
-    .form-actions {
+    /* Footer */
+    .form-footer {
         display: flex;
         justify-content: flex-end;
-        gap: 10px;
-        margin-top: 28px;
-        padding-top: 22px;
-        border-top: 1px solid #f1e8eb;
+        gap: 9px;
+        padding: 13px 25px;
+        border-top: 1px solid #f1e6e9;
+        background: #fffafa;
     }
 
     .btn {
+        height: 37px;
+        padding: 0 14px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-height: 43px;
-        padding: 0 19px;
-        border-radius: 11px;
-        font-size: 13px;
-        font-weight: 700;
-        text-decoration: none;
+        gap: 6px;
         border: none;
+        border-radius: 10px;
+        font-size: 10px;
+        font-weight: 800;
+        text-decoration: none !important;
         cursor: pointer;
-        transition: .2s;
+        transition: .2s ease;
     }
 
     .btn-back {
-        background: #f5f1f2;
-        color: #666673;
+        background: #f4f0f1;
+        color: #77737a !important;
     }
 
     .btn-back:hover {
@@ -189,42 +256,174 @@
 
     .btn-save {
         background: linear-gradient(135deg, #ed5573, #d93659);
-        color: #fff;
-        box-shadow: 0 5px 14px rgba(217, 54, 89, .2);
+        color: #fff !important;
+        box-shadow: 0 5px 13px rgba(217, 54, 89, .15);
     }
 
     .btn-save:hover {
         transform: translateY(-1px);
+        color: #fff !important;
     }
 
-    @media (max-width: 700px) {
+    /* Tablet */
+    @media (max-width: 850px) {
         .pendonor-page {
-            padding: 20px 15px;
+            padding: 20px;
+        }
+
+        .account-info {
+            padding: 17px 20px;
+        }
+
+        .form-body {
+            padding: 18px 20px;
+        }
+
+        .form-footer {
+            padding: 12px 20px;
+        }
+    }
+
+    /* HP */
+    @media (max-width: 600px) {
+        .pendonor-page {
+            padding: 14px 12px 25px;
+        }
+
+        .page-header {
+            margin-bottom: 13px;
+        }
+
+        .page-header small {
+            font-size: 9px;
+            letter-spacing: 1px;
         }
 
         .page-header h1 {
-            font-size: 25px;
+            font-size: 21px;
+        }
+
+        .page-header p {
+            font-size: 10px;
         }
 
         .form-card {
-            padding: 20px;
-            border-radius: 18px;
+            border-radius: 16px;
+        }
+
+        .account-info {
+            padding: 14px 16px;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 46px;
+            height: 46px;
+            border-radius: 13px;
+            font-size: 18px;
+        }
+
+        .account-text span {
+            font-size: 6.5px;
+        }
+
+        .account-text h2 {
+            font-size: 14px;
+        }
+
+        .account-text p {
+            font-size: 8.5px;
+        }
+
+        .form-body {
+            padding: 15px 16px 16px;
+        }
+
+        .form-heading {
+            margin-bottom: 9px;
+        }
+
+        .form-heading h3 {
+            font-size: 12px;
+        }
+
+        .form-heading span {
+            font-size: 7px;
         }
 
         .form-grid {
-            grid-template-columns: 1fr;
+            gap: 8px;
         }
 
-        .form-group.full {
-            grid-column: auto;
+        .form-group label {
+            margin-bottom: 4px;
+            font-size: 7.5px;
         }
 
-        .form-actions {
-            flex-direction: column;
+        .form-group input,
+        .form-group select {
+            height: 36px;
+            padding: 0 9px;
+            border-radius: 9px;
+            font-size: 9px;
+        }
+
+        .form-group textarea {
+            min-height: 58px;
+            padding: 8px 9px;
+            border-radius: 9px;
+            font-size: 9px;
+        }
+
+        .readonly-info {
+            font-size: 6px;
+        }
+
+        .error {
+            font-size: 7px;
+        }
+
+        .form-footer {
+            padding: 10px 16px;
         }
 
         .btn {
-            width: 100%;
+            height: 35px;
+            padding: 0 11px;
+            font-size: 9px;
+        }
+    }
+
+    /* HP kecil */
+    @media (max-width: 380px) {
+        .pendonor-page {
+            padding: 12px 10px 20px;
+        }
+
+        .account-info {
+            padding: 13px;
+        }
+
+        .avatar {
+            width: 43px;
+            height: 43px;
+            font-size: 17px;
+        }
+
+        .account-text h2 {
+            font-size: 13px;
+        }
+
+        .form-body {
+            padding: 14px 13px;
+        }
+
+        .form-grid {
+            gap: 7px;
+        }
+
+        .form-footer {
+            padding: 9px 13px;
         }
     }
 </style>
@@ -233,23 +432,41 @@
 
     {{-- Header --}}
     <div class="page-header">
-        <small>Data Pendonor</small>
+
+        <small>
+            <i class="fas fa-users"></i>
+            Data Pendonor
+        </small>
+
         <h1>Edit Pendonor</h1>
-        <p>Perbarui informasi data pendonor dengan benar.</p>
+
+        <p>Perbarui informasi pendonor yang diperlukan.</p>
+
     </div>
 
     <div class="form-card">
 
-        {{-- Judul Form --}}
-        <div class="form-title">
-            <div class="form-icon">
-                ✎
+        {{-- Akun --}}
+        <div class="account-info">
+
+            <div class="avatar">
+                {{ strtoupper(substr($pendonor->user->nama ?? 'P', 0, 1)) }}
             </div>
 
-            <div>
-                <h2>Edit Data Pendonor</h2>
-                <p>Ubah informasi pendonor yang diperlukan.</p>
+            <div class="account-text">
+
+                <span>Pendonor</span>
+
+                <h2>
+                    {{ $pendonor->user->nama ?? '-' }}
+                </h2>
+
+                <p>
+                    {{ $pendonor->user->email ?? '-' }}
+                </p>
+
             </div>
+
         </div>
 
         <form
@@ -260,245 +477,255 @@
             @csrf
             @method('PUT')
 
-            <div class="form-grid">
+            {{-- Form --}}
+            <div class="form-body">
 
-                {{-- Nama --}}
-                <div class="form-group">
-                    <label>Nama Lengkap</label>
-
-                    <input
-                        type="text"
-                        value="{{ $pendonor->user->nama ?? '' }}"
-                        class="readonly"
-                        disabled
-                    >
-
-                    <span class="readonly-info">
-                        Nama akun tidak diubah dari halaman ini.
-                    </span>
+                <div class="form-heading">
+                    <h3>Informasi Pendonor</h3>
+                    <span>ID #{{ $pendonor->id_pendonor }}</span>
                 </div>
 
+                <div class="form-grid">
 
-                {{-- Email --}}
-                <div class="form-group">
-                    <label>Email</label>
+                    {{-- Nama --}}
+                    <div class="form-group">
 
-                    <input
-                        type="email"
-                        value="{{ $pendonor->user->email ?? '' }}"
-                        class="readonly"
-                        disabled
-                    >
+                        <label>Nama Lengkap</label>
 
-                    <span class="readonly-info">
-                        Email akun tidak diubah dari halaman ini.
-                    </span>
-                </div>
-
-
-                {{-- Status --}}
-                <div class="form-group">
-                    <label for="status">Status</label>
-
-                    <select name="status" id="status">
-
-                        <option value="">
-                            Pilih Status
-                        </option>
-
-                        <option
-                            value="Siswa"
-                            {{ old('status', $pendonor->status) == 'Siswa' ? 'selected' : '' }}
+                        <input
+                            type="text"
+                            value="{{ $pendonor->user->nama ?? '' }}"
+                            class="readonly"
+                            disabled
                         >
-                            Siswa
-                        </option>
 
-                        <option
-                            value="Mahasiswa"
-                            {{ old('status', $pendonor->status) == 'Mahasiswa' ? 'selected' : '' }}
+                        <span class="readonly-info">
+                            Nama akun tidak diubah di sini.
+                        </span>
+
+                    </div>
+
+                    {{-- Email --}}
+                    <div class="form-group">
+
+                        <label>Email</label>
+
+                        <input
+                            type="email"
+                            value="{{ $pendonor->user->email ?? '' }}"
+                            class="readonly"
+                            disabled
                         >
-                            Mahasiswa
-                        </option>
 
-                        <option
-                            value="Umum"
-                            {{ old('status', $pendonor->status) == 'Umum' ? 'selected' : '' }}
-                        >
-                            Umum
-                        </option>
-
-                    </select>
-
-                    @error('status')
-                        <span class="error">
-                            {{ $message }}
+                        <span class="readonly-info">
+                            Email akun tidak diubah di sini.
                         </span>
-                    @enderror
-                </div>
 
+                    </div>
 
-                {{-- Kelas --}}
-                <div class="form-group">
+                    {{-- Status --}}
+                    <div class="form-group">
 
-                    <label for="kelas_jabatan">
-                        Kelas / Jabatan
-                    </label>
+                        <label for="status">Status</label>
 
-                    <input
-                        type="text"
-                        name="kelas_jabatan"
-                        id="kelas_jabatan"
-                        value="{{ old('kelas_jabatan', $pendonor->kelas_jabatan) }}"
-                        placeholder="Contoh: XII IPA 1"
-                    >
+                        <select name="status" id="status">
 
-                    @error('kelas_jabatan')
-                        <span class="error">
-                            {{ $message }}
-                        </span>
-                    @enderror
-
-                </div>
-
-
-                {{-- Tanggal Lahir --}}
-                <div class="form-group">
-
-                    <label for="tanggal_lahir">
-                        Tanggal Lahir
-                    </label>
-
-                    <input
-                        type="date"
-                        name="tanggal_lahir"
-                        id="tanggal_lahir"
-                        value="{{ old(
-                            'tanggal_lahir',
-                            $pendonor->tanggal_lahir
-                                ? $pendonor->tanggal_lahir->format('Y-m-d')
-                                : ''
-                        ) }}"
-                    >
-
-                    @error('tanggal_lahir')
-                        <span class="error">
-                            {{ $message }}
-                        </span>
-                    @enderror
-
-                </div>
-
-
-                {{-- Golongan Darah --}}
-                <div class="form-group">
-
-                    <label for="golongan_darah">
-                        Golongan Darah
-                    </label>
-
-                    <select
-                        name="golongan_darah"
-                        id="golongan_darah"
-                    >
-
-                        <option value="">
-                            Pilih Golongan Darah
-                        </option>
-
-                        @foreach(['A', 'B', 'AB', 'O'] as $golongan)
-
-                            <option
-                                value="{{ $golongan }}"
-                                {{ old(
-                                    'golongan_darah',
-                                    $pendonor->golongan_darah
-                                ) == $golongan ? 'selected' : '' }}
-                            >
-                                {{ $golongan }}
+                            <option value="">
+                                Pilih Status
                             </option>
 
-                        @endforeach
+                            <option
+                                value="Siswa"
+                                {{ old('status', $pendonor->status) == 'Siswa' ? 'selected' : '' }}
+                            >
+                                Siswa
+                            </option>
 
-                    </select>
+                            <option
+                                value="Mahasiswa"
+                                {{ old('status', $pendonor->status) == 'Mahasiswa' ? 'selected' : '' }}
+                            >
+                                Mahasiswa
+                            </option>
 
-                    @error('golongan_darah')
-                        <span class="error">
-                            {{ $message }}
-                        </span>
-                    @enderror
+                            <option
+                                value="Umum"
+                                {{ old('status', $pendonor->status) == 'Umum' ? 'selected' : '' }}
+                            >
+                                Umum
+                            </option>
 
-                </div>
+                        </select>
 
+                        @error('status')
+                            <span class="error">
+                                {{ $message }}
+                            </span>
+                        @enderror
 
-                {{-- Telepon --}}
-                <div class="form-group">
+                    </div>
 
-                    <label for="nomor_telepon">
-                        No. Telepon
-                    </label>
+                    {{-- Kelas --}}
+                    <div class="form-group">
 
-                    <input
-                        type="text"
-                        name="nomor_telepon"
-                        id="nomor_telepon"
-                        value="{{ old(
-                            'nomor_telepon',
-                            $pendonor->nomor_telepon
-                        ) }}"
-                        placeholder="Contoh: 081234567890"
-                    >
+                        <label for="kelas_jabatan">
+                            Kelas / Jabatan
+                        </label>
 
-                    @error('nomor_telepon')
-                        <span class="error">
-                            {{ $message }}
-                        </span>
-                    @enderror
+                        <input
+                            type="text"
+                            name="kelas_jabatan"
+                            id="kelas_jabatan"
+                            value="{{ old('kelas_jabatan', $pendonor->kelas_jabatan) }}"
+                            placeholder="Contoh: XII PPLG 2"
+                        >
 
-                </div>
+                        @error('kelas_jabatan')
+                            <span class="error">
+                                {{ $message }}
+                            </span>
+                        @enderror
 
+                    </div>
 
-                {{-- Informasi Kesehatan --}}
-                <div class="form-group full">
+                    {{-- Tanggal Lahir --}}
+                    <div class="form-group">
 
-                    <label for="informasi_kesehatan">
-                        Informasi Kesehatan
-                    </label>
+                        <label for="tanggal_lahir">
+                            Tanggal Lahir
+                        </label>
 
-                    <textarea
-                        name="informasi_kesehatan"
-                        id="informasi_kesehatan"
-                        placeholder="Masukkan informasi kesehatan pendonor"
-                    >{{ old(
-                        'informasi_kesehatan',
-                        $pendonor->informasi_kesehatan
-                    ) }}</textarea>
+                        <input
+                            type="date"
+                            name="tanggal_lahir"
+                            id="tanggal_lahir"
+                            value="{{ old(
+                                'tanggal_lahir',
+                                $pendonor->tanggal_lahir
+                                    ? $pendonor->tanggal_lahir->format('Y-m-d')
+                                    : ''
+                            ) }}"
+                        >
 
-                    @error('informasi_kesehatan')
-                        <span class="error">
-                            {{ $message }}
-                        </span>
-                    @enderror
+                        @error('tanggal_lahir')
+                            <span class="error">
+                                {{ $message }}
+                            </span>
+                        @enderror
+
+                    </div>
+
+                    {{-- Golongan Darah --}}
+                    <div class="form-group">
+
+                        <label for="golongan_darah">
+                            Golongan Darah
+                        </label>
+
+                        <select
+                            name="golongan_darah"
+                            id="golongan_darah"
+                        >
+
+                            <option value="">
+                                Pilih Golongan
+                            </option>
+
+                            @foreach(['A', 'B', 'AB', 'O'] as $golongan)
+
+                                <option
+                                    value="{{ $golongan }}"
+                                    {{ old(
+                                        'golongan_darah',
+                                        $pendonor->golongan_darah
+                                    ) == $golongan ? 'selected' : '' }}
+                                >
+                                    {{ $golongan }}
+                                </option>
+
+                            @endforeach
+
+                        </select>
+
+                        @error('golongan_darah')
+                            <span class="error">
+                                {{ $message }}
+                            </span>
+                        @enderror
+
+                    </div>
+
+                    {{-- Telepon --}}
+                    <div class="form-group">
+
+                        <label for="nomor_telepon">
+                            No. Telepon
+                        </label>
+
+                        <input
+                            type="text"
+                            name="nomor_telepon"
+                            id="nomor_telepon"
+                            value="{{ old(
+                                'nomor_telepon',
+                                $pendonor->nomor_telepon
+                            ) }}"
+                            placeholder="Contoh: 081234567890"
+                        >
+
+                        @error('nomor_telepon')
+                            <span class="error">
+                                {{ $message }}
+                            </span>
+                        @enderror
+
+                    </div>
+
+                    {{-- Kesehatan --}}
+                    <div class="form-group full">
+
+                        <label for="informasi_kesehatan">
+                            Informasi Kesehatan
+                        </label>
+
+                        <textarea
+                            name="informasi_kesehatan"
+                            id="informasi_kesehatan"
+                            placeholder="Contoh: Sehat"
+                        >{{ old(
+                            'informasi_kesehatan',
+                            $pendonor->informasi_kesehatan
+                        ) }}</textarea>
+
+                        @error('informasi_kesehatan')
+                            <span class="error">
+                                {{ $message }}
+                            </span>
+                        @enderror
+
+                    </div>
 
                 </div>
 
             </div>
 
-
             {{-- Tombol --}}
-            <div class="form-actions">
+            <div class="form-footer">
 
                 <a
                     href="{{ route('pendonor.show', $pendonor->id_pendonor) }}"
                     class="btn btn-back"
                 >
-                    ← Batal
+                    <i class="fas fa-arrow-left"></i>
+                    Batal
                 </a>
 
                 <button
                     type="submit"
                     class="btn btn-save"
                 >
-                    ✓ Simpan Perubahan
+                    <i class="fas fa-check"></i>
+                    Simpan Perubahan
                 </button>
 
             </div>
