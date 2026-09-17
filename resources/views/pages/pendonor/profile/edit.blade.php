@@ -47,7 +47,7 @@
 
         </div>
 
-        <form action="{{ route('profile.update') }}" method="POST">
+        <form action="{{ route('profile.pendonor.update') }}" method="POST">
 
             @csrf
             @method('PUT')
@@ -190,7 +190,7 @@
                 </button>
 
                 <a
-                    href="{{ route('profile') }}"
+                    href="{{ route('profile.pendonor') }}"
                     class="cancel-button"
                 >
                     Batal

@@ -19,16 +19,19 @@ class RegisterController extends Controller
     {
         $data = $request->validate([
             'nama' => 'required|string|max:255',
+            'jenis_warga' => 'required|in:siswa,guru,karyawan',
+            'identitas' => 'required|string|max:50|unique:users,identitas',
             'email' => 'required|email|unique:users,email',
-            'username' => 'required|string|max:255|unique:users,username',
             'password' => 'required|string|min:6|confirmed',
         ]);
 
         $user = User::create([
             'nama' => $data['nama'],
+            'jenis_warga' => $data['jenis_warga'],
+            'identitas' => $data['identitas'],
             'email' => $data['email'],
-            'username' => $data['username'],
             'password' => Hash::make($data['password']),
+            'role' => 'pendonor',
         ]);
 
         Pendonor::create([
@@ -41,7 +44,8 @@ class RegisterController extends Controller
             'informasi_kesehatan' => '',
         ]);
 
-        return redirect('/login')
+        return redirect()
+            ->route('login')
             ->with('success', 'Registrasi berhasil. Silakan login.');
     }
 }

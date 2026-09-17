@@ -1,468 +1,206 @@
-<!DOCTYPE html>
-<html lang="id">
+@extends('layouts.auth')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - DONORCONNECT</title>
+@section('title', 'Login - DONORCONNECT')
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+@push('styles')
+    @vite('resources/css/auth/login.css')
+@endpush
 
-        body {
-            min-height: 100vh;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #fff7f5;
-        }
-
-        .login-page {
-            min-height: 100vh;
-            padding: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .login-container {
-            width: 100%;
-            max-width: 1050px;
-            min-height: 620px;
-            display: flex;
-            overflow: hidden;
-            background: #fff;
-            border-radius: 24px;
-            box-shadow: 0 15px 40px rgba(180, 30, 50, .12);
-        }
-
-        .login-left {
-            width: 46%;
-            padding: 50px;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background: linear-gradient(145deg, #fff0f1, #ffe1e4, #fff7f5);
-        }
-
-        .login-left::before,
-        .login-left::after {
-            content: "";
-            position: absolute;
-            border-radius: 50%;
-            background: #ffd1d6;
-            opacity: .45;
-        }
-
-        .login-left::before {
-            width: 280px;
-            height: 280px;
-            top: -130px;
-            left: -110px;
-        }
-
-        .login-left::after {
-            width: 230px;
-            height: 230px;
-            right: -80px;
-            bottom: -110px;
-        }
-
-        .left-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .blood-icon {
-            width: 90px;
-            height: 90px;
-            margin: 0 auto 22px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #e51f3b;
-            border-radius: 50% 50% 50% 10px;
-            transform: rotate(-45deg);
-            box-shadow: 0 8px 20px rgba(229, 31, 59, .2);
-        }
-
-        .blood-icon span {
-            color: #fff;
-            font-size: 40px;
-            transform: rotate(45deg);
-        }
-
-        .brand {
-            margin-bottom: 8px;
-            color: #d91e36;
-            font-size: 27px;
-            font-weight: 800;
-        }
-
-        .subtitle {
-            margin-bottom: 35px;
-            color: #666;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        .welcome-title {
-            margin-bottom: 12px;
-            color: #d91e36;
-            font-size: 24px;
-            font-weight: 700;
-        }
-
-        .welcome-text {
-            max-width: 350px;
-            margin: auto;
-            color: #555;
-            font-size: 14px;
-            line-height: 1.8;
-        }
-
-        .heart {
-            position: absolute;
-            color: #e99aa4;
-            font-size: 34px;
-            opacity: .55;
-        }
-
-        .heart-one {
-            top: 65px;
-            right: 50px;
-        }
-
-        .heart-two {
-            bottom: 75px;
-            left: 50px;
-        }
-
-        .login-right {
-            width: 54%;
-            padding: 55px 65px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .login-box {
-            width: 100%;
-            max-width: 420px;
-        }
-
-        .login-logo {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            margin-bottom: 32px;
-            color: #d91e36;
-            font-size: 22px;
-            font-weight: 800;
-        }
-
-        .login-logo-icon {
-            font-size: 27px;
-        }
-
-        .login-title {
-            margin-bottom: 8px;
-            color: #222;
-            font-size: 28px;
-        }
-
-        .login-description {
-            margin-bottom: 25px;
-            color: #777;
-            font-size: 13px;
-        }
-
-        .error-message {
-            margin-bottom: 18px;
-            padding: 11px 13px;
-            border: 1px solid #f3c5ca;
-            border-radius: 8px;
-            background: #fff0f1;
-            color: #c91830;
-            font-size: 12px;
-        }
-
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 7px;
-            color: #333;
-            font-size: 13px;
-            font-weight: 700;
-        }
-
-        .input-wrapper {
-            position: relative;
-        }
-
-        .input-wrapper input,
-        .input-wrapper select {
-            width: 100%;
-            height: 46px;
-            padding: 0 14px;
-            border: 1px solid #e5d5d7;
-            border-radius: 8px;
-            outline: none;
-            background: #fff;
-            color: #333;
-            font-size: 13px;
-        }
-
-        .input-wrapper input:focus,
-        .input-wrapper select:focus {
-            border-color: #e51f3b;
-            box-shadow: 0 0 0 3px rgba(229, 31, 59, .08);
-        }
-
-        .password-input {
-            padding-right: 45px !important;
-        }
-
-        .show-password {
-            position: absolute;
-            top: 50%;
-            right: 14px;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #777;
-        }
-
-        .remember {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            margin: 3px 0 20px;
-            color: #555;
-            font-size: 12px;
-        }
-
-        .remember input {
-            accent-color: #e51f3b;
-        }
-
-        .login-button {
-            width: 100%;
-            height: 46px;
-            border: 0;
-            border-radius: 8px;
-            background: #e51f3b;
-            color: #fff;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .login-button:hover {
-            background: #c91830;
-        }
-
-        .register-text {
-            margin-top: 18px;
-            text-align: center;
-            color: #666;
-            font-size: 12px;
-        }
-
-        .register-text a {
-            color: #d91e36;
-            font-weight: 700;
-            text-decoration: none;
-        }
-
-        @media (max-width: 850px) {
-            .login-container {
-                max-width: 600px;
-            }
-
-            .login-left {
-                display: none;
-            }
-
-            .login-right {
-                width: 100%;
-                padding: 50px 40px;
-            }
-        }
-
-        @media (max-width: 500px) {
-            .login-page {
-                padding: 15px;
-            }
-
-            .login-container {
-                border-radius: 18px;
-            }
-
-            .login-right {
-                padding: 40px 25px;
-            }
-
-            .login-title {
-                font-size: 24px;
-            }
-        }
-    </style>
-</head>
-
-<body>
+@section('content')
 
 <div class="login-page">
 
-    <div class="login-container">
+    <!-- Background -->
+    <img
+        src="{{ asset('images/2.jpg') }}"
+        alt=""
+        class="login-background"
+    >
 
-        <div class="login-left">
+    <!-- Card Login -->
+    <div class="login-card">
 
-            <span class="heart heart-one">♥</span>
-            <span class="heart heart-two">♥</span>
+        <!-- Header -->
+        <div class="login-header">
 
-            <div class="left-content">
-
-                <div class="blood-icon">
-                    <span>♥</span>
-                </div>
-
-                <div class="brand">DONORCONNECT</div>
-
-                <div class="subtitle">
-                    Aplikasi Donor Darah<br>
-                    PMR Sekolah
-                </div>
-
-                <h2 class="welcome-title">
-                    Donor Darah, Selamatkan Nyawa ❤️
-                </h2>
-
-                <p class="welcome-text">
-                    Bersama DONORCONNECT, mari berkontribusi
-                    untuk membantu sesama melalui kegiatan
-                    donor darah.
-                </p>
-
+            <div class="login-icon">
+                <i class="fas fa-heart"></i>
             </div>
+
+            <h1>DONORCONNECT</h1>
+
+            <h2>SMKN 2 PURBALINGGA</h2>
+
+            <p>Masuk untuk melanjutkan</p>
+
         </div>
 
-        <div class="login-right">
 
-            <div class="login-box">
+        <!-- Error -->
+        @if ($errors->any())
 
-                <div class="login-logo">
-                    <span class="login-logo-icon">🩸</span>
-                    DONORCONNECT
-                </div>
+            <div class="error-message">
+                {{ $errors->first() }}
+            </div>
 
-                <h1 class="login-title">
-                    Selamat Datang Kembali! 👋
-                </h1>
+        @endif
 
-                <p class="login-description">
-                    Silakan login untuk melanjutkan.
-                </p>
 
-                @if ($errors->any())
-                    <div class="error-message">
-                        {{ $errors->first() }}
-                    </div>
-                @endif
+        <!-- Form Login -->
+        <form action="{{ route('login.submit') }}" method="POST">
 
-                <form method="POST" action="{{ route('login.submit') }}">
-                    @csrf
+            @csrf
 
-                    <div class="form-group">
-                        <label for="email">Email</label>
 
-                        <div class="input-wrapper">
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                value="{{ old('email') }}"
-                                placeholder="Masukkan email"
-                                required
-                            >
-                        </div>
-                    </div>
+            <!-- Status Pengguna -->
+            <div class="form-group">
 
-                    <div class="form-group">
-                        <label for="password">Password</label>
+                <label for="jenis_warga">
+                    Status Pengguna
+                </label>
 
-                        <div class="input-wrapper">
-                            <input
-                                type="password"
-                                id="password"
-                                name="password"
-                                class="password-input"
-                                placeholder="Masukkan password"
-                                required
-                            >
+                <select
+                    name="jenis_warga"
+                    id="jenis_warga"
+                    onchange="ubahIdentitas()"
+                    required
+                >
 
-                            <span
-                                class="show-password"
-                                id="eyeIcon"
-                                onclick="togglePassword()"
-                            >👁</span>
-                        </div>
-                    </div>
+                    <option value="">
+                        Pilih status pengguna
+                    </option>
 
-                    <div class="form-group">
-                        <label for="role">Pilih Peran</label>
+                    <option
+                        value="siswa"
+                        {{ old('jenis_warga') == 'siswa' ? 'selected' : '' }}
+                    >
+                        Siswa
+                    </option>
 
-                        <div class="input-wrapper">
-                            <select id="role" name="role" required>
+                    <option
+                        value="guru"
+                        {{ old('jenis_warga') == 'guru' ? 'selected' : '' }}
+                    >
+                        Guru
+                    </option>
 
-                                <option value="">
-                                    Pilih peran Anda
-                                </option>
+                    <option
+                        value="karyawan"
+                        {{ old('jenis_warga') == 'karyawan' ? 'selected' : '' }}
+                    >
+                        Karyawan
+                    </option>
 
-                                <option
-                                    value="pendonor"
-                                    {{ old('role') == 'pendonor' ? 'selected' : '' }}
-                                >
-                                    Pendonor
-                                </option>
+                </select>
 
-                                <option
-                                    value="petugas"
-                                    {{ old('role') == 'petugas' ? 'selected' : '' }}
-                                >
-                                    Petugas PMR
-                                </option>
+            </div>
 
-                            </select>
-                        </div>
-                    </div>
 
-                    <label class="remember">
-                        <input type="checkbox" name="remember" value="1">
-                        Ingat saya
-                    </label>
+            <!-- Identitas -->
+            <div class="form-group">
 
-                    <button type="submit" class="login-button">
-                        Login
+                <label
+                    for="identitas"
+                    id="labelIdentitas"
+                >
+                    NIS / NIP / ID Pegawai
+                </label>
+
+                <input
+                    type="text"
+                    name="identitas"
+                    id="identitas"
+                    value="{{ old('identitas') }}"
+                    placeholder="Masukkan identitas"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Password -->
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <div class="password-box">
+
+                    <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        placeholder="Masukkan password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="password-toggle"
+                        onclick="togglePassword()"
+                        aria-label="Tampilkan password"
+                    >
+
+                        <i
+                            class="fas fa-eye"
+                            id="eyeIcon"
+                        ></i>
+
                     </button>
 
-                </form>
-
-                <div class="register-text">
-                    Belum punya akun?
-                    <a href="{{ route('register') }}">
-                        Registrasi di sini
-                    </a>
                 </div>
 
             </div>
+
+
+            <!-- Ingat Saya -->
+            <label class="remember">
+
+                <input
+                    type="checkbox"
+                    name="remember"
+                    value="1"
+                >
+
+                <span>Ingat saya</span>
+
+            </label>
+
+
+            <!-- Tombol Login -->
+            <button
+                type="submit"
+                class="login-button"
+            >
+                LOGIN
+            </button>
+
+        </form>
+
+
+        <!-- Register -->
+        <div class="register-link">
+
+            Belum punya akun?
+
+            <a href="{{ route('register') }}">
+                REGISTER
+            </a>
+
+        </div>
+
+
+        <!-- Kembali -->
+        <div class="back-link">
+
+            <a href="{{ route('landing') }}">
+
+                <i class="fas fa-arrow-left"></i>
+
+                Kembali ke halaman utama
+
+            </a>
 
         </div>
 
@@ -470,20 +208,80 @@
 
 </div>
 
+
 <script>
+
+    function ubahIdentitas() {
+
+        const jenis = document.getElementById('jenis_warga').value;
+        const label = document.getElementById('labelIdentitas');
+        const input = document.getElementById('identitas');
+
+
+        if (jenis === 'siswa') {
+
+            label.textContent = 'NIS';
+            input.placeholder = 'Masukkan NIS';
+
+        }
+
+        else if (jenis === 'guru') {
+
+            label.textContent = 'NIP';
+            input.placeholder = 'Masukkan NIP';
+
+        }
+
+        else if (jenis === 'karyawan') {
+
+            label.textContent = 'ID Pegawai';
+            input.placeholder = 'Masukkan ID Pegawai';
+
+        }
+
+        else {
+
+            label.textContent = 'NIS / NIP / ID Pegawai';
+            input.placeholder = 'Masukkan identitas';
+
+        }
+
+    }
+
+
     function togglePassword() {
+
         const password = document.getElementById('password');
-        const eye = document.getElementById('eyeIcon');
+        const icon = document.getElementById('eyeIcon');
+
 
         if (password.type === 'password') {
+
             password.type = 'text';
-            eye.textContent = '🙈';
-        } else {
-            password.type = 'password';
-            eye.textContent = '👁';
+
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+
         }
+
+        else {
+
+            password.type = 'password';
+
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+
+        }
+
     }
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+        ubahIdentitas();
+
+    });
+
 </script>
 
-</body>
-</html>
+@endsection

@@ -110,10 +110,10 @@
         </div>
 
 
-        {{-- Footer --}}
+        {{-- Tombol --}}
         <div class="profile-footer">
 
-            <a href="{{ route('profile.edit') }}" class="edit-button">
+            <a href="{{ route('profile.petugas.edit') }}" class="edit-button">
                 <i class="fas fa-edit"></i>
                 Ubah Profil
             </a>
@@ -130,9 +130,7 @@
 @push('styles')
 <style>
 
-/* ========================================
-   PROFILE PAGE
-======================================== */
+/* Halaman */
 
 .profile-page {
     min-height: calc(100vh - 70px);
@@ -141,9 +139,7 @@
 }
 
 
-/* ========================================
-   MAIN CARD
-======================================== */
+/* Card */
 
 .profile-card {
     width: 100%;
@@ -162,9 +158,7 @@
 }
 
 
-/* ========================================
-   PROFILE HEADER
-======================================== */
+/* Header */
 
 .profile-top {
     position: relative;
@@ -221,7 +215,7 @@
 }
 
 
-/* Name */
+/* Nama */
 
 .profile-top h2 {
     margin: 0 0 10px;
@@ -264,28 +258,20 @@
 }
 
 
-/* ========================================
-   DATA SECTION
-======================================== */
+/* Data */
 
 .profile-body {
     padding: 25px 25px 27px;
 }
 
-
-/* List */
-
 .data-list {
     display: flex;
     flex-direction: column;
-
     gap: 13px;
 }
 
 
-/* ========================================
-   DATA CARD
-======================================== */
+/* Item */
 
 .data-item {
     position: relative;
@@ -313,9 +299,6 @@
         border-color .2s ease;
 }
 
-
-/* Pink accent */
-
 .data-item::before {
     content: "";
 
@@ -336,9 +319,6 @@
     border-radius: 0 5px 5px 0;
 }
 
-
-/* Hover */
-
 .data-item:hover {
     transform: translateY(-2px);
 
@@ -349,9 +329,7 @@
 }
 
 
-/* ========================================
-   ICON
-======================================== */
+/* Icon */
 
 .data-icon {
     width: 46px;
@@ -376,9 +354,7 @@
 }
 
 
-/* ========================================
-   TEXT
-======================================== */
+/* Text */
 
 .data-text {
     min-width: 0;
@@ -414,9 +390,7 @@
 }
 
 
-/* ========================================
-   NUMBER
-======================================== */
+/* Nomor */
 
 .data-number {
     width: 30px;
@@ -444,9 +418,7 @@
 }
 
 
-/* ========================================
-   FOOTER
-======================================== */
+/* Footer */
 
 .profile-footer {
     padding: 18px 25px;
@@ -460,7 +432,7 @@
 }
 
 
-/* Button */
+/* Tombol */
 
 .edit-button {
     min-width: 135px;
@@ -504,9 +476,7 @@
 }
 
 
-/* ========================================
-   TABLET
-======================================== */
+/* Tablet */
 
 @media (max-width: 768px) {
 
@@ -516,7 +486,6 @@
 
     .profile-card {
         max-width: 650px;
-
         border-radius: 21px;
     }
 
@@ -527,7 +496,6 @@
     .profile-avatar {
         width: 82px;
         height: 82px;
-
         font-size: 28px;
     }
 
@@ -545,9 +513,7 @@
 }
 
 
-/* ========================================
-   MOBILE
-======================================== */
+/* HP */
 
 @media (max-width: 576px) {
 
@@ -558,9 +524,6 @@
     .profile-card {
         border-radius: 18px;
     }
-
-
-    /* Header */
 
     .profile-top {
         padding: 25px 16px 22px;
@@ -590,12 +553,8 @@
 
     .profile-role {
         padding: 6px 13px;
-
         font-size: 9px;
     }
-
-
-    /* Data */
 
     .profile-body {
         padding: 18px 13px 20px;
@@ -618,12 +577,8 @@
     .data-item::before {
         top: 12px;
         bottom: 12px;
-
         width: 3px;
     }
-
-
-    /* Icon */
 
     .data-icon {
         width: 39px;
@@ -634,21 +589,14 @@
         font-size: 11px;
     }
 
-
-    /* Text */
-
     .data-text span {
         margin-bottom: 3px;
-
         font-size: 8px;
     }
 
     .data-text strong {
         font-size: 10px;
     }
-
-
-    /* Number */
 
     .data-number {
         width: 27px;
@@ -659,16 +607,12 @@
         font-size: 7px;
     }
 
-
-    /* Footer */
-
     .profile-footer {
         padding: 14px;
     }
 
     .edit-button {
         width: 100%;
-
         height: 42px;
 
         border-radius: 11px;
@@ -678,9 +622,7 @@
 }
 
 
-/* ========================================
-   MOBILE SMALL
-======================================== */
+/* HP kecil */
 
 @media (max-width: 380px) {
 
@@ -695,7 +637,6 @@
     .profile-avatar {
         width: 68px;
         height: 68px;
-
         font-size: 23px;
     }
 

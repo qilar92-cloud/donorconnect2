@@ -16,15 +16,24 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-            'role' => ['required', 'in:pendonor,petugas'],
+            'jenis_warga' => [
+                'required',
+                'in:siswa,guru,karyawan',
+            ],
+            'identitas' => [
+                'required',
+                'string',
+            ],
+            'password' => [
+                'required',
+            ],
         ]);
 
         if (Auth::attempt([
-            'email' => $credentials['email'],
+            'jenis_warga' => $credentials['jenis_warga'],
+            'identitas' => $credentials['identitas'],
             'password' => $credentials['password'],
-            'role' => $credentials['role'],
+            'role' => 'pendonor',
         ])) {
 
             $request->session()->regenerate();
@@ -34,26 +43,30 @@ class LoginController extends Controller
                 Auth::user()->id_user
             );
 
-            if ($credentials['role'] === 'petugas') {
-                return redirect()->route('dashboard.petugas');
-            }
-
             return redirect()->route('dashboard');
         }
 
         return back()
             ->withErrors([
-                'email' => 'Email, password, atau role tidak sesuai.',
+                'identitas' => 'Identitas atau password tidak sesuai.',
             ])
-            ->withInput($request->only('email', 'role'));
+            ->withInput(
+                $request->only('jenis_warga', 'identitas')
+            );
     }
 
     public function logout(Request $request)
     {
+        $role = Auth::user()?->role;
+
         Auth::logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
+        if ($role === 'petugas') {
+            return redirect()->route('login.petugas');
+        }
 
         return redirect()->route('login');
     }

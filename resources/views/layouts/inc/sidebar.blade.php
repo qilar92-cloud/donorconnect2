@@ -44,10 +44,10 @@
 
 
         {{-- PROFIL --}}
-        <li class="nav-item {{ request()->routeIs('profile') ? 'active' : '' }}">
+        <li class="nav-item {{ request()->routeIs('profile.pendonor') ? 'active' : '' }}">
 
             <a class="nav-link"
-               href="{{ route('profile') }}">
+               href="{{ route('profile.pendonor') }}">
 
                 <i class="fas fa-fw fa-user"></i>
                 <span>Profil Saya</span>
@@ -202,10 +202,10 @@
 
         {{-- PROFIL --}}
         <li class="nav-item
-            {{ request()->routeIs('profile') ? 'active' : '' }}">
+            {{ request()->routeIs('profile.petugas') ? 'active' : '' }}">
 
             <a class="nav-link"
-               href="{{ route('profile') }}">
+               href="{{ route('profile.petugas') }}">
 
                 <i class="fas fa-fw fa-user"></i>
                 <span>Profil Saya</span>

@@ -23,7 +23,7 @@ class ProfileController extends Controller
                 ->firstOrFail();
 
             return view(
-                'pages.petugas.profile.profile',
+                'pages.petugas.profile.profile-petugas',
                 compact('user', 'petugas')
             );
         }
@@ -35,7 +35,7 @@ class ProfileController extends Controller
                 ->firstOrFail();
 
             return view(
-                'pages.pendonor.profile.profile',
+                'pages.pendonor.profile.profile-pendonor',
                 compact('user', 'pendonor')
             );
         }
@@ -139,7 +139,7 @@ class ProfileController extends Controller
         }
 
 
-        // Petugas tidak punya data tambahan
+        // Cek data Petugas
         if ($user->role === 'petugas') {
 
             PetugasPMR::where(
@@ -157,8 +157,19 @@ class ProfileController extends Controller
         }
 
 
+        // Kembali sesuai role
+        if ($user->role === 'petugas') {
+
+            return redirect()
+                ->route('profile.petugas')
+                ->with(
+                    'success',
+                    'Profil berhasil diperbarui.'
+                );
+        }
+
         return redirect()
-            ->route('profile')
+            ->route('profile.pendonor')
             ->with(
                 'success',
                 'Profil berhasil diperbarui.'

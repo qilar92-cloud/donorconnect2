@@ -1,0 +1,532 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #fff8f6;
+}
+
+/* Halaman */
+
+.login-page {
+    min-height: 100vh;
+    padding: 25px 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+    overflow: hidden;
+
+    background: #d9b9bf;
+}
+
+/* Background */
+
+.login-background {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    z-index: 0;
+}
+
+/* Overlay */
+
+.login-page::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background: rgba(58, 12, 27, 0.48);
+
+    z-index: 1;
+}
+
+/* Hiasan */
+
+.login-page::after {
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    bottom: -80px;
+    left: -60px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.07);
+
+    z-index: 1;
+}
+
+.login-card::before {
+    content: "";
+
+    position: absolute;
+
+    width: 230px;
+    height: 230px;
+
+    top: -90px;
+    right: -70px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.08);
+
+    z-index: -1;
+}
+
+/* Card */
+
+.login-card {
+    width: 100%;
+    max-width: 400px;
+
+    padding: 34px 32px 30px;
+
+    position: relative;
+    z-index: 2;
+
+    background: rgba(255, 255, 255, 0.97);
+
+    border: 1px solid rgba(255, 255, 255, 0.8);
+
+    border-radius: 26px;
+
+    box-shadow:
+        0 25px 60px rgba(45, 8, 22, 0.28);
+}
+
+/* Header */
+
+.login-header {
+    text-align: center;
+    margin-bottom: 26px;
+}
+
+.login-icon {
+    width: 60px;
+    height: 60px;
+
+    margin: 0 auto 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 18px;
+
+    background: linear-gradient(
+        135deg,
+        #fff0f3,
+        #ffe3e9
+    );
+
+    color: #c52f50;
+
+    font-size: 24px;
+
+    box-shadow:
+        0 8px 20px rgba(217, 54, 89, 0.10);
+}
+
+.login-header h1 {
+    margin: 0;
+
+    color: #b72d4d;
+
+    font-size: 27px;
+    font-weight: 800;
+
+    letter-spacing: .5px;
+}
+
+.login-header h2 {
+    margin: 5px 0 0;
+
+    color: #4e3039;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    letter-spacing: .7px;
+}
+
+.login-header p {
+    margin: 7px 0 0;
+
+    color: #987e86;
+
+    font-size: 10px;
+}
+
+/* Badge */
+
+.petugas-badge {
+    width: fit-content;
+
+    margin: 13px auto 0;
+
+    padding: 5px 11px;
+
+    border-radius: 20px;
+
+    background: #fff3f5;
+    color: #c12f4e;
+
+    font-size: 8px;
+    font-weight: 700;
+
+    letter-spacing: .5px;
+}
+
+/* Error */
+
+.error-message {
+    margin-bottom: 18px;
+
+    padding: 11px 13px;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    border-radius: 12px;
+
+    background: #fff0f2;
+
+    border: 1px solid #ffd9df;
+
+    color: #bd2d4b;
+
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.error-message i {
+    font-size: 12px;
+}
+
+/* Form */
+
+.form-group {
+    margin-bottom: 17px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #51323b;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.input-wrapper,
+.password-box {
+    position: relative;
+}
+
+.input-icon {
+    position: absolute;
+
+    left: 13px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #b88d97;
+
+    font-size: 12px;
+
+    pointer-events: none;
+}
+
+.form-group input {
+    width: 100%;
+    height: 46px;
+
+    padding: 0 13px 0 38px;
+
+    border: 1px solid #ead5da;
+
+    border-radius: 13px;
+
+    outline: none;
+
+    background: #fff;
+    color: #4d3038;
+
+    font-family: inherit;
+    font-size: 11px;
+
+    transition: .2s ease;
+}
+
+.form-group input::placeholder {
+    color: #bda5ab;
+}
+
+.form-group input:hover {
+    border-color: #dfc1c9;
+}
+
+.form-group input:focus {
+    border-color: #d93659;
+
+    box-shadow:
+        0 0 0 3px rgba(217, 54, 89, .08);
+}
+
+/* Password */
+
+.password-box input {
+    padding-right: 45px;
+}
+
+.password-toggle {
+    position: absolute;
+
+    right: 12px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 28px;
+    height: 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: 8px;
+
+    background: transparent;
+
+    color: #a77a85;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    transition: .2s ease;
+}
+
+.password-toggle:hover {
+    background: #fff0f3;
+    color: #d93659;
+}
+
+/* Button */
+
+.login-button {
+    width: 100%;
+    height: 46px;
+
+    margin-top: 3px;
+
+    border: none;
+    border-radius: 13px;
+
+    background: linear-gradient(
+        135deg,
+        #d93659,
+        #b72d4d
+    );
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: .4px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 22px rgba(185, 45, 77, .22);
+
+    transition: .2s ease;
+}
+
+.login-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 14px 27px rgba(185, 45, 77, .28);
+}
+
+.login-button:active {
+    transform: translateY(0);
+}
+
+.login-button i {
+    margin-right: 6px;
+    font-size: 11px;
+}
+
+/* Footer */
+
+.login-footer {
+    margin-top: 19px;
+
+    text-align: center;
+
+    color: #aa9198;
+
+    font-size: 8px;
+    line-height: 1.5;
+}
+
+.login-footer span {
+    color: #c42f50;
+    font-weight: 600;
+}
+
+/* HP */
+
+@media (max-width: 600px) {
+
+    .login-page {
+        min-height: 100vh;
+        padding: 15px 10px;
+    }
+
+    .login-card {
+        width: 92%;
+        max-width: 355px;
+
+        padding: 26px 21px 23px;
+
+        border-radius: 22px;
+    }
+
+    .login-header {
+        margin-bottom: 21px;
+    }
+
+    .login-icon {
+        width: 49px;
+        height: 49px;
+
+        margin-bottom: 10px;
+
+        border-radius: 15px;
+
+        font-size: 20px;
+    }
+
+    .login-header h1 {
+        font-size: 23px;
+    }
+
+    .login-header h2 {
+        font-size: 12px;
+    }
+
+    .login-header p {
+        margin-top: 5px;
+        font-size: 9px;
+    }
+
+    .petugas-badge {
+        margin-top: 10px;
+
+        padding: 4px 9px;
+
+        font-size: 7px;
+    }
+
+    .error-message {
+        margin-bottom: 14px;
+
+        padding: 8px 10px;
+
+        font-size: 9px;
+    }
+
+    .error-message i {
+        font-size: 10px;
+    }
+
+    .form-group {
+        margin-bottom: 13px;
+    }
+
+    .form-group label {
+        margin-bottom: 5px;
+        font-size: 9px;
+    }
+
+    .form-group input {
+        height: 41px;
+
+        padding-left: 35px;
+
+        border-radius: 11px;
+
+        font-size: 10px;
+    }
+
+    .input-icon {
+        left: 12px;
+        font-size: 11px;
+    }
+
+    .password-toggle {
+        right: 10px;
+        font-size: 12px;
+    }
+
+    .login-button {
+        height: 42px;
+
+        border-radius: 11px;
+
+        font-size: 11px;
+    }
+
+    .login-footer {
+        margin-top: 15px;
+        font-size: 7px;
+    }
+}
+
+@media (max-width: 380px) {
+
+    .login-page {
+        padding: 10px 8px;
+    }
+
+    .login-card {
+        width: 90%;
+
+        padding: 22px 17px 20px;
+    }
+
+    .login-header h1 {
+        font-size: 21px;
+    }
+
+    .login-header h2 {
+        font-size: 11px;
+    }
+}

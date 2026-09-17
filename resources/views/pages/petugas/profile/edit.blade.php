@@ -24,7 +24,7 @@
 
         <div class="edit-body">
 
-            <form action="{{ route('profile.update') }}" method="POST">
+            <form action="{{ route('profile.petugas.update') }}" method="POST">
 
                 @csrf
                 @method('PUT')
@@ -247,7 +247,7 @@
                 {{-- Tombol --}}
                 <div class="form-footer">
 
-                    <a href="{{ route('profile') }}" class="cancel-button">
+                    <a href="{{ route('profile.petugas') }}" class="cancel-button">
                         <i class="fas fa-arrow-left"></i>
                         Kembali
                     </a>

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand navbar-light donor-navbar mb-4 static-top">
 
-    <!-- Tombol mobile -->
+    {{-- Tombol mobile --}}
     <button
         id="sidebarToggleTop"
         class="btn btn-link d-md-none rounded-circle donor-menu-button mr-3"
@@ -8,7 +8,7 @@
         <i class="fa fa-bars"></i>
     </button>
 
-    <!-- Hiasan -->
+    {{-- Hiasan --}}
     <div class="navbar-decoration">
         <span class="shape shape-one"></span>
         <span class="shape shape-two"></span>
@@ -17,7 +17,7 @@
         <span class="curve curve-two"></span>
     </div>
 
-    <!-- User -->
+    {{-- User --}}
     <ul class="navbar-nav ml-auto">
 
         <li class="nav-item dropdown no-arrow">
@@ -52,7 +52,8 @@
 
             </a>
 
-            <!-- Dropdown -->
+
+            {{-- Dropdown --}}
             <div
                 class="dropdown-menu dropdown-menu-right donor-dropdown shadow animated--grow-in"
                 aria-labelledby="userDropdown"
@@ -78,12 +79,16 @@
 
                 </div>
 
+
                 <div class="dropdown-divider"></div>
 
-                <!-- Profil -->
+
+                {{-- Profil --}}
                 <a
                     class="dropdown-item donor-dropdown-item"
-                    href="{{ route('profile') }}"
+                    href="{{ Auth::user()->role === 'petugas'
+                        ? route('profile.petugas')
+                        : route('profile.pendonor') }}"
                 >
 
                     <span class="dropdown-icon profile-icon">
@@ -98,7 +103,8 @@
 
                 </a>
 
-                <!-- Logout -->
+
+                {{-- Logout --}}
                 <a
                     class="dropdown-item donor-dropdown-item logout-item"
                     href="#"
@@ -116,6 +122,7 @@
                     <i class="fas fa-chevron-right dropdown-arrow"></i>
 
                 </a>
+
 
                 <form
                     action="{{ route('logout') }}"
@@ -142,13 +149,17 @@
 .donor-navbar {
     min-height: 72px;
     padding: 0 28px;
+
     background: #ffffff !important;
+
     border-bottom: 1px solid #f1dddd;
-    box-shadow: 0 4px 18px rgba(111, 38, 54, .06);
+
+    box-shadow:
+        0 4px 18px rgba(111, 38, 54, .06);
+
     position: relative;
     z-index: 1000;
 
-    /* Jangan hidden supaya dropdown tidak terpotong */
     overflow: visible !important;
 }
 
@@ -157,12 +168,16 @@
 
 .navbar-decoration {
     position: absolute;
+
     left: 260px;
     right: 300px;
     top: 0;
+
     height: 72px;
+
     pointer-events: none;
     overflow: hidden;
+
     z-index: 0;
 }
 
@@ -174,37 +189,47 @@
 .shape-one {
     width: 120px;
     height: 120px;
+
     top: -72px;
     left: 18%;
+
     background: rgba(217, 75, 145, .08);
 }
 
 .shape-two {
     width: 80px;
     height: 80px;
+
     bottom: -50px;
     left: 42%;
+
     background: rgba(201, 0, 0, .06);
 }
 
 .shape-three {
     width: 45px;
     height: 45px;
+
     top: 14px;
     right: 24%;
+
     background: rgba(217, 75, 145, .07);
 }
 
 .curve {
     position: absolute;
+
     border: 1.5px solid rgba(201, 0, 0, .10);
+
     border-radius: 50%;
+
     transform: rotate(-12deg);
 }
 
 .curve-one {
     width: 190px;
     height: 65px;
+
     left: 30%;
     top: 5px;
 }
@@ -212,8 +237,10 @@
 .curve-two {
     width: 140px;
     height: 50px;
+
     left: 55%;
     top: 17px;
+
     border-color: rgba(217, 75, 145, .12);
 }
 
@@ -223,11 +250,15 @@
 .donor-menu-button {
     width: 38px;
     height: 38px;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     border-radius: 11px !important;
+
     background: #fff0f3;
+
     color: #bd183d !important;
 }
 
@@ -240,12 +271,17 @@
 
 .donor-user-menu {
     min-height: 50px;
+
     display: flex !important;
     align-items: center;
+
     padding: 5px 9px !important;
+
     border-radius: 15px;
+
     position: relative;
     z-index: 1001;
+
     transition: .2s ease;
 }
 
@@ -256,18 +292,26 @@
 .donor-avatar {
     width: 42px;
     height: 42px;
+
     flex-shrink: 0;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     border-radius: 13px;
-    background: linear-gradient(
-        135deg,
-        #a80e2c,
-        #d94b91
-    );
+
+    background:
+        linear-gradient(
+            135deg,
+            #a80e2c,
+            #d94b91
+        );
+
     color: #ffffff;
-    box-shadow: 0 5px 12px rgba(169, 14, 44, .20);
+
+    box-shadow:
+        0 5px 12px rgba(169, 14, 44, .20);
 }
 
 .donor-avatar i {
@@ -277,15 +321,20 @@
 .donor-user-info {
     flex-direction: column;
     justify-content: center;
+
     margin-left: 11px;
+
     line-height: 1.2;
 }
 
 .donor-user-name {
     max-width: 145px;
+
     color: #3b3034;
+
     font-size: 12px;
     font-weight: 800;
+
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -293,17 +342,24 @@
 
 .donor-user-role {
     margin-top: 4px;
+
     color: #a08087;
+
     font-size: 9px;
     font-weight: 700;
+
     text-transform: uppercase;
+
     letter-spacing: .6px;
 }
 
 .donor-chevron {
     margin-left: 10px;
+
     color: #a97982;
+
     font-size: 9px;
+
     transition: .2s ease;
 }
 
@@ -317,79 +373,113 @@
 
 .donor-dropdown {
     width: 245px;
+
     margin-top: 9px !important;
+
     padding: 7px 0;
+
     background: #ffffff;
+
     border: 1px solid #f0dce0;
+
     border-radius: 16px;
+
     overflow: hidden;
-    box-shadow: 0 12px 30px rgba(83, 33, 45, .15) !important;
+
+    box-shadow:
+        0 12px 30px rgba(83, 33, 45, .15) !important;
+
     z-index: 2000 !important;
 }
 
 .donor-dropdown-header {
     display: flex;
     align-items: center;
+
     gap: 11px;
+
     padding: 15px 16px;
-    background: linear-gradient(
-        135deg,
-        #fff6f7,
-        #fff0f4
-    );
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff6f7,
+            #fff0f4
+        );
 }
 
 .donor-dropdown-avatar {
     width: 42px;
     height: 42px;
+
     flex-shrink: 0;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     border-radius: 13px;
-    background: linear-gradient(
-        135deg,
-        #a80e2c,
-        #d94b91
-    );
+
+    background:
+        linear-gradient(
+            135deg,
+            #a80e2c,
+            #d94b91
+        );
+
     color: #ffffff;
+
     font-size: 14px;
 }
 
 .donor-dropdown-user strong {
     display: block;
+
     color: #3b3034;
+
     font-size: 12px;
     font-weight: 800;
 }
 
 .donor-dropdown-user small {
     display: block;
+
     margin-top: 4px;
+
     color: #a08087;
+
     font-size: 9px;
     font-weight: 700;
+
     text-transform: uppercase;
 }
 
 .donor-dropdown .dropdown-divider {
     margin: 6px 14px;
+
     border-top-color: #f2e3e6;
 }
 
 
-/* Item dropdown */
+/* Item */
 
 .donor-dropdown-item {
     display: flex !important;
     align-items: center;
+
     gap: 10px;
+
     margin: 3px 8px;
+
     padding: 10px !important;
+
     border-radius: 11px;
+
     color: #56484d !important;
+
     font-size: 11px;
     font-weight: 700;
+
     transition: .2s ease;
 }
 
@@ -401,11 +491,15 @@
 .dropdown-icon {
     width: 31px;
     height: 31px;
+
     flex-shrink: 0;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     border-radius: 9px;
+
     font-size: 11px;
 }
 
@@ -433,7 +527,7 @@
 }
 
 
-/* Mobile */
+/* HP */
 
 @media (max-width: 768px) {
 
