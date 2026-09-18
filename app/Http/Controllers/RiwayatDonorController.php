@@ -3,41 +3,50 @@
 namespace App\Http\Controllers;
 
 use App\Models\RiwayatDonor;
-use App\Models\PetugasPmr;
+use App\Models\Pendonor;
+use App\Models\HasilDonor;
+use Illuminate\Http\Request;
 
 class RiwayatDonorController extends Controller
 {
-    // Tampilkan riwayat donor
     public function index()
     {
         $riwayat = RiwayatDonor::with([
             'pendonor.user',
-            'hasilDonor.kegiatanDonor'
+            'hasilDonor.kegiatanDonor',
         ])
-            ->latest('id_riwayat')
+            ->latest()
             ->get();
 
-        $petugas = PetugasPmr::with('user')
-            ->where('id_user', session('id_user'))
-            ->firstOrFail();
-
         return view(
-            'pages.riwayat_donor.index',
-            compact('riwayat', 'petugas')
+            'pages.petugas.riwayat-donor.index',
+            compact('riwayat')
         );
     }
 
-    // Simpan ke riwayat
-    public function store($id_pendonor, $id_hasil)
+    public function store(Request $request)
     {
-        RiwayatDonor::create([
-            'id_pendonor' => $id_pendonor,
-            'id_hasil' => $id_hasil,
+        $data = $request->validate([
+            'id_pendonor' => [
+                'required',
+                'exists:pendonors,id_pendonor',
+            ],
+            'id_hasil' => [
+                'required',
+                'exists:hasil_donors,id_hasil',
+            ],
         ]);
 
-        return back()->with(
-            'success',
-            'Hasil donor berhasil disimpan ke riwayat.'
-        );
+        RiwayatDonor::create([
+            'id_pendonor' => $data['id_pendonor'],
+            'id_hasil' => $data['id_hasil'],
+        ]);
+
+        return redirect()
+            ->route('riwayat-donor.index')
+            ->with(
+                'success',
+                'Hasil donor berhasil disimpan ke riwayat.'
+            );
     }
 }

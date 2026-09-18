@@ -97,7 +97,7 @@ class LaporanDonorController extends Controller
         }
 
         return view(
-            'pages.laporan_donor.index',
+            'pages.laporan-donor.index',
             compact(
                 'laporan',
                 'kegiatan',

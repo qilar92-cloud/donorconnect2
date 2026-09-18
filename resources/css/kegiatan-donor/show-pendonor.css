@@ -1,203 +1,11 @@
-@extends('layouts.app')
-
-@section('title', 'Detail Kegiatan Donor - DonorConnect')
-
-@section('content')
-
-<div class="detail-page">
-
-    {{-- Heading --}}
-
-    <div class="detail-heading">
-
-        <div class="heading-label">
-            <span></span>
-            KEGIATAN DONOR
-        </div>
-
-        <h1>Detail Kegiatan Donor</h1>
-
-        <p>
-            Informasi lengkap mengenai kegiatan donor yang tersedia.
-        </p>
-
-    </div>
-
-
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if(session('error'))
-        <div class="alert alert-warning">
-            {{ session('error') }}
-        </div>
-    @endif
-
-
-    {{-- Detail --}}
-
-    <div class="detail-card">
-
-        <div class="detail-card-header">
-
-            <div class="header-icon">
-                <i class="fas fa-tint"></i>
-            </div>
-
-            <div>
-                <h2>
-                    {{ $kegiatan->nama_kegiatan }}
-                </h2>
-
-                <span>
-                    Kegiatan Donor
-                </span>
-            </div>
-
-        </div>
-
-
-        <div class="detail-card-body">
-
-            <div class="detail-row">
-
-                <div class="detail-label">
-                    <i class="fas fa-calendar-alt"></i>
-                    <span>Tanggal</span>
-                </div>
-
-                <div class="detail-value">
-                    {{ $kegiatan->tanggal->format('d M Y') }}
-                </div>
-
-            </div>
-
-
-            <div class="detail-row">
-
-                <div class="detail-label">
-                    <i class="fas fa-clock"></i>
-                    <span>Waktu</span>
-                </div>
-
-                <div class="detail-value">
-                    {{ $kegiatan->waktu }}
-                </div>
-
-            </div>
-
-
-            <div class="detail-row">
-
-                <div class="detail-label">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>Lokasi</span>
-                </div>
-
-                <div class="detail-value">
-                    {{ $kegiatan->lokasi }}
-                </div>
-
-            </div>
-
-
-            <div class="detail-row">
-
-                <div class="detail-label">
-                    <i class="fas fa-info-circle"></i>
-                    <span>Keterangan</span>
-                </div>
-
-                <div class="detail-value">
-                    {{ $kegiatan->keterangan ?? '-' }}
-                </div>
-
-            </div>
-
-
-            <div class="detail-row">
-
-                <div class="detail-label">
-                    <i class="fas fa-check-circle"></i>
-                    <span>Status</span>
-                </div>
-
-                <div class="detail-value">
-                    <span class="status-badge">
-                        <span></span>
-                        Tersedia
-                    </span>
-                </div>
-
-            </div>
-
-        </div>
-
-
-        {{-- Pendaftaran --}}
-
-        <div class="register-section">
-
-            <div class="register-icon">
-                <i class="fas fa-heart"></i>
-            </div>
-
-            <div class="register-content">
-
-                <h3>
-                    Ingin mengikuti kegiatan ini?
-                </h3>
-
-                <p>
-                    Daftarkan diri kamu untuk mengikuti kegiatan donor.
-                </p>
-
-                <a
-                    href="{{ route('pendaftaran-donor.create', $kegiatan->id_kegiatan) }}"
-                    class="register-button"
-                >
-                    <i class="fas fa-tint"></i>
-                    Daftar Donor
-                    <i class="fas fa-arrow-right"></i>
-                </a>
-
-            </div>
-
-        </div>
-
-
-        {{-- Footer --}}
-
-        <div class="detail-card-footer">
-
-            <a
-                href="{{ route('pendonor.kegiatan') }}"
-                class="back-button"
-            >
-                <i class="fas fa-arrow-left"></i>
-                Kembali ke Kegiatan
-            </a>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-@push('styles')
-
-<style>
-
-/* Page */
+/* Halaman */
 
 .detail-page {
     width: 100%;
     min-height: calc(100vh - 80px);
+
     padding: 28px 30px 40px;
+
     background: #fff8f3;
 }
 
@@ -211,23 +19,29 @@
 .heading-label {
     display: flex;
     align-items: center;
+
     gap: 7px;
+
     margin-bottom: 7px;
 
     color: #b0143b;
+
     font-size: 9px;
     font-weight: 900;
+
     letter-spacing: 2px;
 }
 
 .heading-label span {
     width: 22px;
     height: 3px;
+
     background: linear-gradient(
         90deg,
         #a80e2c,
         #d94b91
     );
+
     border-radius: 5px;
 }
 
@@ -235,8 +49,10 @@
     margin: 0 0 5px;
 
     color: #283252;
+
     font-size: 30px;
     font-weight: 900;
+
     letter-spacing: -0.5px;
 }
 
@@ -244,6 +60,7 @@
     margin: 0;
 
     color: #918d96;
+
     font-size: 12px;
 }
 
@@ -252,15 +69,19 @@
 
 .alert {
     margin-bottom: 18px;
+
     border-radius: 10px;
+
     font-size: 11px;
 }
 
 
-/* Main Card */
+/* Card */
 
 .detail-card {
     width: 100%;
+
+    overflow: hidden;
 
     background: #ffffff;
 
@@ -268,8 +89,6 @@
     border-radius: 18px;
 
     box-shadow: 0 7px 25px rgba(168, 14, 44, 0.06);
-
-    overflow: hidden;
 }
 
 
@@ -278,11 +97,12 @@
 .detail-card-header {
     position: relative;
 
-    padding: 25px 28px;
-
     display: flex;
     align-items: center;
+
     gap: 15px;
+
+    padding: 25px 28px;
 
     background: linear-gradient(
         135deg,
@@ -293,13 +113,14 @@
     border-bottom: 1px solid #f3e2e6;
 }
 
-.detail-card-header:before {
+.detail-card-header::before {
     content: "";
 
     position: absolute;
-    left: 0;
+
     top: 0;
     bottom: 0;
+    left: 0;
 
     width: 4px;
 
@@ -316,6 +137,7 @@
 .header-icon {
     width: 50px;
     height: 50px;
+
     flex-shrink: 0;
 
     display: flex;
@@ -339,12 +161,14 @@
     margin: 0 0 4px;
 
     color: #283252;
+
     font-size: 18px;
     font-weight: 850;
 }
 
 .detail-card-header span {
     color: #9b969d;
+
     font-size: 10px;
 }
 
@@ -376,6 +200,7 @@
 
     display: flex;
     align-items: center;
+
     gap: 10px;
 
     color: #77717a;
@@ -390,6 +215,7 @@
     color: #c62b58;
 
     text-align: center;
+
     font-size: 12px;
 }
 
@@ -411,6 +237,7 @@
 .status-badge {
     display: inline-flex;
     align-items: center;
+
     gap: 6px;
 
     padding: 6px 11px;
@@ -442,6 +269,7 @@
 
     display: flex;
     align-items: center;
+
     gap: 15px;
 
     background: linear-gradient(
@@ -460,6 +288,7 @@
 .register-icon {
     width: 43px;
     height: 43px;
+
     flex-shrink: 0;
 
     display: flex;
@@ -511,6 +340,7 @@
 .register-button {
     display: inline-flex;
     align-items: center;
+
     gap: 7px;
 
     padding: 9px 14px;
@@ -562,16 +392,15 @@
 .back-button {
     display: inline-flex;
     align-items: center;
+
     gap: 7px;
 
     padding: 9px 14px;
 
     background: #fff;
-
     color: #77717a !important;
 
     border: 1px solid #e5dfe1;
-
     border-radius: 9px;
 
     font-size: 9px;
@@ -617,6 +446,7 @@
 
     .detail-row {
         display: block;
+
         padding: 14px 0;
     }
 
@@ -636,7 +466,6 @@
     .detail-card-footer {
         padding: 15px 22px;
     }
-
 }
 
 
@@ -668,6 +497,7 @@
 
     .register-section {
         margin: 10px 19px 18px;
+
         align-items: flex-start;
     }
 
@@ -677,17 +507,11 @@
 
     .register-button {
         width: 100%;
+
         justify-content: center;
     }
 
     .detail-card-footer {
         padding: 14px 19px;
     }
-
 }
-
-</style>
-
-@endpush
-
-@endsection

@@ -32,7 +32,7 @@ class KegiatanDonorController extends Controller
         )->paginate(6);
 
         return view(
-            'pages.kegiatan_donor.index',
+            'pages.kegiatan-donor.index',
             compact(
                 'kegiatan',
                 'jumlahTotal',
@@ -42,12 +42,14 @@ class KegiatanDonorController extends Controller
         );
     }
 
+
     // Form tambah
 
     public function create()
     {
-        return view('pages.kegiatan_donor.create');
+        return view('pages.kegiatan-donor.create');
     }
+
 
     // Simpan kegiatan
 
@@ -71,7 +73,8 @@ class KegiatanDonorController extends Controller
             );
     }
 
-    // Detail kegiatan
+
+    // Detail kegiatan petugas
 
     public function show($id)
     {
@@ -80,10 +83,11 @@ class KegiatanDonorController extends Controller
         ])->findOrFail($id);
 
         return view(
-            'pages.kegiatan_donor.show',
+            'pages.kegiatan-donor.show-petugas',
             compact('kegiatan')
         );
     }
+
 
     // Form edit
 
@@ -92,10 +96,11 @@ class KegiatanDonorController extends Controller
         $kegiatan = KegiatanDonor::findOrFail($id);
 
         return view(
-            'pages.kegiatan_donor.edit',
+            'pages.kegiatan-donor.edit',
             compact('kegiatan')
         );
     }
+
 
     // Update kegiatan
 
@@ -121,6 +126,7 @@ class KegiatanDonorController extends Controller
             );
     }
 
+
     // Hapus kegiatan
 
     public function destroy($id)
@@ -137,6 +143,7 @@ class KegiatanDonorController extends Controller
             );
     }
 
+
     // Daftar kegiatan pendonor
 
     public function pendonor()
@@ -152,6 +159,7 @@ class KegiatanDonorController extends Controller
         );
     }
 
+
     // Detail kegiatan pendonor
 
     public function detailPendonor($id)
@@ -159,10 +167,11 @@ class KegiatanDonorController extends Controller
         $kegiatan = KegiatanDonor::findOrFail($id);
 
         return view(
-            'pages.kegiatan_donor.show_pendonor',
+            'pages.kegiatan-donor.show-pendonor',
             compact('kegiatan')
         );
     }
+
 
     // Form pendaftaran
 

@@ -145,7 +145,7 @@ class PendonorController extends Controller
             ->get();
 
         return view(
-            'pages.pendonor.riwayat_donor.riwayat',
+            'pages.pendonor.riwayat-donor.riwayat',
             compact('riwayat')
         );
     }

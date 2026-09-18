@@ -1,0 +1,690 @@
+/* Dasar */
+
+.profile-page {
+    width: 100%;
+    min-height: calc(100vh - 70px);
+    padding: 35px 20px 45px;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    background:
+        radial-gradient(
+            circle at 15% 10%,
+            rgba(220, 105, 166, .08),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(170, 45, 100, .06),
+            transparent 27%
+        ),
+        #faf8f9;
+
+    overflow-x: hidden;
+}
+
+
+/* Card */
+
+.profile-card {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+
+    overflow: hidden;
+
+    background: rgba(255, 255, 255, .97);
+
+    border: 1px solid #eee4e8;
+    border-radius: 24px;
+
+    box-shadow:
+        0 16px 45px rgba(70, 30, 50, .08);
+}
+
+
+/* Dekorasi */
+
+.decor {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.decor-one {
+    width: 100px;
+    height: 100px;
+    top: 18px;
+    left: 20px;
+    background: rgba(216, 84, 153, .07);
+}
+
+.decor-two {
+    width: 70px;
+    height: 70px;
+    top: 38px;
+    right: 24px;
+    background: rgba(199, 62, 128, .06);
+}
+
+.decor-three {
+    width: 24px;
+    height: 24px;
+    top: 95px;
+    left: 76px;
+    background: rgba(225, 180, 82, .10);
+}
+
+
+/* Header */
+
+.profile-header {
+    position: relative;
+    z-index: 2;
+
+    padding: 38px 25px 30px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
+
+    border-bottom: 1px solid #f3e9ed;
+}
+
+.profile-avatar {
+    width: 84px;
+    height: 84px;
+
+    margin-bottom: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #c81745,
+            #d94b91
+        );
+
+    color: #fff;
+
+    border-radius: 50%;
+    border: 4px solid rgba(255, 255, 255, .95);
+
+    font-size: 31px;
+
+    box-shadow:
+        0 10px 25px rgba(198, 23, 69, .20);
+}
+
+.profile-header h1 {
+    width: 100%;
+
+    margin: 0 0 9px;
+
+    color: #29314d;
+
+    font-size: 24px;
+    font-weight: 900;
+
+    line-height: 1.25;
+    letter-spacing: -.4px;
+
+    overflow-wrap: anywhere;
+}
+
+.profile-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 6px;
+
+    padding: 6px 12px;
+
+    background: #fcecf3;
+    color: #b52d5d;
+
+    border-radius: 20px;
+
+    font-size: 8px;
+    font-weight: 800;
+}
+
+.profile-badge i {
+    font-size: 8px;
+}
+
+
+/* Data */
+
+.profile-data {
+    padding: 5px 23px 2px;
+}
+
+.profile-item {
+    position: relative;
+
+    min-height: 69px;
+
+    padding: 10px 7px 10px 13px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid #f3eaee;
+
+    transition: .2s ease;
+}
+
+.profile-item:last-child {
+    border-bottom: none;
+}
+
+.profile-item::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 13px;
+    bottom: 13px;
+
+    width: 3px;
+
+    border-radius: 5px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #d93676,
+            #b91e4a
+        );
+
+    opacity: .85;
+}
+
+.profile-item:hover {
+    background: #fff9fb;
+    border-radius: 9px;
+}
+
+
+/* Isi */
+
+.item-left {
+    min-width: 0;
+    max-width: calc(100% - 35px);
+
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+}
+
+.item-icon {
+    width: 35px;
+    height: 35px;
+
+    min-width: 35px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #fcecf3;
+    color: #b92e62;
+
+    border-radius: 9px;
+
+    font-size: 10px;
+}
+
+.item-icon i {
+    line-height: 1;
+}
+
+.item-content {
+    min-width: 0;
+}
+
+.item-content span {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #a29ba1;
+
+    font-size: 7px;
+    font-weight: 600;
+}
+
+.item-content strong {
+    display: block;
+
+    color: #41485d;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    line-height: 1.35;
+
+    overflow-wrap: anywhere;
+}
+
+.item-number {
+    flex-shrink: 0;
+
+    margin-left: 10px;
+
+    color: #c8b8c0;
+
+    font-size: 7px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+
+/* Tombol */
+
+.profile-footer {
+    padding: 12px 23px 24px;
+}
+
+.edit-profile-button {
+    width: 100%;
+    min-height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #b91e4a,
+            #d34b91
+        );
+
+    color: #fff !important;
+
+    border-radius: 10px;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    text-decoration: none !important;
+
+    box-shadow:
+        0 8px 18px rgba(185, 30, 74, .17);
+
+    transition: .2s ease;
+}
+
+.edit-profile-button:hover {
+    color: #fff !important;
+    transform: translateY(-2px);
+}
+
+
+/* Kosong */
+
+.empty-profile {
+    min-height: 100px;
+
+    margin: 13px 0;
+
+    padding: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 11px;
+
+    background: #fffafa;
+
+    border: 1px dashed #e4cdd5;
+    border-radius: 11px;
+}
+
+.empty-icon {
+    width: 38px;
+    height: 38px;
+
+    min-width: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #fcecf2;
+    color: #b92e62;
+
+    border-radius: 9px;
+}
+
+.empty-profile strong {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #444b60;
+
+    font-size: 9px;
+}
+
+.empty-profile span {
+    display: block;
+
+    color: #99949a;
+
+    font-size: 7px;
+}
+
+
+/* Laptop */
+
+@media (min-width: 992px) {
+
+    .profile-page {
+        padding-top: 42px;
+        padding-bottom: 50px;
+    }
+
+    .profile-card {
+        max-width: 600px;
+    }
+
+    .profile-header {
+        padding-top: 42px;
+        padding-bottom: 32px;
+    }
+
+    .profile-avatar {
+        width: 88px;
+        height: 88px;
+        font-size: 32px;
+    }
+
+    .profile-header h1 {
+        font-size: 25px;
+    }
+
+    .profile-data {
+        padding-left: 27px;
+        padding-right: 27px;
+    }
+
+    .profile-item {
+        min-height: 72px;
+        padding-left: 14px;
+        padding-right: 9px;
+    }
+
+    .item-icon {
+        width: 37px;
+        height: 37px;
+        min-width: 37px;
+    }
+
+    .item-content span {
+        font-size: 7px;
+    }
+
+    .item-content strong {
+        font-size: 10px;
+    }
+
+    .profile-footer {
+        padding-left: 27px;
+        padding-right: 27px;
+        padding-bottom: 27px;
+    }
+
+}
+
+
+/* Tablet */
+
+@media (max-width: 768px) {
+
+    .profile-page {
+        padding: 25px 15px 35px;
+    }
+
+    .profile-card {
+        max-width: 570px;
+    }
+
+    .profile-header {
+        padding-top: 34px;
+        padding-bottom: 27px;
+    }
+
+    .profile-avatar {
+        width: 80px;
+        height: 80px;
+        font-size: 29px;
+    }
+
+    .profile-header h1 {
+        font-size: 22px;
+    }
+
+    .profile-data {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .profile-footer {
+        padding-left: 18px;
+        padding-right: 18px;
+        padding-bottom: 22px;
+    }
+
+}
+
+
+/* HP */
+
+@media (max-width: 480px) {
+
+    .profile-page {
+        min-height: calc(100vh - 60px);
+
+        padding: 12px 9px 24px;
+
+        background:
+            radial-gradient(
+                circle at 10% 10%,
+                rgba(220, 105, 166, .07),
+                transparent 25%
+            ),
+            #faf8f9;
+    }
+
+    .profile-card {
+        max-width: 100%;
+        border-radius: 19px;
+
+        box-shadow:
+            0 10px 30px rgba(70, 30, 50, .07);
+    }
+
+    .decor-one {
+        width: 72px;
+        height: 72px;
+        top: 12px;
+        left: 8px;
+    }
+
+    .decor-two {
+        width: 52px;
+        height: 52px;
+        top: 30px;
+        right: 8px;
+    }
+
+    .decor-three {
+        width: 17px;
+        height: 17px;
+        top: 72px;
+        left: 55px;
+    }
+
+    .profile-header {
+        padding: 26px 15px 22px;
+    }
+
+    .profile-avatar {
+        width: 69px;
+        height: 69px;
+
+        margin-bottom: 11px;
+
+        border-width: 4px;
+
+        font-size: 24px;
+    }
+
+    .profile-header h1 {
+        margin-bottom: 7px;
+        font-size: 18px;
+        line-height: 1.3;
+    }
+
+    .profile-badge {
+        padding: 5px 10px;
+        gap: 5px;
+        font-size: 7px;
+    }
+
+    .profile-badge i {
+        font-size: 7px;
+    }
+
+    .profile-data {
+        padding: 3px 11px 1px;
+    }
+
+    .profile-item {
+        min-height: 66px;
+        padding: 9px 5px 9px 10px;
+    }
+
+    .profile-item::before {
+        top: 12px;
+        bottom: 12px;
+        width: 2px;
+    }
+
+    .item-left {
+        max-width: calc(100% - 27px);
+        gap: 9px;
+    }
+
+    .item-icon {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        border-radius: 8px;
+        font-size: 9px;
+    }
+
+    .item-content span {
+        margin-bottom: 2px;
+        font-size: 6px;
+    }
+
+    .item-content strong {
+        font-size: 8px;
+        line-height: 1.35;
+    }
+
+    .item-number {
+        margin-left: 5px;
+        font-size: 6px;
+        letter-spacing: .7px;
+    }
+
+    .profile-footer {
+        padding: 9px 11px 17px;
+    }
+
+    .edit-profile-button {
+        min-height: 41px;
+        border-radius: 9px;
+        font-size: 8px;
+    }
+
+}
+
+
+/* HP kecil */
+
+@media (max-width: 360px) {
+
+    .profile-page {
+        padding-left: 7px;
+        padding-right: 7px;
+    }
+
+    .profile-header {
+        padding-top: 24px;
+        padding-bottom: 20px;
+    }
+
+    .profile-avatar {
+        width: 64px;
+        height: 64px;
+        font-size: 22px;
+    }
+
+    .profile-header h1 {
+        font-size: 17px;
+    }
+
+    .profile-data {
+        padding-left: 9px;
+        padding-right: 9px;
+    }
+
+    .item-left {
+        gap: 8px;
+    }
+
+    .item-icon {
+        width: 30px;
+        height: 30px;
+        min-width: 30px;
+    }
+
+    .item-content strong {
+        font-size: 7.5px;
+    }
+
+    .item-content span {
+        font-size: 5.5px;
+    }
+
+    .item-number {
+        font-size: 5.5px;
+    }
+
+    .profile-footer {
+        padding-left: 9px;
+        padding-right: 9px;
+    }
+
+}

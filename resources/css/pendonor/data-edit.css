@@ -1,0 +1,552 @@
+/* Halaman */
+
+.pendonor-page {
+    min-height: 100vh;
+
+    padding: 25px 30px 35px;
+
+    background: #fff9f6;
+}
+
+
+/* Header */
+
+.page-header {
+    max-width: 1050px;
+
+    margin: 0 auto 18px;
+}
+
+.page-header small {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    margin-bottom: 5px;
+
+    color: #c9365c;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 1.3px;
+
+    text-transform: uppercase;
+}
+
+.page-header small i {
+    font-size: 10px;
+}
+
+.page-header h1 {
+    margin: 0;
+
+    color: #30313f;
+
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.page-header p {
+    margin: 5px 0 0;
+
+    color: #94919a;
+
+    font-size: 12px;
+}
+
+
+/* Card */
+
+.form-card {
+    max-width: 1050px;
+
+    margin: 0 auto;
+
+    overflow: hidden;
+
+    background: #fff;
+
+    border: 1px solid #f0e2e7;
+    border-radius: 20px;
+
+    box-shadow: 0 8px 28px rgba(120, 45, 70, .06);
+}
+
+
+/* Account */
+
+.account-info {
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 19px 25px;
+
+    background: linear-gradient(
+        135deg,
+        #fff5f7,
+        #fff
+    );
+
+    border-bottom: 1px solid #f2e6e9;
+}
+
+.avatar {
+    width: 53px;
+    height: 53px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background: linear-gradient(
+        135deg,
+        #ed5573,
+        #d93659
+    );
+
+    color: #fff;
+
+    font-size: 21px;
+    font-weight: 800;
+
+    box-shadow:
+        0 6px 15px rgba(217, 54, 89, .15);
+}
+
+.account-text {
+    min-width: 0;
+}
+
+.account-text span {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #c9365c;
+
+    font-size: 8px;
+    font-weight: 800;
+
+    letter-spacing: 1.2px;
+
+    text-transform: uppercase;
+}
+
+.account-text h2 {
+    overflow: hidden;
+
+    margin: 0 0 3px;
+
+    color: #34323e;
+
+    font-size: 16px;
+    font-weight: 800;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.account-text p {
+    overflow: hidden;
+
+    margin: 0;
+
+    color: #9a969e;
+
+    font-size: 10px;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* Form */
+
+.form-body {
+    padding: 20px 25px 21px;
+}
+
+.form-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 13px;
+}
+
+.form-heading h3 {
+    margin: 0;
+
+    color: #393744;
+
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.form-heading span {
+    color: #aaa5ab;
+
+    font-size: 9px;
+}
+
+.form-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 10px;
+}
+
+.form-group {
+    min-width: 0;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    display: block;
+
+    margin: 0 0 5px 2px;
+
+    color: #55525c;
+
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    border: 1px solid #eadfe3;
+    border-radius: 10px;
+
+    outline: none;
+
+    background: #fff;
+    color: #3c3a45;
+
+    font-family: inherit;
+    font-size: 10px;
+
+    transition: .2s ease;
+}
+
+.form-group input,
+.form-group select {
+    height: 38px;
+
+    padding: 0 11px;
+}
+
+.form-group textarea {
+    min-height: 65px;
+
+    padding: 10px 11px;
+
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #ed5573;
+
+    box-shadow:
+        0 0 0 3px rgba(237, 85, 115, .08);
+}
+
+.readonly {
+    background: #f8f5f6 !important;
+
+    color: #99949a !important;
+
+    cursor: not-allowed;
+}
+
+.readonly-info {
+    display: block;
+
+    margin: 4px 0 0 2px;
+
+    color: #aaa5aa;
+
+    font-size: 7px;
+}
+
+.error {
+    display: block;
+
+    margin: 4px 0 0 2px;
+
+    color: #d93659;
+
+    font-size: 8px;
+}
+
+
+/* Footer */
+
+.form-footer {
+    display: flex;
+    justify-content: flex-end;
+
+    gap: 9px;
+
+    padding: 13px 25px;
+
+    border-top: 1px solid #f1e6e9;
+
+    background: #fffafa;
+}
+
+.btn {
+    height: 37px;
+
+    padding: 0 14px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 6px;
+
+    border: none;
+    border-radius: 10px;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    text-decoration: none !important;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.btn-back {
+    background: #f4f0f1;
+
+    color: #77737a !important;
+}
+
+.btn-back:hover {
+    background: #ebe5e7;
+}
+
+.btn-save {
+    background: linear-gradient(
+        135deg,
+        #ed5573,
+        #d93659
+    );
+
+    color: #fff !important;
+
+    box-shadow:
+        0 5px 13px rgba(217, 54, 89, .15);
+}
+
+.btn-save:hover {
+    transform: translateY(-1px);
+
+    color: #fff !important;
+}
+
+
+/* Tablet */
+
+@media (max-width: 850px) {
+
+    .pendonor-page {
+        padding: 20px;
+    }
+
+    .account-info {
+        padding: 17px 20px;
+    }
+
+    .form-body {
+        padding: 18px 20px;
+    }
+
+    .form-footer {
+        padding: 12px 20px;
+    }
+}
+
+
+/* HP */
+
+@media (max-width: 600px) {
+
+    .pendonor-page {
+        padding: 14px 12px 25px;
+    }
+
+    .page-header {
+        margin-bottom: 13px;
+    }
+
+    .page-header small {
+        font-size: 9px;
+
+        letter-spacing: 1px;
+    }
+
+    .page-header h1 {
+        font-size: 21px;
+    }
+
+    .page-header p {
+        font-size: 10px;
+    }
+
+    .form-card {
+        border-radius: 16px;
+    }
+
+    .account-info {
+        padding: 14px 16px;
+
+        gap: 10px;
+    }
+
+    .avatar {
+        width: 46px;
+        height: 46px;
+
+        border-radius: 13px;
+
+        font-size: 18px;
+    }
+
+    .account-text span {
+        font-size: 6.5px;
+    }
+
+    .account-text h2 {
+        font-size: 14px;
+    }
+
+    .account-text p {
+        font-size: 8.5px;
+    }
+
+    .form-body {
+        padding: 15px 16px 16px;
+    }
+
+    .form-heading {
+        margin-bottom: 9px;
+    }
+
+    .form-heading h3 {
+        font-size: 12px;
+    }
+
+    .form-heading span {
+        font-size: 7px;
+    }
+
+    .form-grid {
+        gap: 8px;
+    }
+
+    .form-group label {
+        margin-bottom: 4px;
+
+        font-size: 7.5px;
+    }
+
+    .form-group input,
+    .form-group select {
+        height: 36px;
+
+        padding: 0 9px;
+
+        border-radius: 9px;
+
+        font-size: 9px;
+    }
+
+    .form-group textarea {
+        min-height: 58px;
+
+        padding: 8px 9px;
+
+        border-radius: 9px;
+
+        font-size: 9px;
+    }
+
+    .readonly-info {
+        font-size: 6px;
+    }
+
+    .error {
+        font-size: 7px;
+    }
+
+    .form-footer {
+        padding: 10px 16px;
+    }
+
+    .btn {
+        height: 35px;
+
+        padding: 0 11px;
+
+        font-size: 9px;
+    }
+}
+
+
+/* HP kecil */
+
+@media (max-width: 380px) {
+
+    .pendonor-page {
+        padding: 12px 10px 20px;
+    }
+
+    .account-info {
+        padding: 13px;
+    }
+
+    .avatar {
+        width: 43px;
+        height: 43px;
+
+        font-size: 17px;
+    }
+
+    .account-text h2 {
+        font-size: 13px;
+    }
+
+    .form-body {
+        padding: 14px 13px;
+    }
+
+    .form-grid {
+        gap: 7px;
+    }
+
+    .form-footer {
+        padding: 9px 13px;
+    }
+}

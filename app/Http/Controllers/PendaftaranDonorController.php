@@ -9,13 +9,17 @@ use Illuminate\Http\Request;
 
 class PendaftaranDonorController extends Controller
 {
+    /**
+     * Menampilkan form pendaftaran donor.
+     */
     public function create($id_kegiatan)
     {
         $kegiatan = KegiatanDonor::findOrFail($id_kegiatan);
+
         $pendonor = Pendonor::where(
             'id_user',
             session('id_user')
-        )->first();
+        )->firstOrFail();
 
         return view(
             'pages.pendonor.pendaftaran.daftar',
@@ -23,6 +27,10 @@ class PendaftaranDonorController extends Controller
         );
     }
 
+
+    /**
+     * Menyimpan pendaftaran donor.
+     */
     public function store(Request $request)
     {
         $pendonor = Pendonor::where(
@@ -31,10 +39,17 @@ class PendaftaranDonorController extends Controller
         )->firstOrFail();
 
         $data = $request->validate([
-            'id_kegiatan' => 'required|exists:kegiatan_donor,id_kegiatan',
-            'catatan' => 'nullable|string',
+            'id_kegiatan' => [
+                'required',
+                'exists:kegiatan_donor,id_kegiatan',
+            ],
+            'catatan' => [
+                'nullable',
+                'string',
+            ],
         ]);
 
+        // Cek apakah pendonor sudah terdaftar
         $sudahDaftar = PendaftaranDonor::where(
             'id_pendonor',
             $pendonor->id_pendonor
@@ -46,29 +61,34 @@ class PendaftaranDonorController extends Controller
             ->exists();
 
         if ($sudahDaftar) {
-            return back()->with(
-                'error',
-                'Kamu sudah terdaftar pada kegiatan donor ini.'
-            );
+            return back()
+                ->withInput()
+                ->with(
+                    'error',
+                    'Kamu sudah terdaftar pada kegiatan donor ini.'
+                );
         }
 
+        // Simpan pendaftaran
         PendaftaranDonor::create([
             'id_pendonor' => $pendonor->id_pendonor,
             'id_kegiatan' => $data['id_kegiatan'],
             'status_pendaftaran' => 'Terdaftar',
         ]);
 
+        // Setelah berhasil langsung ke Status Pendaftaran
         return redirect()
-            ->route(
-                'pendonor.kegiatan.show',
-                $data['id_kegiatan']
-            )
+            ->route('pendonor.status')
             ->with(
                 'success',
                 'Berhasil mendaftar kegiatan donor.'
             );
     }
 
+
+    /**
+     * Menampilkan status pendaftaran pendonor.
+     */
     public function status()
     {
         $pendonor = Pendonor::where(
@@ -76,7 +96,9 @@ class PendaftaranDonorController extends Controller
             session('id_user')
         )->firstOrFail();
 
-        $pendaftaran = PendaftaranDonor::with('kegiatanDonor')
+        $pendaftaran = PendaftaranDonor::with([
+            'kegiatanDonor'
+        ])
             ->where(
                 'id_pendonor',
                 $pendonor->id_pendonor

@@ -1,0 +1,552 @@
+/* Halaman */
+
+.profile-page {
+    min-height: calc(100vh - 70px);
+    padding: 30px 20px 45px;
+    background: #fff9f7;
+}
+
+
+/* Card */
+
+.profile-card {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+
+    background: #ffffff;
+
+    border: 1px solid #f3dce4;
+    border-radius: 24px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 12px 35px rgba(197, 46, 85, 0.07);
+}
+
+
+/* Header */
+
+.profile-top {
+    position: relative;
+
+    padding: 32px 25px 28px;
+
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle at 12% 20%,
+            rgba(236, 76, 117, .08) 0 32px,
+            transparent 33px
+        ),
+        radial-gradient(
+            circle at 90% 25%,
+            rgba(236, 76, 117, .06) 0 25px,
+            transparent 26px
+        ),
+        #fffafb;
+
+    border-bottom: 1px solid #f4e2e7;
+}
+
+
+/* Avatar */
+
+.profile-avatar {
+    width: 90px;
+    height: 90px;
+
+    margin: 0 auto 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #d52158,
+            #e83e70
+        );
+
+    border: 5px solid #ffe5ed;
+    border-radius: 50%;
+
+    color: #ffffff;
+
+    font-size: 31px;
+
+    box-shadow:
+        0 8px 20px rgba(213, 33, 88, .18),
+        0 0 0 1px rgba(213, 33, 88, .05);
+}
+
+
+/* Nama */
+
+.profile-top h2 {
+    margin: 0 0 10px;
+
+    color: #292a3d;
+
+    font-size: 24px;
+    font-weight: 800;
+
+    line-height: 1.3;
+}
+
+
+/* Role */
+
+.profile-role {
+    width: fit-content;
+
+    margin: 0 auto;
+
+    padding: 7px 15px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 6px;
+
+    background: #ffe8ef;
+
+    border-radius: 30px;
+
+    color: #c82455;
+
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.profile-role i {
+    font-size: 9px;
+}
+
+
+/* Data */
+
+.profile-body {
+    padding: 25px 25px 27px;
+}
+
+.data-list {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+
+/* Item */
+
+.data-item {
+    position: relative;
+
+    min-height: 78px;
+
+    padding: 11px 17px 11px 14px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    background: #fffafb;
+
+    border: 1px solid #f2dfe5;
+
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        border-color .2s ease;
+}
+
+.data-item::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 14px;
+    bottom: 14px;
+
+    width: 4px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #d52158,
+            #ed5573
+        );
+
+    border-radius: 0 5px 5px 0;
+}
+
+.data-item:hover {
+    transform: translateY(-2px);
+
+    border-color: #e9bdcc;
+
+    box-shadow:
+        0 8px 20px rgba(197, 46, 85, .08);
+}
+
+
+/* Icon */
+
+.data-icon {
+    width: 46px;
+    height: 46px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #ffe5ed;
+
+    border-radius: 13px;
+
+    color: #c92759;
+
+    font-size: 13px;
+
+    box-shadow:
+        inset 0 0 0 1px rgba(201, 39, 89, .03);
+}
+
+
+/* Text */
+
+.data-text {
+    min-width: 0;
+    flex: 1;
+}
+
+.data-text span {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #a69ca2;
+
+    font-size: 9px;
+
+    font-weight: 600;
+}
+
+.data-text strong {
+    display: block;
+
+    color: #303044;
+
+    font-size: 12px;
+
+    font-weight: 750;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+
+/* Nomor */
+
+.data-number {
+    width: 30px;
+    height: 30px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #fff0f4;
+
+    border: 1px solid #f7dce5;
+
+    border-radius: 9px;
+
+    color: #df5a7a;
+
+    font-size: 8px;
+
+    font-weight: 800;
+
+    letter-spacing: .5px;
+}
+
+
+/* Footer */
+
+.profile-footer {
+    padding: 18px 25px;
+
+    display: flex;
+    justify-content: flex-end;
+
+    background: #fffafb;
+
+    border-top: 1px solid #f3e1e6;
+}
+
+
+/* Tombol */
+
+.edit-button {
+    min-width: 135px;
+    height: 40px;
+
+    padding: 0 18px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #d51f57,
+            #e83d70
+        );
+
+    border-radius: 11px;
+
+    color: #ffffff !important;
+
+    text-decoration: none !important;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 7px 16px rgba(213, 31, 87, .17);
+
+    transition: .2s ease;
+}
+
+.edit-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 20px rgba(213, 31, 87, .22);
+}
+
+
+/* Tablet */
+
+@media (max-width: 768px) {
+
+    .profile-page {
+        padding: 22px 15px 35px;
+    }
+
+    .profile-card {
+        max-width: 650px;
+        border-radius: 21px;
+    }
+
+    .profile-top {
+        padding: 27px 20px 24px;
+    }
+
+    .profile-avatar {
+        width: 82px;
+        height: 82px;
+        font-size: 28px;
+    }
+
+    .profile-top h2 {
+        font-size: 21px;
+    }
+
+    .profile-body {
+        padding: 21px 20px 23px;
+    }
+
+    .profile-footer {
+        padding: 16px 20px;
+    }
+
+}
+
+
+/* HP */
+
+@media (max-width: 576px) {
+
+    .profile-page {
+        padding: 14px 10px 28px;
+    }
+
+    .profile-card {
+        border-radius: 18px;
+    }
+
+    .profile-top {
+        padding: 25px 16px 22px;
+    }
+
+    .profile-avatar {
+        width: 74px;
+        height: 74px;
+
+        margin-bottom: 12px;
+
+        border-width: 4px;
+
+        font-size: 25px;
+    }
+
+    .profile-top h2 {
+        max-width: 90%;
+
+        margin-left: auto;
+        margin-right: auto;
+
+        font-size: 19px;
+
+        line-height: 1.35;
+    }
+
+    .profile-role {
+        padding: 6px 13px;
+        font-size: 9px;
+    }
+
+    .profile-body {
+        padding: 18px 13px 20px;
+    }
+
+    .data-list {
+        gap: 10px;
+    }
+
+    .data-item {
+        min-height: 68px;
+
+        padding: 9px 10px 9px 12px;
+
+        gap: 11px;
+
+        border-radius: 14px;
+    }
+
+    .data-item::before {
+        top: 12px;
+        bottom: 12px;
+        width: 3px;
+    }
+
+    .data-icon {
+        width: 39px;
+        height: 39px;
+
+        border-radius: 11px;
+
+        font-size: 11px;
+    }
+
+    .data-text span {
+        margin-bottom: 3px;
+        font-size: 8px;
+    }
+
+    .data-text strong {
+        font-size: 10px;
+    }
+
+    .data-number {
+        width: 27px;
+        height: 27px;
+
+        border-radius: 8px;
+
+        font-size: 7px;
+    }
+
+    .profile-footer {
+        padding: 14px;
+    }
+
+    .edit-button {
+        width: 100%;
+        height: 42px;
+
+        border-radius: 11px;
+
+        font-size: 10px;
+    }
+
+}
+
+
+/* HP kecil */
+
+@media (max-width: 380px) {
+
+    .profile-page {
+        padding: 10px 8px 25px;
+    }
+
+    .profile-top {
+        padding: 22px 12px 20px;
+    }
+
+    .profile-avatar {
+        width: 68px;
+        height: 68px;
+        font-size: 23px;
+    }
+
+    .profile-top h2 {
+        font-size: 17px;
+    }
+
+    .profile-body {
+        padding: 15px 10px 17px;
+    }
+
+    .data-item {
+        min-height: 63px;
+
+        padding: 8px 9px 8px 11px;
+
+        gap: 9px;
+    }
+
+    .data-icon {
+        width: 36px;
+        height: 36px;
+
+        border-radius: 10px;
+    }
+
+    .data-text strong {
+        font-size: 9.5px;
+    }
+
+    .data-number {
+        width: 25px;
+        height: 25px;
+    }
+
+    .profile-footer {
+        padding: 12px;
+    }
+
+}
