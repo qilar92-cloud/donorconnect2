@@ -8,83 +8,119 @@
 
 @section('content')
 
-<div class="kegiatan-page">
+<div class="donor-page">
 
-    <!-- Header -->
-    <div class="kegiatan-header">
+    <div class="donor-banner">
 
-        <div class="kegiatan-header-content">
+        <div class="banner-main">
 
-            <h1 class="kegiatan-title">
-                Kegiatan Donor
-            </h1>
+            <div class="banner-label">
+                DONORCONNECT • PENDONOR
+            </div>
 
-            <p class="kegiatan-subtitle">
-                Temukan kegiatan donor darah dan pilih kegiatan yang ingin kamu ikuti.
+            <h1>Kegiatan Donor</h1>
+
+            <p>
+                Pilih jadwal donor yang ingin kamu ikuti.
             </p>
 
-            <div class="header-total">
-                <i class="fas fa-calendar-check mr-1"></i>
+            <div class="banner-meta">
+                <i class="fas fa-calendar-check"></i>
                 {{ $kegiatan->count() }} kegiatan tersedia
             </div>
 
         </div>
 
+        <div class="banner-art">
+            <div class="art-circle"></div>
+
+            <div class="art-card">
+                <i class="fas fa-tint"></i>
+                <span>DONOR</span>
+            </div>
+
+            <div class="art-heart">
+                <i class="fas fa-heart"></i>
+            </div>
+        </div>
+
     </div>
 
-    <!-- Search -->
+
+    <div class="quick-row">
+
+        <div class="quick-card">
+            <div class="quick-icon">
+                <i class="fas fa-calendar-day"></i>
+            </div>
+
+            <div>
+                <small>KEGIATAN</small>
+                <strong>{{ $kegiatan->count() }}</strong>
+                <span>Tersedia</span>
+            </div>
+        </div>
+
+
+        <a
+            href="{{ route('pendonor.status') }}"
+            class="quick-card quick-link"
+        >
+            <div class="quick-icon">
+                <i class="fas fa-clipboard-list"></i>
+            </div>
+
+            <div>
+                <small>PENDAFTARAN</small>
+                <strong>→</strong>
+                <span>Lihat status</span>
+            </div>
+
+            <i class="fas fa-arrow-right quick-arrow"></i>
+        </a>
+
+    </div>
+
+
     <div class="search-card">
 
-        <div class="search-box">
-
-            <div class="search-icon">
-                <i class="fas fa-search"></i>
-            </div>
-
-            <div class="search-content">
-
-                <label for="searchKegiatan" class="search-label">
-                    Cari Kegiatan
-                </label>
-
-                <input
-                    type="text"
-                    id="searchKegiatan"
-                    class="search-input"
-                    placeholder="Cari nama kegiatan atau lokasi..."
-                >
-
-            </div>
-
+        <div class="search-icon">
+            <i class="fas fa-search"></i>
         </div>
+
+        <input
+            type="text"
+            id="searchKegiatan"
+            placeholder="Cari kegiatan atau lokasi..."
+        >
 
     </div>
 
-    <!-- Section -->
-    <div class="section-header">
+
+    <div class="section-top">
 
         <div>
-            <h2 class="section-title">
-                Kegiatan Donor Tersedia
-            </h2>
-
-            <p class="section-subtitle">
-                Pilih kegiatan donor yang ingin kamu ikuti.
-            </p>
-        </div>
-
-        <div class="jumlah-badge">
-            <i class="fas fa-calendar-alt"></i>
-            <span id="jumlahKegiatan">
-                {{ $kegiatan->count() }}
+            <span class="section-label">
+                JADWAL DONOR
             </span>
-            kegiatan
+
+            <h2>Kegiatan yang tersedia</h2>
         </div>
+
+        <span
+            class="result-count"
+            id="jumlahKegiatan"
+        >
+            {{ $kegiatan->count() }}
+        </span>
 
     </div>
 
-    <!-- Cards -->
-    <div class="event-grid" id="eventGrid">
+
+    <div
+        class="event-list"
+        id="eventGrid"
+    >
 
         @forelse ($kegiatan as $item)
 
@@ -93,80 +129,79 @@
                 data-search="{{ strtolower($item->nama_kegiatan . ' ' . $item->lokasi) }}"
             >
 
-                <div class="event-top">
+                <div class="date-box">
 
-                    <div class="event-icon">
-                        <i class="fas fa-tint"></i>
-                    </div>
-
-                    <div class="status-badge">
-                        <span class="status-dot"></span>
-                        Tersedia
-                    </div>
-
-                </div>
-
-                <div class="event-name">
-                    {{ $item->nama_kegiatan }}
-                </div>
-
-                <div class="event-description">
-                    {{ $item->keterangan ?: 'Kegiatan donor darah DonorConnect.' }}
-                </div>
-
-                <div class="event-info">
-
-                    <div class="info-box">
-
-                        <div class="info-label">
-                            <i class="fas fa-calendar-alt"></i>
-                            Tanggal
-                        </div>
-
-                        <div class="info-value">
-                            {{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}
-                        </div>
-
-                    </div>
-
-                    <div class="info-box">
-
-                        <div class="info-label">
-                            <i class="fas fa-clock"></i>
-                            Waktu
-                        </div>
-
-                        <div class="info-value">
-                            {{ $item->waktu }}
-                        </div>
-
-                    </div>
-
-                    <div class="info-box location">
-
-                        <div class="info-label">
-                            <i class="fas fa-map-marker-alt"></i>
-                            Lokasi
-                        </div>
-
-                        <div class="info-value">
-                            {{ $item->lokasi }}
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <a
-                    href="{{ route('pendonor.kegiatan.show', $item->id_kegiatan) }}"
-                    class="detail-button"
-                >
                     <span>
-                        Lihat Detail Kegiatan
+                        {{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('M') }}
                     </span>
 
-                    <i class="fas fa-arrow-right"></i>
-                </a>
+                    <strong>
+                        {{ \Carbon\Carbon::parse($item->tanggal)->format('d') }}
+                    </strong>
+
+                    <small>
+                        {{ \Carbon\Carbon::parse($item->tanggal)->format('Y') }}
+                    </small>
+
+                </div>
+
+
+                <div class="event-content">
+
+                    <div class="event-heading">
+
+                        <span class="available">
+                            <i class="fas fa-circle"></i>
+                            Tersedia
+                        </span>
+
+                        <h3>
+                            {{ $item->nama_kegiatan }}
+                        </h3>
+
+                    </div>
+
+
+                    <div class="event-details">
+
+                        <span>
+                            <i class="fas fa-clock"></i>
+                            {{ $item->waktu }}
+                        </span>
+
+                        <span>
+                            <i class="fas fa-map-marker-alt"></i>
+                            {{ $item->lokasi }}
+                        </span>
+
+                    </div>
+
+
+                    @if ($item->keterangan)
+                        <div class="event-note">
+                            {{ $item->keterangan }}
+                        </div>
+                    @endif
+
+
+                    <div class="event-footer">
+
+                        <span class="event-purpose">
+                            <i class="fas fa-heart"></i>
+                            Donor darah
+                        </span>
+
+                        <a
+                            href="{{ route('pendonor.kegiatan.show', $item->id_kegiatan) }}"
+                            class="detail-button"
+                        >
+                            Lihat Detail
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+                </div>
 
             </div>
 
@@ -178,12 +213,10 @@
                     <i class="fas fa-calendar-times"></i>
                 </div>
 
-                <h5>
-                    Belum Ada Kegiatan
-                </h5>
+                <h3>Belum Ada Kegiatan</h3>
 
                 <p>
-                    Saat ini belum ada kegiatan donor yang tersedia.
+                    Belum ada jadwal donor yang tersedia.
                 </p>
 
             </div>
@@ -194,35 +227,42 @@
 
 </div>
 
+
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
 
-        const searchInput = document.getElementById('searchKegiatan');
-        const cards = document.querySelectorAll('.event-card');
-        const jumlahKegiatan = document.getElementById('jumlahKegiatan');
+    const searchInput = document.getElementById('searchKegiatan');
+    const cards = document.querySelectorAll('.event-card');
+    const counter = document.getElementById('jumlahKegiatan');
 
-        searchInput.addEventListener('input', function () {
+    if (!searchInput) {
+        return;
+    }
 
-            const keyword = this.value.toLowerCase().trim();
-            let jumlah = 0;
+    searchInput.addEventListener('input', function () {
 
-            cards.forEach(function (card) {
+        const keyword = this.value.toLowerCase().trim();
 
-                const data = card.dataset.search;
+        let total = 0;
 
-                if (data.includes(keyword)) {
-                    card.style.display = '';
-                    jumlah++;
-                } else {
-                    card.style.display = 'none';
-                }
+        cards.forEach(function (card) {
 
-            });
+            const text = card.dataset.search || '';
 
-            jumlahKegiatan.textContent = jumlah;
+            if (text.includes(keyword)) {
+                card.style.display = '';
+                total++;
+            } else {
+                card.style.display = 'none';
+            }
+
         });
 
+        counter.textContent = total;
+
     });
+
+});
 </script>
 
 @endsection
