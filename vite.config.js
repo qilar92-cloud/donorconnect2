@@ -23,8 +23,8 @@ export default defineConfig({
                 'resources/css/kegiatan-donor/index.css',
                 'resources/css/kegiatan-donor/show-pendonor.css',
 
-                /* Hasil Donor / Create */
-                'resources/css/create.css',
+                /* Hasil Donor */
+                'resources/css/hasil-donor/create.css',
 
                 /* Landing */
                 'resources/css/landing/index.css',
