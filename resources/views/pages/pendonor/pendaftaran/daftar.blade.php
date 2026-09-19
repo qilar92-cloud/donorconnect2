@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Pendaftaran Donor - DonorConnect')
+@section('title', 'Daftar Kegiatan Donor')
 
 @push('styles')
     @vite('resources/css/pendonor/pendaftaran-daftar.css')
@@ -8,508 +8,239 @@
 
 @section('content')
 
-    <div class="donor-page">
+<div class="pendaftaran-page">
 
-        <div class="page-heading">
+    <div class="pendaftaran-card">
 
-            <div>
+        {{-- Header --}}
+        <div class="form-header">
 
-                <h1>
-                    Pendaftaran Donor
-                </h1>
-
-                <p>
-                    Lengkapi pendaftaran untuk mengikuti kegiatan donor darah.
-                </p>
-
+            <div class="header-text">
+                <h1>Daftar sebagai Pendonor</h1>
+                <p>Periksa data diri dan kegiatan donor sebelum mendaftar.</p>
             </div>
 
-            <div class="heading-badge">
-                <i class="fas fa-tint"></i>
-                Pendonor
-            </div>
+            <a href="{{ route('pendonor.kegiatan.show', $kegiatan->id_kegiatan) }}"
+               class="btn-kembali">
+                <i class="fas fa-arrow-left"></i>
+                <span>Kembali</span>
+            </a>
 
         </div>
 
+        <form action="{{ route('pendaftaran-donor.store') }}" method="POST">
 
-        @if (session('success'))
+            @csrf
 
-            <div class="alert alert-success">
+            <input type="hidden"
+                   name="id_kegiatan"
+                   value="{{ $kegiatan->id_kegiatan }}">
 
-                <i class="fas fa-check-circle"></i>
+            {{-- Data Pendonor --}}
+            <section class="form-section">
 
-                <span>
-                    {{ session('success') }}
-                </span>
+                <div class="section-title">
 
-            </div>
+                    <div class="section-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
 
-        @endif
-
-
-        @if ($errors->any())
-
-            <div class="alert alert-danger">
-
-                <i class="fas fa-exclamation-circle"></i>
-
-                <div>
-
-                    @foreach ($errors->all() as $error)
-                        <div>{{ $error }}</div>
-                    @endforeach
+                    <div>
+                        <h2>Data Pendonor</h2>
+                        <p>Pastikan data diri kamu sudah benar.</p>
+                    </div>
 
                 </div>
 
-            </div>
+                <div class="data-grid">
 
-        @endif
+                    <div class="data-item">
+                        <span>Nama Lengkap</span>
+                        <strong>
+                            {{ $pendonor->user->nama ?? '-' }}
+                        </strong>
+                    </div>
 
+                    <div class="data-item">
+                        <span>Status</span>
+                        <strong>
+                            {{ $pendonor->status ?? '-' }}
+                        </strong>
+                    </div>
 
-        <div class="registration-card">
+                    <div class="data-item">
+                        <span>Kelas / Jabatan</span>
+                        <strong>
+                            {{ $pendonor->kelas_jabatan ?? '-' }}
+                        </strong>
+                    </div>
 
-            <div class="registration-header">
+                    <div class="data-item">
+                        <span>Usia</span>
+                        <strong>
+                            {{ $pendonor->tanggal_lahir
+                                ? \Carbon\Carbon::parse($pendonor->tanggal_lahir)->age . ' Tahun'
+                                : '-' }}
+                        </strong>
+                    </div>
 
-                <div class="header-icon">
-                    <i class="fas fa-tint"></i>
+                    <div class="data-item">
+                        <span>Golongan Darah</span>
+                        <strong>
+                            {{ $pendonor->golongan_darah ?? '-' }}
+                        </strong>
+                    </div>
+
+                    <div class="data-item">
+                        <span>No. Telepon</span>
+                        <strong>
+                            {{ $pendonor->nomor_telepon ?? '-' }}
+                        </strong>
+                    </div>
+
+                    <div class="data-item data-full">
+                        <span>Informasi Kesehatan</span>
+                        <strong>
+                            {{ $pendonor->informasi_kesehatan ?? '-' }}
+                        </strong>
+                    </div>
+
                 </div>
 
-                <div>
+            </section>
 
-                    <span class="header-label">
-                        FORMULIR DONOR DARAH
-                    </span>
 
-                    <h2>
-                        Daftar sebagai Pendonor
-                    </h2>
+            {{-- Kegiatan --}}
+            <section class="form-section">
 
-                    <p>
-                        Periksa kembali data diri dan kegiatan sebelum mendaftar.
-                    </p>
+                <div class="section-title">
+
+                    <div class="section-icon event-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+
+                    <div>
+                        <h2>Kegiatan Donor</h2>
+                        <p>Informasi kegiatan yang akan kamu ikuti.</p>
+                    </div>
 
                 </div>
 
-            </div>
 
+                <div class="event-box">
 
-            <div class="registration-body">
+                    <div class="event-name">
 
-                <form
-                    action="{{ route('pendaftaran-donor.store') }}"
-                    method="POST"
-                >
+                        <span>Nama Kegiatan</span>
 
-                    @csrf
-
-                    <input
-                        type="hidden"
-                        name="id_kegiatan"
-                        value="{{ $kegiatan->id_kegiatan }}"
-                    >
-
-
-                    {{-- Data Pendonor --}}
-
-                    <div class="section-heading">
-
-                        <div class="section-icon">
-                            <i class="fas fa-user"></i>
-                        </div>
-
-                        <div>
-
-                            <h3>
-                                Data Pendonor
-                            </h3>
-
-                            <p>
-                                Data diambil dari profil kamu.
-                            </p>
-
-                        </div>
+                        <h3>
+                            {{ $kegiatan->nama_kegiatan }}
+                        </h3>
 
                     </div>
 
 
-                    <div class="form-grid">
+                    <div class="event-details">
 
-                        <div class="form-group">
+                        <div class="event-detail">
 
-                            <label>
-                                Nama Lengkap
-                            </label>
-
-                            <div class="input-box">
-
-                                <i class="fas fa-user"></i>
-
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    value="{{ $pendonor->user->nama ?? '-' }}"
-                                    readonly
-                                >
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label>
-                                Status
-                            </label>
-
-                            <div class="input-box">
-
-                                <i class="fas fa-id-badge"></i>
-
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    value="{{ $pendonor->status ?? '-' }}"
-                                    readonly
-                                >
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label>
-                                Kelas / Jabatan
-                            </label>
-
-                            <div class="input-box">
-
-                                <i class="fas fa-graduation-cap"></i>
-
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    value="{{ $pendonor->kelas_jabatan ?? '-' }}"
-                                    readonly
-                                >
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label>
-                                Umur
-                            </label>
-
-                            <div class="input-box">
-
-                                <i class="fas fa-birthday-cake"></i>
-
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    value="{{ $pendonor->tanggal_lahir ? \Carbon\Carbon::parse($pendonor->tanggal_lahir)->age . ' Tahun' : '-' }}"
-                                    readonly
-                                >
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label>
-                                Golongan Darah
-                            </label>
-
-                            <div class="input-box blood-input">
-
-                                <i class="fas fa-tint"></i>
-
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    value="{{ $pendonor->golongan_darah ?? '-' }}"
-                                    readonly
-                                >
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label>
-                                Nomor Telepon
-                            </label>
-
-                            <div class="input-box">
-
-                                <i class="fas fa-phone"></i>
-
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    value="{{ $pendonor->nomor_telepon ?? '-' }}"
-                                    readonly
-                                >
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="form-group full-width">
-
-                            <label>
-                                Informasi Kesehatan
-                            </label>
-
-                            <div class="input-box textarea-box">
-
-                                <i class="fas fa-heartbeat"></i>
-
-                                <textarea
-                                    class="form-control"
-                                    rows="2"
-                                    readonly
-                                >{{ $pendonor->informasi_kesehatan ?? '-' }}</textarea>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="profile-note">
-
-                        <i class="fas fa-info-circle"></i>
-
-                        <span>
-                            Jika ada data yang tidak sesuai, silakan ubah melalui menu
-                            <strong>Profil Saya</strong> terlebih dahulu.
-                        </span>
-
-                    </div>
-
-
-                    {{-- Kegiatan Donor --}}
-
-                    <div class="section-heading activity-heading">
-
-                        <div class="section-icon">
-                            <i class="fas fa-calendar-alt"></i>
-                        </div>
-
-                        <div>
-
-                            <h3>
-                                Kegiatan Donor
-                            </h3>
-
-                            <p>
-                                Kegiatan yang akan kamu ikuti.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="activity-card">
-
-                        <div class="activity-name">
-
-                            <div class="activity-icon">
-                                <i class="fas fa-tint"></i>
+                            <div class="detail-icon">
+                                <i class="far fa-calendar"></i>
                             </div>
 
                             <div>
-
-                                <span>
-                                    KEGIATAN DONOR
-                                </span>
-
-                                <h4>
-                                    {{ $kegiatan->nama_kegiatan }}
-                                </h4>
-
+                                <span>Tanggal</span>
+                                <strong>
+                                    {{ $kegiatan->tanggal->format('d M Y') }}
+                                </strong>
                             </div>
 
                         </div>
 
 
-                        <div class="activity-details">
+                        <div class="event-detail">
 
-                            <div class="detail-item">
-
-                                <div class="detail-icon">
-                                    <i class="fas fa-calendar-day"></i>
-                                </div>
-
-                                <div>
-
-                                    <small>
-                                        Tanggal
-                                    </small>
-
-                                    <strong>
-                                        {{ $kegiatan->tanggal->format('d M Y') }}
-                                    </strong>
-
-                                </div>
-
+                            <div class="detail-icon">
+                                <i class="far fa-clock"></i>
                             </div>
 
-
-                            <div class="detail-item">
-
-                                <div class="detail-icon">
-                                    <i class="fas fa-clock"></i>
-                                </div>
-
-                                <div>
-
-                                    <small>
-                                        Waktu
-                                    </small>
-
-                                    <strong>
-                                        {{ $kegiatan->waktu }}
-                                    </strong>
-
-                                </div>
-
+                            <div>
+                                <span>Waktu</span>
+                                <strong>
+                                    {{ $kegiatan->waktu }}
+                                </strong>
                             </div>
 
+                        </div>
 
-                            <div class="detail-item">
 
-                                <div class="detail-icon">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                </div>
+                        <div class="event-detail">
 
-                                <div>
+                            <div class="detail-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
 
-                                    <small>
-                                        Lokasi
-                                    </small>
-
-                                    <strong>
-                                        {{ $kegiatan->lokasi }}
-                                    </strong>
-
-                                </div>
-
+                            <div>
+                                <span>Lokasi</span>
+                                <strong>
+                                    {{ $kegiatan->lokasi }}
+                                </strong>
                             </div>
 
                         </div>
 
                     </div>
 
+                </div>
 
-                    {{-- Catatan --}}
+            </section>
 
-                    <div class="section-heading note-heading">
 
-                        <div class="section-icon">
-                            <i class="fas fa-comment-alt"></i>
-                        </div>
+            {{-- Catatan --}}
+            <section class="form-section catatan-section">
 
-                        <div>
+                <div class="section-title">
 
-                            <h3>
-                                Catatan
-                            </h3>
-
-                            <p>
-                                Tambahkan informasi jika diperlukan.
-                            </p>
-
-                        </div>
-
+                    <div class="section-icon note-icon">
+                        <i class="far fa-edit"></i>
                     </div>
 
-
-                    <div class="form-group">
-
-                        <label>
-                            Catatan
-
-                            <span class="optional">
-                                Opsional
-                            </span>
-                        </label>
-
-                        <textarea
-                            name="catatan"
-                            class="form-control note-control"
-                            rows="3"
-                            placeholder="Tulis catatan atau informasi tambahan..."
-                        >{{ old('catatan') }}</textarea>
-
+                    <div>
+                        <h2>Catatan</h2>
+                        <p>Tambahkan catatan jika diperlukan.</p>
                     </div>
 
-
-                    {{-- Konfirmasi --}}
-
-                    <div class="confirmation-box">
-
-                        <div class="confirmation-icon">
-                            <i class="fas fa-heart"></i>
-                        </div>
-
-                        <div>
-
-                            <strong>
-                                Siap untuk berbagi kebaikan?
-                            </strong>
-
-                            <p>
-                                Pastikan data diri dan informasi kegiatan sudah benar
-                                sebelum melakukan pendaftaran donor.
-                            </p>
-
-                        </div>
-
-                    </div>
+                </div>
 
 
-                    <div class="form-footer">
+                <textarea
+                    name="catatan"
+                    class="catatan-input"
+                    rows="3"
+                    placeholder="Tulis catatan tambahan (opsional)...">{{ old('catatan') }}</textarea>
 
-                        <a
-                            href="{{ route('pendonor.kegiatan.show', $kegiatan->id_kegiatan) }}"
-                            class="btn-back"
-                        >
-                            <i class="fas fa-arrow-left"></i>
-                            Batal
-                        </a>
+            </section>
 
 
-                        <button
-                            type="submit"
-                            class="btn-submit"
-                        >
-                            <i class="fas fa-tint"></i>
-                            Daftar Sekarang
-                        </button>
+            {{-- Tombol --}}
+            <div class="form-actions">
 
-                    </div>
+                <a href="{{ route('pendonor.kegiatan.show', $kegiatan->id_kegiatan) }}"
+                   class="btn-batal">
+                    Batal
+                </a>
 
-                </form>
+                <button type="submit" class="btn-daftar">
+                    <i class="fas fa-check"></i>
+                    Daftar Sekarang
+                </button>
 
             </div>
 
-        </div>
+        </form>
 
     </div>
+
+</div>
 
 @endsection
