@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Ubah Profil - DonorConnect')
+@section('title', 'Ubah Profil Petugas - DONORCONNECT')
 
 @push('styles')
     @vite('resources/css/petugas/profile-edit.css')
@@ -19,234 +19,233 @@
                 <i class="fas fa-user-edit"></i>
             </div>
 
-            <div>
+            <div class="header-content">
+
+                <span class="header-label">
+                    PROFIL PETUGAS
+                </span>
+
                 <h1>Ubah Profil</h1>
-                <p>Perbarui informasi akun kamu</p>
+
+                <p>
+                    Perbarui informasi profil petugas kamu.
+                </p>
+
             </div>
 
         </div>
 
+
+        {{-- Body --}}
         <div class="edit-body">
 
-            <form action="{{ route('profile.petugas.update') }}" method="POST">
+            {{-- Error --}}
+            @if ($errors->any())
+
+                <div class="alert-danger">
+
+                    <i class="fas fa-exclamation-circle"></i>
+
+                    <div>
+
+                        <strong>
+                            Periksa kembali data yang dimasukkan.
+                        </strong>
+
+                        <ul>
+                            @foreach ($errors->all() as $error)
+
+                                <li>
+                                    {{ $error }}
+                                </li>
+
+                            @endforeach
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            @endif
+
+
+            <form
+                action="{{ route('profile.petugas.update') }}"
+                method="POST"
+            >
 
                 @csrf
                 @method('PUT')
 
-                {{-- Data Pendonor --}}
-                @if(isset($pendonor))
-
-                    <div class="form-section">
-
-                        {{-- Nama --}}
-                        <div class="form-group">
-
-                            <label>Nama Lengkap</label>
-
-                            <div class="input-box">
-                                <i class="fas fa-user"></i>
-
-                                <input
-                                    type="text"
-                                    value="{{ $pendonor->user->nama ?? '' }}"
-                                    disabled
-                                >
-                            </div>
-
-                        </div>
-
-                        {{-- Status --}}
-                        <div class="form-group">
-
-                            <label>Status</label>
-
-                            <div class="input-box">
-                                <i class="fas fa-user-tag"></i>
-
-                                <input
-                                    type="text"
-                                    name="status"
-                                    value="{{ old('status', $pendonor->status) }}"
-                                    placeholder="Masukkan status"
-                                    required
-                                >
-                            </div>
-
-                            @error('status')
-                                <small class="error-text">{{ $message }}</small>
-                            @enderror
-
-                        </div>
-
-                        {{-- Kelas / Jabatan --}}
-                        <div class="form-group">
-
-                            <label>Kelas / Jabatan</label>
-
-                            <div class="input-box">
-                                <i class="fas fa-briefcase"></i>
-
-                                <input
-                                    type="text"
-                                    name="kelas_jabatan"
-                                    value="{{ old('kelas_jabatan', $pendonor->kelas_jabatan) }}"
-                                    placeholder="Masukkan kelas atau jabatan"
-                                    required
-                                >
-                            </div>
-
-                            @error('kelas_jabatan')
-                                <small class="error-text">{{ $message }}</small>
-                            @enderror
-
-                        </div>
-
-                        {{-- Tanggal Lahir --}}
-                        <div class="form-group">
-
-                            <label>Tanggal Lahir</label>
-
-                            <div class="input-box">
-                                <i class="fas fa-calendar-alt"></i>
-
-                                <input
-                                    type="date"
-                                    name="tanggal_lahir"
-                                    value="{{ old('tanggal_lahir', $pendonor->tanggal_lahir) }}"
-                                    required
-                                >
-                            </div>
-
-                            @error('tanggal_lahir')
-                                <small class="error-text">{{ $message }}</small>
-                            @enderror
-
-                        </div>
-
-                        {{-- Golongan Darah --}}
-                        <div class="form-group">
-
-                            <label>Golongan Darah</label>
-
-                            <div class="input-box">
-                                <i class="fas fa-tint"></i>
-
-                                <input
-                                    type="text"
-                                    name="golongan_darah"
-                                    value="{{ old('golongan_darah', $pendonor->golongan_darah) }}"
-                                    placeholder="Contoh: A+"
-                                    required
-                                >
-                            </div>
-
-                            @error('golongan_darah')
-                                <small class="error-text">{{ $message }}</small>
-                            @enderror
-
-                        </div>
-
-                        {{-- Nomor Telepon --}}
-                        <div class="form-group">
-
-                            <label>Nomor Telepon</label>
-
-                            <div class="input-box">
-                                <i class="fas fa-phone"></i>
-
-                                <input
-                                    type="text"
-                                    name="nomor_telepon"
-                                    value="{{ old('nomor_telepon', $pendonor->nomor_telepon) }}"
-                                    placeholder="Masukkan nomor telepon"
-                                    required
-                                >
-                            </div>
-
-                            @error('nomor_telepon')
-                                <small class="error-text">{{ $message }}</small>
-                            @enderror
-
-                        </div>
-
-                        {{-- Informasi Kesehatan --}}
-                        <div class="form-group">
-
-                            <label>Informasi Kesehatan</label>
-
-                            <div class="textarea-box">
-                                <i class="fas fa-notes-medical"></i>
-
-                                <textarea
-                                    name="informasi_kesehatan"
-                                    rows="4"
-                                    placeholder="Masukkan informasi kesehatan"
-                                    required
-                                >{{ old('informasi_kesehatan', $pendonor->informasi_kesehatan) }}</textarea>
-                            </div>
-
-                            @error('informasi_kesehatan')
-                                <small class="error-text">{{ $message }}</small>
-                            @enderror
-
-                        </div>
-
-                    </div>
 
                 {{-- Data Petugas --}}
-                @elseif(isset($petugas))
+                @if(isset($petugas))
 
                     <div class="form-section">
 
-                        {{-- Nama --}}
+                        {{-- Nama Lengkap --}}
                         <div class="form-group">
 
-                            <label>Nama Lengkap</label>
+                            <label for="nama">
+                                Nama Lengkap
+                            </label>
 
                             <div class="input-box">
+
                                 <i class="fas fa-user"></i>
 
                                 <input
                                     type="text"
+                                    id="nama"
                                     name="nama"
-                                    value="{{ old('nama', $user->nama) }}"
+                                    value="{{ old('nama', $user->nama ?? '') }}"
                                     placeholder="Masukkan nama lengkap"
+                                    autocomplete="name"
                                     required
                                 >
+
                             </div>
 
                             @error('nama')
-                                <small class="error-text">{{ $message }}</small>
+
+                                <small class="error-text">
+                                    {{ $message }}
+                                </small>
+
                             @enderror
 
                         </div>
+
 
                         {{-- Email --}}
                         <div class="form-group">
 
-                            <label>Email</label>
+                            <label for="email">
+                                Email
+                            </label>
 
                             <div class="input-box">
+
                                 <i class="fas fa-envelope"></i>
 
                                 <input
                                     type="email"
+                                    id="email"
                                     name="email"
-                                    value="{{ old('email', $user->email) }}"
+                                    value="{{ old('email', $user->email ?? '') }}"
                                     placeholder="Masukkan email"
+                                    autocomplete="email"
                                     required
                                 >
+
                             </div>
 
                             @error('email')
-                                <small class="error-text">{{ $message }}</small>
+
+                                <small class="error-text">
+                                    {{ $message }}
+                                </small>
+
                             @enderror
 
                         </div>
 
+
+                        {{-- Jabatan --}}
+                        @if(isset($petugas->jabatan))
+
+                            <div class="form-group">
+
+                                <label for="jabatan">
+                                    Jabatan
+                                </label>
+
+                                <div class="input-box">
+
+                                    <i class="fas fa-id-badge"></i>
+
+                                    <input
+                                        type="text"
+                                        id="jabatan"
+                                        name="jabatan"
+                                        value="{{ old('jabatan', $petugas->jabatan) }}"
+                                        placeholder="Masukkan jabatan"
+                                    >
+
+                                </div>
+
+                                @error('jabatan')
+
+                                    <small class="error-text">
+                                        {{ $message }}
+                                    </small>
+
+                                @enderror
+
+                            </div>
+
+                        @endif
+
+
+                        {{-- Nomor Telepon --}}
+                        @if(isset($petugas->nomor_telepon))
+
+                            <div class="form-group">
+
+                                <label for="nomor_telepon">
+                                    Nomor Telepon
+                                </label>
+
+                                <div class="input-box">
+
+                                    <i class="fas fa-phone"></i>
+
+                                    <input
+                                        type="text"
+                                        id="nomor_telepon"
+                                        name="nomor_telepon"
+                                        value="{{ old('nomor_telepon', $petugas->nomor_telepon) }}"
+                                        placeholder="Masukkan nomor telepon"
+                                        autocomplete="tel"
+                                    >
+
+                                </div>
+
+                                @error('nomor_telepon')
+
+                                    <small class="error-text">
+                                        {{ $message }}
+                                    </small>
+
+                                @enderror
+
+                            </div>
+
+                        @endif
+
+                    </div>
+
+                @else
+
+                    {{-- Jika data petugas tidak ditemukan --}}
+                    <div class="empty-profile">
+
+                        <div class="empty-icon">
+                            <i class="fas fa-user-slash"></i>
+                        </div>
+
+                        <h3>
+                            Data profil tidak ditemukan
+                        </h3>
+
+                        <p>
+                            Data profil petugas belum tersedia.
+                        </p>
+
                     </div>
 
                 @endif
+
 
                 {{-- Tombol --}}
                 <div class="form-footer">
@@ -256,13 +255,30 @@
                         class="cancel-button"
                     >
                         <i class="fas fa-arrow-left"></i>
-                        Kembali
+
+                        <span>
+                            Kembali
+                        </span>
+
                     </a>
 
-                    <button type="submit" class="save-button">
-                        <i class="fas fa-check"></i>
-                        Simpan Perubahan
-                    </button>
+
+                    @if(isset($petugas))
+
+                        <button
+                            type="submit"
+                            class="save-button"
+                        >
+
+                            <i class="fas fa-check"></i>
+
+                            <span>
+                                Simpan Perubahan
+                            </span>
+
+                        </button>
+
+                    @endif
 
                 </div>
 
