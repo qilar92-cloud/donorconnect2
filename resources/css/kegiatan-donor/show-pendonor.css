@@ -1,116 +1,55 @@
-/* Halaman */
-
 .detail-page {
-    width: 100%;
-    min-height: calc(100vh - 80px);
-
-    padding: 28px 30px 40px;
-
-    background: #fff8f3;
+    min-height: 100vh;
+    padding: 18px 28px 45px;
+    background: #fff9f7;
 }
-
-
-/* Heading */
-
-.detail-heading {
-    margin-bottom: 22px;
-}
-
-.heading-label {
-    display: flex;
-    align-items: center;
-
-    gap: 7px;
-
-    margin-bottom: 7px;
-
-    color: #b0143b;
-
-    font-size: 9px;
-    font-weight: 900;
-
-    letter-spacing: 2px;
-}
-
-.heading-label span {
-    width: 22px;
-    height: 3px;
-
-    background: linear-gradient(
-        90deg,
-        #a80e2c,
-        #d94b91
-    );
-
-    border-radius: 5px;
-}
-
-.detail-heading h1 {
-    margin: 0 0 5px;
-
-    color: #283252;
-
-    font-size: 30px;
-    font-weight: 900;
-
-    letter-spacing: -0.5px;
-}
-
-.detail-heading p {
-    margin: 0;
-
-    color: #918d96;
-
-    font-size: 12px;
-}
-
-
-/* Alert */
 
 .alert {
-    margin-bottom: 18px;
+    max-width: 1120px;
 
-    border-radius: 10px;
+    margin: 0 auto 15px;
 
-    font-size: 11px;
+    border-radius: 11px;
+
+    font-size: 10px;
 }
 
-
-/* Card */
-
 .detail-card {
-    width: 100%;
+    max-width: 1120px;
+
+    margin: 0 auto;
 
     overflow: hidden;
 
-    background: #ffffff;
+    border: 1px solid #eee0e3;
+    border-radius: 21px;
 
-    border: 1px solid #f0dfe4;
-    border-radius: 18px;
+    background: #fff;
 
-    box-shadow: 0 7px 25px rgba(168, 14, 44, 0.06);
+    box-shadow:
+        0 9px 25px rgba(80, 45, 53, .055);
 }
-
-
-/* Card Header */
 
 .detail-card-header {
     position: relative;
+    overflow: hidden;
+
+    min-height: 125px;
+
+    padding: 24px 28px;
 
     display: flex;
     align-items: center;
 
     gap: 15px;
 
-    padding: 25px 28px;
-
     background: linear-gradient(
         135deg,
-        #fff,
-        #fff7f9
+        #e93658,
+        #cf2f50
     );
 
-    border-bottom: 1px solid #f3e2e6;
+    color: #fff;
 }
 
 .detail-card-header::before {
@@ -118,25 +57,39 @@
 
     position: absolute;
 
-    top: 0;
-    bottom: 0;
-    left: 0;
+    width: 180px;
+    height: 180px;
 
-    width: 4px;
+    right: 60px;
+    top: -120px;
 
-    background: linear-gradient(
-        180deg,
-        #a80e2c,
-        #d94b91
-    );
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, .08);
 }
 
+.detail-card-header::after {
+    content: "";
 
-/* Header Icon */
+    position: absolute;
+
+    width: 90px;
+    height: 90px;
+
+    right: -25px;
+    bottom: -55px;
+
+    border: 1px solid rgba(255, 255, 255, .10);
+
+    border-radius: 50%;
+}
 
 .header-icon {
-    width: 50px;
-    height: 50px;
+    position: relative;
+    z-index: 2;
+
+    width: 55px;
+    height: 55px;
 
     flex-shrink: 0;
 
@@ -144,56 +97,54 @@
     align-items: center;
     justify-content: center;
 
-    background: linear-gradient(
-        145deg,
-        #fce6ed,
-        #f9d9e5
-    );
+    border-radius: 15px;
 
-    color: #b0143b;
+    background: rgba(255, 255, 255, .15);
+    border: 1px solid rgba(255, 255, 255, .15);
 
-    border-radius: 14px;
+    font-size: 20px;
+}
 
-    font-size: 18px;
+.detail-card-header > div:last-child {
+    position: relative;
+    z-index: 2;
+
+    min-width: 0;
 }
 
 .detail-card-header h2 {
     margin: 0 0 4px;
 
-    color: #283252;
+    color: #fff;
 
-    font-size: 18px;
-    font-weight: 850;
+    font-size: 20px;
+    line-height: 1.3;
+
+    font-weight: 800;
 }
 
 .detail-card-header span {
-    color: #9b969d;
+    color: rgba(255, 255, 255, .78);
 
-    font-size: 10px;
+    font-size: 8px;
 }
 
-
-/* Detail Body */
-
 .detail-card-body {
-    padding: 8px 28px;
+    padding: 6px 26px;
 }
 
 .detail-row {
-    min-height: 63px;
+    min-height: 62px;
 
     display: flex;
     align-items: center;
 
-    border-bottom: 1px solid #f5edef;
+    border-bottom: 1px solid #f1e6e8;
 }
 
 .detail-row:last-child {
-    border-bottom: none;
+    border-bottom: 0;
 }
-
-
-/* Label */
 
 .detail-label {
     width: 35%;
@@ -201,38 +152,43 @@
     display: flex;
     align-items: center;
 
-    gap: 10px;
+    gap: 9px;
 
-    color: #77717a;
+    color: #88797e;
 
-    font-size: 11px;
+    font-size: 9px;
     font-weight: 800;
 }
 
 .detail-label i {
-    width: 20px;
+    width: 28px;
+    height: 28px;
 
-    color: #c62b58;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    text-align: center;
+    border-radius: 9px;
 
-    font-size: 12px;
+    background: #fde8ee;
+
+    color: #e93658;
+
+    font-size: 10px;
 }
-
-
-/* Value */
 
 .detail-value {
     width: 65%;
 
-    color: #34394f;
+    color: #45363c;
 
-    font-size: 11px;
-    font-weight: 600;
+    font-size: 10px;
+    line-height: 1.5;
+
+    font-weight: 700;
+
+    overflow-wrap: anywhere;
 }
-
-
-/* Status */
 
 .status-badge {
     display: inline-flex;
@@ -240,14 +196,15 @@
 
     gap: 6px;
 
-    padding: 6px 11px;
-
-    background: #eaf8f1;
-    color: #24866d;
+    padding: 6px 10px;
 
     border-radius: 20px;
 
-    font-size: 9px;
+    background: #eaf8f1;
+
+    color: #25866c;
+
+    font-size: 8px;
     font-weight: 800;
 }
 
@@ -255,39 +212,55 @@
     width: 6px;
     height: 6px;
 
-    background: #2bb58c;
-
     border-radius: 50%;
+
+    background: #2eaa86;
 }
 
-
-/* Register */
-
 .register-section {
-    margin: 10px 28px 22px;
-    padding: 20px 21px;
+    position: relative;
+    overflow: hidden;
+
+    margin: 11px 26px 22px;
+    padding: 18px 19px;
 
     display: flex;
     align-items: center;
 
-    gap: 15px;
+    gap: 13px;
+
+    border: 1px solid #efd1d9;
+    border-radius: 15px;
 
     background: linear-gradient(
         135deg,
-        #fff5f7,
-        #fff0f5
+        #fff0f3,
+        #fff8f9
     );
-
-    border: 1px solid #f2d9e1;
-    border-radius: 14px;
 }
 
+.register-section::after {
+    content: "";
 
-/* Register Icon */
+    position: absolute;
+
+    width: 90px;
+    height: 90px;
+
+    right: -35px;
+    bottom: -45px;
+
+    border-radius: 50%;
+
+    background: rgba(233, 54, 88, .05);
+}
 
 .register-icon {
-    width: 43px;
-    height: 43px;
+    position: relative;
+    z-index: 2;
+
+    width: 46px;
+    height: 46px;
 
     flex-shrink: 0;
 
@@ -295,223 +268,313 @@
     align-items: center;
     justify-content: center;
 
+    border-radius: 13px;
+
     background: linear-gradient(
         145deg,
-        #a80e2c,
-        #d94b91
+        #e93658,
+        #cf2f50
     );
 
     color: #fff;
 
-    border-radius: 12px;
+    font-size: 15px;
 
-    font-size: 14px;
-
-    box-shadow: 0 6px 14px rgba(168, 14, 44, 0.15);
+    box-shadow:
+        0 7px 15px rgba(233, 54, 88, .18);
 }
 
-
-/* Register Content */
-
 .register-content {
+    position: relative;
+    z-index: 2;
+
     flex: 1;
+    min-width: 0;
 }
 
 .register-content h3 {
     margin: 0 0 4px;
 
-    color: #303752;
+    color: #44343a;
 
     font-size: 13px;
-    font-weight: 850;
+    line-height: 1.3;
+
+    font-weight: 800;
 }
 
 .register-content p {
-    margin: 0 0 11px;
+    margin: 0 0 10px;
 
-    color: #908b93;
+    color: #95868b;
 
-    font-size: 9px;
+    font-size: 8px;
 }
-
-
-/* Register Button */
 
 .register-button {
     display: inline-flex;
     align-items: center;
 
-    gap: 7px;
+    gap: 6px;
 
-    padding: 9px 14px;
+    min-height: 36px;
 
-    background: linear-gradient(
-        135deg,
-        #a80e2c,
-        #d94b91
-    );
-
-    color: #fff !important;
+    padding: 0 12px;
 
     border-radius: 9px;
 
-    font-size: 9px;
+    background: #e93658;
+
+    color: #fff !important;
+
+    font-size: 8px;
     font-weight: 800;
 
     text-decoration: none !important;
 
-    box-shadow: 0 6px 14px rgba(168, 14, 44, 0.15);
+    box-shadow:
+        0 5px 12px rgba(233, 54, 88, .18);
 
-    transition: 0.2s ease;
+    transition: .2s ease;
 }
 
 .register-button:hover {
-    transform: translateY(-2px);
+    background: #c92f50;
 
-    box-shadow: 0 9px 18px rgba(168, 14, 44, 0.2);
+    color: #fff !important;
+
+    transform: translateY(-1px);
 }
 
 .register-button i:last-child {
     font-size: 7px;
 }
 
-
-/* Footer */
-
 .detail-card-footer {
-    padding: 16px 28px;
+    padding: 14px 26px;
+
+    border-top: 1px solid #f0e5e7;
 
     background: #fffafa;
-
-    border-top: 1px solid #f3e3e6;
 }
-
-
-/* Back */
 
 .back-button {
     display: inline-flex;
     align-items: center;
 
-    gap: 7px;
+    gap: 6px;
 
-    padding: 9px 14px;
+    min-height: 34px;
 
-    background: #fff;
-    color: #77717a !important;
+    padding: 0 11px;
 
-    border: 1px solid #e5dfe1;
+    border: 1px solid #e5dadd;
     border-radius: 9px;
 
-    font-size: 9px;
+    background: #fff;
+
+    color: #786a70 !important;
+
+    font-size: 8px;
     font-weight: 800;
 
     text-decoration: none !important;
 
-    transition: 0.2s ease;
+    transition: .2s ease;
 }
 
 .back-button:hover {
-    color: #b0143b !important;
+    border-color: #dfb4bf;
 
-    border-color: #dfbdc8;
+    background: #fff4f6;
 
-    background: #fff6f8;
+    color: #d93457 !important;
 }
 
-
-/* Responsive */
-
-@media (max-width: 768px) {
+@media (max-width: 900px) {
 
     .detail-page {
-        padding: 22px 17px 30px;
-    }
-
-    .detail-heading h1 {
-        font-size: 25px;
-    }
-
-    .detail-heading p {
-        font-size: 11px;
-    }
-
-    .detail-card-header {
-        padding: 22px;
+        padding: 20px;
     }
 
     .detail-card-body {
-        padding: 5px 22px;
-    }
-
-    .detail-row {
-        display: block;
-
-        padding: 14px 0;
-    }
-
-    .detail-label,
-    .detail-value {
-        width: 100%;
-    }
-
-    .detail-label {
-        margin-bottom: 7px;
+        padding-left: 22px;
+        padding-right: 22px;
     }
 
     .register-section {
-        margin: 10px 22px 20px;
+        margin-left: 22px;
+        margin-right: 22px;
     }
 
     .detail-card-footer {
-        padding: 15px 22px;
+        padding-left: 22px;
+        padding-right: 22px;
     }
 }
 
-
-@media (max-width: 480px) {
+@media (max-width: 700px) {
 
     .detail-page {
-        padding: 18px 12px 25px;
+        padding: 14px 10px 30px;
     }
 
-    .heading-label {
-        font-size: 8px;
-    }
-
-    .detail-heading h1 {
-        font-size: 22px;
+    .detail-card {
+        border-radius: 17px;
     }
 
     .detail-card-header {
-        padding: 19px;
+        min-height: 115px;
+
+        padding: 20px 17px;
+
+        gap: 11px;
+    }
+
+    .header-icon {
+        width: 44px;
+        height: 44px;
+
+        border-radius: 12px;
+
+        font-size: 16px;
     }
 
     .detail-card-header h2 {
-        font-size: 15px;
+        font-size: 16px;
+    }
+
+    .detail-card-header span {
+        font-size: 7px;
     }
 
     .detail-card-body {
-        padding: 4px 19px;
+        padding: 4px 17px;
+    }
+
+    .detail-row {
+        min-height: auto;
+
+        padding: 12px 0;
+
+        display: block;
+    }
+
+    .detail-label {
+        width: 100%;
+
+        margin-bottom: 6px;
+
+        font-size: 8px;
+    }
+
+    .detail-label i {
+        width: 25px;
+        height: 25px;
+
+        border-radius: 8px;
+
+        font-size: 9px;
+    }
+
+    .detail-value {
+        width: 100%;
+
+        padding-left: 34px;
+
+        font-size: 9px;
+    }
+
+    .status-badge {
+        padding: 5px 9px;
+
+        font-size: 7px;
     }
 
     .register-section {
-        margin: 10px 19px 18px;
+        margin: 10px 17px 17px;
 
-        align-items: flex-start;
+        padding: 15px;
+
+        gap: 10px;
+
+        border-radius: 14px;
     }
 
-    .register-content {
-        min-width: 0;
+    .register-icon {
+        width: 40px;
+        height: 40px;
+
+        border-radius: 11px;
+
+        font-size: 13px;
+    }
+
+    .register-content h3 {
+        font-size: 11px;
+    }
+
+    .register-content p {
+        font-size: 7px;
+
+        line-height: 1.45;
     }
 
     .register-button {
         width: 100%;
 
         justify-content: center;
+
+        min-height: 35px;
+
+        font-size: 7.5px;
     }
 
     .detail-card-footer {
-        padding: 14px 19px;
+        padding: 12px 17px;
+    }
+
+    .back-button {
+        min-height: 33px;
+
+        font-size: 7.5px;
+    }
+}
+
+@media (max-width: 390px) {
+
+    .detail-page {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .detail-card-header {
+        padding: 18px 14px;
+    }
+
+    .header-icon {
+        width: 40px;
+        height: 40px;
+
+        min-width: 40px;
+    }
+
+    .detail-card-header h2 {
+        font-size: 14px;
+    }
+
+    .detail-card-body {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .register-section {
+        margin-left: 14px;
+        margin-right: 14px;
+    }
+
+    .detail-card-footer {
+        padding-left: 14px;
+        padding-right: 14px;
     }
 }
