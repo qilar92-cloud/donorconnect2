@@ -20,8 +20,9 @@
 
     background: linear-gradient(
         135deg,
-        #e93658,
-        #cf2f50
+        #b91f4f 0%,
+        #d62f61 45%,
+        #ef6687 100%
     );
 
     color: #fff;
@@ -130,8 +131,9 @@
 
     background: linear-gradient(
         145deg,
-        #e93658,
-        #cf2f50
+       #b91f4f 0%,
+       #d62f61 45%,
+       #ef6687 100%
     );
 
     clip-path: polygon(
@@ -517,8 +519,9 @@
 
     background: linear-gradient(
         90deg,
-        #e93658,
-        #ed6a84
+      #b91f4f 0%,
+      #d62f61 45%,
+      #ef6687 100%
     );
 }
 
@@ -548,8 +551,9 @@
 
     background: linear-gradient(
         180deg,
-        #e93658,
-        #c92f50
+        #b91f4f 0%,
+        #d62f61 45%,
+        #ef6687 100%
     );
 
     color: #fff;
@@ -679,7 +683,7 @@
 }
 
 .event-details i {
-    color: #d93457;
+    color: #d62f61;
 
     font-size: 8px;
 }
@@ -731,7 +735,7 @@
 }
 
 .event-purpose i {
-    color: #d93457;
+    color: #d62f61;
 }
 
 .detail-button {

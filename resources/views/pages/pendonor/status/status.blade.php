@@ -10,19 +10,53 @@
 
 <div class="status-page">
 
+    {{-- Notifikasi --}}
+    @if(session('success'))
+        <div class="status-toast success-toast" id="statusToast">
+            <div class="toast-icon">
+                <i class="fas fa-check"></i>
+            </div>
+
+            <div class="toast-content">
+                <strong>Berhasil!</strong>
+                <span>{{ session('success') }}</span>
+            </div>
+
+            <button type="button" class="toast-close" onclick="closeToast()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="status-toast error-toast" id="statusToast">
+            <div class="toast-icon">
+                <i class="fas fa-exclamation"></i>
+            </div>
+
+            <div class="toast-content">
+                <strong>Perhatian</strong>
+                <span>{{ session('error') }}</span>
+            </div>
+
+            <button type="button" class="toast-close" onclick="closeToast()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    @endif
+
+
     {{-- Header --}}
     <div class="status-hero">
 
         <div class="hero-content">
 
             <div class="hero-label">
-                <span class="hero-line"></span>
+                <span></span>
                 PENDAFTARAN DONOR
             </div>
 
-            <h1>
-                Status Pendaftaran
-            </h1>
+            <h1>Status Pendaftaran</h1>
 
             <p>
                 Pantau kegiatan donor yang sudah kamu daftarkan.
@@ -30,130 +64,54 @@
 
         </div>
 
+        <div class="hero-decoration">
+            <div class="hero-circle circle-one"></div>
+            <div class="hero-circle circle-two"></div>
 
-        <div class="hero-visual">
-
-            <div class="hero-circle hero-circle-one"></div>
-            <div class="hero-circle hero-circle-two"></div>
-
-            <div class="hero-drop">
+            <div class="hero-heart">
                 <i class="fas fa-heart"></i>
             </div>
+        </div>
 
-            <div class="hero-stat">
-
-                <div class="hero-stat-icon">
-                    <i class="fas fa-clipboard-check"></i>
-                </div>
-
-                <div class="hero-stat-text">
-
-                    <span>Total</span>
-
-                    <strong>
-                        {{ $pendaftaran->count() }}
-                    </strong>
-
-                    <small>
-                        Pendaftaran
-                    </small>
-
-                </div>
-
+        <div class="hero-total">
+            <div class="total-icon">
+                <i class="fas fa-clipboard-check"></i>
             </div>
 
+            <div>
+                <span>TOTAL</span>
+                <strong>{{ $pendaftaran->count() }}</strong>
+                <small>Pendaftaran</small>
+            </div>
         </div>
 
     </div>
 
 
-    {{-- Pesan --}}
-    @if(session('success'))
-
-        <div class="status-alert success-alert">
-
-            <div class="alert-icon">
-                <i class="fas fa-check"></i>
-            </div>
-
-            <div>
-                <strong>Berhasil</strong>
-                <span>{{ session('success') }}</span>
-            </div>
-
-        </div>
-
-    @endif
-
-
-    @if(session('error'))
-
-        <div class="status-alert error-alert">
-
-            <div class="alert-icon">
-                <i class="fas fa-exclamation"></i>
-            </div>
-
-            <div>
-                <strong>Perhatian</strong>
-                <span>{{ session('error') }}</span>
-            </div>
-
-        </div>
-
-    @endif
-
-
     @if($pendaftaran->isEmpty())
 
-        {{-- Empty --}}
+        {{-- Kosong --}}
         <div class="empty-card">
 
-            <div class="empty-visual">
-
-                <div class="empty-ring">
-
-                    <div class="empty-icon">
-                        <i class="fas fa-clipboard-list"></i>
-                    </div>
-
-                </div>
-
-                <span class="empty-dot dot-one"></span>
-                <span class="empty-dot dot-two"></span>
-                <span class="empty-dot dot-three"></span>
-
+            <div class="empty-icon">
+                <i class="fas fa-clipboard-list"></i>
             </div>
-
 
             <div class="empty-content">
 
-                <span class="empty-small-title">
-                    BELUM ADA DATA
-                </span>
+                <span>BELUM ADA DATA</span>
 
-                <h2>
-                    Belum Ada Pendaftaran
-                </h2>
+                <h2>Belum Ada Pendaftaran</h2>
 
                 <p>
                     Kamu belum mendaftar pada kegiatan donor mana pun.
-                    Yuk, cari kegiatan donor yang tersedia dan pilih kegiatan
-                    yang ingin kamu ikuti.
+                    Yuk, lihat kegiatan donor yang tersedia.
                 </p>
 
-                <a
-                    href="{{ route('pendonor.kegiatan') }}"
-                    class="btn-kegiatan"
-                >
-
-                    <span>
-                        <i class="fas fa-calendar-alt"></i>
-                        Lihat Kegiatan Donor
-                    </span>
-
+                <a href="{{ route('pendonor.kegiatan') }}" class="btn-kegiatan">
+                    <i class="fas fa-calendar-alt"></i>
+                    Lihat Kegiatan Donor
                     <i class="fas fa-arrow-right"></i>
-
                 </a>
 
             </div>
@@ -162,156 +120,187 @@
 
     @else
 
-        {{-- Daftar Pendaftaran --}}
-        <div class="status-card">
+        {{-- Tabel --}}
+        <div class="registration-box">
 
-            <div class="card-header">
+            <div class="table-heading">
 
-                <div class="card-header-content">
-
-                    <span class="card-label">
+                <div>
+                    <span class="heading-label">
                         AKTIVITAS DONOR
                     </span>
 
-                    <h2>
-                        Daftar Pendaftaran
-                    </h2>
+                    <h2>Daftar Pendaftaran</h2>
 
                     <p>
                         Kegiatan donor yang sudah kamu daftarkan.
                     </p>
-
                 </div>
 
-                <div class="total-badge">
-
-                    <div class="badge-icon">
-                        <i class="fas fa-clipboard-check"></i>
-                    </div>
-
-                    <div>
-
-                        <strong>
-                            {{ $pendaftaran->count() }}
-                        </strong>
-
-                        <span>
-                            Pendaftaran
-                        </span>
-
-                    </div>
-
+                <div class="heading-decoration">
+                    <span></span>
+                    <i class="fas fa-tint"></i>
+                    <span></span>
                 </div>
 
             </div>
 
 
-            <div class="status-list">
+            <div class="table-wrap">
 
-                @foreach($pendaftaran as $item)
+                <table class="registration-table">
 
-                    <div class="status-item">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Kegiatan Donor</th>
+                            <th>Tanggal</th>
+                            <th>Waktu</th>
+                            <th>Lokasi</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
 
-                        <div class="activity-icon">
+                    <tbody>
 
-                            <div class="drop-shape">
-                                <i class="fas fa-tint"></i>
-                            </div>
+                        @foreach($pendaftaran as $index => $item)
 
-                        </div>
+                            @php
+                                $status = strtolower(
+                                    $item->status_pendaftaran ?? 'terdaftar'
+                                );
+                            @endphp
 
+                            <tr>
 
-                        <div class="activity-info">
-
-                            <h3>
-                                {{ $item->kegiatanDonor->nama_kegiatan ?? 'Kegiatan Donor' }}
-                            </h3>
-
-                            @if($item->kegiatanDonor)
-
-                                <div class="activity-detail">
-
+                                <td class="number-cell">
                                     <span>
-                                        <i class="fas fa-calendar-alt"></i>
-
-                                        {{ \Carbon\Carbon::parse($item->kegiatanDonor->tanggal)->format('d M Y') }}
+                                        {{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}
                                     </span>
-
-                                    <span>
-                                        <i class="fas fa-clock"></i>
-
-                                        {{ $item->kegiatanDonor->waktu ?? '-' }}
-                                    </span>
-
-                                    <span>
-                                        <i class="fas fa-map-marker-alt"></i>
-
-                                        {{ $item->kegiatanDonor->lokasi ?? '-' }}
-                                    </span>
-
-                                </div>
-
-                            @endif
-
-                        </div>
+                                </td>
 
 
-                        @php
+                                <td class="activity-cell">
 
-                            $status = strtolower(
-                                $item->status_pendaftaran ?? 'terdaftar'
-                            );
+                                    <div class="activity-icon">
+                                        <i class="fas fa-tint"></i>
+                                    </div>
 
-                        @endphp
+                                    <div class="activity-name">
+                                        <strong>
+                                            {{ $item->kegiatanDonor->nama_kegiatan ?? 'Kegiatan Donor' }}
+                                        </strong>
+
+                                        <small>
+                                            Pendaftaran donor
+                                        </small>
+                                    </div>
+
+                                </td>
 
 
-                        <div class="status-area">
+                                <td data-label="Tanggal">
 
-                            @if($status === 'terdaftar')
+                                    @if($item->kegiatanDonor)
+                                        <span class="table-info">
+                                            <i class="far fa-calendar-alt"></i>
+                                            {{ \Carbon\Carbon::parse($item->kegiatanDonor->tanggal)->format('d M Y') }}
+                                        </span>
+                                    @else
+                                        -
+                                    @endif
 
-                                <span class="status-badge registered">
-                                    <span class="status-dot"></span>
-                                    Terdaftar
-                                </span>
+                                </td>
 
-                            @elseif($status === 'diterima')
 
-                                <span class="status-badge accepted">
-                                    <span class="status-dot"></span>
-                                    Diterima
-                                </span>
+                                <td data-label="Waktu">
 
-                            @elseif($status === 'ditolak')
+                                    @if($item->kegiatanDonor)
+                                        <span class="table-info">
+                                            <i class="far fa-clock"></i>
+                                            {{ $item->kegiatanDonor->waktu ?? '-' }}
+                                        </span>
+                                    @else
+                                        -
+                                    @endif
 
-                                <span class="status-badge rejected">
-                                    <span class="status-dot"></span>
-                                    Ditolak
-                                </span>
+                                </td>
 
-                            @elseif($status === 'selesai')
 
-                                <span class="status-badge completed">
-                                    <span class="status-dot"></span>
-                                    Selesai
-                                </span>
+                                <td data-label="Lokasi">
 
-                            @else
+                                    @if($item->kegiatanDonor)
+                                        <span class="table-info location-info">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                            {{ $item->kegiatanDonor->lokasi ?? '-' }}
+                                        </span>
+                                    @else
+                                        -
+                                    @endif
 
-                                <span class="status-badge pending">
-                                    <span class="status-dot"></span>
+                                </td>
 
-                                    {{ ucfirst($item->status_pendaftaran ?? 'Terdaftar') }}
 
-                                </span>
+                                <td data-label="Status">
 
-                            @endif
+                                    @if($status === 'terdaftar')
 
-                        </div>
+                                        <span class="status-badge registered">
+                                            <i class="fas fa-check"></i>
+                                            Terdaftar
+                                        </span>
 
-                    </div>
+                                    @elseif($status === 'diterima')
 
-                @endforeach
+                                        <span class="status-badge accepted">
+                                            <i class="fas fa-check-double"></i>
+                                            Diterima
+                                        </span>
 
+                                    @elseif($status === 'ditolak')
+
+                                        <span class="status-badge rejected">
+                                            <i class="fas fa-times"></i>
+                                            Ditolak
+                                        </span>
+
+                                    @elseif($status === 'selesai')
+
+                                        <span class="status-badge completed">
+                                            <i class="fas fa-heart"></i>
+                                            Selesai
+                                        </span>
+
+                                    @else
+
+                                        <span class="status-badge pending">
+                                            <i class="fas fa-clock"></i>
+                                            {{ ucfirst($item->status_pendaftaran ?? 'Terdaftar') }}
+                                        </span>
+
+                                    @endif
+
+                                </td>
+
+                            </tr>
+
+                        @endforeach
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <div class="table-footer">
+                <span>
+                    <i class="fas fa-heart"></i>
+                    DonorConnect
+                </span>
+
+                <span>
+                    {{ $pendaftaran->count() }} kegiatan terdaftar
+                </span>
             </div>
 
         </div>
@@ -319,5 +308,32 @@
     @endif
 
 </div>
+
+
+<script>
+    function closeToast() {
+        const toast = document.getElementById('statusToast');
+
+        if (!toast) return;
+
+        toast.classList.add('hide');
+
+        setTimeout(function () {
+            toast.remove();
+        }, 300);
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const toast = document.getElementById('statusToast');
+
+        if (toast) {
+            setTimeout(function () {
+                closeToast();
+            }, 4000);
+        }
+
+    });
+</script>
 
 @endsection

@@ -45,8 +45,9 @@
 
     background: linear-gradient(
         135deg,
-        #e93658,
-        #cf2f50
+         #b91f4f 0%,
+            #d62f61 45%,
+            #ef6687 100%
     );
 
     color: #fff;
@@ -272,8 +273,9 @@
 
     background: linear-gradient(
         145deg,
-        #e93658,
-        #cf2f50
+        #b91f4f 0%,
+        #d62f61 45%,
+        #ef6687 100%
     );
 
     color: #fff;
@@ -339,7 +341,7 @@
 }
 
 .register-button:hover {
-    background: #c92f50;
+    background: #8e3447;
 
     color: #fff !important;
 
