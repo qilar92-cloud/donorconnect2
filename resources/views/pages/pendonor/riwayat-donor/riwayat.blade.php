@@ -6,78 +6,67 @@
     @vite('resources/css/pendonor/riwayat-donor.css')
 @endpush
 
-<div class="container-fluid donor-page">
+<div class="donor-history-page">
 
-    <!-- Header -->
-    <div class="donor-header">
+    {{-- Header --}}
+    <div class="history-header">
 
-        <div class="header-content">
+        <div class="history-header-content">
 
-            <div class="donor-small-title">
+            <span class="history-eyebrow">
                 DONORCONNECT
-            </div>
+            </span>
 
-            <h1>Riwayat Donor Saya</h1>
+            <h1>
+                Riwayat Donor
+            </h1>
 
             <p>
-                Lihat riwayat kegiatan donor yang telah kamu ikuti.
+                Catatan donor kamu, dari satu kebaikan
+                ke kebaikan berikutnya.
             </p>
 
         </div>
 
-        <div class="donor-header-decoration">
-
-            <div class="decoration-circle circle-one"></div>
-            <div class="decoration-circle circle-two"></div>
-
-            <div class="header-icon">
-                <i class="fas fa-history"></i>
-            </div>
-
+        <div class="history-header-icon">
+            <i class="fas fa-heart"></i>
         </div>
 
     </div>
 
 
-    <!-- Statistik -->
-    <div class="donor-stat-row">
+    {{-- Statistik --}}
+    <div class="history-stats">
 
-        <div class="donor-stat-card">
+        <div class="history-stat">
 
-            <div class="stat-icon donor-stat-icon">
+            <div class="history-stat-icon donor">
                 <i class="fas fa-heartbeat"></i>
             </div>
 
-            <div class="stat-content">
-
-                <span class="stat-label">
-                    Total Donor
-                </span>
+            <div class="history-stat-content">
+                <span>Total Donor</span>
 
                 <strong>
                     {{ $riwayat->count() }}
                 </strong>
 
                 <small>
-                    Kali donor
+                    Kali berdonor
                 </small>
-
             </div>
 
         </div>
 
 
-        <div class="donor-stat-card">
+        <div class="history-stat">
 
-            <div class="stat-icon blood-stat-icon">
+            <div class="history-stat-icon blood">
                 <i class="fas fa-tint"></i>
             </div>
 
-            <div class="stat-content">
-
-                <span class="stat-label">
-                    Total Kantong
-                </span>
+            <div class="history-stat-content">
+                <span>Total Kantong</span>
 
                 <strong>
                     {{ $riwayat->sum(function ($item) {
@@ -86,9 +75,8 @@
                 </strong>
 
                 <small>
-                    Kantong darah
+                    Kantong darah terkumpul
                 </small>
-
             </div>
 
         </div>
@@ -96,22 +84,28 @@
     </div>
 
 
-    <!-- Card Riwayat -->
-    <div class="donor-card">
+    {{-- Riwayat --}}
+    <div class="history-card">
 
-        <div class="card-title-area">
+        <div class="history-card-header">
 
-            <div class="title-icon">
-                <i class="fas fa-history"></i>
-            </div>
+            <div class="history-card-title">
 
-            <div>
+                <div class="title-icon">
+                    <i class="fas fa-history"></i>
+                </div>
 
-                <h3>Riwayat Donor</h3>
+                <div>
+                    <span>PERJALANAN DONORMU</span>
 
-                <p>
-                    Daftar kegiatan donor yang telah kamu lakukan
-                </p>
+                    <h2>
+                        Riwayat Donormu
+                    </h2>
+
+                    <p>
+                        Setiap donor adalah bentuk kepedulian yang berarti.
+                    </p>
+                </div>
 
             </div>
 
@@ -120,141 +114,155 @@
 
         @if($riwayat->count() > 0)
 
-        <div class="history-list">
+            <div class="history-timeline">
 
-            @foreach($riwayat as $item)
+                @foreach($riwayat as $item)
 
-                <div class="history-item">
+                    <div class="timeline-item">
 
-                    <!-- Nomor -->
-                    <div class="history-number">
-                        {{ $loop->iteration }}
-                    </div>
+                        {{-- Timeline --}}
+                        <div class="timeline-side">
 
+                            <div class="timeline-dot">
+                                <i class="fas fa-tint"></i>
+                            </div>
 
-                    <!-- Icon -->
-                    <div class="activity-icon">
-
-                        <i class="fas fa-tint"></i>
-
-                    </div>
-
-
-                    <!-- Informasi -->
-                    <div class="history-main">
-
-                        <div class="history-title">
-
-                            <h4>
-                                {{ $item->hasilDonor->kegiatanDonor->nama_kegiatan ?? '-' }}
-                            </h4>
+                            @if(!$loop->last)
+                                <div class="timeline-line"></div>
+                            @endif
 
                         </div>
 
 
-                        <div class="history-info">
+                        {{-- Isi --}}
+                        <div class="history-item">
 
-                            <span>
-                                <i class="fas fa-calendar-alt"></i>
+                            <div class="history-item-top">
 
-                                {{ $item->hasilDonor->tanggal_donor
-                                    ? $item->hasilDonor->tanggal_donor->format('d M Y')
-                                    : '-' }}
-                            </span>
+                                <div class="history-item-date">
+
+                                    <span>
+                                        {{ $item->hasilDonor->tanggal_donor
+                                            ? $item->hasilDonor->tanggal_donor->format('d')
+                                            : '-' }}
+                                    </span>
+
+                                    <small>
+                                        {{ $item->hasilDonor->tanggal_donor
+                                            ? $item->hasilDonor->tanggal_donor->format('M Y')
+                                            : '-' }}
+                                    </small>
+
+                                </div>
 
 
-                            <span>
-                                <i class="fas fa-map-marker-alt"></i>
+                                <div class="history-item-main">
 
-                                {{ $item->hasilDonor->kegiatanDonor->lokasi ?? '-' }}
-                            </span>
+                                    <span class="history-label">
+                                        KEGIATAN DONOR
+                                    </span>
+
+                                    <h3>
+                                        {{ $item->hasilDonor->kegiatanDonor->nama_kegiatan ?? 'Kegiatan Donor' }}
+                                    </h3>
+
+                                    <div class="history-location">
+
+                                        <span>
+                                            <i class="fas fa-map-marker-alt"></i>
+
+                                            {{ $item->hasilDonor->kegiatanDonor->lokasi ?? 'Lokasi tidak tersedia' }}
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="history-result">
+
+                                    <span>
+                                        Jumlah Donor
+                                    </span>
+
+                                    <strong>
+                                        <i class="fas fa-tint"></i>
+
+                                        {{ $item->hasilDonor->jumlah_kantong ?? 0 }}
+
+                                        <small>
+                                            kantong
+                                        </small>
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="history-item-bottom">
+
+                                <span class="completed-badge">
+                                    <i class="fas fa-check-circle"></i>
+                                    Donor selesai
+                                </span>
+
+                                @if(!empty($item->hasilDonor->keterangan))
+                                    <span class="health-note">
+                                        <i class="fas fa-heart"></i>
+                                        {{ $item->hasilDonor->keterangan }}
+                                    </span>
+                                @endif
+
+                            </div>
 
                         </div>
 
                     </div>
 
-
-                    <!-- Jumlah -->
-                    <div class="history-amount">
-
-                        <span class="amount-label">
-                            Jumlah Donor
-                        </span>
-
-                        <span class="blood-bag">
-
-                            <i class="fas fa-tint"></i>
-
-                            {{ $item->hasilDonor->jumlah_kantong ?? 0 }}
-
-                            <small>kantong</small>
-
-                        </span>
-
-                    </div>
-
-
-                    <!-- Status -->
-                    <div class="history-status">
-
-                        <span class="status-sehat">
-
-                            <i class="fas fa-check-circle"></i>
-
-                            {{ $item->hasilDonor->keterangan ?? 'Sehat' }}
-
-                        </span>
-
-                    </div>
-
-                </div>
-
-            @endforeach
-
-        </div>
-
-        @else
-
-        <!-- Empty -->
-        <div class="empty-state">
-
-            <div class="empty-illustration">
-
-                <div class="empty-circle">
-
-                    <i class="fas fa-history"></i>
-
-                </div>
-
-                <span class="empty-dot dot-one"></span>
-                <span class="empty-dot dot-two"></span>
-                <span class="empty-dot dot-three"></span>
+                @endforeach
 
             </div>
 
+        @else
 
-            <h4>
-                Belum Ada Riwayat Donor
-            </h4>
+            {{-- Empty --}}
+            <div class="history-empty">
 
-            <p>
-                Riwayat donor kamu akan muncul setelah kamu
-                melakukan donor dan hasilnya dicatat oleh petugas.
-            </p>
+                <div class="empty-visual">
 
+                    <div class="empty-circle">
+                        <i class="fas fa-tint"></i>
+                    </div>
 
-            <a
-                href="{{ route('pendonor.kegiatan') }}"
-                class="btn-donor"
-            >
+                    <span class="empty-dot dot-one"></span>
+                    <span class="empty-dot dot-two"></span>
+                    <span class="empty-dot dot-three"></span>
 
-                <i class="fas fa-calendar-alt"></i>
+                </div>
 
-                Lihat Kegiatan Donor
+                <span class="empty-label">
+                    PERJALANAN DONORMU
+                </span>
 
-            </a>
+                <h3>
+                    Belum Ada Riwayat Donor
+                </h3>
 
-        </div>
+                <p>
+                    Belum ada kegiatan donor yang tercatat di akunmu.
+                    Yuk, temukan kegiatan donor dan mulai perjalanan kebaikanmu.
+                </p>
+
+                <a
+                    href="{{ route('pendonor.kegiatan') }}"
+                    class="history-button"
+                >
+                    <i class="fas fa-calendar-alt"></i>
+                    Lihat Kegiatan Donor
+                </a>
+
+            </div>
 
         @endif
 

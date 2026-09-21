@@ -13,34 +13,71 @@
     use App\Models\PendaftaranDonor;
     use App\Models\HasilDonor;
     use App\Models\RiwayatDonor;
-    use Illuminate\Support\Facades\Auth;
+    use App\Models\Pendonor;
 
-    $user = Auth::user();
+    /* Data Pendonor */
 
-    $pendonor = $user->pendonor;
+    $pendonor = Pendonor::where(
+        'id_user',
+        session('id_user')
+    )->first();
+
+    /* Statistik */
 
     $jumlahKegiatan = KegiatanDonor::count();
 
     $jumlahPendaftaran = $pendonor
-        ? PendaftaranDonor::where('id_pendonor', $pendonor->id_pendonor)
-            ->where('status_pendaftaran', '!=', 'dibatalkan')
-            ->count()
+        ? PendaftaranDonor::where(
+            'id_pendonor',
+            $pendonor->id_pendonor
+        )
+        ->where(
+            'status_pendaftaran',
+            '!=',
+            'dibatalkan'
+        )
+        ->count()
         : 0;
 
     $jumlahRiwayat = $pendonor
-        ? RiwayatDonor::where('id_pendonor', $pendonor->id_pendonor)->count()
+        ? RiwayatDonor::where(
+            'id_pendonor',
+            $pendonor->id_pendonor
+        )->count()
         : 0;
 
-    $totalDonor = $pendonor
-        ? HasilDonor::where('id_pendonor', $pendonor->id_pendonor)->count()
-        : 0;
+    $totalDonor = $jumlahRiwayat;
 
     $kantongDonor = $pendonor
-        ? HasilDonor::where('id_pendonor', $pendonor->id_pendonor)
-            ->sum('jumlah_kantong')
+        ? HasilDonor::where(
+            'id_pendonor',
+            $pendonor->id_pendonor
+        )->sum('jumlah_kantong')
         : 0;
 
-    $kegiatanTerdekat = KegiatanDonor::whereDate('tanggal', '>=', now())
+    /* Status Donor */
+
+    $pendaftaranTerakhir = $pendonor
+        ? PendaftaranDonor::where(
+            'id_pendonor',
+            $pendonor->id_pendonor
+        )
+        ->with('kegiatanDonor')
+        ->latest('id_pendaftaran')
+        ->first()
+        : null;
+
+    $statusDonor = $pendaftaranTerakhir
+        ? $pendaftaranTerakhir->status_pendaftaran
+        : 'Belum Terdaftar';
+
+    /* Kegiatan Terdekat */
+
+    $kegiatanTerdekat = KegiatanDonor::whereDate(
+        'tanggal',
+        '>=',
+        now()
+    )
         ->orderBy('tanggal')
         ->orderBy('waktu')
         ->first();
@@ -58,39 +95,57 @@
         <div class="hero-content">
 
             <div class="hero-brand">
+
                 <span class="brand-icon">
                     <i class="fas fa-heart"></i>
                 </span>
 
                 <span>DONORCONNECT</span>
+
             </div>
 
+
             <span class="hero-badge">
+
                 <i class="fas fa-tint"></i>
+
                 PENDONOR
+
             </span>
 
+
             <h1>
+
                 Karena kamu,<br>
+
                 <span>dunia jadi lebih sehat</span>
+
                 <i class="fas fa-heart"></i>
+
             </h1>
+
 
             <p>
                 Terima kasih telah menjadi bagian dari perubahan
                 melalui donor darah.
             </p>
 
+
             <div class="hero-date">
+
                 <i class="fas fa-calendar-alt"></i>
+
                 {{ now()->translatedFormat('l, d F Y') }}
+
             </div>
 
         </div>
 
+
         <div class="hero-visual">
 
             <div class="visual-glow"></div>
+
 
             <div class="blood-bag">
 
@@ -110,13 +165,16 @@
 
             </div>
 
+
             <div class="heart-line">
                 <i class="fas fa-heart"></i>
             </div>
 
+
             <div class="hand-shape hand-left">
                 <i class="fas fa-hand-holding-heart"></i>
             </div>
+
 
             <div class="hero-message">
 
@@ -127,6 +185,7 @@
                 <i class="fas fa-heart"></i>
 
             </div>
+
 
             <span class="spark spark-one">✦</span>
             <span class="spark spark-two">✦</span>
@@ -140,6 +199,7 @@
     {{-- Statistik --}}
     <section class="stats-grid">
 
+        {{-- Kegiatan --}}
         <a
             href="{{ route('pendonor.kegiatan') }}"
             class="stat-card"
@@ -157,9 +217,11 @@
 
             </div>
 
+
             <div class="stat-number">
                 {{ $jumlahKegiatan }}
             </div>
+
 
             <div class="stat-bottom">
 
@@ -174,6 +236,7 @@
         </a>
 
 
+        {{-- Pendaftaran --}}
         <a
             href="{{ route('pendonor.status') }}"
             class="stat-card"
@@ -191,9 +254,11 @@
 
             </div>
 
+
             <div class="stat-number">
                 {{ $jumlahPendaftaran }}
             </div>
+
 
             <div class="stat-bottom">
 
@@ -208,6 +273,7 @@
         </a>
 
 
+        {{-- Riwayat --}}
         <a
             href="{{ route('pendonor.riwayat') }}"
             class="stat-card"
@@ -225,9 +291,11 @@
 
             </div>
 
+
             <div class="stat-number">
                 {{ $jumlahRiwayat }}
             </div>
+
 
             <div class="stat-bottom">
 
@@ -242,6 +310,7 @@
         </a>
 
 
+        {{-- Total Donor --}}
         <a
             href="{{ route('pendonor.riwayat') }}"
             class="stat-card"
@@ -259,9 +328,11 @@
 
             </div>
 
+
             <div class="stat-number">
                 {{ $totalDonor }}
             </div>
+
 
             <div class="stat-bottom">
 
@@ -280,6 +351,7 @@
 
     {{-- Bagian bawah --}}
     <section class="dashboard-sections">
+
 
         {{-- Kegiatan Terdekat --}}
         <div class="dashboard-panel">
@@ -310,12 +382,16 @@
 
                 </div>
 
+
                 <a
                     href="{{ route('pendonor.kegiatan') }}"
                     class="see-all"
                 >
+
                     Lihat semua
+
                     <i class="fas fa-arrow-right"></i>
+
                 </a>
 
             </div>
@@ -344,16 +420,24 @@
                             {{ $kegiatanTerdekat->nama_kegiatan }}
                         </h3>
 
+
                         <div class="event-detail">
 
                             <span>
+
                                 <i class="fas fa-clock"></i>
+
                                 {{ $kegiatanTerdekat->waktu }}
+
                             </span>
 
+
                             <span>
+
                                 <i class="fas fa-map-marker-alt"></i>
+
                                 {{ $kegiatanTerdekat->lokasi }}
+
                             </span>
 
                         </div>
@@ -362,10 +446,15 @@
 
 
                     <a
-                        href="{{ route('pendonor.kegiatan.show', $kegiatanTerdekat->id_kegiatan) }}"
+                        href="{{ route(
+                            'pendonor.kegiatan.show',
+                            $kegiatanTerdekat->id_kegiatan
+                        ) }}"
                         class="event-button"
                     >
+
                         <i class="fas fa-arrow-right"></i>
+
                     </a>
 
                 </div>
@@ -411,7 +500,7 @@
                         </span>
 
                         <h2>
-                            Status Pendaftaran
+                            Status Donor
                         </h2>
 
                         <p>
@@ -422,12 +511,16 @@
 
                 </div>
 
+
                 <a
                     href="{{ route('pendonor.status') }}"
                     class="see-all"
                 >
+
                     Detail
+
                     <i class="fas fa-arrow-right"></i>
+
                 </a>
 
             </div>
@@ -435,36 +528,48 @@
 
             <div class="activity-content">
 
+
+                {{-- Status --}}
                 <div class="activity-item">
 
                     <div class="activity-icon">
+
                         <i class="fas fa-clipboard-check"></i>
+
                     </div>
+
 
                     <div class="activity-text">
 
                         <strong>
-                            Pendaftaran Aktif
+                            Status Donor
                         </strong>
 
                         <span>
-                            {{ $jumlahPendaftaran }} pendaftaran
+                            {{ $statusDonor }}
                         </span>
 
                     </div>
 
+
                     <div class="activity-value">
-                        {{ $jumlahPendaftaran }}
+
+                        {{ $statusDonor }}
+
                     </div>
 
                 </div>
 
 
+                {{-- Riwayat --}}
                 <div class="activity-item">
 
                     <div class="activity-icon history">
+
                         <i class="fas fa-history"></i>
+
                     </div>
+
 
                     <div class="activity-text">
 
@@ -478,6 +583,7 @@
 
                     </div>
 
+
                     <div class="activity-value">
                         {{ $jumlahRiwayat }}
                     </div>
@@ -485,11 +591,15 @@
                 </div>
 
 
+                {{-- Kantong --}}
                 <div class="activity-item">
 
                     <div class="activity-icon blood">
+
                         <i class="fas fa-tint"></i>
+
                     </div>
+
 
                     <div class="activity-text">
 
@@ -502,6 +612,7 @@
                         </span>
 
                     </div>
+
 
                     <div class="activity-value">
                         {{ $kantongDonor }}
