@@ -6,8 +6,7 @@
     {{ $role === 'petugas' ? 'petugas-sidebar' : 'pendonor-sidebar' }}"
     id="accordionSidebar">
 
-
-    {{-- BRAND --}}
+    {{-- Brand --}}
     <a class="sidebar-brand d-flex align-items-center justify-content-center"
        href="{{ $role === 'petugas'
             ? route('dashboard.petugas')
@@ -23,28 +22,22 @@
 
     </a>
 
-
     <hr class="sidebar-divider my-0">
 
 
-    {{-- MENU PENDONOR --}}
+    {{-- Pendonor --}}
     @if ($role === 'pendonor')
 
-        {{-- DASHBOARD --}}
+        {{-- Dashboard --}}
         <li class="nav-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-
-            <a class="nav-link"
-               href="{{ route('dashboard') }}">
-
+            <a class="nav-link" href="{{ route('dashboard') }}">
                 <i class="fas fa-fw fa-home"></i>
                 <span>Dashboard</span>
-
             </a>
-
         </li>
 
 
-        {{-- PROFIL --}}
+        {{-- Profil --}}
         <li class="nav-item
             {{ request()->routeIs('profile.pendonor') ? 'active' : '' }}">
 
@@ -59,7 +52,7 @@
         </li>
 
 
-        {{-- KEGIATAN DONOR --}}
+        {{-- Kegiatan Donor --}}
         <li class="nav-item
             {{
                 request()->routeIs('pendonor.kegiatan')
@@ -79,7 +72,7 @@
         </li>
 
 
-        {{-- STATUS PENDAFTARAN --}}
+        {{-- Status --}}
         <li class="nav-item
             {{ request()->routeIs('pendonor.status') ? 'active' : '' }}">
 
@@ -94,7 +87,7 @@
         </li>
 
 
-        {{-- RIWAYAT DONOR --}}
+        {{-- Riwayat --}}
         <li class="nav-item
             {{ request()->routeIs('pendonor.riwayat') ? 'active' : '' }}">
 
@@ -109,10 +102,10 @@
         </li>
 
 
-    {{-- MENU PETUGAS --}}
+    {{-- Petugas --}}
     @elseif ($role === 'petugas')
 
-        {{-- DASHBOARD --}}
+        {{-- Dashboard --}}
         <li class="nav-item
             {{ request()->routeIs('dashboard.petugas') ? 'active' : '' }}">
 
@@ -127,7 +120,7 @@
         </li>
 
 
-        {{-- DATA PENDONOR --}}
+        {{-- Data Pendonor --}}
         <li class="nav-item
             {{ request()->routeIs('pendonor.*') ? 'active' : '' }}">
 
@@ -142,7 +135,7 @@
         </li>
 
 
-        {{-- KEGIATAN DONOR --}}
+        {{-- Kegiatan Donor --}}
         <li class="nav-item
             {{ request()->routeIs('kegiatan-donor.*') ? 'active' : '' }}">
 
@@ -157,7 +150,7 @@
         </li>
 
 
-        {{-- CATAT HASIL DONOR --}}
+        {{-- Catat Hasil --}}
         <li class="nav-item
             {{ request()->routeIs('hasil-donor.*') ? 'active' : '' }}">
 
@@ -172,7 +165,7 @@
         </li>
 
 
-        {{-- RIWAYAT DONOR --}}
+        {{-- Riwayat --}}
         <li class="nav-item
             {{ request()->routeIs('riwayat-donor.*') ? 'active' : '' }}">
 
@@ -187,7 +180,7 @@
         </li>
 
 
-        {{-- LAPORAN DONOR --}}
+        {{-- Laporan --}}
         <li class="nav-item
             {{ request()->routeIs('laporan-donor.*') ? 'active' : '' }}">
 
@@ -202,7 +195,7 @@
         </li>
 
 
-        {{-- PROFIL --}}
+        {{-- Profil --}}
         <li class="nav-item
             {{ request()->routeIs('profile.petugas') ? 'active' : '' }}">
 
@@ -219,11 +212,11 @@
     @endif
 
 
-    {{-- DIVIDER --}}
+    {{-- Divider --}}
     <hr class="sidebar-divider">
 
 
-    {{-- LOGOUT --}}
+    {{-- Logout --}}
     <li class="nav-item logout-item">
 
         <a class="nav-link"
@@ -237,7 +230,6 @@
             <span>Logout</span>
 
         </a>
-
 
         <form id="sidebar-logout-form"
               action="{{ route('logout') }}"
@@ -258,17 +250,12 @@
 /* Sidebar */
 
 .donor-sidebar {
-
     width: 230px !important;
     min-width: 230px !important;
     max-width: 230px !important;
-
     min-height: 100vh;
-
     padding-bottom: 20px;
-
     overflow-x: hidden;
-
     box-sizing: border-box;
 }
 
@@ -276,7 +263,6 @@
 /* Pendonor */
 
 .pendonor-sidebar {
-
     background: linear-gradient(
         180deg,
         #8F183F 0%,
@@ -289,11 +275,10 @@
 /* Petugas */
 
 .petugas-sidebar {
-
     background: linear-gradient(
         180deg,
-        #ed5573 0%,
-        #d93659 100%
+        #ED5573 0%,
+        #D93659 100%
     ) !important;
 }
 
@@ -301,60 +286,39 @@
 /* Brand */
 
 .donor-sidebar .sidebar-brand {
-
     width: 230px !important;
     max-width: 230px !important;
-
     height: 100px;
-
     padding: 0 18px;
-
     margin: 0;
-
     text-decoration: none;
-
     box-sizing: border-box;
 }
 
 
-/* Brand Pendonor */
-
 .pendonor-sidebar .sidebar-brand {
-
     background: rgba(80, 0, 25, 0.22);
 }
 
 
-/* Brand Petugas */
-
 .petugas-sidebar .sidebar-brand {
-
-    background: rgba(0, 0, 0, 0.18);
+    background: rgba(0, 0, 0, 0.15);
 }
 
 
 .donor-sidebar .sidebar-brand-icon {
-
-    color: #ffffff;
-
+    color: #FFFFFF;
     font-size: 30px;
-
     margin-right: 8px;
-
     flex-shrink: 0;
 }
 
 
 .donor-sidebar .sidebar-brand-text {
-
-    color: #ffffff;
-
+    color: #FFFFFF;
     font-size: 17px;
-
     font-weight: 900;
-
     letter-spacing: 0.5px;
-
     white-space: nowrap;
 }
 
@@ -362,11 +326,8 @@
 /* Divider */
 
 .donor-sidebar .sidebar-divider {
-
     width: auto !important;
-
     border-top: 1px solid rgba(255,255,255,0.20);
-
     margin: 12px 18px !important;
 }
 
@@ -374,65 +335,47 @@
 /* Menu */
 
 .donor-sidebar .nav-item {
-
     width: auto !important;
-
     margin: 4px 10px !important;
-
     padding: 0 !important;
-
     box-sizing: border-box;
 }
 
 
-/* Link */
-
 .donor-sidebar .nav-item .nav-link {
-
+    position: relative;
     width: 100% !important;
     max-width: 100% !important;
-
     min-height: 52px;
     height: 52px;
-
     padding: 0 15px !important;
     margin: 0 !important;
-
     display: flex !important;
     align-items: center !important;
-
     border-radius: 10px;
-
     color: rgba(255,255,255,0.94) !important;
-
     font-size: 13px;
-
     font-weight: 500;
-
     text-decoration: none;
-
     box-sizing: border-box !important;
-
-    transition: all .2s ease;
+    transition:
+        background .2s ease,
+        color .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
 }
 
 
 /* Icon */
 
 .donor-sidebar .nav-link i {
-
     width: 23px !important;
     min-width: 23px !important;
     max-width: 23px !important;
-
     margin-right: 12px !important;
-
     text-align: center;
-
     color: rgba(255,255,255,0.95) !important;
-
     font-size: 15px;
-
     flex-shrink: 0;
 }
 
@@ -440,65 +383,45 @@
 /* Text */
 
 .donor-sidebar .nav-link span {
-
     display: block;
-
     line-height: 1;
-
     white-space: nowrap;
-
     overflow: hidden;
-
     text-overflow: ellipsis;
 }
 
 
-/* Hover Pendonor */
+/* Hover */
 
 .pendonor-sidebar
 .nav-item:not(.active)
 .nav-link:hover {
-
-    background: rgba(255,255,255,0.13);
-
-    color: #ffffff !important;
-
+    background: rgba(255,255,255,0.13) !important;
+    color: #FFFFFF !important;
     transform: translateX(2px);
 }
 
-
-/* Hover Petugas */
 
 .petugas-sidebar
 .nav-item:not(.active)
 .nav-link:hover {
-
-    background: rgba(255,255,255,0.10);
-
-    color: #ffffff !important;
-
+    background: rgba(255,255,255,0.10) !important;
+    color: #FFFFFF !important;
     transform: translateX(2px);
 }
 
 
-/* Active Pendonor */
+/* Active */
 
 .pendonor-sidebar
 .nav-item.active
 .nav-link {
-
     width: 100% !important;
     max-width: 100% !important;
-
-    background: #ffffff !important;
-
+    background: #FFFFFF !important;
     color: #B91F4F !important;
-
     font-weight: 800;
-
-    box-shadow:
-        0 4px 12px rgba(0,0,0,0.10);
-
+    box-shadow: 0 4px 12px rgba(0,0,0,0.10);
     margin: 0 !important;
 }
 
@@ -506,29 +429,27 @@
 .pendonor-sidebar
 .nav-item.active
 .nav-link i {
-
     color: #B91F4F !important;
 }
 
 
-/* Active Petugas */
+.pendonor-sidebar
+.nav-item.active
+.nav-link span {
+    color: #B91F4F !important;
+}
+
 
 .petugas-sidebar
 .nav-item.active
 .nav-link {
-
+    position: relative;
     width: 100% !important;
     max-width: 100% !important;
-
-    background: #ffffff !important;
-
-    color: #30344B !important;
-
+    background: #FFE6ED !important;
+    color: #A81743 !important;
     font-weight: 800;
-
-    box-shadow:
-        0 4px 12px rgba(0,0,0,0.15);
-
+    box-shadow: 0 5px 14px rgba(130,24,55,0.14);
     margin: 0 !important;
 }
 
@@ -536,15 +457,34 @@
 .petugas-sidebar
 .nav-item.active
 .nav-link i {
+    color: #C52F59 !important;
+}
 
-    color: #30344B !important;
+
+.petugas-sidebar
+.nav-item.active
+.nav-link span {
+    color: #A81743 !important;
+}
+
+
+.petugas-sidebar
+.nav-item.active
+.nav-link::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 12px;
+    bottom: 12px;
+    width: 3px;
+    border-radius: 0 5px 5px 0;
+    background: #E88BA3;
 }
 
 
 /* Logout */
 
 .donor-sidebar .logout-item {
-
     margin-top: 4px !important;
 }
 
@@ -552,18 +492,30 @@
 .donor-sidebar
 .logout-item
 .nav-link {
-
     color: rgba(255,255,255,0.94) !important;
 }
 
 
 .donor-sidebar
 .logout-item
+.nav-link i {
+    color: #FFFFFF !important;
+}
+
+
+.donor-sidebar
+.logout-item
+.nav-link span {
+    color: #FFFFFF !important;
+}
+
+
+.donor-sidebar
+.logout-item
 .nav-link:hover {
-
-    background: rgba(255,255,255,0.10);
-
-    color: #ffffff !important;
+    background: rgba(255,255,255,0.10) !important;
+    color: #FFFFFF !important;
+    transform: translateX(2px);
 }
 
 
@@ -572,14 +524,15 @@
 @media (max-width: 768px) {
 
     .donor-sidebar {
-
         width: 230px !important;
-
         min-width: 230px !important;
+        max-width: 230px !important;
+    }
 
+    .donor-sidebar .sidebar-brand {
+        width: 230px !important;
         max-width: 230px !important;
     }
 
 }
-
 </style>

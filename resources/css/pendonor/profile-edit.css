@@ -4,30 +4,9 @@
     width: 100%;
     min-height: calc(100vh - 80px);
 
-    padding: 25px 28px 35px;
+    padding: 20px 28px 35px;
 
-    background: #fffafa;
-}
-
-.page-title {
-    margin-bottom: 20px;
-}
-
-.page-title h1 {
-    margin: 0 0 5px;
-
-    color: #292733;
-
-    font-size: 30px;
-    font-weight: 800;
-}
-
-.page-title p {
-    margin: 0;
-
-    color: #8a8588;
-
-    font-size: 13px;
+    background: transparent;
 }
 
 
@@ -38,14 +17,18 @@
 
     overflow: hidden;
 
-    background: #ffffff;
+    background: #fffdfb;
 
-    border: 1px solid #f1e0e2;
-    border-radius: 15px;
+    border: 1px solid #e8cdd3;
+
+    border-radius: 18px;
 
     box-shadow:
-        0 5px 18px rgba(168, 14, 44, 0.07);
+        0 8px 25px rgba(130, 30, 60, 0.07);
 }
+
+
+/* Header */
 
 .edit-card-header {
     display: flex;
@@ -53,41 +36,56 @@
 
     gap: 14px;
 
-    padding: 22px 30px;
+    padding: 23px 30px;
 
-    border-bottom: 1px solid #f3e1e2;
+    background:
+        linear-gradient(
+            110deg,
+            #96143c,
+            #b91f4f,
+            #df5273
+        );
+
+    border-bottom: none;
 }
 
+
+/* Icon */
+
 .header-icon {
-    width: 45px;
-    height: 45px;
+    width: 46px;
+    height: 46px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    background: linear-gradient(
-        135deg,
-        #a80e2c,
-        #d94b91
-    );
+    background: rgba(255, 255, 255, 0.17);
 
     color: #ffffff;
 
-    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.20);
+
+    border-radius: 12px;
+
+    font-size: 17px;
 }
+
+
+/* Judul */
 
 .edit-card-header h2 {
     margin: 0 0 3px;
 
-    color: #302e38;
+    color: #ffffff;
 
-    font-size: 17px;
+    font-size: 18px;
+
     font-weight: 800;
 }
 
 .edit-card-header span {
-    color: #999195;
+    color: rgba(255, 255, 255, 0.78);
 
     font-size: 10px;
 }
@@ -96,7 +94,7 @@
 /* Form */
 
 .edit-body {
-    padding: 25px 35px 10px;
+    padding: 22px 30px 8px;
 }
 
 .form-row {
@@ -105,7 +103,7 @@
     display: flex;
     align-items: center;
 
-    border-bottom: 1px solid #f4eeee;
+    border-bottom: 1px solid #f0e1e3;
 }
 
 .form-row:last-child {
@@ -117,35 +115,49 @@
 
     margin: 0;
 
-    color: #575157;
+    color: #49353c;
 
     font-size: 12px;
+
     font-weight: 700;
 }
 
 .form-row input {
     flex: 1;
 
-    height: 38px;
+    height: 40px;
 
-    padding: 8px 12px;
+    padding: 8px 13px;
 
-    border: 1px solid #eadfe1;
-    border-radius: 7px;
+    border: 1px solid #e4d3d7;
+
+    border-radius: 9px;
 
     outline: none;
 
-    background: #ffffff;
-    color: #302e38;
+    background: #fff9f7;
+
+    color: #38282f;
 
     font-size: 12px;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+}
+
+.form-row input:hover {
+    border-color: #d9aab8;
 }
 
 .form-row input:focus {
-    border-color: #d91e36;
+    border-color: #c52f59;
+
+    background: #ffffff;
 
     box-shadow:
-        0 0 0 2px rgba(217, 30, 54, 0.08);
+        0 0 0 3px rgba(197, 47, 89, 0.09);
 }
 
 
@@ -157,14 +169,17 @@
 
     gap: 10px;
 
-    padding: 20px 35px 25px;
+    padding: 20px 30px 25px;
 }
+
+
+/* Tombol */
 
 .save-button,
 .cancel-button {
-    min-height: 39px;
+    min-height: 40px;
 
-    padding: 9px 20px;
+    padding: 9px 21px;
 
     display: inline-flex;
     align-items: center;
@@ -172,56 +187,75 @@
 
     gap: 7px;
 
-    border-radius: 7px;
+    border-radius: 9px;
 
     font-size: 11px;
+
     font-weight: 700;
 
     text-decoration: none !important;
 
     cursor: pointer;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
 }
 
 .save-button {
     border: none;
 
-    background: linear-gradient(
-        135deg,
-        #c9183b,
-        #d94b91
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #a81743,
+            #d93662
+        );
 
     color: #ffffff;
+
+    box-shadow:
+        0 5px 13px rgba(168, 23, 67, 0.18);
 }
 
 .save-button:hover {
-    background: linear-gradient(
-        135deg,
-        #a80e2c,
-        #c91859
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #8f183f,
+            #c52f59
+        );
 
     color: #ffffff;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 7px 16px rgba(168, 23, 67, 0.23);
 }
 
 .cancel-button {
-    border: 1px solid #ded7d8;
+    border: 1px solid #e0d2d5;
 
     background: #ffffff;
-    color: #666064 !important;
+
+    color: #6d5c63 !important;
 }
 
 .cancel-button:hover {
-    background: #f5f3f3;
+    background: #fff3f1;
 
-    color: #444044 !important;
+    border-color: #d7b5bd;
+
+    color: #a81743 !important;
 }
 
 
 /* Alert */
 
 .alert {
-    margin-bottom: 20px;
+    margin-bottom: 18px;
 
     padding: 11px 15px;
 
@@ -230,7 +264,7 @@
 
     gap: 8px;
 
-    border-radius: 8px;
+    border-radius: 9px;
 
     font-size: 12px;
 }
@@ -242,34 +276,36 @@
 }
 
 .alert-danger {
-    background: #fff0f1;
+    background: #fff0f2;
 
-    border: 1px solid #f1cdd1;
+    border: 1px solid #edc7cf;
 
-    color: #a80e2c;
+    color: #a81743;
 }
 
 
-/* Responsive */
+/* Tablet */
 
 @media (max-width: 768px) {
 
     .edit-page {
-        padding: 20px 15px 30px;
+        padding: 18px 15px 30px;
+
+        background: transparent;
     }
 
-    .page-title h1 {
-        font-size: 25px;
+    .edit-card-header {
+        padding: 20px 22px;
     }
 
     .edit-body {
-        padding: 20px;
+        padding: 18px 22px 5px;
     }
 
     .form-row {
         display: block;
 
-        padding: 12px 0;
+        padding: 11px 0;
     }
 
     .form-row label {
@@ -285,31 +321,78 @@
     }
 
     .edit-footer {
-        padding: 18px 20px 20px;
+        padding: 18px 22px 22px;
     }
+
 }
 
+
+/* HP */
 
 @media (max-width: 480px) {
 
     .edit-page {
-        padding: 18px 12px 25px;
+        padding: 12px 10px 25px;
+
+        background: transparent;
     }
 
-    .page-title h1 {
-        font-size: 22px;
+    .edit-card {
+        border-radius: 15px;
     }
 
     .edit-card-header {
         padding: 18px;
+
+        gap: 11px;
+    }
+
+    .header-icon {
+        width: 41px;
+        height: 41px;
+
+        border-radius: 10px;
+
+        font-size: 15px;
+    }
+
+    .edit-card-header h2 {
+        font-size: 16px;
+    }
+
+    .edit-card-header span {
+        font-size: 9px;
+    }
+
+    .edit-body {
+        padding: 14px 17px 3px;
+    }
+
+    .form-row {
+        padding: 10px 0;
+    }
+
+    .form-row label {
+        margin-bottom: 6px;
+
+        font-size: 11px;
+    }
+
+    .form-row input {
+        height: 39px;
+
+        font-size: 11px;
     }
 
     .edit-footer {
         flex-direction: column;
+
+        padding: 16px 17px 20px;
     }
 
     .save-button,
     .cancel-button {
         width: 100%;
     }
+
 }

@@ -3,29 +3,29 @@
 }
 
 
-/* Page */
+/* Halaman */
 
 .history-page {
     min-height: calc(100vh - 80px);
 
-    padding: 28px 30px 45px;
+    padding: 22px 24px 35px;
 
-    background: #fff9f7;
+    background: #fff8f7;
 
-    color: #30364d;
+    color: #30303a;
 }
 
 
 /* Header */
 
 .history-header {
-    max-width: 1160px;
+    max-width: 1050px;
 
-    min-height: 145px;
+    min-height: 125px;
 
-    margin: 0 auto 22px;
+    margin: 0 auto 16px;
 
-    padding: 28px 32px;
+    padding: 22px 26px;
 
     display: flex;
 
@@ -33,45 +33,69 @@
 
     justify-content: space-between;
 
-    gap: 20px;
+    gap: 18px;
 
-    border-radius: 22px;
+    overflow: hidden;
+
+    border-radius: 19px;
 
     background:
         linear-gradient(
             135deg,
             #d92f59,
-            #ed5b7d
+            #ed4b6f,
+            #ef5b7c
         );
 
     box-shadow:
-        0 10px 25px rgba(210, 45, 87, .13);
+        0 8px 20px rgba(217, 47, 89, .16);
+
+    position: relative;
+}
+
+.history-header::after {
+    content: "";
+
+    position: absolute;
+
+    width: 170px;
+    height: 170px;
+
+    right: -55px;
+    bottom: -105px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.10);
 }
 
 .header-content {
+    position: relative;
+    z-index: 2;
+
     min-width: 0;
 }
 
 .eyebrow {
     display: block;
 
-    margin-bottom: 6px;
+    margin-bottom: 5px;
 
     color: rgba(255,255,255,.85);
 
-    font-size: 9px;
+    font-size: 8px;
 
     font-weight: 800;
 
-    letter-spacing: 2px;
+    letter-spacing: 1.7px;
 }
 
 .history-header h1 {
-    margin: 0 0 5px;
+    margin: 0 0 4px;
 
-    color: #fff;
+    color: #ffffff;
 
-    font-size: 30px;
+    font-size: 25px;
 
     line-height: 1.2;
 
@@ -81,105 +105,104 @@
 .history-header p {
     margin: 0;
 
-    color: rgba(255,255,255,.82);
+    color: rgba(255,255,255,.84);
 
-    font-size: 11px;
+    font-size: 10px;
 
     line-height: 1.5;
 }
 
 .header-icon {
-    width: 62px;
+    position: relative;
+    z-index: 2;
 
-    height: 62px;
+    width: 52px;
+    height: 52px;
 
     flex-shrink: 0;
 
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
-    border-radius: 18px;
+    border-radius: 15px;
 
-    background: rgba(255,255,255,.15);
+    background: rgba(255,255,255,.18);
 
-    color: #fff;
+    color: #ffffff;
 
-    font-size: 24px;
+    font-size: 20px;
 }
 
 
 /* Statistik */
 
 .stats-grid {
-    max-width: 1160px;
+    max-width: 1050px;
 
-    margin: 0 auto 24px;
+    margin: 0 auto 16px;
 
     display: grid;
 
     grid-template-columns: repeat(3, 1fr);
 
-    gap: 14px;
+    gap: 11px;
 }
 
 .stat-card {
-    min-height: 82px;
+    min-height: 72px;
 
     display: flex;
 
     align-items: center;
 
-    gap: 13px;
+    gap: 11px;
 
-    padding: 15px 18px;
+    padding: 12px 15px;
 
-    background: #fff;
+    background: #ffffff;
 
-    border: 1px solid #f0e1e6;
+    border: 1px solid #f0dce1;
 
-    border-radius: 16px;
+    border-radius: 13px;
 
     box-shadow:
-        0 5px 18px rgba(130,30,60,.045);
+        0 4px 14px rgba(130,30,60,.05);
 }
 
 .stat-icon {
-    width: 43px;
-
-    height: 43px;
+    width: 38px;
+    height: 38px;
 
     flex-shrink: 0;
 
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
-    border-radius: 12px;
+    border-radius: 10px;
 
-    font-size: 15px;
+    font-size: 13px;
 }
 
 .stat-icon.pink {
-    background: #fde8ef;
+    background: #ffe3ea;
 
-    color: #cc315b;
+    color: #d92f59;
 }
 
 .stat-icon.purple {
-    background: #f4eaf7;
+    background: #f9e5eb;
 
-    color: #9b4e9b;
+    color: #c72e59;
 }
 
 .stat-icon.red {
-    background: #fde6e8;
+    background: #ffe0e6;
 
-    color: #d53855;
+    color: #d92f59;
 }
 
 .stat-info span {
@@ -187,37 +210,37 @@
 
     margin-bottom: 2px;
 
-    color: #99949a;
+    color: #9b8d92;
 
-    font-size: 9px;
+    font-size: 8px;
 }
 
 .stat-info strong {
-    color: #30364d;
+    color: #30303a;
 
-    font-size: 21px;
+    font-size: 19px;
 
     font-weight: 800;
 }
 
 
-/* History Wrapper */
+/* History */
 
 .history-card-wrapper {
-    max-width: 1160px;
+    max-width: 1050px;
 
     margin: 0 auto;
 
-    padding: 27px 30px 30px;
+    padding: 22px 24px 24px;
 
-    background: #fff;
+    background: #ffffff;
 
-    border: 1px solid #f0e2e6;
+    border: 1px solid #f0dce1;
 
-    border-radius: 22px;
+    border-radius: 18px;
 
     box-shadow:
-        0 7px 25px rgba(130,30,60,.045);
+        0 5px 18px rgba(130,30,60,.05);
 }
 
 
@@ -230,33 +253,33 @@
 
     justify-content: space-between;
 
-    gap: 20px;
+    gap: 15px;
 
-    padding-bottom: 20px;
+    padding-bottom: 15px;
 
-    border-bottom: 1px solid #f1e5e9;
+    border-bottom: 1px solid #f2e4e7;
 }
 
 .section-label {
     display: block;
 
-    margin-bottom: 4px;
+    margin-bottom: 3px;
 
-    color: #c32e57;
+    color: #d92f59;
 
-    font-size: 8px;
+    font-size: 7px;
 
     font-weight: 800;
 
-    letter-spacing: 2px;
+    letter-spacing: 1.6px;
 }
 
 .section-title h2 {
-    margin: 0 0 4px;
+    margin: 0 0 3px;
 
-    color: #30364d;
+    color: #30303a;
 
-    font-size: 23px;
+    font-size: 20px;
 
     font-weight: 800;
 }
@@ -264,25 +287,25 @@
 .section-title p {
     margin: 0;
 
-    color: #9b969b;
+    color: #9d9296;
 
-    font-size: 10px;
+    font-size: 9px;
 }
 
 .history-count {
     flex-shrink: 0;
 
-    padding: 8px 13px;
+    padding: 7px 11px;
 
-    border: 1px solid #f1dce3;
+    border: 1px solid #f2d7df;
 
-    border-radius: 25px;
+    border-radius: 20px;
 
-    background: #fff8fa;
+    background: #fff5f7;
 
-    color: #b33157;
+    color: #c72e59;
 
-    font-size: 9px;
+    font-size: 8px;
 
     font-weight: 700;
 }
@@ -291,7 +314,7 @@
 /* Timeline */
 
 .timeline {
-    padding-top: 25px;
+    padding-top: 18px;
 }
 
 .timeline-item {
@@ -299,23 +322,23 @@
 
     display: grid;
 
-    grid-template-columns: 42px minmax(0, 1fr);
+    grid-template-columns: 34px minmax(0, 1fr);
 
-    gap: 14px;
+    gap: 10px;
 }
 
 .timeline-line {
     position: absolute;
 
-    left: 20px;
+    left: 16px;
 
-    top: 39px;
+    top: 32px;
 
-    bottom: -23px;
+    bottom: -16px;
 
     width: 2px;
 
-    background: #f3dce3;
+    background: #f1d9df;
 }
 
 .timeline-icon {
@@ -323,30 +346,26 @@
 
     z-index: 2;
 
-    width: 42px;
-
-    height: 42px;
+    width: 34px;
+    height: 34px;
 
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
-    align-self: start;
-
-    border: 3px solid #fff;
+    border: 2px solid #ffffff;
 
     border-radius: 50%;
 
-    background: #e74a6d;
+    background: #ed4b6f;
 
-    color: #fff;
+    color: #ffffff;
 
-    font-size: 12px;
+    font-size: 10px;
 
     box-shadow:
-        0 4px 12px rgba(205,39,82,.15);
+        0 3px 9px rgba(217,47,89,.18);
 }
 
 
@@ -355,62 +374,62 @@
 .donor-card {
     min-width: 0;
 
-    margin-bottom: 23px;
+    margin-bottom: 16px;
 
     overflow: hidden;
 
-    background: #fff;
+    background: #ffffff;
 
-    border: 1px solid #eee1e5;
+    border: 1px solid #f0dfe3;
 
-    border-radius: 16px;
+    border-radius: 13px;
 
     box-shadow:
-        0 4px 15px rgba(120,30,60,.035);
+        0 3px 12px rgba(120,30,60,.035);
 }
 
 
-/* Main Donor */
+/* Informasi */
 
 .donor-main {
     display: grid;
 
-    grid-template-columns: 72px minmax(0, 1fr) 145px;
+    grid-template-columns: 62px minmax(0, 1fr) 125px;
 
     align-items: center;
 
-    gap: 20px;
+    gap: 14px;
 
-    padding: 18px 20px;
+    padding: 14px 16px;
 
-    background: #fffafa;
+    background: #fffafb;
 }
 
 
-/* Date */
+/* Tanggal */
 
 .date-box {
     overflow: hidden;
 
     text-align: center;
 
-    border: 1px solid #eddee3;
+    border: 1px solid #eedde2;
 
-    border-radius: 12px;
+    border-radius: 10px;
 
-    background: #fff;
+    background: #ffffff;
 }
 
 .date-box span {
     display: block;
 
-    padding: 5px;
+    padding: 4px;
 
-    background: #e84b6e;
+    background: #ed4b6f;
 
-    color: #fff;
+    color: #ffffff;
 
-    font-size: 8px;
+    font-size: 7px;
 
     font-weight: 800;
 
@@ -420,13 +439,13 @@
 .date-box strong {
     display: block;
 
-    padding-top: 5px;
+    padding-top: 4px;
 
-    color: #30364d;
+    color: #30303a;
 
-    font-size: 23px;
+    font-size: 20px;
 
-    line-height: 1.1;
+    line-height: 1;
 
     font-weight: 900;
 }
@@ -434,28 +453,28 @@
 .date-box small {
     display: block;
 
-    padding: 3px 0 7px;
+    padding: 3px 0 6px;
 
-    color: #aaa3a8;
+    color: #aaa0a4;
 
-    font-size: 8px;
+    font-size: 7px;
 }
 
 
-/* Donor Info */
+/* Pendonor */
 
 .info-label {
     display: block;
 
-    margin-bottom: 4px;
+    margin-bottom: 3px;
 
-    color: #aaa1a6;
+    color: #a79ca0;
 
     font-size: 7px;
 
     font-weight: 800;
 
-    letter-spacing: 1.2px;
+    letter-spacing: 1px;
 }
 
 .donor-info h3 {
@@ -463,9 +482,9 @@
 
     margin: 0 0 3px;
 
-    color: #30364d;
+    color: #30303a;
 
-    font-size: 16px;
+    font-size: 14px;
 
     line-height: 1.3;
 
@@ -477,18 +496,18 @@
 }
 
 .donor-info small {
-    color: #aaa3a8;
+    color: #aaa0a4;
 
     font-size: 8px;
 }
 
 
-/* Blood Result */
+/* Hasil */
 
 .blood-result {
-    padding: 11px 13px;
+    padding: 9px 11px;
 
-    border-radius: 12px;
+    border-radius: 10px;
 
     background: #fff0f4;
 }
@@ -498,27 +517,27 @@
 
     align-items: baseline;
 
-    gap: 6px;
+    gap: 5px;
 }
 
 .blood-value i {
-    color: #d63158;
+    color: #d92f59;
 
-    font-size: 12px;
+    font-size: 10px;
 }
 
 .blood-value strong {
-    color: #c72c54;
+    color: #c72e59;
 
-    font-size: 23px;
+    font-size: 20px;
 
     font-weight: 900;
 }
 
 .blood-value span {
-    color: #999398;
+    color: #9b9296;
 
-    font-size: 8px;
+    font-size: 7px;
 }
 
 
@@ -529,9 +548,7 @@
 
     grid-template-columns: 1fr 1fr;
 
-    gap: 0;
-
-    padding: 17px 20px;
+    padding: 13px 16px;
 }
 
 .detail-item {
@@ -541,39 +558,37 @@
 
     align-items: center;
 
-    gap: 10px;
+    gap: 8px;
 
-    padding-right: 20px;
+    padding-right: 15px;
 }
 
 .detail-item + .detail-item {
-    padding-left: 20px;
+    padding-left: 15px;
 
     padding-right: 0;
 
-    border-left: 1px solid #f1e5e8;
+    border-left: 1px solid #f1e4e7;
 }
 
 .detail-icon {
-    width: 35px;
-
-    height: 35px;
+    width: 30px;
+    height: 30px;
 
     flex-shrink: 0;
 
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
-    border-radius: 10px;
+    border-radius: 8px;
 
     background: #fff0f4;
 
-    color: #c6355d;
+    color: #d3385d;
 
-    font-size: 11px;
+    font-size: 9px;
 }
 
 .detail-content {
@@ -583,15 +598,15 @@
 .detail-content span {
     display: block;
 
-    margin-bottom: 3px;
+    margin-bottom: 2px;
 
-    color: #aaa4a9;
+    color: #aaa0a5;
 
-    font-size: 7px;
+    font-size: 6px;
 
     font-weight: 700;
 
-    letter-spacing: .7px;
+    letter-spacing: .6px;
 }
 
 .detail-content strong {
@@ -599,11 +614,11 @@
 
     overflow: hidden;
 
-    color: #454c5e;
+    color: #45434b;
 
-    font-size: 10px;
+    font-size: 9px;
 
-    line-height: 1.45;
+    line-height: 1.4;
 
     font-weight: 700;
 
@@ -622,76 +637,74 @@
 
     justify-content: space-between;
 
-    padding: 10px 20px;
+    padding: 8px 16px;
 
-    border-top: 1px solid #f1e6e9;
+    border-top: 1px solid #f1e5e8;
 
-    background: #fffafa;
+    background: #fffafb;
 
-    color: #aaa3a8;
+    color: #aaa0a4;
 
-    font-size: 8px;
+    font-size: 7px;
 
     font-weight: 700;
 }
 
 .success {
-    color: #5f9d7d;
+    color: #4d9270;
 }
 
 .success i {
-    margin-right: 4px;
+    margin-right: 3px;
 }
 
 
-/* Empty */
+/* Kosong */
 
 .empty-state {
-    padding: 60px 20px;
+    padding: 45px 20px;
 
     text-align: center;
 }
 
 .empty-icon {
-    width: 60px;
+    width: 52px;
+    height: 52px;
 
-    height: 60px;
-
-    margin: 0 auto 14px;
+    margin: 0 auto 11px;
 
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
-    border-radius: 18px;
+    border-radius: 15px;
 
-    background: #fde8ef;
+    background: #ffe3ea;
 
-    color: #ce315a;
+    color: #d92f59;
 
-    font-size: 23px;
+    font-size: 20px;
 }
 
 .empty-state h3 {
-    margin: 0 0 6px;
+    margin: 0 0 5px;
 
-    color: #30364d;
+    color: #30303a;
 
-    font-size: 17px;
+    font-size: 15px;
 }
 
 .empty-state p {
-    max-width: 340px;
+    max-width: 320px;
 
     margin: auto;
 
-    color: #9c979b;
+    color: #9c9296;
 
-    font-size: 10px;
+    font-size: 9px;
 
-    line-height: 1.6;
+    line-height: 1.5;
 }
 
 
@@ -700,23 +713,19 @@
 @media (max-width: 900px) {
 
     .history-page {
-        padding: 22px 18px 40px;
+        padding: 20px 16px 32px;
     }
 
+    .history-header,
+    .stats-grid,
     .history-card-wrapper {
-        padding: 24px;
+        max-width: 100%;
     }
 
     .donor-main {
-        grid-template-columns: 68px minmax(0, 1fr) 125px;
+        grid-template-columns: 60px minmax(0, 1fr) 115px;
 
-        gap: 14px;
-
-        padding: 17px;
-    }
-
-    .blood-result {
-        padding: 10px;
+        gap: 11px;
     }
 
 }
@@ -727,44 +736,37 @@
 @media (max-width: 650px) {
 
     .history-page {
-        padding: 15px 12px 70px;
+        padding: 14px 11px 55px;
     }
 
 
     /* Header */
 
     .history-header {
-        min-height: 125px;
+        min-height: 105px;
 
-        margin-bottom: 15px;
+        padding: 18px;
 
-        padding: 21px 19px;
+        margin-bottom: 12px;
 
-        border-radius: 18px;
+        border-radius: 16px;
     }
 
     .history-header h1 {
-        font-size: 23px;
+        font-size: 21px;
     }
 
     .history-header p {
-        max-width: 220px;
-
-        font-size: 9px;
-    }
-
-    .eyebrow {
         font-size: 8px;
     }
 
     .header-icon {
-        width: 49px;
+        width: 43px;
+        height: 43px;
 
-        height: 49px;
+        border-radius: 12px;
 
-        border-radius: 14px;
-
-        font-size: 19px;
+        font-size: 17px;
     }
 
 
@@ -773,182 +775,162 @@
     .stats-grid {
         gap: 7px;
 
-        margin-bottom: 15px;
+        margin-bottom: 12px;
     }
 
     .stat-card {
-        min-height: 72px;
+        min-height: 65px;
 
         flex-direction: column;
 
         justify-content: center;
 
-        gap: 5px;
+        gap: 3px;
 
-        padding: 9px 4px;
+        padding: 7px 3px;
 
         text-align: center;
 
-        border-radius: 13px;
+        border-radius: 11px;
     }
 
     .stat-icon {
-        width: 31px;
+        width: 28px;
+        height: 28px;
 
-        height: 31px;
+        border-radius: 8px;
 
-        border-radius: 9px;
-
-        font-size: 11px;
+        font-size: 10px;
     }
 
     .stat-info span {
-        margin-bottom: 1px;
-
-        font-size: 7px;
+        font-size: 6px;
     }
 
     .stat-info strong {
-        font-size: 16px;
+        font-size: 15px;
     }
 
 
-    /* Wrapper */
+    /* History */
 
     .history-card-wrapper {
-        padding: 18px 12px;
+        padding: 16px 11px;
 
-        border-radius: 17px;
+        border-radius: 15px;
     }
 
 
     /* Section */
 
     .section-title {
-        align-items: flex-start;
+        gap: 8px;
 
-        gap: 10px;
-
-        padding-bottom: 16px;
+        padding-bottom: 13px;
     }
 
     .section-title h2 {
-        font-size: 19px;
+        font-size: 17px;
     }
 
     .section-title p {
-        font-size: 8px;
+        font-size: 7px;
     }
 
     .history-count {
-        padding: 6px 8px;
+        padding: 5px 7px;
 
-        font-size: 7px;
+        font-size: 6px;
     }
 
 
     /* Timeline */
 
     .timeline {
-        padding-top: 19px;
+        padding-top: 15px;
     }
 
     .timeline-item {
-        grid-template-columns: 30px minmax(0, 1fr);
+        grid-template-columns: 27px minmax(0, 1fr);
 
-        gap: 8px;
+        gap: 7px;
     }
 
     .timeline-line {
-        left: 14px;
+        left: 13px;
 
-        top: 29px;
+        top: 26px;
 
-        bottom: -18px;
+        bottom: -15px;
     }
 
     .timeline-icon {
-        width: 30px;
+        width: 27px;
+        height: 27px;
 
-        height: 30px;
-
-        border-width: 2px;
-
-        font-size: 9px;
+        font-size: 8px;
     }
 
 
     /* Card */
 
     .donor-card {
-        margin-bottom: 18px;
+        margin-bottom: 14px;
 
-        border-radius: 14px;
+        border-radius: 12px;
     }
 
     .donor-main {
-        grid-template-columns: 55px minmax(0, 1fr);
+        grid-template-columns: 48px minmax(0, 1fr);
 
-        gap: 10px;
+        gap: 9px;
 
-        padding: 13px;
+        padding: 11px;
     }
 
 
-    /* Date */
-
-    .date-box {
-        border-radius: 10px;
-    }
+    /* Tanggal */
 
     .date-box span {
-        padding: 4px;
+        padding: 3px;
 
         font-size: 6px;
     }
 
     .date-box strong {
-        padding-top: 4px;
-
-        font-size: 19px;
+        font-size: 17px;
     }
 
     .date-box small {
-        padding: 2px 0 6px;
-
         font-size: 6px;
     }
 
 
-    /* Name */
+    /* Pendonor */
 
     .info-label {
-        margin-bottom: 3px;
-
-        font-size: 6px;
+        font-size: 5px;
     }
 
     .donor-info h3 {
-        font-size: 12px;
+        font-size: 11px;
     }
 
     .donor-info small {
-        font-size: 7px;
+        font-size: 6px;
     }
 
 
-    /* Blood */
+    /* Hasil */
 
     .blood-result {
         grid-column: 1 / -1;
 
-        padding: 9px 11px;
-
-        border-radius: 10px;
+        padding: 8px 10px;
     }
 
     .blood-value strong {
-        font-size: 20px;
+        font-size: 18px;
     }
 
 
@@ -957,41 +939,38 @@
     .donor-details {
         grid-template-columns: 1fr;
 
-        gap: 11px;
+        gap: 9px;
 
-        padding: 13px;
+        padding: 11px;
     }
 
     .detail-item {
         padding: 0;
 
-        gap: 9px;
+        gap: 7px;
     }
 
     .detail-item + .detail-item {
-        padding: 11px 0 0;
+        padding: 9px 0 0;
 
-        border-top: 1px solid #f1e5e8;
+        border-top: 1px solid #f1e4e7;
 
         border-left: none;
     }
 
     .detail-icon {
-        width: 31px;
+        width: 28px;
+        height: 28px;
 
-        height: 31px;
-
-        border-radius: 8px;
-
-        font-size: 10px;
+        font-size: 8px;
     }
 
     .detail-content span {
-        font-size: 6px;
+        font-size: 5px;
     }
 
     .detail-content strong {
-        font-size: 9px;
+        font-size: 8px;
 
         white-space: normal;
     }
@@ -1000,9 +979,9 @@
     /* Footer */
 
     .donor-footer {
-        padding: 9px 13px;
+        padding: 7px 11px;
 
-        font-size: 7px;
+        font-size: 6px;
     }
 
 }
@@ -1013,37 +992,34 @@
 @media (max-width: 380px) {
 
     .history-page {
-        padding-left: 9px;
-
-        padding-right: 9px;
+        padding-left: 8px;
+        padding-right: 8px;
     }
 
     .history-header {
-        padding: 18px 15px;
+        padding: 16px;
     }
 
     .history-header h1 {
-        font-size: 21px;
+        font-size: 19px;
     }
 
     .history-header p {
-        max-width: 175px;
+        max-width: 180px;
 
-        font-size: 8px;
+        font-size: 7px;
     }
 
     .header-icon {
-        width: 43px;
+        width: 39px;
+        height: 39px;
 
-        height: 43px;
-
-        font-size: 17px;
+        font-size: 15px;
     }
 
     .history-card-wrapper {
-        padding-left: 10px;
-
-        padding-right: 10px;
+        padding-left: 9px;
+        padding-right: 9px;
     }
 
     .history-count {
@@ -1051,7 +1027,6 @@
     }
 
     .section-title h2 {
-        font-size: 18px;
+        font-size: 16px;
     }
-
 }

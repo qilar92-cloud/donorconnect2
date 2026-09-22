@@ -1,146 +1,113 @@
+/* Halaman */
 .detail-page {
     min-height: 100vh;
     padding: 18px 28px 45px;
-    background: #fff9f7;
+    background: #fff4ec;
 }
 
 .alert {
     max-width: 1120px;
-
     margin: 0 auto 15px;
-
     border-radius: 11px;
-
     font-size: 10px;
 }
 
+/* Card */
 .detail-card {
     max-width: 1120px;
-
     margin: 0 auto;
-
     overflow: hidden;
-
-    border: 1px solid #eee0e3;
+    border: 1px solid #efd8dc;
     border-radius: 21px;
-
-    background: #fff;
-
-    box-shadow:
-        0 9px 25px rgba(80, 45, 53, .055);
+    background: #fffdfb;
+    box-shadow: 0 9px 25px rgba(67, 38, 48, .055);
 }
 
+/* Header */
 .detail-card-header {
     position: relative;
     overflow: hidden;
-
     min-height: 125px;
-
     padding: 24px 28px;
-
     display: flex;
     align-items: center;
-
     gap: 15px;
-
     background: linear-gradient(
         135deg,
-         #b91f4f 0%,
-            #d62f61 45%,
-            #ef6687 100%
+        #a81743 0%,
+        #c72e59 48%,
+        #df5575 100%
     );
-
     color: #fff;
 }
 
 .detail-card-header::before {
     content: "";
-
     position: absolute;
-
     width: 180px;
     height: 180px;
-
     right: 60px;
     top: -120px;
-
     border-radius: 50%;
-
     background: rgba(255, 255, 255, .08);
 }
 
 .detail-card-header::after {
     content: "";
-
     position: absolute;
-
     width: 90px;
     height: 90px;
-
     right: -25px;
     bottom: -55px;
-
-    border: 1px solid rgba(255, 255, 255, .10);
-
+    border: 1px solid rgba(255, 255, 255, .12);
     border-radius: 50%;
 }
 
+/* Icon header */
 .header-icon {
     position: relative;
     z-index: 2;
-
     width: 55px;
     height: 55px;
-
     flex-shrink: 0;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     border-radius: 15px;
-
     background: rgba(255, 255, 255, .15);
-    border: 1px solid rgba(255, 255, 255, .15);
-
+    border: 1px solid rgba(255, 255, 255, .16);
     font-size: 20px;
 }
 
 .detail-card-header > div:last-child {
     position: relative;
     z-index: 2;
-
     min-width: 0;
 }
 
 .detail-card-header h2 {
     margin: 0 0 4px;
-
     color: #fff;
-
     font-size: 20px;
     line-height: 1.3;
-
     font-weight: 800;
 }
 
 .detail-card-header span {
     color: rgba(255, 255, 255, .78);
-
     font-size: 8px;
 }
 
+/* Isi detail */
 .detail-card-body {
     padding: 6px 26px;
 }
 
 .detail-row {
     min-height: 62px;
-
     display: flex;
     align-items: center;
-
-    border-bottom: 1px solid #f1e6e8;
+    border-bottom: 1px solid #f1e1e4;
 }
 
 .detail-row:last-child {
@@ -149,14 +116,10 @@
 
 .detail-label {
     width: 35%;
-
     display: flex;
     align-items: center;
-
     gap: 9px;
-
     color: #88797e;
-
     font-size: 9px;
     font-weight: 800;
 }
@@ -164,47 +127,33 @@
 .detail-label i {
     width: 28px;
     height: 28px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     border-radius: 9px;
-
     background: #fde8ee;
-
-    color: #e93658;
-
+    color: #c72e59;
     font-size: 10px;
 }
 
 .detail-value {
     width: 65%;
-
-    color: #45363c;
-
+    color: #432630;
     font-size: 10px;
     line-height: 1.5;
-
     font-weight: 700;
-
     overflow-wrap: anywhere;
 }
 
+/* Status */
 .status-badge {
     display: inline-flex;
     align-items: center;
-
     gap: 6px;
-
     padding: 6px 10px;
-
     border-radius: 20px;
-
-    background: #eaf8f1;
-
-    color: #25866c;
-
+    background: #edf8f4;
+    color: #34856a;
     font-size: 8px;
     font-weight: 800;
 }
@@ -212,27 +161,21 @@
 .status-badge span {
     width: 6px;
     height: 6px;
-
     border-radius: 50%;
-
-    background: #2eaa86;
+    background: #34856a;
 }
 
+/* Daftar */
 .register-section {
     position: relative;
     overflow: hidden;
-
     margin: 11px 26px 22px;
     padding: 18px 19px;
-
     display: flex;
     align-items: center;
-
     gap: 13px;
-
-    border: 1px solid #efd1d9;
+    border: 1px solid #efd8dc;
     border-radius: 15px;
-
     background: linear-gradient(
         135deg,
         #fff0f3,
@@ -242,109 +185,79 @@
 
 .register-section::after {
     content: "";
-
     position: absolute;
-
     width: 90px;
     height: 90px;
-
     right: -35px;
     bottom: -45px;
-
     border-radius: 50%;
-
-    background: rgba(233, 54, 88, .05);
+    background: rgba(199, 46, 89, .06);
 }
 
 .register-icon {
     position: relative;
     z-index: 2;
-
     width: 46px;
     height: 46px;
-
     flex-shrink: 0;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     border-radius: 13px;
-
     background: linear-gradient(
         145deg,
-        #b91f4f 0%,
-        #d62f61 45%,
-        #ef6687 100%
+        #a81743 0%,
+        #c72e59 48%,
+        #df5575 100%
     );
-
     color: #fff;
-
     font-size: 15px;
-
-    box-shadow:
-        0 7px 15px rgba(233, 54, 88, .18);
+    box-shadow: 0 7px 15px rgba(199, 46, 89, .18);
 }
 
 .register-content {
     position: relative;
     z-index: 2;
-
     flex: 1;
     min-width: 0;
 }
 
 .register-content h3 {
     margin: 0 0 4px;
-
-    color: #44343a;
-
+    color: #432630;
     font-size: 13px;
     line-height: 1.3;
-
     font-weight: 800;
 }
 
 .register-content p {
     margin: 0 0 10px;
-
     color: #95868b;
-
     font-size: 8px;
 }
 
+/* Tombol daftar */
 .register-button {
     display: inline-flex;
     align-items: center;
-
     gap: 6px;
-
     min-height: 36px;
-
     padding: 0 12px;
-
+    border: 1px solid #c72e59;
     border-radius: 9px;
-
-    background: #e93658;
-
+    background: #c72e59;
     color: #fff !important;
-
     font-size: 8px;
     font-weight: 800;
-
     text-decoration: none !important;
-
-    box-shadow:
-        0 5px 12px rgba(233, 54, 88, .18);
-
+    box-shadow: 0 5px 12px rgba(199, 46, 89, .18);
     transition: .2s ease;
 }
 
 .register-button:hover {
-    background: #8e3447;
-
+    background: #a81743;
+    border-color: #a81743;
     color: #fff !important;
-
     transform: translateY(-1px);
 }
 
@@ -352,47 +265,36 @@
     font-size: 7px;
 }
 
+/* Footer */
 .detail-card-footer {
     padding: 14px 26px;
-
-    border-top: 1px solid #f0e5e7;
-
+    border-top: 1px solid #f0e1e4;
     background: #fffafa;
 }
 
 .back-button {
     display: inline-flex;
     align-items: center;
-
     gap: 6px;
-
     min-height: 34px;
-
     padding: 0 11px;
-
     border: 1px solid #e5dadd;
     border-radius: 9px;
-
-    background: #fff;
-
+    background: #fffdfb;
     color: #786a70 !important;
-
     font-size: 8px;
     font-weight: 800;
-
     text-decoration: none !important;
-
     transition: .2s ease;
 }
 
 .back-button:hover {
     border-color: #dfb4bf;
-
     background: #fff4f6;
-
-    color: #d93457 !important;
+    color: #c72e59 !important;
 }
 
+/* Tablet */
 @media (max-width: 900px) {
 
     .detail-page {
@@ -415,6 +317,7 @@
     }
 }
 
+/* HP */
 @media (max-width: 700px) {
 
     .detail-page {
@@ -427,18 +330,14 @@
 
     .detail-card-header {
         min-height: 115px;
-
         padding: 20px 17px;
-
         gap: 11px;
     }
 
     .header-icon {
         width: 44px;
         height: 44px;
-
         border-radius: 12px;
-
         font-size: 16px;
     }
 
@@ -456,59 +355,45 @@
 
     .detail-row {
         min-height: auto;
-
         padding: 12px 0;
-
         display: block;
     }
 
     .detail-label {
         width: 100%;
-
         margin-bottom: 6px;
-
         font-size: 8px;
     }
 
     .detail-label i {
         width: 25px;
         height: 25px;
-
         border-radius: 8px;
-
         font-size: 9px;
     }
 
     .detail-value {
         width: 100%;
-
         padding-left: 34px;
-
         font-size: 9px;
     }
 
     .status-badge {
         padding: 5px 9px;
-
         font-size: 7px;
     }
 
     .register-section {
         margin: 10px 17px 17px;
-
         padding: 15px;
-
         gap: 10px;
-
         border-radius: 14px;
     }
 
     .register-icon {
         width: 40px;
         height: 40px;
-
         border-radius: 11px;
-
         font-size: 13px;
     }
 
@@ -518,17 +403,13 @@
 
     .register-content p {
         font-size: 7px;
-
         line-height: 1.45;
     }
 
     .register-button {
         width: 100%;
-
         justify-content: center;
-
         min-height: 35px;
-
         font-size: 7.5px;
     }
 
@@ -538,11 +419,11 @@
 
     .back-button {
         min-height: 33px;
-
         font-size: 7.5px;
     }
 }
 
+/* HP kecil */
 @media (max-width: 390px) {
 
     .detail-page {
@@ -557,7 +438,6 @@
     .header-icon {
         width: 40px;
         height: 40px;
-
         min-width: 40px;
     }
 
