@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DokumentasiDonor;
 use App\Models\KegiatanDonor;
 use App\Models\Pendonor;
 use Carbon\Carbon;
@@ -82,9 +83,19 @@ class KegiatanDonorController extends Controller
             'pendaftaranDonor.pendonor.user',
         ])->findOrFail($id);
 
+        $dokumentasi = DokumentasiDonor::where(
+            'id_kegiatan',
+            $kegiatan->id_kegiatan
+        )
+            ->latest()
+            ->get();
+
         return view(
             'pages.kegiatan-donor.show-petugas',
-            compact('kegiatan')
+            compact(
+                'kegiatan',
+                'dokumentasi'
+            )
         );
     }
 
@@ -186,7 +197,10 @@ class KegiatanDonorController extends Controller
 
         return view(
             'pages.pendonor.pendaftaran.daftar',
-            compact('kegiatan', 'pendonor')
+            compact(
+                'kegiatan',
+                'pendonor'
+            )
         );
     }
 }

@@ -10,29 +10,31 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/js/app.js',
 
-                /* Auth */
+                // Auth
                 'resources/css/auth/login.css',
                 'resources/css/auth/register.css',
                 'resources/css/auth/petugas-login.css',
 
-                /* Dashboard */
+                // Dashboard
                 'resources/css/dashboard/pendonor.css',
                 'resources/css/dashboard/petugas.css',
 
-                /* Kegiatan Donor */
+                // Kegiatan Donor
                 'resources/css/kegiatan-donor/index.css',
                 'resources/css/kegiatan-donor/show-pendonor.css',
+                'resources/css/kegiatan-donor/show-petugas.css',
+                'resources/css/kegiatan-donor/dokumentasi.css',
 
-                /* Hasil Donor */
+                // Hasil Donor
                 'resources/css/hasil-donor/create.css',
 
-                /* Landing */
+                // Landing
                 'resources/css/landing/index.css',
 
-                /* Laporan Donor */
+                // Laporan Donor
                 'resources/css/laporan-donor/index.css',
 
-                /* Pendonor */
+                // Pendonor
                 'resources/css/pendonor/data-index.css',
                 'resources/css/pendonor/data-edit.css',
                 'resources/css/pendonor/data-show.css',
@@ -43,12 +45,12 @@ export default defineConfig({
                 'resources/css/pendonor/riwayat-donor.css',
                 'resources/css/pendonor/status.css',
 
-                /* Petugas */
+                // Petugas
                 'resources/css/petugas/profile.css',
                 'resources/css/petugas/profile-edit.css',
                 'resources/css/petugas/riwayat-donor.css',
 
-                /* Layout */
+                // Layout
                 'resources/css/layouts/app-layout.css',
             ],
 
@@ -65,7 +67,6 @@ export default defineConfig({
     ],
 
     server: {
-
         watch: {
             ignored: ['**/storage/framework/views/**'],
         },

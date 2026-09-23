@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\PetugasLoginController;
+use App\Http\Controllers\DokumentasiDonorController;
 use App\Http\Controllers\HasilDonorController;
 use App\Http\Controllers\KegiatanDonorController;
 use App\Http\Controllers\LaporanDonorController;
@@ -10,17 +11,20 @@ use App\Http\Controllers\PendaftaranDonorController;
 use App\Http\Controllers\PendonorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RiwayatDonorController;
+use App\Models\DokumentasiDonor;
 use App\Models\KegiatanDonor;
 use Illuminate\Support\Facades\Route;
 
 
 // Landing
+
 Route::get('/', function () {
     return view('pages.landing.index');
 })->name('landing');
 
 
 // Login Pendonor
+
 Route::get('/login', [
     LoginController::class,
     'showLoginForm',
@@ -33,6 +37,7 @@ Route::post('/login', [
 
 
 // Register Pendonor
+
 Route::get('/register', [
     RegisterController::class,
     'showRegistrationForm',
@@ -45,6 +50,7 @@ Route::post('/register', [
 
 
 // Login Petugas
+
 Route::get('/login-petugas', [
     PetugasLoginController::class,
     'showLoginForm',
@@ -57,10 +63,11 @@ Route::post('/login-petugas', [
 
 
 // Auth
+
 Route::middleware('auth')->group(function () {
 
-
     // Logout
+
     Route::post('/logout', [
         LoginController::class,
         'logout',
@@ -68,6 +75,7 @@ Route::middleware('auth')->group(function () {
 
 
     // Profile Pendonor
+
     Route::middleware('role:pendonor')->group(function () {
 
         Route::get('/profile-pendonor', [
@@ -88,6 +96,7 @@ Route::middleware('auth')->group(function () {
 
 
     // Profile Petugas
+
     Route::middleware('role:petugas')->group(function () {
 
         Route::get('/profile-petugas', [
@@ -108,9 +117,11 @@ Route::middleware('auth')->group(function () {
 
 
     // Pendonor
+
     Route::middleware('role:pendonor')->group(function () {
 
         // Status Pendaftaran
+
         Route::get('/status-pendaftaran', [
             PendaftaranDonorController::class,
             'status',
@@ -118,18 +129,33 @@ Route::middleware('auth')->group(function () {
 
 
         // Dashboard Pendonor
+
         Route::get('/dashboard', function () {
 
             $jumlahKegiatan = KegiatanDonor::count();
 
+            $dokumentasi = DokumentasiDonor::latest()
+                ->take(6)
+                ->get();
+
             return view('pages.dashboard.pendonor', [
                 'jumlahKegiatan' => $jumlahKegiatan,
+                'dokumentasi' => $dokumentasi,
             ]);
 
         })->name('dashboard');
 
 
+        // Semua Dokumentasi
+
+        Route::get('/pendonor/dokumentasi', [
+            DokumentasiDonorController::class,
+            'pendonor',
+        ])->name('pendonor.dokumentasi');
+
+
         // Kegiatan Donor
+
         Route::get('/pendonor/kegiatan', [
             PendonorController::class,
             'daftarKegiatanDonor',
@@ -142,6 +168,7 @@ Route::middleware('auth')->group(function () {
 
 
         // Pendaftaran Donor
+
         Route::get('/pendaftaran-donor/{id_kegiatan}', [
             PendaftaranDonorController::class,
             'create',
@@ -154,6 +181,7 @@ Route::middleware('auth')->group(function () {
 
 
         // Riwayat Donor
+
         Route::get('/pendonor/riwayat', [
             PendonorController::class,
             'lihatRiwayatDonor',
@@ -162,15 +190,18 @@ Route::middleware('auth')->group(function () {
 
 
     // Petugas
+
     Route::middleware('role:petugas')->group(function () {
 
         // Dashboard Petugas
+
         Route::get('/petugas/dashboard', function () {
             return view('pages.dashboard.petugas');
         })->name('dashboard.petugas');
 
 
         // Kegiatan Donor
+
         Route::get('/kegiatan-donor', [
             KegiatanDonorController::class,
             'index',
@@ -207,7 +238,21 @@ Route::middleware('auth')->group(function () {
         ])->name('kegiatan-donor.destroy');
 
 
+        // Dokumentasi Donor
+
+        Route::post(
+            '/kegiatan-donor/{id_kegiatan}/dokumentasi',
+            [DokumentasiDonorController::class, 'store']
+        )->name('dokumentasi-donor.store');
+
+        Route::delete(
+            '/dokumentasi-donor/{id_dokumentasi}',
+            [DokumentasiDonorController::class, 'destroy']
+        )->name('dokumentasi-donor.destroy');
+
+
         // Hasil Donor
+
         Route::get('/hasil-donor/create', [
             HasilDonorController::class,
             'create',
@@ -220,6 +265,7 @@ Route::middleware('auth')->group(function () {
 
 
         // Riwayat Donor
+
         Route::get('/riwayat-donor', [
             RiwayatDonorController::class,
             'index',
@@ -232,6 +278,7 @@ Route::middleware('auth')->group(function () {
 
 
         // Laporan Donor
+
         Route::get('/laporan-donor', [
             LaporanDonorController::class,
             'index',
@@ -244,6 +291,7 @@ Route::middleware('auth')->group(function () {
 
 
         // Data Pendonor
+
         Route::get('/pendonor', [
             PendonorController::class,
             'dataPendonor',

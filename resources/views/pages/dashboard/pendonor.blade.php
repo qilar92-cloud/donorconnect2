@@ -9,20 +9,22 @@
 @section('content')
 
 @php
+
     use App\Models\KegiatanDonor;
     use App\Models\PendaftaranDonor;
     use App\Models\HasilDonor;
     use App\Models\RiwayatDonor;
     use App\Models\Pendonor;
 
-    /* Data Pendonor */
+    // Data Pendonor
 
     $pendonor = Pendonor::where(
         'id_user',
         session('id_user')
     )->first();
 
-    /* Statistik */
+
+    // Statistik
 
     $jumlahKegiatan = KegiatanDonor::count();
 
@@ -55,7 +57,8 @@
         )->sum('jumlah_kantong')
         : 0;
 
-    /* Status Donor */
+
+    // Status Donor
 
     $pendaftaranTerakhir = $pendonor
         ? PendaftaranDonor::where(
@@ -71,7 +74,8 @@
         ? $pendaftaranTerakhir->status_pendaftaran
         : 'Belum Terdaftar';
 
-    /* Kegiatan Terdekat */
+
+    // Kegiatan Terdekat
 
     $kegiatanTerdekat = KegiatanDonor::whereDate(
         'tanggal',
@@ -81,16 +85,21 @@
         ->orderBy('tanggal')
         ->orderBy('waktu')
         ->first();
+
 @endphp
 
 
 <div class="pendonor-dashboard">
 
+
     {{-- Hero --}}
+
     <section class="dashboard-hero">
 
         <div class="hero-background-shape shape-one"></div>
+
         <div class="hero-background-shape shape-two"></div>
+
 
         <div class="hero-content">
 
@@ -100,7 +109,9 @@
                     <i class="fas fa-heart"></i>
                 </span>
 
-                <span>DONORCONNECT</span>
+                <span>
+                    DONORCONNECT
+                </span>
 
             </div>
 
@@ -118,7 +129,9 @@
 
                 Karena kamu,<br>
 
-                <span>dunia jadi lebih sehat</span>
+                <span>
+                    dunia jadi lebih sehat
+                </span>
 
                 <i class="fas fa-heart"></i>
 
@@ -178,28 +191,44 @@
 
             <div class="hero-message">
 
-                <span>Setetes darah</span>
+                <span>
+                    Setetes darah
+                </span>
 
-                <strong>sejuta harapan</strong>
+                <strong>
+                    sejuta harapan
+                </strong>
 
                 <i class="fas fa-heart"></i>
 
             </div>
 
 
-            <span class="spark spark-one">✦</span>
-            <span class="spark spark-two">✦</span>
-            <span class="spark spark-three">•</span>
+            <span class="spark spark-one">
+                ✦
+            </span>
+
+            <span class="spark spark-two">
+                ✦
+            </span>
+
+            <span class="spark spark-three">
+                •
+            </span>
 
         </div>
 
     </section>
 
 
+
     {{-- Statistik --}}
+
     <section class="stats-grid">
 
+
         {{-- Kegiatan --}}
+
         <a
             href="{{ route('pendonor.kegiatan') }}"
             class="stat-card"
@@ -236,7 +265,9 @@
         </a>
 
 
+
         {{-- Pendaftaran --}}
+
         <a
             href="{{ route('pendonor.status') }}"
             class="stat-card"
@@ -273,7 +304,9 @@
         </a>
 
 
+
         {{-- Riwayat --}}
+
         <a
             href="{{ route('pendonor.riwayat') }}"
             class="stat-card"
@@ -310,7 +343,9 @@
         </a>
 
 
+
         {{-- Total Donor --}}
+
         <a
             href="{{ route('pendonor.riwayat') }}"
             class="stat-card"
@@ -349,11 +384,14 @@
     </section>
 
 
-    {{-- Bagian bawah --}}
+
+    {{-- Bagian Bawah --}}
+
     <section class="dashboard-sections">
 
 
         {{-- Kegiatan Terdekat --}}
+
         <div class="dashboard-panel">
 
             <div class="panel-header">
@@ -397,9 +435,10 @@
             </div>
 
 
-            @if($kegiatanTerdekat)
+            @if ($kegiatanTerdekat)
 
                 <div class="event-card">
+
 
                     <div class="event-date">
 
@@ -482,7 +521,9 @@
         </div>
 
 
+
         {{-- Aktivitas --}}
+
         <div class="dashboard-panel activity-panel">
 
             <div class="panel-header">
@@ -530,6 +571,7 @@
 
 
                 {{-- Status --}}
+
                 <div class="activity-item">
 
                     <div class="activity-icon">
@@ -553,15 +595,15 @@
 
 
                     <div class="activity-value">
-
                         {{ $statusDonor }}
-
                     </div>
 
                 </div>
 
 
+
                 {{-- Riwayat --}}
+
                 <div class="activity-item">
 
                     <div class="activity-icon history">
@@ -591,7 +633,9 @@
                 </div>
 
 
+
                 {{-- Kantong --}}
+
                 <div class="activity-item">
 
                     <div class="activity-icon blood">
@@ -625,6 +669,153 @@
         </div>
 
     </section>
+
+
+
+    {{-- Dokumentasi --}}
+
+    <section class="donor-gallery">
+
+
+        <div class="donor-gallery-header">
+
+
+            <div class="donor-gallery-title">
+
+                <div class="donor-gallery-icon">
+                    <i class="fas fa-images"></i>
+                </div>
+
+
+                <div>
+
+                    <span>
+                        DOKUMENTASI
+                    </span>
+
+                    <h2>
+                        Dokumentasi Donor Darah
+                    </h2>
+
+                    <p>
+                        Momen kegiatan donor darah DONORCONNECT.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            @if ($dokumentasi->count() > 4)
+
+                <a
+                    href="{{ route('pendonor.dokumentasi') }}"
+                    class="donor-gallery-see-all"
+                >
+
+                    Lihat semua foto
+
+                    <i class="fas fa-arrow-right"></i>
+
+                </a>
+
+            @endif
+
+        </div>
+
+
+
+        @if ($dokumentasi->count() > 0)
+
+
+            <div class="donor-gallery-grid">
+
+
+                @foreach ($dokumentasi->take(4) as $foto)
+
+
+                    <a
+                        href="{{ asset('storage/' . $foto->foto) }}"
+                        target="_blank"
+                        class="donor-gallery-photo"
+                    >
+
+                        <img
+                            src="{{ asset('storage/' . $foto->foto) }}"
+                            alt="{{ $foto->judul ?? 'Dokumentasi donor darah' }}"
+                            loading="lazy"
+                        >
+
+
+                        <div class="donor-gallery-overlay">
+
+                            <i class="fas fa-search-plus"></i>
+
+                        </div>
+
+                    </a>
+
+
+                @endforeach
+
+
+            </div>
+
+
+
+            @if ($dokumentasi->count() > 4)
+
+                <div class="donor-gallery-bottom">
+
+                    <span>
+                        Menampilkan 4 foto terbaru
+                    </span>
+
+
+                    <a
+                        href="{{ route('pendonor.dokumentasi') }}"
+                    >
+
+                        Lihat {{ $dokumentasi->count() }} foto
+
+                        <i class="fas fa-arrow-right"></i>
+
+                    </a>
+
+                </div>
+
+            @endif
+
+
+        @else
+
+
+            <div class="donor-gallery-empty">
+
+                <div class="donor-gallery-empty-icon">
+
+                    <i class="fas fa-images"></i>
+
+                </div>
+
+
+                <h3>
+                    Belum ada dokumentasi
+                </h3>
+
+
+                <p>
+                    Dokumentasi kegiatan donor akan tampil di sini.
+                </p>
+
+            </div>
+
+
+        @endif
+
+
+    </section>
+
 
 </div>
 

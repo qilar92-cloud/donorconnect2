@@ -1,0 +1,612 @@
+.dokumentasi-card {
+    background: #ffffff;
+    border: 1px solid #f2dfe3;
+    border-radius: 18px;
+    margin-top: 24px;
+    overflow: hidden;
+}
+
+.dokumentasi-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 24px 28px;
+    background: linear-gradient(135deg, #ed5573, #d93659);
+}
+
+.dokumentasi-heading {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.dokumentasi-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.dokumentasi-label {
+    display: block;
+    margin-bottom: 4px;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.dokumentasi-heading h2 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.dokumentasi-heading p {
+    margin: 5px 0 0;
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 13px;
+}
+
+.btn-upload-dokumentasi {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 17px;
+    border: 0;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #d93659;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+    white-space: nowrap;
+}
+
+.btn-upload-dokumentasi:hover {
+    background: #fff4f6;
+    transform: translateY(-1px);
+}
+
+.upload-wrapper {
+    display: none;
+    padding: 24px 28px;
+    background: #fff9fa;
+    border-bottom: 1px solid #f2dfe3;
+}
+
+.upload-wrapper.show {
+    display: block;
+}
+
+.upload-form {
+    width: 100%;
+}
+
+.upload-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.upload-title-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
+    background: #ffe8ed;
+    color: #d93659;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.upload-title h3 {
+    margin: 0;
+    color: #453238;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.upload-title p {
+    margin: 3px 0 0;
+    color: #8b747b;
+    font-size: 12px;
+}
+
+.photo-upload-area {
+    padding: 28px 20px;
+    border: 2px dashed #efcbd3;
+    border-radius: 14px;
+    background: #ffffff;
+    text-align: center;
+}
+
+.photo-upload-icon {
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 12px;
+    border-radius: 50%;
+    background: #fff0f3;
+    color: #d93659;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+}
+
+.photo-upload-area h4 {
+    margin: 0;
+    color: #453238;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.photo-upload-area > p {
+    margin: 6px 0 16px;
+    color: #9a858b;
+    font-size: 12px;
+}
+
+#fotoDokumentasi {
+    display: none;
+}
+
+.btn-pilih-foto {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 10px 17px;
+    border-radius: 9px;
+    background: #ed5573;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.btn-pilih-foto:hover {
+    background: #d93659;
+}
+
+.jumlah-foto {
+    margin-top: 12px;
+    color: #9a858b;
+    font-size: 12px;
+}
+
+.jumlah-foto.active {
+    color: #d93659;
+    font-weight: 700;
+}
+
+.preview-foto {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    margin-top: 18px;
+    text-align: left;
+}
+
+.preview-foto-item {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border: 1px solid #f2dfe3;
+    border-radius: 10px;
+    background: #ffffff;
+}
+
+.preview-foto-item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.preview-nomor {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 5px;
+    border-radius: 6px;
+    background: #d93659;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.upload-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 18px;
+}
+
+.upload-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.upload-field label {
+    margin-bottom: 7px;
+    color: #59454c;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.upload-field input,
+.upload-field textarea {
+    width: 100%;
+    padding: 11px 13px;
+    border: 1px solid #ead9dd;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #453238;
+    font-family: inherit;
+    font-size: 13px;
+    outline: none;
+    transition: 0.2s ease;
+    box-sizing: border-box;
+}
+
+.upload-field input {
+    height: 43px;
+}
+
+.upload-field textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+.upload-field input::placeholder,
+.upload-field textarea::placeholder {
+    color: #b39da3;
+}
+
+.upload-field input:focus,
+.upload-field textarea:focus {
+    border-color: #ed5573;
+    box-shadow: 0 0 0 3px rgba(237, 85, 115, 0.08);
+}
+
+.upload-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.btn-batal-upload,
+.btn-simpan-upload {
+    min-height: 40px;
+    padding: 9px 16px;
+    border-radius: 9px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.btn-batal-upload {
+    border: 1px solid #ead9dd;
+    background: #ffffff;
+    color: #806c73;
+}
+
+.btn-batal-upload:hover {
+    background: #fff3f5;
+    color: #d93659;
+}
+
+.btn-simpan-upload {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border: 0;
+    background: #ed5573;
+    color: #ffffff;
+}
+
+.btn-simpan-upload:hover {
+    background: #d93659;
+    transform: translateY(-1px);
+}
+
+.dokumentasi-content {
+    padding: 26px 28px 28px;
+}
+
+.galeri-header {
+    margin-bottom: 18px;
+}
+
+.galeri-header h3 {
+    margin: 0;
+    color: #453238;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.galeri-header p {
+    margin: 4px 0 0;
+    color: #9a858b;
+    font-size: 12px;
+}
+
+.dokumentasi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.dokumentasi-item {
+    overflow: hidden;
+    border: 1px solid #f2dfe3;
+    border-radius: 13px;
+    background: #ffffff;
+    transition: 0.2s ease;
+}
+
+.dokumentasi-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(96, 45, 57, 0.08);
+}
+
+.foto-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #fff0f3;
+}
+
+.foto-wrapper img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.25s ease;
+}
+
+.dokumentasi-item:hover .foto-wrapper img {
+    transform: scale(1.03);
+}
+
+.foto-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: rgba(69, 50, 56, 0.35);
+    opacity: 0;
+    transition: 0.2s ease;
+}
+
+.dokumentasi-item:hover .foto-overlay {
+    opacity: 1;
+}
+
+.btn-lihat-foto,
+.btn-hapus-foto {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 9px;
+    color: #ffffff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn-lihat-foto {
+    background: #ed5573;
+}
+
+.btn-hapus-foto {
+    background: #d93659;
+}
+
+.btn-lihat-foto:hover,
+.btn-hapus-foto:hover {
+    background: #bd2849;
+}
+
+.foto-overlay form {
+    margin: 0;
+}
+
+.foto-info {
+    padding: 12px 13px;
+}
+
+.foto-info strong {
+    display: block;
+    overflow: hidden;
+    color: #453238;
+    font-size: 13px;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.foto-info p {
+    display: -webkit-box;
+    overflow: hidden;
+    margin: 5px 0 0;
+    color: #8f7a81;
+    font-size: 11px;
+    line-height: 1.5;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.dokumentasi-empty {
+    padding: 45px 20px;
+    text-align: center;
+}
+
+.empty-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 14px;
+    border-radius: 50%;
+    background: #fff0f3;
+    color: #ed5573;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+}
+
+.dokumentasi-empty h3 {
+    margin: 0;
+    color: #453238;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.dokumentasi-empty p {
+    max-width: 400px;
+    margin: 7px auto 17px;
+    color: #9a858b;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.btn-empty-upload {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 10px 16px;
+    border: 0;
+    border-radius: 9px;
+    background: #ed5573;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-empty-upload:hover {
+    background: #d93659;
+}
+
+@media (max-width: 1000px) {
+
+    .dokumentasi-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .preview-foto {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    .dokumentasi-header {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .btn-upload-dokumentasi {
+        width: 100%;
+    }
+
+    .upload-wrapper {
+        padding: 20px;
+    }
+
+    .dokumentasi-content {
+        padding: 22px 20px;
+    }
+
+    .upload-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dokumentasi-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .preview-foto {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+    }
+
+}
+
+@media (max-width: 430px) {
+
+    .dokumentasi-heading {
+        align-items: flex-start;
+    }
+
+    .dokumentasi-icon {
+        width: 42px;
+        height: 42px;
+        font-size: 17px;
+    }
+
+    .dokumentasi-heading h2 {
+        font-size: 18px;
+    }
+
+    .dokumentasi-heading p {
+        font-size: 11px;
+    }
+
+    .photo-upload-area {
+        padding: 22px 12px;
+    }
+
+    .upload-actions {
+        flex-direction: column-reverse;
+    }
+
+    .btn-batal-upload,
+    .btn-simpan-upload {
+        width: 100%;
+    }
+
+    .preview-foto {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .dokumentasi-grid {
+        grid-template-columns: 1fr;
+    }
+
+}

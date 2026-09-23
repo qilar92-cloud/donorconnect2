@@ -1,0 +1,626 @@
+/* Show Kegiatan Donor */
+
+
+/* Detail Kegiatan */
+
+.detail-kegiatan-card {
+    margin-bottom: 22px;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #f0dfe4;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(151, 43, 72, .06);
+}
+
+
+/* Judul */
+
+.detail-kegiatan-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 21px 24px;
+    background: linear-gradient(
+        120deg,
+        #fff7f8,
+        #fffafb
+    );
+    border-bottom: 1px solid #f1e3e7;
+}
+
+.detail-kegiatan-icon {
+    width: 43px;
+    height: 43px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #fff;
+    background: linear-gradient(
+        135deg,
+        #ed5573 0%,
+        #d93659 100%
+    );
+    border-radius: 12px;
+    box-shadow: 0 6px 14px rgba(217, 54, 89, .18);
+}
+
+.detail-kegiatan-icon i {
+    font-size: 16px;
+}
+
+.detail-kegiatan-header-text {
+    min-width: 0;
+}
+
+.detail-kegiatan-label {
+    display: block;
+    margin-bottom: 4px;
+    color: #d93659;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+}
+
+.detail-page-title {
+    margin: 0;
+    color: #3e3036;
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+.detail-kegiatan-body {
+    padding: 23px 24px;
+}
+
+
+/* Informasi */
+
+.detail-info-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 13px;
+    margin-bottom: 18px;
+}
+
+.detail-info-item {
+    padding: 15px;
+    background: #fffafb;
+    border: 1px solid #f1e1e6;
+    border-radius: 12px;
+    transition: .2s ease;
+}
+
+.detail-info-item:hover {
+    border-color: #edc1cc;
+    box-shadow: 0 5px 14px rgba(217, 54, 89, .05);
+}
+
+.detail-info-icon {
+    width: 31px;
+    height: 31px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 9px;
+    color: #d93659;
+    background: #fff0f3;
+    border-radius: 9px;
+}
+
+.detail-info-icon i {
+    font-size: 12px;
+}
+
+.detail-info-content {
+    min-width: 0;
+}
+
+.detail-info-label {
+    display: block;
+    margin-bottom: 4px;
+    color: #a08c94;
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.detail-info-value {
+    display: block;
+    overflow: hidden;
+    color: #4b3a41;
+    font-size: 11px;
+    font-weight: 800;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* Status */
+
+.detail-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 9px;
+    color: #16804a;
+    background: #eaf8f0;
+    border-radius: 20px;
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.detail-status-dot {
+    width: 6px;
+    height: 6px;
+    background: #28a866;
+    border-radius: 50%;
+}
+
+
+/* Keterangan */
+
+.detail-description {
+    padding: 16px 18px;
+    background: #fff8fa;
+    border: 1px solid #f2dfe4;
+    border-left: 3px solid #ed5573;
+    border-radius: 11px;
+}
+
+.detail-description-label {
+    display: block;
+    margin-bottom: 5px;
+    color: #d93659;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.detail-description-text {
+    margin: 0;
+    color: #68565e;
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+
+/* Pendonor */
+
+.pendonor-card {
+    margin-bottom: 22px;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #f0dfe4;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(151, 43, 72, .06);
+}
+
+.pendonor-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 21px 24px;
+    background: linear-gradient(
+        120deg,
+        #fff7f8,
+        #fffafb
+    );
+    border-bottom: 1px solid #f1e3e7;
+}
+
+.pendonor-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.pendonor-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background: linear-gradient(
+        135deg,
+        #ed5573 0%,
+        #d93659 100%
+    );
+    border-radius: 11px;
+    box-shadow: 0 5px 12px rgba(217, 54, 89, .15);
+}
+
+.pendonor-icon i {
+    font-size: 14px;
+}
+
+.pendonor-title {
+    margin: 0;
+    color: #423239;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.pendonor-subtitle {
+    margin: 3px 0 0;
+    color: #a18c94;
+    font-size: 10px;
+}
+
+.pendonor-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 28px;
+    padding: 0 9px;
+    color: #d93659;
+    background: #fff0f3;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+
+/* Table */
+
+.pendonor-body {
+    padding: 20px 24px;
+}
+
+.pendonor-table-wrapper {
+    overflow-x: auto;
+}
+
+.pendonor-table {
+    width: 100%;
+    margin: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.pendonor-table thead th {
+    padding: 11px 13px;
+    color: #8f7b84;
+    background: #fff8fa;
+    border-top: 1px solid #f1e2e6;
+    border-bottom: 1px solid #f1e2e6;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .4px;
+    text-transform: uppercase;
+}
+
+.pendonor-table thead th:first-child {
+    border-left: 1px solid #f1e2e6;
+    border-radius: 9px 0 0 0;
+}
+
+.pendonor-table thead th:last-child {
+    border-right: 1px solid #f1e2e6;
+    border-radius: 0 9px 0 0;
+}
+
+.pendonor-table tbody td {
+    padding: 13px;
+    color: #59474f;
+    background: #fff;
+    border-bottom: 1px solid #f2e5e9;
+    font-size: 11px;
+    vertical-align: middle;
+}
+
+.pendonor-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.pendonor-table tbody tr:hover td {
+    background: #fff9fa;
+}
+
+.pendonor-number {
+    width: 45px;
+    color: #a08c94 !important;
+    text-align: center;
+    font-weight: 700;
+}
+
+.pendonor-name {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #4a3940;
+    font-weight: 700;
+}
+
+.pendonor-avatar {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #d93659;
+    background: #fff0f3;
+    border-radius: 50%;
+    font-size: 11px;
+}
+
+
+/* Status Pendaftaran */
+
+.status-pendaftaran {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.status-menunggu {
+    color: #9a6a00;
+    background: #fff5d9;
+}
+
+.status-diterima {
+    color: #16804a;
+    background: #eaf8f0;
+}
+
+.status-ditolak {
+    color: #c23a4d;
+    background: #fff0f2;
+}
+
+.status-lainnya {
+    color: #76666d;
+    background: #f2eff1;
+}
+
+
+/* Empty */
+
+.pendonor-empty {
+    padding: 35px 20px;
+    text-align: center;
+}
+
+.pendonor-empty-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+    color: #d93659;
+    background: #fff0f3;
+    border-radius: 13px;
+}
+
+.pendonor-empty-icon i {
+    font-size: 20px;
+}
+
+.pendonor-empty-title {
+    margin: 0;
+    color: #49383f;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.pendonor-empty-text {
+    margin: 5px 0 0;
+    color: #a18d95;
+    font-size: 10px;
+}
+
+
+/* Tombol */
+
+.detail-action-card {
+    margin-bottom: 22px;
+    padding: 15px 18px;
+    background: #fff;
+    border: 1px solid #f0dfe4;
+    border-radius: 14px;
+    box-shadow: 0 5px 18px rgba(151, 43, 72, .04);
+}
+
+.detail-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.btn-detail-back,
+.btn-detail-edit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 9px 14px;
+    border-radius: 9px;
+    font-size: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: .2s ease;
+}
+
+.btn-detail-back {
+    color: #806d75;
+    background: #fff;
+    border: 1px solid #e5d8dd;
+}
+
+.btn-detail-back:hover {
+    color: #d93659;
+    background: #fff7f8;
+    border-color: #edb8c4;
+    text-decoration: none;
+}
+
+.btn-detail-edit {
+    color: #fff;
+    background: linear-gradient(
+        135deg,
+        #ed5573 0%,
+        #d93659 100%
+    );
+    border: 1px solid #d93659;
+    box-shadow: 0 5px 12px rgba(217, 54, 89, .12);
+}
+
+.btn-detail-edit:hover {
+    color: #fff;
+    background: linear-gradient(
+        135deg,
+        #d93659 0%,
+        #bd2849 100%
+    );
+    transform: translateY(-1px);
+    text-decoration: none;
+}
+
+
+/* Tablet */
+
+@media (max-width: 1000px) {
+
+    .detail-info-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+/* HP */
+
+@media (max-width: 700px) {
+
+    .detail-kegiatan-header {
+        padding: 18px;
+    }
+
+    .detail-kegiatan-body {
+        padding: 18px;
+    }
+
+    .detail-page-title {
+        font-size: 16px;
+    }
+
+    .detail-info-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .detail-info-item {
+        padding: 13px;
+    }
+
+    .pendonor-header {
+        align-items: flex-start;
+        padding: 18px;
+    }
+
+    .pendonor-body {
+        padding: 17px;
+    }
+
+    .pendonor-title {
+        font-size: 14px;
+    }
+
+    .pendonor-table thead th,
+    .pendonor-table tbody td {
+        padding: 10px;
+    }
+
+    .detail-actions {
+        align-items: stretch;
+    }
+
+    .btn-detail-back,
+    .btn-detail-edit {
+        flex: 1;
+    }
+
+}
+
+
+/* HP kecil */
+
+@media (max-width: 430px) {
+
+    .detail-kegiatan-header {
+        align-items: flex-start;
+        gap: 11px;
+    }
+
+    .detail-kegiatan-icon {
+        width: 39px;
+        height: 39px;
+    }
+
+    .detail-page-title {
+        font-size: 15px;
+    }
+
+    .detail-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-info-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .detail-info-icon {
+        margin: 0;
+    }
+
+    .detail-info-content {
+        min-width: 0;
+    }
+
+    .detail-description {
+        padding: 14px;
+    }
+
+    .pendonor-header {
+        gap: 10px;
+    }
+
+    .pendonor-icon {
+        width: 37px;
+        height: 37px;
+    }
+
+    .pendonor-count {
+        min-width: 29px;
+        height: 26px;
+    }
+
+    .pendonor-table {
+        min-width: 450px;
+    }
+
+    .detail-action-card {
+        padding: 13px;
+    }
+
+    .detail-actions {
+        flex-direction: column;
+    }
+
+    .btn-detail-back,
+    .btn-detail-edit {
+        width: 100%;
+    }
+
+}
