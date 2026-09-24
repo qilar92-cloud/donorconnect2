@@ -1,82 +1,106 @@
+/* Dokumentasi */
+
 .dokumentasi-card {
-    background: #ffffff;
-    border: 1px solid #f2dfe3;
-    border-radius: 18px;
+    width: 100%;
     margin-top: 24px;
     overflow: hidden;
+    background: #ffffff;
+    border: 1px solid #f2dfe3;
+    border-radius: 20px;
+    box-shadow: 0 8px 28px rgba(96, 45, 57, 0.06);
 }
+
+
+/* Header */
 
 .dokumentasi-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
+    gap: 24px;
     padding: 24px 28px;
-    background: linear-gradient(135deg, #ed5573, #d93659);
+    background: linear-gradient(
+        135deg,
+        #ed5573,
+        #d93659
+    );
 }
 
 .dokumentasi-heading {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 15px;
+    min-width: 0;
 }
 
 .dokumentasi-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.18);
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #ffffff;
-    font-size: 20px;
-    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 14px;
+    font-size: 19px;
 }
 
 .dokumentasi-label {
     display: block;
-    margin-bottom: 4px;
+    margin-bottom: 5px;
     color: rgba(255, 255, 255, 0.82);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
 }
 
 .dokumentasi-heading h2 {
     margin: 0;
     color: #ffffff;
-    font-size: 21px;
-    font-weight: 700;
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.25;
 }
 
 .dokumentasi-heading p {
     margin: 5px 0 0;
     color: rgba(255, 255, 255, 0.88);
-    font-size: 13px;
+    font-size: 11px;
 }
+
+
+/* Tombol Upload */
 
 .btn-upload-dokumentasi {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    padding: 11px 17px;
+    gap: 7px;
+    flex-shrink: 0;
+    padding: 10px 16px;
     border: 0;
     border-radius: 10px;
     background: #ffffff;
     color: #d93659;
-    font-size: 13px;
-    font-weight: 700;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 800;
     cursor: pointer;
-    transition: 0.2s ease;
     white-space: nowrap;
+    transition: .2s ease;
 }
 
 .btn-upload-dokumentasi:hover {
+    color: #d93659;
     background: #fff4f6;
     transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(96, 45, 57, 0.10);
 }
+
+
+/* Form Upload */
 
 .upload-wrapper {
     display: none;
@@ -93,122 +117,152 @@
     width: 100%;
 }
 
+
+/* Judul Form */
+
 .upload-title {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 20px;
+    gap: 11px;
+    margin-bottom: 18px;
 }
 
 .upload-title-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 11px;
-    background: #ffe8ed;
-    color: #d93659;
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
+    color: #d93659;
+    background: #ffe8ed;
+    border-radius: 10px;
+}
+
+.upload-title-icon i {
+    font-size: 14px;
 }
 
 .upload-title h3 {
     margin: 0;
     color: #453238;
-    font-size: 16px;
-    font-weight: 700;
+    font-size: 15px;
+    font-weight: 800;
 }
 
 .upload-title p {
     margin: 3px 0 0;
     color: #8b747b;
-    font-size: 12px;
+    font-size: 10px;
 }
 
+
+/* Pilih Foto */
+
 .photo-upload-area {
-    padding: 28px 20px;
-    border: 2px dashed #efcbd3;
-    border-radius: 14px;
-    background: #ffffff;
+    padding: 25px 20px;
     text-align: center;
+    background: #ffffff;
+    border: 1.5px dashed #efcbd3;
+    border-radius: 14px;
+    transition: .2s ease;
+}
+
+.photo-upload-area:hover {
+    border-color: #ed5573;
+    background: #fffafb;
 }
 
 .photo-upload-icon {
-    width: 52px;
-    height: 52px;
-    margin: 0 auto 12px;
-    border-radius: 50%;
-    background: #fff0f3;
-    color: #d93659;
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 21px;
+    color: #d93659;
+    background: #fff0f3;
+    border-radius: 50%;
+    font-size: 19px;
 }
 
 .photo-upload-area h4 {
     margin: 0;
     color: #453238;
-    font-size: 15px;
-    font-weight: 700;
+    font-size: 14px;
+    font-weight: 800;
 }
 
 .photo-upload-area > p {
-    margin: 6px 0 16px;
+    margin: 5px 0 14px;
     color: #9a858b;
-    font-size: 12px;
+    font-size: 10px;
 }
+
+
+/* Input File */
 
 #fotoDokumentasi {
     display: none;
 }
 
+
+/* Tombol Pilih */
+
 .btn-pilih-foto {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 7px;
-    padding: 10px 17px;
+    gap: 6px;
+    padding: 9px 15px;
     border-radius: 9px;
     background: #ed5573;
     color: #ffffff;
-    font-size: 13px;
-    font-weight: 700;
+    font-size: 11px;
+    font-weight: 800;
     cursor: pointer;
-    transition: 0.2s ease;
+    transition: .2s ease;
 }
 
 .btn-pilih-foto:hover {
+    color: #ffffff;
     background: #d93659;
+    transform: translateY(-1px);
 }
 
+
+/* Jumlah Foto */
+
 .jumlah-foto {
-    margin-top: 12px;
+    margin-top: 10px;
     color: #9a858b;
-    font-size: 12px;
+    font-size: 10px;
 }
 
 .jumlah-foto.active {
     color: #d93659;
-    font-weight: 700;
+    font-weight: 800;
 }
+
+
+/* Preview */
 
 .preview-foto {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    gap: 10px;
-    margin-top: 18px;
+    gap: 9px;
+    margin-top: 16px;
     text-align: left;
 }
 
 .preview-foto-item {
     position: relative;
     width: 100%;
-    aspect-ratio: 1 / 1;
     overflow: hidden;
+    aspect-ratio: 1 / 1;
+    background: #ffffff;
     border: 1px solid #f2dfe3;
     border-radius: 10px;
-    background: #ffffff;
 }
 
 .preview-foto-item img {
@@ -222,24 +276,27 @@
     position: absolute;
     top: 5px;
     left: 5px;
-    min-width: 22px;
-    height: 22px;
+    min-width: 20px;
+    height: 20px;
     padding: 0 5px;
-    border-radius: 6px;
-    background: #d93659;
-    color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 10px;
-    font-weight: 700;
+    color: #ffffff;
+    background: #d93659;
+    border-radius: 6px;
+    font-size: 9px;
+    font-weight: 800;
 }
+
+
+/* Input */
 
 .upload-info-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-top: 18px;
+    gap: 14px;
+    margin-top: 16px;
 }
 
 .upload-field {
@@ -248,33 +305,33 @@
 }
 
 .upload-field label {
-    margin-bottom: 7px;
+    margin-bottom: 6px;
     color: #59454c;
-    font-size: 12px;
-    font-weight: 700;
+    font-size: 10px;
+    font-weight: 800;
 }
 
 .upload-field input,
 .upload-field textarea {
     width: 100%;
-    padding: 11px 13px;
+    box-sizing: border-box;
+    padding: 10px 12px;
     border: 1px solid #ead9dd;
     border-radius: 9px;
+    outline: none;
     background: #ffffff;
     color: #453238;
     font-family: inherit;
-    font-size: 13px;
-    outline: none;
-    transition: 0.2s ease;
-    box-sizing: border-box;
+    font-size: 11px;
+    transition: .2s ease;
 }
 
 .upload-field input {
-    height: 43px;
+    height: 40px;
 }
 
 .upload-field textarea {
-    min-height: 90px;
+    min-height: 82px;
     resize: vertical;
 }
 
@@ -289,97 +346,116 @@
     box-shadow: 0 0 0 3px rgba(237, 85, 115, 0.08);
 }
 
+
+/* Aksi */
+
 .upload-actions {
     display: flex;
-    justify-content: flex-end;
     align-items: center;
-    gap: 10px;
-    margin-top: 18px;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 16px;
 }
 
 .btn-batal-upload,
 .btn-simpan-upload {
-    min-height: 40px;
-    padding: 9px 16px;
+    min-height: 38px;
+    padding: 8px 14px;
     border-radius: 9px;
     font-family: inherit;
-    font-size: 13px;
-    font-weight: 700;
+    font-size: 10px;
+    font-weight: 800;
     cursor: pointer;
-    transition: 0.2s ease;
+    transition: .2s ease;
 }
 
 .btn-batal-upload {
-    border: 1px solid #ead9dd;
-    background: #ffffff;
     color: #806c73;
+    background: #ffffff;
+    border: 1px solid #ead9dd;
 }
 
 .btn-batal-upload:hover {
-    background: #fff3f5;
     color: #d93659;
+    background: #fff3f5;
+    border-color: #edb8c4;
 }
 
 .btn-simpan-upload {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 7px;
-    border: 0;
-    background: #ed5573;
+    gap: 6px;
     color: #ffffff;
+    background: #ed5573;
+    border: 0;
 }
 
 .btn-simpan-upload:hover {
+    color: #ffffff;
     background: #d93659;
     transform: translateY(-1px);
+    box-shadow: 0 5px 12px rgba(217, 54, 89, .12);
 }
 
+
+/* Galeri */
+
 .dokumentasi-content {
-    padding: 26px 28px 28px;
+    padding: 24px 28px 28px;
 }
 
 .galeri-header {
-    margin-bottom: 18px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 16px;
 }
 
 .galeri-header h3 {
     margin: 0;
     color: #453238;
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 800;
 }
 
 .galeri-header p {
     margin: 4px 0 0;
     color: #9a858b;
-    font-size: 12px;
+    font-size: 10px;
 }
+
+
+/* Grid Foto */
 
 .dokumentasi-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
+    gap: 14px;
 }
+
+
+/* Foto */
 
 .dokumentasi-item {
     overflow: hidden;
+    background: #ffffff;
     border: 1px solid #f2dfe3;
     border-radius: 13px;
-    background: #ffffff;
-    transition: 0.2s ease;
+    transition: .2s ease;
 }
 
 .dokumentasi-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 22px rgba(96, 45, 57, 0.08);
+    transform: translateY(-3px);
+    border-color: #edc1cc;
+    box-shadow: 0 10px 24px rgba(96, 45, 57, .09);
 }
 
 .foto-wrapper {
     position: relative;
     width: 100%;
-    aspect-ratio: 4 / 3;
     overflow: hidden;
+    aspect-ratio: 4 / 3;
     background: #fff0f3;
 }
 
@@ -388,12 +464,15 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: 0.25s ease;
+    transition: .3s ease;
 }
 
 .dokumentasi-item:hover .foto-wrapper img {
-    transform: scale(1.03);
+    transform: scale(1.04);
 }
+
+
+/* Overlay Foto */
 
 .foto-overlay {
     position: absolute;
@@ -401,20 +480,23 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    background: rgba(69, 50, 56, 0.35);
+    gap: 7px;
+    background: rgba(69, 50, 56, .34);
     opacity: 0;
-    transition: 0.2s ease;
+    transition: .2s ease;
 }
 
 .dokumentasi-item:hover .foto-overlay {
     opacity: 1;
 }
 
+
+/* Tombol Foto */
+
 .btn-lihat-foto,
 .btn-hapus-foto {
-    width: 36px;
-    height: 36px;
+    width: 34px;
+    height: 34px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -423,6 +505,7 @@
     color: #ffffff;
     text-decoration: none;
     cursor: pointer;
+    transition: .2s ease;
 }
 
 .btn-lihat-foto {
@@ -435,23 +518,29 @@
 
 .btn-lihat-foto:hover,
 .btn-hapus-foto:hover {
+    color: #ffffff;
     background: #bd2849;
+    transform: translateY(-1px);
 }
 
 .foto-overlay form {
     margin: 0;
 }
 
+
+/* Info Foto */
+
 .foto-info {
-    padding: 12px 13px;
+    padding: 11px 12px 13px;
 }
 
 .foto-info strong {
     display: block;
     overflow: hidden;
     color: #453238;
-    font-size: 13px;
-    font-weight: 700;
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 1.4;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
@@ -459,13 +548,16 @@
 .foto-info p {
     display: -webkit-box;
     overflow: hidden;
-    margin: 5px 0 0;
+    margin: 4px 0 0;
     color: #8f7a81;
-    font-size: 11px;
+    font-size: 9px;
     line-height: 1.5;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
 }
+
+
+/* Kosong */
 
 .dokumentasi-empty {
     padding: 45px 20px;
@@ -473,30 +565,30 @@
 }
 
 .empty-icon {
-    width: 60px;
-    height: 60px;
-    margin: 0 auto 14px;
-    border-radius: 50%;
-    background: #fff0f3;
-    color: #ed5573;
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 25px;
+    color: #ed5573;
+    background: #fff0f3;
+    border-radius: 50%;
+    font-size: 23px;
 }
 
 .dokumentasi-empty h3 {
     margin: 0;
     color: #453238;
-    font-size: 16px;
-    font-weight: 700;
+    font-size: 15px;
+    font-weight: 800;
 }
 
 .dokumentasi-empty p {
-    max-width: 400px;
-    margin: 7px auto 17px;
+    max-width: 380px;
+    margin: 6px auto 15px;
     color: #9a858b;
-    font-size: 12px;
+    font-size: 10px;
     line-height: 1.6;
 }
 
@@ -504,21 +596,25 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 7px;
-    padding: 10px 16px;
+    gap: 6px;
+    padding: 9px 15px;
     border: 0;
     border-radius: 9px;
     background: #ed5573;
     color: #ffffff;
     font-family: inherit;
-    font-size: 13px;
-    font-weight: 700;
+    font-size: 10px;
+    font-weight: 800;
     cursor: pointer;
 }
 
 .btn-empty-upload:hover {
+    color: #ffffff;
     background: #d93659;
 }
+
+
+/* Tablet */
 
 @media (max-width: 1000px) {
 
@@ -532,12 +628,19 @@
 
 }
 
+
+/* HP */
+
 @media (max-width: 700px) {
 
     .dokumentasi-header {
         align-items: flex-start;
         flex-direction: column;
         padding: 20px;
+    }
+
+    .dokumentasi-heading {
+        width: 100%;
     }
 
     .btn-upload-dokumentasi {
@@ -549,7 +652,7 @@
     }
 
     .dokumentasi-content {
-        padding: 22px 20px;
+        padding: 20px;
     }
 
     .upload-info-grid {
@@ -558,38 +661,50 @@
 
     .dokumentasi-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
+        gap: 11px;
     }
 
     .preview-foto {
         grid-template-columns: repeat(4, 1fr);
-        gap: 8px;
+        gap: 7px;
     }
 
 }
 
+
+/* HP kecil */
+
 @media (max-width: 430px) {
 
+    .dokumentasi-card {
+        border-radius: 15px;
+    }
+
+    .dokumentasi-header {
+        padding: 18px;
+    }
+
     .dokumentasi-heading {
-        align-items: flex-start;
+        gap: 11px;
     }
 
     .dokumentasi-icon {
         width: 42px;
         height: 42px;
-        font-size: 17px;
+        font-size: 16px;
+        border-radius: 11px;
     }
 
     .dokumentasi-heading h2 {
-        font-size: 18px;
+        font-size: 17px;
     }
 
     .dokumentasi-heading p {
-        font-size: 11px;
+        font-size: 10px;
     }
 
     .photo-upload-area {
-        padding: 22px 12px;
+        padding: 21px 12px;
     }
 
     .upload-actions {
@@ -607,6 +722,10 @@
 
     .dokumentasi-grid {
         grid-template-columns: 1fr;
+    }
+
+    .galeri-header {
+        align-items: flex-start;
     }
 
 }

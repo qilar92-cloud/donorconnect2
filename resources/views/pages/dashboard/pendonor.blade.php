@@ -9,22 +9,17 @@
 @section('content')
 
 @php
-
     use App\Models\KegiatanDonor;
     use App\Models\PendaftaranDonor;
     use App\Models\HasilDonor;
     use App\Models\RiwayatDonor;
     use App\Models\Pendonor;
-
-    // Data Pendonor
+    use App\Models\DokumentasiDonor;
 
     $pendonor = Pendonor::where(
         'id_user',
         session('id_user')
     )->first();
-
-
-    // Statistik
 
     $jumlahKegiatan = KegiatanDonor::count();
 
@@ -57,9 +52,6 @@
         )->sum('jumlah_kantong')
         : 0;
 
-
-    // Status Donor
-
     $pendaftaranTerakhir = $pendonor
         ? PendaftaranDonor::where(
             'id_pendonor',
@@ -74,9 +66,6 @@
         ? $pendaftaranTerakhir->status_pendaftaran
         : 'Belum Terdaftar';
 
-
-    // Kegiatan Terdekat
-
     $kegiatanTerdekat = KegiatanDonor::whereDate(
         'tanggal',
         '>=',
@@ -86,20 +75,22 @@
         ->orderBy('waktu')
         ->first();
 
+    $dokumentasi = DokumentasiDonor::with('kegiatanDonor')
+        ->latest()
+        ->get();
+
+    $fotoDashboard = $dokumentasi->take(6);
 @endphp
 
 
 <div class="pendonor-dashboard">
 
-
-    {{-- Hero --}}
+    {{-- HERO --}}
 
     <section class="dashboard-hero">
 
         <div class="hero-background-shape shape-one"></div>
-
         <div class="hero-background-shape shape-two"></div>
-
 
         <div class="hero-content">
 
@@ -109,9 +100,7 @@
                     <i class="fas fa-heart"></i>
                 </span>
 
-                <span>
-                    DONORCONNECT
-                </span>
+                <span>DONORCONNECT</span>
 
             </div>
 
@@ -129,9 +118,7 @@
 
                 Karena kamu,<br>
 
-                <span>
-                    dunia jadi lebih sehat
-                </span>
+                <span>dunia jadi lebih sehat</span>
 
                 <i class="fas fa-heart"></i>
 
@@ -180,49 +167,40 @@
 
 
             <div class="heart-line">
+
                 <i class="fas fa-heart"></i>
+
             </div>
 
 
             <div class="hand-shape hand-left">
+
                 <i class="fas fa-hand-holding-heart"></i>
+
             </div>
 
 
             <div class="hero-message">
 
-                <span>
-                    Setetes darah
-                </span>
+                <span>Setetes darah</span>
 
-                <strong>
-                    sejuta harapan
-                </strong>
+                <strong>sejuta harapan</strong>
 
                 <i class="fas fa-heart"></i>
 
             </div>
 
 
-            <span class="spark spark-one">
-                ✦
-            </span>
-
-            <span class="spark spark-two">
-                ✦
-            </span>
-
-            <span class="spark spark-three">
-                •
-            </span>
+            <span class="spark spark-one">✦</span>
+            <span class="spark spark-two">✦</span>
+            <span class="spark spark-three">•</span>
 
         </div>
 
     </section>
 
 
-
-    {{-- Statistik --}}
+    {{-- STATISTIK --}}
 
     <section class="stats-grid">
 
@@ -265,7 +243,6 @@
         </a>
 
 
-
         {{-- Pendaftaran --}}
 
         <a
@@ -302,7 +279,6 @@
             </div>
 
         </a>
-
 
 
         {{-- Riwayat --}}
@@ -343,8 +319,7 @@
         </a>
 
 
-
-        {{-- Total Donor --}}
+        {{-- Total donor --}}
 
         <a
             href="{{ route('pendonor.riwayat') }}"
@@ -384,13 +359,12 @@
     </section>
 
 
-
-    {{-- Bagian Bawah --}}
+    {{-- BAGIAN BAWAH --}}
 
     <section class="dashboard-sections">
 
 
-        {{-- Kegiatan Terdekat --}}
+        {{-- KEGIATAN TERDEKAT --}}
 
         <div class="dashboard-panel">
 
@@ -401,6 +375,7 @@
                     <div class="panel-icon pink-icon">
                         <i class="fas fa-calendar-check"></i>
                     </div>
+
 
                     <div>
 
@@ -435,7 +410,7 @@
             </div>
 
 
-            @if ($kegiatanTerdekat)
+            @if($kegiatanTerdekat)
 
                 <div class="event-card">
 
@@ -521,18 +496,19 @@
         </div>
 
 
-
-        {{-- Aktivitas --}}
+        {{-- STATUS DONOR --}}
 
         <div class="dashboard-panel activity-panel">
 
             <div class="panel-header">
+
 
                 <div class="panel-title">
 
                     <div class="panel-icon blue-icon">
                         <i class="fas fa-chart-line"></i>
                     </div>
+
 
                     <div>
 
@@ -570,8 +546,6 @@
             <div class="activity-content">
 
 
-                {{-- Status --}}
-
                 <div class="activity-item">
 
                     <div class="activity-icon">
@@ -601,9 +575,6 @@
                 </div>
 
 
-
-                {{-- Riwayat --}}
-
                 <div class="activity-item">
 
                     <div class="activity-icon history">
@@ -632,9 +603,6 @@
 
                 </div>
 
-
-
-                {{-- Kantong --}}
 
                 <div class="activity-item">
 
@@ -671,8 +639,7 @@
     </section>
 
 
-
-    {{-- Dokumentasi --}}
+    {{-- DOKUMENTASI --}}
 
     <section class="donor-gallery">
 
@@ -706,54 +673,72 @@
             </div>
 
 
-            @if ($dokumentasi->count() > 4)
+            {{-- Lihat semua foto --}}
 
-                <a
-                    href="{{ route('pendonor.dokumentasi') }}"
-                    class="donor-gallery-see-all"
-                >
+            <a
+                href="{{ route('pendonor.dokumentasi') }}"
+                class="donor-gallery-see-all"
+            >
 
-                    Lihat semua foto
+                Lihat semua foto
 
-                    <i class="fas fa-arrow-right"></i>
+                <i class="fas fa-arrow-right"></i>
 
-                </a>
-
-            @endif
+            </a>
 
         </div>
 
 
-
-        @if ($dokumentasi->count() > 0)
+        @if($fotoDashboard->count() > 0)
 
 
             <div class="donor-gallery-grid">
 
 
-                @foreach ($dokumentasi->take(4) as $foto)
+                @foreach($fotoDashboard as $foto)
 
 
-                    <a
-                        href="{{ asset('storage/' . $foto->foto) }}"
-                        target="_blank"
-                        class="donor-gallery-photo"
+                    <button
+                        type="button"
+                        class="donor-gallery-photo {{ $loop->first ? 'donor-gallery-main' : '' }}"
+                        data-index="{{ $loop->index }}"
+                        aria-label="Buka foto dokumentasi"
                     >
+
 
                         <img
                             src="{{ asset('storage/' . $foto->foto) }}"
-                            alt="{{ $foto->judul ?? 'Dokumentasi donor darah' }}"
+                            alt="{{ $foto->judul ?: 'Dokumentasi donor darah' }}"
                             loading="lazy"
                         >
 
 
                         <div class="donor-gallery-overlay">
 
-                            <i class="fas fa-search-plus"></i>
+
+                            @if($loop->first)
+
+                                <div>
+
+                                    <i class="fas fa-search-plus"></i>
+
+                                    <span>
+                                        Dokumentasi donor darah
+                                    </span>
+
+                                </div>
+
+                            @else
+
+                                <i class="fas fa-search-plus"></i>
+
+                            @endif
+
 
                         </div>
 
-                    </a>
+
+                    </button>
 
 
                 @endforeach
@@ -762,35 +747,11 @@
             </div>
 
 
-
-            @if ($dokumentasi->count() > 4)
-
-                <div class="donor-gallery-bottom">
-
-                    <span>
-                        Menampilkan 4 foto terbaru
-                    </span>
-
-
-                    <a
-                        href="{{ route('pendonor.dokumentasi') }}"
-                    >
-
-                        Lihat {{ $dokumentasi->count() }} foto
-
-                        <i class="fas fa-arrow-right"></i>
-
-                    </a>
-
-                </div>
-
-            @endif
-
-
         @else
 
 
             <div class="donor-gallery-empty">
+
 
                 <div class="donor-gallery-empty-icon">
 
@@ -808,6 +769,7 @@
                     Dokumentasi kegiatan donor akan tampil di sini.
                 </p>
 
+
             </div>
 
 
@@ -816,7 +778,437 @@
 
     </section>
 
-
 </div>
+
+
+{{-- LIGHTBOX --}}
+
+@if($fotoDashboard->count() > 0)
+
+
+    <div
+        class="photo-lightbox"
+        id="photoLightbox"
+        aria-hidden="true"
+    >
+
+
+        {{-- Tutup --}}
+
+        <button
+            type="button"
+            class="lightbox-close"
+            id="lightboxClose"
+            aria-label="Tutup foto"
+        >
+
+            <i class="fas fa-times"></i>
+
+        </button>
+
+
+        {{-- Sebelumnya --}}
+
+        <button
+            type="button"
+            class="lightbox-arrow lightbox-prev"
+            id="lightboxPrev"
+            aria-label="Foto sebelumnya"
+        >
+
+            <i class="fas fa-chevron-left"></i>
+
+        </button>
+
+
+        <div class="lightbox-content">
+
+
+            <img
+                id="lightboxImage"
+                src=""
+                alt="Dokumentasi donor darah"
+            >
+
+
+            <div class="lightbox-counter">
+
+                <span id="lightboxCurrent">
+                    1
+                </span>
+
+                /
+
+                <span id="lightboxTotal">
+                    {{ $fotoDashboard->count() }}
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+        {{-- Berikutnya --}}
+
+        <button
+            type="button"
+            class="lightbox-arrow lightbox-next"
+            id="lightboxNext"
+            aria-label="Foto berikutnya"
+        >
+
+            <i class="fas fa-chevron-right"></i>
+
+        </button>
+
+
+    </div>
+
+@endif
+
+
+{{-- LIGHTBOX SCRIPT --}}
+
+@if($fotoDashboard->count() > 0)
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function () {
+
+
+    const photos = document.querySelectorAll(
+        '.donor-gallery-photo'
+    );
+
+
+    const lightbox = document.getElementById(
+        'photoLightbox'
+    );
+
+
+    const image = document.getElementById(
+        'lightboxImage'
+    );
+
+
+    const closeButton = document.getElementById(
+        'lightboxClose'
+    );
+
+
+    const prevButton = document.getElementById(
+        'lightboxPrev'
+    );
+
+
+    const nextButton = document.getElementById(
+        'lightboxNext'
+    );
+
+
+    const currentNumber = document.getElementById(
+        'lightboxCurrent'
+    );
+
+
+    if (
+        !photos.length ||
+        !lightbox ||
+        !image ||
+        !closeButton ||
+        !prevButton ||
+        !nextButton ||
+        !currentNumber
+    ) {
+        return;
+    }
+
+
+    let currentIndex = 0;
+
+    let touchStartX = 0;
+
+    let touchEndX = 0;
+
+
+    function showPhoto(index) {
+
+
+        if (index < 0) {
+
+            index = photos.length - 1;
+
+        }
+
+
+        if (index >= photos.length) {
+
+            index = 0;
+
+        }
+
+
+        const photo =
+            photos[index].querySelector('img');
+
+
+        if (!photo) {
+
+            return;
+
+        }
+
+
+        currentIndex = index;
+
+
+        image.src = photo.src;
+
+        image.alt = photo.alt;
+
+
+        currentNumber.textContent =
+            index + 1;
+
+    }
+
+
+    function openLightbox(index) {
+
+
+        showPhoto(index);
+
+
+        lightbox.classList.add('show');
+
+
+        lightbox.setAttribute(
+            'aria-hidden',
+            'false'
+        );
+
+
+        document.body.classList.add(
+            'lightbox-open'
+        );
+
+    }
+
+
+    function closeLightbox() {
+
+
+        lightbox.classList.remove(
+            'show'
+        );
+
+
+        lightbox.setAttribute(
+            'aria-hidden',
+            'true'
+        );
+
+
+        document.body.classList.remove(
+            'lightbox-open'
+        );
+
+
+        image.src = '';
+
+    }
+
+
+    photos.forEach(function (photo, index) {
+
+
+        photo.addEventListener(
+            'click',
+            function () {
+
+                openLightbox(index);
+
+            }
+        );
+
+
+    });
+
+
+    closeButton.addEventListener(
+        'click',
+        function () {
+
+            closeLightbox();
+
+        }
+    );
+
+
+    prevButton.addEventListener(
+        'click',
+        function () {
+
+            showPhoto(
+                currentIndex - 1
+            );
+
+        }
+    );
+
+
+    nextButton.addEventListener(
+        'click',
+        function () {
+
+            showPhoto(
+                currentIndex + 1
+            );
+
+        }
+    );
+
+
+    lightbox.addEventListener(
+        'click',
+        function (event) {
+
+
+            if (
+                event.target === lightbox
+            ) {
+
+                closeLightbox();
+
+            }
+
+
+        }
+    );
+
+
+    document.addEventListener(
+        'keydown',
+        function (event) {
+
+
+            if (
+                !lightbox.classList.contains(
+                    'show'
+                )
+            ) {
+
+                return;
+
+            }
+
+
+            if (
+                event.key === 'Escape'
+            ) {
+
+                closeLightbox();
+
+                return;
+
+            }
+
+
+            if (
+                event.key === 'ArrowLeft'
+            ) {
+
+                showPhoto(
+                    currentIndex - 1
+                );
+
+            }
+
+
+            if (
+                event.key === 'ArrowRight'
+            ) {
+
+                showPhoto(
+                    currentIndex + 1
+                );
+
+            }
+
+
+        }
+    );
+
+
+    image.addEventListener(
+        'touchstart',
+        function (event) {
+
+
+            touchStartX =
+                event.changedTouches[0].screenX;
+
+
+        },
+        {
+            passive: true
+        }
+    );
+
+
+    image.addEventListener(
+        'touchend',
+        function (event) {
+
+
+            touchEndX =
+                event.changedTouches[0].screenX;
+
+
+            const distance =
+                touchStartX - touchEndX;
+
+
+            if (
+                Math.abs(distance) < 50
+            ) {
+
+                return;
+
+            }
+
+
+            if (distance > 0) {
+
+
+                showPhoto(
+                    currentIndex + 1
+                );
+
+
+            } else {
+
+
+                showPhoto(
+                    currentIndex - 1
+                );
+
+
+            }
+
+
+        },
+        {
+            passive: true
+        }
+    );
+
+
+});
+
+</script>
+
+@endif
 
 @endsection

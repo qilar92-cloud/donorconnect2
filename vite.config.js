@@ -44,6 +44,7 @@ export default defineConfig({
                 'resources/css/pendonor/profile-edit.css',
                 'resources/css/pendonor/riwayat-donor.css',
                 'resources/css/pendonor/status.css',
+                'resources/css/pendonor/dokumentasi.css',
 
                 // Petugas
                 'resources/css/petugas/profile.css',
