@@ -1,0 +1,466 @@
+/* Halaman */
+
+.kegiatan-page {
+    min-height: 100vh;
+    padding: 26px 30px 40px;
+    background: #fff9f6;
+}
+
+
+/* Card */
+
+.form-card {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border: 1px solid #eadde1;
+    border-radius: 18px;
+
+    box-shadow: 0 7px 24px rgba(91, 40, 55, .07);
+}
+
+
+/* Header */
+
+.page-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 25px;
+
+    padding: 24px 30px 22px;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #eee2e5;
+}
+
+.header-text {
+    min-width: 0;
+}
+
+.page-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    margin-bottom: 7px;
+
+    color: #c52f57;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.page-label i {
+    font-size: 12px;
+}
+
+.page-header h1 {
+    margin: 0;
+
+    color: #30313f;
+
+    font-size: 26px;
+    font-weight: 800;
+
+    line-height: 1.2;
+}
+
+.page-header p {
+    margin: 6px 0 0;
+
+    color: #81777d;
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.activity-id {
+    flex-shrink: 0;
+
+    padding: 7px 11px;
+
+    border: 1px solid #efd4db;
+    border-radius: 8px;
+
+    background: #fff7f8;
+
+    color: #c52f57;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+/* Form Body */
+
+.form-body {
+    padding: 25px 30px 28px;
+
+    background: #ffffff;
+}
+
+
+/* Section */
+
+.section-heading {
+    margin-bottom: 20px;
+}
+
+.section-heading h2 {
+    margin: 0;
+
+    color: #35333b;
+
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.section-heading p {
+    margin: 4px 0 0;
+
+    color: #94868c;
+
+    font-size: 12px;
+}
+
+
+/* Grid */
+
+.form-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 17px 18px;
+}
+
+
+/* Field */
+
+.form-group {
+    min-width: 0;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #5f555b;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+/* Input */
+
+.input-wrap,
+.textarea-wrap {
+    position: relative;
+}
+
+.input-wrap > i,
+.textarea-wrap > i {
+    position: absolute;
+
+    left: 14px;
+
+    color: #c52f57;
+
+    font-size: 13px;
+
+    pointer-events: none;
+}
+
+.input-wrap > i {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.textarea-wrap > i {
+    top: 14px;
+}
+
+input,
+textarea {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    border: 1px solid #e6d9dd;
+    border-radius: 10px;
+
+    background: #fffafa;
+
+    color: #36333a;
+
+    font-family: inherit;
+    font-size: 13px;
+
+    outline: none;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+}
+
+input {
+    height: 44px;
+
+    padding: 0 14px 0 39px;
+}
+
+textarea {
+    min-height: 108px;
+
+    padding: 12px 14px 12px 39px;
+
+    resize: vertical;
+
+    line-height: 1.55;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #aaa0a5;
+}
+
+
+/* Focus */
+
+input:focus,
+textarea:focus {
+    background: #ffffff;
+
+    border-color: #d95a76;
+
+    box-shadow:
+        0 0 0 3px rgba(217, 90, 118, .08);
+}
+
+
+/* Error */
+
+.input-error {
+    border-color: #d94b69 !important;
+}
+
+.error-message {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #c52f57;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+/* Footer */
+
+.form-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 17px 30px;
+
+    background: #ffffff;
+
+    border-top: 1px solid #eee2e5;
+}
+
+
+/* Buttons */
+
+.btn {
+    min-height: 41px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 0 17px;
+
+    border-radius: 9px;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+        .2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+
+/* Back */
+
+.btn-back {
+    background: #f1edef;
+
+    border: 1px solid #e0d9dc;
+
+    color: #665e63 !important;
+}
+
+.btn-back:hover {
+    background: #e9e3e6;
+}
+
+
+/* Save */
+
+.btn-save {
+    border: none;
+
+    background: linear-gradient(
+        135deg,
+        #f04468 0%,
+        #df2e57 55%,
+        #c8234b 100%
+    );
+
+    color: #ffffff;
+
+    box-shadow:
+        0 5px 13px rgba(200, 35, 75, .20);
+}
+
+.btn-save:hover {
+    box-shadow:
+        0 7px 17px rgba(200, 35, 75, .27);
+}
+
+
+/* Tablet */
+
+@media (max-width: 850px) {
+
+    .kegiatan-page {
+        padding: 22px 20px 30px;
+    }
+
+    .page-header {
+        padding: 22px 24px 20px;
+    }
+
+    .form-body {
+        padding: 23px 24px 25px;
+    }
+
+    .form-footer {
+        padding: 16px 24px;
+    }
+
+}
+
+
+/* HP */
+
+@media (max-width: 600px) {
+
+    .kegiatan-page {
+        padding: 14px 12px 25px;
+    }
+
+    .form-card {
+        border-radius: 15px;
+    }
+
+    .page-header {
+        display: block;
+
+        padding: 19px 18px 18px;
+    }
+
+    .page-header h1 {
+        font-size: 22px;
+    }
+
+    .page-header p {
+        font-size: 12px;
+    }
+
+    .activity-id {
+        display: inline-block;
+
+        margin-top: 12px;
+    }
+
+    .form-body {
+        padding: 20px 18px 22px;
+    }
+
+    .section-heading {
+        margin-bottom: 17px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+
+        gap: 14px;
+    }
+
+    .full-width {
+        grid-column: auto;
+    }
+
+    .form-footer {
+        padding: 14px 18px;
+
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+}
+
+
+/* HP kecil */
+
+@media (max-width: 380px) {
+
+    .page-header h1 {
+        font-size: 20px;
+    }
+
+    .form-body {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .form-footer {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+}

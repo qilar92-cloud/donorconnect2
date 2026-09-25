@@ -656,9 +656,7 @@
 
                 <div>
 
-                    <span>
-                        DOKUMENTASI
-                    </span>
+                   
 
                     <h2>
                         Dokumentasi Donor Darah

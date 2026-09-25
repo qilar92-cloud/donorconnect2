@@ -10,27 +10,27 @@
 
     <div class="pendonor-page">
 
-        {{-- Header --}}
-
-        <div class="page-header">
-
-            <small>
-                <i class="fas fa-users"></i>
-                Data Pendonor
-            </small>
-
-            <h1>
-                Detail Pendonor
-            </h1>
-
-            <p>
-                Informasi pendonor yang tersimpan dalam sistem.
-            </p>
-
-        </div>
-
-
         <div class="detail-card">
+
+            {{-- Header --}}
+
+            <div class="detail-header">
+
+                <small>
+                    <i class="fas fa-users"></i>
+                    Data Pendonor
+                </small>
+
+                <h1>
+                    Detail Pendonor
+                </h1>
+
+                <p>
+                    Informasi pendonor yang tersimpan dalam sistem.
+                </p>
+
+            </div>
+
 
             {{-- Profil --}}
 
@@ -72,7 +72,6 @@
 
                     @endif
 
-
                     @if ($pendonor->golongan_darah)
 
                         <span class="badge badge-blood">
@@ -106,8 +105,6 @@
 
                 <div class="data-grid">
 
-                    {{-- Nama --}}
-
                     <div class="data-item">
 
                         <div class="data-icon">
@@ -116,9 +113,7 @@
 
                         <div class="data-content">
 
-                            <label>
-                                Nama Lengkap
-                            </label>
+                            <label>Nama Lengkap</label>
 
                             <p>
                                 {{ $pendonor->user->nama ?? '-' }}
@@ -129,8 +124,6 @@
                     </div>
 
 
-                    {{-- Username --}}
-
                     <div class="data-item">
 
                         <div class="data-icon">
@@ -139,9 +132,7 @@
 
                         <div class="data-content">
 
-                            <label>
-                                Username
-                            </label>
+                            <label>Username</label>
 
                             <p>
                                 {{ $pendonor->user->username ?? '-' }}
@@ -152,8 +143,6 @@
                     </div>
 
 
-                    {{-- Email --}}
-
                     <div class="data-item">
 
                         <div class="data-icon">
@@ -162,9 +151,7 @@
 
                         <div class="data-content">
 
-                            <label>
-                                Email
-                            </label>
+                            <label>Email</label>
 
                             <p>
                                 {{ $pendonor->user->email ?? '-' }}
@@ -175,8 +162,6 @@
                     </div>
 
 
-                    {{-- Status --}}
-
                     <div class="data-item">
 
                         <div class="data-icon">
@@ -185,9 +170,7 @@
 
                         <div class="data-content">
 
-                            <label>
-                                Status
-                            </label>
+                            <label>Status</label>
 
                             <p class="{{ !$pendonor->status ? 'empty' : '' }}">
                                 {{ $pendonor->status ?? '-' }}
@@ -198,8 +181,6 @@
                     </div>
 
 
-                    {{-- Kelas --}}
-
                     <div class="data-item">
 
                         <div class="data-icon">
@@ -208,9 +189,7 @@
 
                         <div class="data-content">
 
-                            <label>
-                                Kelas / Jabatan
-                            </label>
+                            <label>Kelas / Jabatan</label>
 
                             <p class="{{ !$pendonor->kelas_jabatan ? 'empty' : '' }}">
                                 {{ $pendonor->kelas_jabatan ?? '-' }}
@@ -221,8 +200,6 @@
                     </div>
 
 
-                    {{-- Tanggal Lahir --}}
-
                     <div class="data-item">
 
                         <div class="data-icon">
@@ -231,9 +208,7 @@
 
                         <div class="data-content">
 
-                            <label>
-                                Tanggal Lahir
-                            </label>
+                            <label>Tanggal Lahir</label>
 
                             <p class="{{ !$pendonor->tanggal_lahir ? 'empty' : '' }}">
                                 {{ $pendonor->tanggal_lahir
@@ -247,8 +222,6 @@
                     </div>
 
 
-                    {{-- Golongan Darah --}}
-
                     <div class="data-item">
 
                         <div class="data-icon">
@@ -257,9 +230,7 @@
 
                         <div class="data-content">
 
-                            <label>
-                                Golongan Darah
-                            </label>
+                            <label>Golongan Darah</label>
 
                             <p class="{{ !$pendonor->golongan_darah ? 'empty' : '' }}">
                                 {{ $pendonor->golongan_darah ?? '-' }}
@@ -270,8 +241,6 @@
                     </div>
 
 
-                    {{-- Telepon --}}
-
                     <div class="data-item">
 
                         <div class="data-icon">
@@ -280,9 +249,7 @@
 
                         <div class="data-content">
 
-                            <label>
-                                No. Telepon
-                            </label>
+                            <label>No. Telepon</label>
 
                             <p class="{{ !$pendonor->nomor_telepon ? 'empty' : '' }}">
                                 {{ $pendonor->nomor_telepon ?? '-' }}
@@ -293,8 +260,6 @@
                     </div>
 
 
-                    {{-- Kesehatan --}}
-
                     <div class="data-item health-item">
 
                         <div class="data-icon">
@@ -303,9 +268,7 @@
 
                         <div class="data-content">
 
-                            <label>
-                                Informasi Kesehatan
-                            </label>
+                            <label>Informasi Kesehatan</label>
 
                             <p class="{{ !$pendonor->informasi_kesehatan ? 'empty' : '' }}">
                                 {{ $pendonor->informasi_kesehatan ?? '-' }}
@@ -331,7 +294,6 @@
                     <i class="fas fa-arrow-left"></i>
                     Kembali
                 </a>
-
 
                 <a
                     href="{{ route('pendonor.edit', $pendonor->id_pendonor) }}"

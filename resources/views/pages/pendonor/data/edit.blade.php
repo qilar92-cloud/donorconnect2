@@ -8,7 +8,9 @@
 
 @section('content')
 
-    <div class="pendonor-page">
+<div class="pendonor-page">
+
+    <div class="form-card">
 
         {{-- Header --}}
 
@@ -30,11 +32,11 @@
         </div>
 
 
-        <div class="form-card">
+        {{-- Profil Pendonor --}}
 
-            {{-- Akun --}}
+        <div class="account-info">
 
-            <div class="account-info">
+            <div class="account-main">
 
                 <div class="avatar">
                     {{ strtoupper(substr($pendonor->user->nama ?? 'P', 0, 1)) }}
@@ -42,9 +44,7 @@
 
                 <div class="account-text">
 
-                    <span>
-                        Pendonor
-                    </span>
+                    <span>Pendonor</span>
 
                     <h2>
                         {{ $pendonor->user->nama ?? '-' }}
@@ -58,91 +58,97 @@
 
             </div>
 
-
-            <form
-                action="{{ route('pendonor.update', $pendonor->id_pendonor) }}"
-                method="POST"
-            >
-
-                @csrf
-                @method('PUT')
+        </div>
 
 
-                {{-- Form --}}
+        {{-- Form --}}
 
-                <div class="form-body">
+        <form
+            action="{{ route('pendonor.update', $pendonor->id_pendonor) }}"
+            method="POST"
+        >
 
-                    <div class="form-heading">
+            @csrf
+            @method('PUT')
 
-                        <h3>
-                            Informasi Pendonor
-                        </h3>
+            <div class="form-body">
 
-                        <span>
-                            ID #{{ $pendonor->id_pendonor }}
-                        </span>
+                <div class="section-title">
+
+                    <h3>
+                        Informasi Pendonor
+                    </h3>
+
+                    <span>
+                        ID #{{ $pendonor->id_pendonor }}
+                    </span>
+
+                </div>
+
+
+                <div class="form-grid">
+
+                    {{-- Nama --}}
+
+                    <div class="form-group">
+
+                        <label for="nama">
+                            Nama Lengkap
+                        </label>
+
+                        <div class="input-wrap">
+
+                            <i class="fas fa-user"></i>
+
+                            <input
+                                type="text"
+                                id="nama"
+                                value="{{ $pendonor->user->nama ?? '' }}"
+                                disabled
+                            >
+
+                        </div>
 
                     </div>
 
 
-                    <div class="form-grid">
+                    {{-- Email --}}
 
-                        {{-- Nama --}}
+                    <div class="form-group">
 
-                        <div class="form-group">
+                        <label for="email">
+                            Email
+                        </label>
 
-                            <label>
-                                Nama Lengkap
-                            </label>
+                        <div class="input-wrap">
 
-                            <input
-                                type="text"
-                                value="{{ $pendonor->user->nama ?? '' }}"
-                                class="readonly"
-                                disabled
-                            >
-
-                            <span class="readonly-info">
-                                Nama akun tidak diubah di sini.
-                            </span>
-
-                        </div>
-
-
-                        {{-- Email --}}
-
-                        <div class="form-group">
-
-                            <label>
-                                Email
-                            </label>
+                            <i class="fas fa-envelope"></i>
 
                             <input
                                 type="email"
+                                id="email"
                                 value="{{ $pendonor->user->email ?? '' }}"
-                                class="readonly"
                                 disabled
                             >
 
-                            <span class="readonly-info">
-                                Email akun tidak diubah di sini.
-                            </span>
-
                         </div>
 
+                    </div>
 
-                        {{-- Status --}}
 
-                        <div class="form-group">
+                    {{-- Status --}}
 
-                            <label for="status">
-                                Status
-                            </label>
+                    <div class="form-group">
 
-                            <select
-                                name="status"
-                                id="status"
-                            >
+                        <label for="status">
+                            Status
+                        </label>
+
+                        <div class="input-wrap">
+
+                            <i class="fas fa-user-check"></i>
+
+                            <select id="status" name="status">
 
                                 <option value="">
                                     Pilih Status
@@ -150,182 +156,177 @@
 
                                 <option
                                     value="Siswa"
-                                    {{ old('status', $pendonor->status) == 'Siswa' ? 'selected' : '' }}
+                                    {{ $pendonor->status == 'Siswa' ? 'selected' : '' }}
                                 >
                                     Siswa
                                 </option>
 
                                 <option
                                     value="Mahasiswa"
-                                    {{ old('status', $pendonor->status) == 'Mahasiswa' ? 'selected' : '' }}
+                                    {{ $pendonor->status == 'Mahasiswa' ? 'selected' : '' }}
                                 >
                                     Mahasiswa
                                 </option>
 
                                 <option
                                     value="Umum"
-                                    {{ old('status', $pendonor->status) == 'Umum' ? 'selected' : '' }}
+                                    {{ $pendonor->status == 'Umum' ? 'selected' : '' }}
                                 >
                                     Umum
                                 </option>
 
                             </select>
 
-                            @error('status')
-                                <span class="error">
-                                    {{ $message }}
-                                </span>
-                            @enderror
-
                         </div>
 
+                    </div>
 
-                        {{-- Kelas --}}
 
-                        <div class="form-group">
+                    {{-- Kelas / Jabatan --}}
 
-                            <label for="kelas_jabatan">
-                                Kelas / Jabatan
-                            </label>
+                    <div class="form-group">
+
+                        <label for="kelas_jabatan">
+                            Kelas / Jabatan
+                        </label>
+
+                        <div class="input-wrap">
+
+                            <i class="fas fa-graduation-cap"></i>
 
                             <input
                                 type="text"
-                                name="kelas_jabatan"
                                 id="kelas_jabatan"
+                                name="kelas_jabatan"
                                 value="{{ old('kelas_jabatan', $pendonor->kelas_jabatan) }}"
-                                placeholder="Contoh: XII PPLG 2"
                             >
-
-                            @error('kelas_jabatan')
-                                <span class="error">
-                                    {{ $message }}
-                                </span>
-                            @enderror
 
                         </div>
 
+                    </div>
 
-                        {{-- Tanggal Lahir --}}
 
-                        <div class="form-group">
+                    {{-- Tanggal Lahir --}}
 
-                            <label for="tanggal_lahir">
-                                Tanggal Lahir
-                            </label>
+                    <div class="form-group">
+
+                        <label for="tanggal_lahir">
+                            Tanggal Lahir
+                        </label>
+
+                        <div class="input-wrap">
+
+                            <i class="fas fa-calendar-alt"></i>
 
                             <input
                                 type="date"
-                                name="tanggal_lahir"
                                 id="tanggal_lahir"
-                                value="{{ old(
-                                    'tanggal_lahir',
-                                    $pendonor->tanggal_lahir
-                                        ? $pendonor->tanggal_lahir->format('Y-m-d')
-                                        : ''
-                                ) }}"
+                                name="tanggal_lahir"
+                                value="{{ old('tanggal_lahir', $pendonor->tanggal_lahir ? $pendonor->tanggal_lahir->format('Y-m-d') : '') }}"
                             >
-
-                            @error('tanggal_lahir')
-                                <span class="error">
-                                    {{ $message }}
-                                </span>
-                            @enderror
 
                         </div>
 
+                    </div>
 
-                        {{-- Golongan Darah --}}
 
-                        <div class="form-group">
+                    {{-- Golongan Darah --}}
 
-                            <label for="golongan_darah">
-                                Golongan Darah
-                            </label>
+                    <div class="form-group">
+
+                        <label for="golongan_darah">
+                            Golongan Darah
+                        </label>
+
+                        <div class="input-wrap">
+
+                            <i class="fas fa-tint"></i>
 
                             <select
-                                name="golongan_darah"
                                 id="golongan_darah"
+                                name="golongan_darah"
                             >
 
                                 <option value="">
-                                    Pilih Golongan
+                                    Pilih Golongan Darah
                                 </option>
 
-                                @foreach (['A', 'B', 'AB', 'O'] as $golongan)
+                                <option
+                                    value="A"
+                                    {{ $pendonor->golongan_darah == 'A' ? 'selected' : '' }}
+                                >
+                                    A
+                                </option>
 
-                                    <option
-                                        value="{{ $golongan }}"
-                                        {{ old(
-                                            'golongan_darah',
-                                            $pendonor->golongan_darah
-                                        ) == $golongan ? 'selected' : '' }}
-                                    >
-                                        {{ $golongan }}
-                                    </option>
+                                <option
+                                    value="B"
+                                    {{ $pendonor->golongan_darah == 'B' ? 'selected' : '' }}
+                                >
+                                    B
+                                </option>
 
-                                @endforeach
+                                <option
+                                    value="AB"
+                                    {{ $pendonor->golongan_darah == 'AB' ? 'selected' : '' }}
+                                >
+                                    AB
+                                </option>
+
+                                <option
+                                    value="O"
+                                    {{ $pendonor->golongan_darah == 'O' ? 'selected' : '' }}
+                                >
+                                    O
+                                </option>
 
                             </select>
 
-                            @error('golongan_darah')
-                                <span class="error">
-                                    {{ $message }}
-                                </span>
-                            @enderror
-
                         </div>
 
+                    </div>
 
-                        {{-- Telepon --}}
 
-                        <div class="form-group">
+                    {{-- No Telepon --}}
 
-                            <label for="nomor_telepon">
-                                No. Telepon
-                            </label>
+                    <div class="form-group">
+
+                        <label for="nomor_telepon">
+                            No. Telepon
+                        </label>
+
+                        <div class="input-wrap">
+
+                            <i class="fas fa-phone"></i>
 
                             <input
                                 type="text"
-                                name="nomor_telepon"
                                 id="nomor_telepon"
-                                value="{{ old(
-                                    'nomor_telepon',
-                                    $pendonor->nomor_telepon
-                                ) }}"
-                                placeholder="Contoh: 081234567890"
+                                name="nomor_telepon"
+                                value="{{ old('nomor_telepon', $pendonor->nomor_telepon) }}"
                             >
-
-                            @error('nomor_telepon')
-                                <span class="error">
-                                    {{ $message }}
-                                </span>
-                            @enderror
 
                         </div>
 
+                    </div>
 
-                        {{-- Kesehatan --}}
 
-                        <div class="form-group full">
+                    {{-- Informasi Kesehatan --}}
 
-                            <label for="informasi_kesehatan">
-                                Informasi Kesehatan
-                            </label>
+                    <div class="form-group health-group">
+
+                        <label for="informasi_kesehatan">
+                            Informasi Kesehatan
+                        </label>
+
+                        <div class="textarea-wrap">
+
+                            <i class="fas fa-heartbeat"></i>
 
                             <textarea
-                                name="informasi_kesehatan"
                                 id="informasi_kesehatan"
-                                placeholder="Contoh: Sehat"
-                            >{{ old(
-                                'informasi_kesehatan',
-                                $pendonor->informasi_kesehatan
-                            ) }}</textarea>
-
-                            @error('informasi_kesehatan')
-                                <span class="error">
-                                    {{ $message }}
-                                </span>
-                            @enderror
+                                name="informasi_kesehatan"
+                                rows="4"
+                            >{{ old('informasi_kesehatan', $pendonor->informasi_kesehatan) }}</textarea>
 
                         </div>
 
@@ -333,33 +334,35 @@
 
                 </div>
 
+            </div>
 
-                {{-- Tombol --}}
 
-                <div class="form-footer">
+            {{-- Tombol --}}
 
-                    <a
-                        href="{{ route('pendonor.show', $pendonor->id_pendonor) }}"
-                        class="btn btn-back"
-                    >
-                        <i class="fas fa-arrow-left"></i>
-                        Batal
-                    </a>
+            <div class="form-footer">
 
-                    <button
-                        type="submit"
-                        class="btn btn-save"
-                    >
-                        <i class="fas fa-check"></i>
-                        Simpan Perubahan
-                    </button>
+                <a
+                    href="{{ route('pendonor.show', $pendonor->id_pendonor) }}"
+                    class="btn btn-back"
+                >
+                    <i class="fas fa-arrow-left"></i>
+                    Batal
+                </a>
 
-                </div>
+                <button
+                    type="submit"
+                    class="btn btn-save"
+                >
+                    <i class="fas fa-save"></i>
+                    Simpan Perubahan
+                </button>
 
-            </form>
+            </div>
 
-        </div>
+        </form>
 
     </div>
+
+</div>
 
 @endsection
