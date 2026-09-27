@@ -1,56 +1,91 @@
-/* Dokumentasi */
+/* DOKUMENTASI */
 
 .dokumentasi-card {
     width: 100%;
-    margin-top: 24px;
+    margin-top: 20px;
     overflow: hidden;
     background: #ffffff;
-    border: 1px solid #f2dfe3;
+    border: 1px solid #f0dce2;
     border-radius: 20px;
-    box-shadow: 0 8px 28px rgba(96, 45, 57, 0.06);
+    box-shadow: 0 8px 25px rgba(130, 35, 65, .07);
 }
 
 
-/* Header */
+/* HEADER */
 
 .dokumentasi-header {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 24px;
-    padding: 24px 28px;
+    gap: 20px;
+    padding: 22px 25px;
+    overflow: hidden;
+
     background: linear-gradient(
         135deg,
-        #ed5573,
-        #d93659
+        #ef315c 0%,
+        #df2854 48%,
+        #c9234d 100%
     );
 }
 
+.dokumentasi-header::after {
+    content: "";
+    position: absolute;
+    width: 190px;
+    height: 190px;
+    right: -70px;
+    top: -105px;
+
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 0 25px rgba(255,255,255,.04),
+        0 0 0 50px rgba(255,255,255,.025);
+
+    pointer-events: none;
+}
+
 .dokumentasi-heading {
+    position: relative;
+    z-index: 2;
+
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 13px;
     min-width: 0;
 }
 
 .dokumentasi-icon {
-    width: 50px;
-    height: 50px;
+    width: 48px;
+    height: 48px;
     flex-shrink: 0;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
+    background: rgba(255,255,255,.17);
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 13px;
+
     color: #ffffff;
-    background: rgba(255, 255, 255, 0.18);
-    border-radius: 14px;
-    font-size: 19px;
+    font-size: 18px;
+}
+
+.dokumentasi-heading > div:last-child {
+    min-width: 0;
 }
 
 .dokumentasi-label {
     display: block;
-    margin-bottom: 5px;
-    color: rgba(255, 255, 255, 0.82);
-    font-size: 10px;
+    margin-bottom: 3px;
+
+    color: rgba(255,255,255,.82);
+
+    font-size: 8px;
     font-weight: 800;
     letter-spacing: 1.2px;
     text-transform: uppercase;
@@ -58,55 +93,71 @@
 
 .dokumentasi-heading h2 {
     margin: 0;
+
     color: #ffffff;
+
     font-size: 20px;
     font-weight: 800;
     line-height: 1.25;
 }
 
 .dokumentasi-heading p {
-    margin: 5px 0 0;
-    color: rgba(255, 255, 255, 0.88);
-    font-size: 11px;
+    margin: 4px 0 0;
+
+    color: rgba(255,255,255,.82);
+    font-size: 9px;
 }
 
 
-/* Tombol Upload */
+/* UPLOAD BUTTON */
 
 .btn-upload-dokumentasi {
+    position: relative;
+    z-index: 3;
+
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 7px;
+
+    gap: 6px;
     flex-shrink: 0;
-    padding: 10px 16px;
-    border: 0;
-    border-radius: 10px;
+
+    min-height: 37px;
+    padding: 0 14px;
+
     background: #ffffff;
-    color: #d93659;
+    border: none;
+    border-radius: 10px;
+
+    color: #d72b54;
+
     font-family: inherit;
-    font-size: 11px;
+    font-size: 9px;
     font-weight: 800;
+
     cursor: pointer;
-    white-space: nowrap;
     transition: .2s ease;
 }
 
 .btn-upload-dokumentasi:hover {
-    color: #d93659;
     background: #fff4f6;
+    color: #c32049;
+
     transform: translateY(-1px);
-    box-shadow: 0 6px 15px rgba(96, 45, 57, 0.10);
+
+    box-shadow: 0 7px 16px rgba(90,20,45,.12);
 }
 
 
-/* Form Upload */
+/* UPLOAD */
 
 .upload-wrapper {
     display: none;
-    padding: 24px 28px;
-    background: #fff9fa;
-    border-bottom: 1px solid #f2dfe3;
+
+    padding: 20px 25px;
+
+    background: #fff8fa;
+    border-bottom: 1px solid #f0dce2;
 }
 
 .upload-wrapper.show {
@@ -118,185 +169,230 @@
 }
 
 
-/* Judul Form */
+/* JUDUL UPLOAD */
 
 .upload-title {
     display: flex;
     align-items: center;
-    gap: 11px;
-    margin-bottom: 18px;
+    gap: 10px;
+    margin-bottom: 14px;
 }
 
 .upload-title-icon {
-    width: 38px;
-    height: 38px;
+    width: 35px;
+    height: 35px;
     flex-shrink: 0;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #d93659;
-    background: #ffe8ed;
-    border-radius: 10px;
-}
 
-.upload-title-icon i {
-    font-size: 14px;
+    background: #ffe5eb;
+    border-radius: 10px;
+
+    color: #d72b54;
+    font-size: 13px;
 }
 
 .upload-title h3 {
     margin: 0;
-    color: #453238;
-    font-size: 15px;
+
+    color: #3b3035;
+    font-size: 14px;
     font-weight: 800;
 }
 
 .upload-title p {
     margin: 3px 0 0;
-    color: #8b747b;
-    font-size: 10px;
+
+    color: #96838a;
+    font-size: 9px;
 }
 
 
-/* Pilih Foto */
+/* PILIH FOTO */
 
 .photo-upload-area {
-    padding: 25px 20px;
+    padding: 22px 18px;
+
     text-align: center;
+
     background: #ffffff;
-    border: 1.5px dashed #efcbd3;
-    border-radius: 14px;
+
+    border: 1.5px dashed #e9aebb;
+    border-radius: 13px;
+
     transition: .2s ease;
 }
 
 .photo-upload-area:hover {
-    border-color: #ed5573;
     background: #fffafb;
+    border-color: #e53560;
 }
 
 .photo-upload-icon {
-    width: 48px;
-    height: 48px;
-    margin: 0 auto 10px;
+    width: 44px;
+    height: 44px;
+
+    margin: 0 auto 9px;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #d93659;
-    background: #fff0f3;
-    border-radius: 50%;
-    font-size: 19px;
+
+    background: linear-gradient(
+        135deg,
+        #ffe6ec,
+        #ffd9e2
+    );
+
+    border-radius: 12px;
+
+    color: #d52b54;
+    font-size: 17px;
 }
 
 .photo-upload-area h4 {
     margin: 0;
-    color: #453238;
-    font-size: 14px;
+
+    color: #43353a;
+    font-size: 13px;
     font-weight: 800;
 }
 
 .photo-upload-area > p {
-    margin: 5px 0 14px;
-    color: #9a858b;
-    font-size: 10px;
+    margin: 4px 0 12px;
+
+    color: #9c888f;
+    font-size: 9px;
 }
-
-
-/* Input File */
 
 #fotoDokumentasi {
     display: none;
 }
 
-
-/* Tombol Pilih */
-
 .btn-pilih-foto {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+
     gap: 6px;
-    padding: 9px 15px;
+
+    min-height: 34px;
+    padding: 0 13px;
+
+    background: linear-gradient(
+        135deg,
+        #ef315c,
+        #d62550
+    );
+
     border-radius: 9px;
-    background: #ed5573;
+
     color: #ffffff;
-    font-size: 11px;
+    font-size: 9px;
     font-weight: 800;
+
     cursor: pointer;
     transition: .2s ease;
 }
 
 .btn-pilih-foto:hover {
     color: #ffffff;
-    background: #d93659;
+
     transform: translateY(-1px);
+
+    box-shadow: 0 6px 13px rgba(214,37,80,.18);
 }
 
 
-/* Jumlah Foto */
+/* JUMLAH FOTO */
 
 .jumlah-foto {
-    margin-top: 10px;
-    color: #9a858b;
-    font-size: 10px;
+    margin-top: 8px;
+
+    color: #99858c;
+    font-size: 9px;
 }
 
 .jumlah-foto.active {
-    color: #d93659;
+    color: #d52b54;
     font-weight: 800;
 }
 
 
-/* Preview */
+/* PREVIEW */
 
 .preview-foto {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 9px;
-    margin-top: 16px;
+
+    grid-template-columns:
+        repeat(6, minmax(0, 1fr));
+
+    gap: 8px;
+    margin-top: 14px;
+
     text-align: left;
 }
 
 .preview-foto-item {
     position: relative;
+
     width: 100%;
     overflow: hidden;
+
     aspect-ratio: 1 / 1;
+
     background: #ffffff;
-    border: 1px solid #f2dfe3;
-    border-radius: 10px;
+
+    border: 1px solid #f0dce2;
+    border-radius: 9px;
 }
 
 .preview-foto-item img {
     display: block;
+
     width: 100%;
     height: 100%;
+
     object-fit: cover;
 }
 
 .preview-nomor {
     position: absolute;
+
     top: 5px;
     left: 5px;
-    min-width: 20px;
-    height: 20px;
+
+    min-width: 19px;
+    height: 19px;
+
     padding: 0 5px;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #ffffff;
-    background: #d93659;
+
+    background: #df2c55;
     border-radius: 6px;
-    font-size: 9px;
+
+    color: #ffffff;
+
+    font-size: 8px;
     font-weight: 800;
 }
 
 
-/* Input */
+/* INPUT */
 
 .upload-info-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-    margin-top: 16px;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 12px;
+    margin-top: 14px;
 }
 
 .upload-field {
@@ -305,9 +401,11 @@
 }
 
 .upload-field label {
-    margin-bottom: 6px;
-    color: #59454c;
-    font-size: 10px;
+    margin-bottom: 5px;
+
+    color: #59464d;
+
+    font-size: 9px;
     font-weight: 800;
 }
 
@@ -315,156 +413,209 @@
 .upload-field textarea {
     width: 100%;
     box-sizing: border-box;
-    padding: 10px 12px;
-    border: 1px solid #ead9dd;
-    border-radius: 9px;
-    outline: none;
+
     background: #ffffff;
-    color: #453238;
+
+    border: 1px solid #ead9de;
+    border-radius: 9px;
+
+    outline: none;
+
+    color: #45373d;
+
     font-family: inherit;
-    font-size: 11px;
+    font-size: 10px;
+
     transition: .2s ease;
 }
 
 .upload-field input {
-    height: 40px;
+    height: 38px;
+    padding: 0 11px;
 }
 
 .upload-field textarea {
-    min-height: 82px;
+    min-height: 75px;
+    padding: 10px 11px;
+
     resize: vertical;
+    line-height: 1.5;
 }
 
 .upload-field input::placeholder,
 .upload-field textarea::placeholder {
-    color: #b39da3;
+    color: #b29ea5;
 }
 
 .upload-field input:focus,
 .upload-field textarea:focus {
-    border-color: #ed5573;
-    box-shadow: 0 0 0 3px rgba(237, 85, 115, 0.08);
+    border-color: #e95776;
+
+    box-shadow:
+        0 0 0 3px rgba(233,87,118,.08);
 }
 
 
-/* Aksi */
+/* AKSI */
 
 .upload-actions {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+
     gap: 8px;
-    margin-top: 16px;
+    margin-top: 14px;
 }
 
 .btn-batal-upload,
 .btn-simpan-upload {
-    min-height: 38px;
-    padding: 8px 14px;
+    min-height: 35px;
+    padding: 0 13px;
+
     border-radius: 9px;
+
     font-family: inherit;
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 800;
+
     cursor: pointer;
     transition: .2s ease;
 }
 
 .btn-batal-upload {
-    color: #806c73;
     background: #ffffff;
-    border: 1px solid #ead9dd;
+
+    border: 1px solid #e6d9dd;
+
+    color: #76676d;
 }
 
 .btn-batal-upload:hover {
-    color: #d93659;
     background: #fff3f5;
-    border-color: #edb8c4;
+    border-color: #e5b4c0;
+    color: #d52b54;
 }
 
 .btn-simpan-upload {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+
     gap: 6px;
+
+    background: linear-gradient(
+        135deg,
+        #ef315c,
+        #d62550
+    );
+
+    border: none;
+
     color: #ffffff;
-    background: #ed5573;
-    border: 0;
 }
 
 .btn-simpan-upload:hover {
     color: #ffffff;
-    background: #d93659;
+
     transform: translateY(-1px);
-    box-shadow: 0 5px 12px rgba(217, 54, 89, .12);
+
+    box-shadow: 0 6px 14px rgba(214,37,80,.18);
 }
 
 
-/* Galeri */
+/* GALERI */
 
 .dokumentasi-content {
-    padding: 24px 28px 28px;
+    padding: 22px 25px 25px;
+
+    background: #ffffff;
 }
 
 .galeri-header {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: space-between;
-    margin-bottom: 16px;
+
+    margin-bottom: 14px;
 }
 
 .galeri-header h3 {
     margin: 0;
-    color: #453238;
-    font-size: 16px;
+
+    color: #332d32;
+
+    font-size: 15px;
     font-weight: 800;
 }
 
 .galeri-header p {
-    margin: 4px 0 0;
-    color: #9a858b;
-    font-size: 10px;
+    margin: 3px 0 0;
+
+    color: #9b858d;
+    font-size: 9px;
 }
 
 
-/* Grid Foto */
+/* GRID */
 
 .dokumentasi-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 12px;
 }
 
 
-/* Foto */
+/* FOTO CARD */
 
 .dokumentasi-item {
     overflow: hidden;
+
     background: #ffffff;
-    border: 1px solid #f2dfe3;
-    border-radius: 13px;
-    transition: .2s ease;
+
+    border: 1px solid #f0dce2;
+    border-radius: 12px;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        border-color .2s ease;
 }
 
 .dokumentasi-item:hover {
     transform: translateY(-3px);
-    border-color: #edc1cc;
-    box-shadow: 0 10px 24px rgba(96, 45, 57, .09);
+
+    border-color: #e7a9b8;
+
+    box-shadow:
+        0 9px 20px rgba(105,35,60,.09);
 }
+
+
+/* FOTO */
 
 .foto-wrapper {
     position: relative;
+
     width: 100%;
     overflow: hidden;
+
     aspect-ratio: 4 / 3;
-    background: #fff0f3;
+
+    background: #ffeef2;
 }
 
 .foto-wrapper img {
     display: block;
+
     width: 100%;
     height: 100%;
+
     object-fit: cover;
-    transition: .3s ease;
+
+    transition: transform .3s ease;
 }
 
 .dokumentasi-item:hover .foto-wrapper img {
@@ -472,17 +623,26 @@
 }
 
 
-/* Overlay Foto */
+/* OVERLAY */
 
 .foto-overlay {
     position: absolute;
     inset: 0;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     gap: 7px;
-    background: rgba(69, 50, 56, .34);
+
+    background: linear-gradient(
+        135deg,
+        rgba(190,30,73,.58),
+        rgba(70,20,40,.38)
+    );
+
     opacity: 0;
+
     transition: .2s ease;
 }
 
@@ -491,35 +651,43 @@
 }
 
 
-/* Tombol Foto */
+/* TOMBOL FOTO */
 
 .btn-lihat-foto,
 .btn-hapus-foto {
-    width: 34px;
-    height: 34px;
+    width: 33px;
+    height: 33px;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 0;
+
+    border: none;
     border-radius: 9px;
+
     color: #ffffff;
+
     text-decoration: none;
+
     cursor: pointer;
+
     transition: .2s ease;
 }
 
 .btn-lihat-foto {
-    background: #ed5573;
+    background: #ef315c;
 }
 
 .btn-hapus-foto {
-    background: #d93659;
+    background: #c9234d;
 }
 
 .btn-lihat-foto:hover,
 .btn-hapus-foto:hover {
+    background: #a91c42;
+
     color: #ffffff;
-    background: #bd2849;
+
     transform: translateY(-1px);
 }
 
@@ -528,19 +696,24 @@
 }
 
 
-/* Info Foto */
+/* INFO FOTO */
 
 .foto-info {
-    padding: 11px 12px 13px;
+    padding: 10px 11px 12px;
 }
 
 .foto-info strong {
     display: block;
     overflow: hidden;
-    color: #453238;
-    font-size: 11px;
+
+    margin: 0;
+
+    color: #40343a;
+
+    font-size: 10px;
     font-weight: 800;
     line-height: 1.4;
+
     text-overflow: ellipsis;
     white-space: nowrap;
 }
@@ -548,47 +721,66 @@
 .foto-info p {
     display: -webkit-box;
     overflow: hidden;
-    margin: 4px 0 0;
-    color: #8f7a81;
-    font-size: 9px;
+
+    margin: 3px 0 0;
+
+    color: #958189;
+
+    font-size: 8px;
     line-height: 1.5;
+
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
 }
 
 
-/* Kosong */
+/* KOSONG */
 
 .dokumentasi-empty {
-    padding: 45px 20px;
+    padding: 42px 20px;
+
     text-align: center;
 }
 
 .empty-icon {
-    width: 56px;
-    height: 56px;
-    margin: 0 auto 12px;
+    width: 52px;
+    height: 52px;
+
+    margin: 0 auto 11px;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #ed5573;
-    background: #fff0f3;
+
+    background: linear-gradient(
+        135deg,
+        #ffe5eb,
+        #fbd9e2
+    );
+
     border-radius: 50%;
-    font-size: 23px;
+
+    color: #df315b;
+    font-size: 21px;
 }
 
 .dokumentasi-empty h3 {
     margin: 0;
-    color: #453238;
-    font-size: 15px;
+
+    color: #40343a;
+
+    font-size: 14px;
     font-weight: 800;
 }
 
 .dokumentasi-empty p {
     max-width: 380px;
-    margin: 6px auto 15px;
-    color: #9a858b;
-    font-size: 10px;
+
+    margin: 5px auto 13px;
+
+    color: #99858c;
+
+    font-size: 9px;
     line-height: 1.6;
 }
 
@@ -596,34 +788,48 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+
     gap: 6px;
-    padding: 9px 15px;
-    border: 0;
+
+    min-height: 34px;
+    padding: 0 13px;
+
+    background: linear-gradient(
+        135deg,
+        #ef315c,
+        #d62550
+    );
+
+    border: none;
     border-radius: 9px;
-    background: #ed5573;
+
     color: #ffffff;
+
     font-family: inherit;
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 800;
+
     cursor: pointer;
 }
 
 .btn-empty-upload:hover {
+    background: #c9234d;
     color: #ffffff;
-    background: #d93659;
 }
 
 
-/* Tablet */
+/* TABLET */
 
 @media (max-width: 1000px) {
 
     .dokumentasi-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
     }
 
     .preview-foto {
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns:
+            repeat(5, minmax(0, 1fr));
     }
 
 }
@@ -633,66 +839,30 @@
 
 @media (max-width: 700px) {
 
+    .dokumentasi-card {
+        margin-top: 16px;
+        border-radius: 16px;
+    }
+
     .dokumentasi-header {
         align-items: flex-start;
         flex-direction: column;
-        padding: 20px;
+
+        gap: 15px;
+        padding: 19px;
     }
 
     .dokumentasi-heading {
         width: 100%;
-    }
-
-    .btn-upload-dokumentasi {
-        width: 100%;
-    }
-
-    .upload-wrapper {
-        padding: 20px;
-    }
-
-    .dokumentasi-content {
-        padding: 20px;
-    }
-
-    .upload-info-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .dokumentasi-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 11px;
-    }
-
-    .preview-foto {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 7px;
-    }
-
-}
-
-
-/* HP kecil */
-
-@media (max-width: 430px) {
-
-    .dokumentasi-card {
-        border-radius: 15px;
-    }
-
-    .dokumentasi-header {
-        padding: 18px;
-    }
-
-    .dokumentasi-heading {
         gap: 11px;
     }
 
     .dokumentasi-icon {
         width: 42px;
         height: 42px;
-        font-size: 16px;
+
         border-radius: 11px;
+        font-size: 16px;
     }
 
     .dokumentasi-heading h2 {
@@ -700,11 +870,189 @@
     }
 
     .dokumentasi-heading p {
-        font-size: 10px;
+        font-size: 9px;
+        line-height: 1.4;
+    }
+
+    .btn-upload-dokumentasi {
+        width: 100%;
+        min-height: 36px;
+    }
+
+    .upload-wrapper {
+        padding: 17px;
+    }
+
+    .upload-title {
+        align-items: flex-start;
+    }
+
+    .upload-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .preview-foto {
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr));
+
+        gap: 7px;
+    }
+
+    .dokumentasi-content {
+        padding: 18px 17px 20px;
+    }
+
+    .dokumentasi-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 9px;
+    }
+
+    .foto-wrapper {
+        aspect-ratio: 4 / 3;
+    }
+
+    .foto-info {
+        padding: 8px 9px 10px;
+    }
+
+    .foto-info strong {
+        font-size: 9px;
+    }
+
+    .foto-info p {
+        font-size: 7.5px;
+    }
+
+    .foto-overlay {
+        opacity: 1;
+
+        align-items: flex-end;
+        justify-content: flex-end;
+
+        padding: 7px;
+
+        background: linear-gradient(
+            transparent,
+            rgba(55,20,35,.48)
+        );
+    }
+
+    .btn-lihat-foto,
+    .btn-hapus-foto {
+        width: 28px;
+        height: 28px;
+
+        border-radius: 8px;
+        font-size: 9px;
+    }
+
+    .upload-actions {
+        justify-content: stretch;
+    }
+
+}
+
+
+/* HP KECIL */
+
+@media (max-width: 430px) {
+
+    .dokumentasi-header {
+        padding: 17px;
+    }
+
+    .dokumentasi-icon {
+        width: 39px;
+        height: 39px;
+        font-size: 14px;
+    }
+
+    .dokumentasi-heading h2 {
+        font-size: 15px;
+    }
+
+    .dokumentasi-heading p {
+        font-size: 8px;
+    }
+
+    .dokumentasi-label {
+        font-size: 7px;
+    }
+
+    .upload-wrapper {
+        padding: 14px;
+    }
+
+    .upload-form {
+        padding: 0;
     }
 
     .photo-upload-area {
-        padding: 21px 12px;
+        padding: 20px 11px;
+    }
+
+    .photo-upload-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 15px;
+    }
+
+    .photo-upload-area h4 {
+        font-size: 12px;
+    }
+
+    .photo-upload-area > p {
+        font-size: 8px;
+    }
+
+    .preview-foto {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+
+    .dokumentasi-content {
+        padding: 16px 14px 18px;
+    }
+
+    .galeri-header {
+        margin-bottom: 11px;
+    }
+
+    .galeri-header h3 {
+        font-size: 13px;
+    }
+
+    .galeri-header p {
+        font-size: 8px;
+    }
+
+    .dokumentasi-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 7px;
+    }
+
+    .dokumentasi-item {
+        border-radius: 10px;
+    }
+
+    .foto-wrapper {
+        aspect-ratio: 1 / .82;
+    }
+
+    .foto-info {
+        padding: 7px 8px 9px;
+    }
+
+    .foto-info strong {
+        font-size: 8px;
+    }
+
+    .foto-info p {
+        font-size: 7px;
     }
 
     .upload-actions {
@@ -716,16 +1064,287 @@
         width: 100%;
     }
 
-    .preview-foto {
-        grid-template-columns: repeat(3, 1fr);
-    }
+}
+
+
+/* HP SANGAT KECIL */
+
+@media (max-width: 360px) {
 
     .dokumentasi-grid {
-        grid-template-columns: 1fr;
+        gap: 6px;
     }
 
-    .galeri-header {
-        align-items: flex-start;
+    .dokumentasi-heading h2 {
+        font-size: 14px;
+    }
+
+    .foto-info strong {
+        font-size: 7.5px;
+    }
+
+    .foto-info p {
+        font-size: 6.5px;
+    }
+
+}
+
+
+/* LIGHTBOX */
+
+.dokumentasi-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+
+    background: rgba(38, 12, 22, .90);
+    backdrop-filter: blur(4px);
+}
+
+.dokumentasi-lightbox.show {
+    display: flex;
+}
+
+.lightbox-content {
+    position: relative;
+
+    width: auto;
+    max-width: 760px;
+    max-height: 82vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-image {
+    display: block;
+
+    width: auto;
+    height: auto;
+
+    /* ukuran foto utama */
+    max-width: 680px;
+    max-height: 72vh;
+
+    object-fit: contain;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 15px 45px rgba(0, 0, 0, .35);
+
+    user-select: none;
+    -webkit-user-drag: none;
+
+    touch-action: pan-y;
+}
+
+
+/* tombol */
+
+.lightbox-close,
+.lightbox-prev,
+.lightbox-next {
+    position: absolute;
+
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, .95);
+
+    color: #c9234d;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+
+    z-index: 3;
+}
+
+.lightbox-close:hover,
+.lightbox-prev:hover,
+.lightbox-next:hover {
+    background: #ef315c;
+    color: #ffffff;
+}
+
+.lightbox-close {
+    top: -16px;
+    right: -16px;
+}
+
+.lightbox-prev {
+    left: -55px;
+    top: 50%;
+
+    transform: translateY(-50%);
+}
+
+.lightbox-next {
+    right: -55px;
+    top: 50%;
+
+    transform: translateY(-50%);
+}
+
+.lightbox-prev:hover,
+.lightbox-next:hover {
+    transform: translateY(-50%) scale(1.05);
+}
+
+
+/* judul foto */
+
+.lightbox-caption {
+    position: absolute;
+
+    left: 50%;
+    bottom: -40px;
+
+    transform: translateX(-50%);
+
+    width: max-content;
+    max-width: 65vw;
+
+    padding: 6px 11px;
+
+    background: rgba(255, 255, 255, .95);
+
+    border-radius: 7px;
+
+    color: #49353d;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    text-align: center;
+}
+
+
+/* TABLET */
+
+@media (max-width: 900px) {
+
+    .lightbox-content {
+        max-width: 82vw;
+        max-height: 78vh;
+    }
+
+    .lightbox-image {
+        max-width: 75vw;
+        max-height: 68vh;
+    }
+
+}
+
+
+/* HP */
+
+@media (max-width: 700px) {
+
+    .dokumentasi-lightbox {
+        padding: 20px;
+    }
+
+    .lightbox-content {
+        width: 86vw;
+        max-width: 86vw;
+        max-height: 72vh;
+    }
+
+    .lightbox-image {
+        max-width: 80vw;
+        max-height: 62vh;
+
+        border-radius: 9px;
+    }
+
+    .lightbox-close,
+    .lightbox-prev,
+    .lightbox-next {
+        width: 33px;
+        height: 33px;
+
+        font-size: 9px;
+    }
+
+    .lightbox-close {
+        top: -10px;
+        right: -5px;
+    }
+
+    .lightbox-prev {
+        left: 0;
+    }
+
+    .lightbox-next {
+        right: 0;
+    }
+
+    .lightbox-caption {
+        bottom: -33px;
+
+        max-width: 70vw;
+
+        padding: 5px 9px;
+
+        font-size: 8px;
+    }
+
+}
+
+
+/* HP KECIL */
+
+@media (max-width: 430px) {
+
+    .lightbox-content {
+        width: 84vw;
+        max-width: 84vw;
+        max-height: 68vh;
+    }
+
+    .lightbox-image {
+        max-width: 78vw;
+        max-height: 58vh;
+    }
+
+    .lightbox-close,
+    .lightbox-prev,
+    .lightbox-next {
+        width: 31px;
+        height: 31px;
+    }
+
+}
+
+
+/* HP SANGAT KECIL */
+
+@media (max-width: 360px) {
+
+    .lightbox-content {
+        width: 82vw;
+        max-width: 82vw;
+    }
+
+    .lightbox-image {
+        max-width: 76vw;
+        max-height: 55vh;
     }
 
 }

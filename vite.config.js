@@ -21,6 +21,8 @@ export default defineConfig({
 
                 // Kegiatan Donor
                 'resources/css/kegiatan-donor/index.css',
+                'resources/css/kegiatan-donor/create.css',
+                'resources/css/kegiatan-donor/edit.css',
                 'resources/css/kegiatan-donor/show-pendonor.css',
                 'resources/css/kegiatan-donor/show-petugas.css',
                 'resources/css/kegiatan-donor/dokumentasi.css',

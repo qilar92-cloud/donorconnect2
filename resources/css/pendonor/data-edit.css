@@ -1,191 +1,221 @@
-/* Halaman */
+/* HALAMAN */
 
 .pendonor-page {
     min-height: 100vh;
-    padding: 24px 28px 35px;
-    background: #fff9f6;
+    padding: 28px 32px 40px;
+
+    background:
+        radial-gradient(
+            circle at 8% 8%,
+            rgba(239, 76, 112, .07),
+            transparent 25%
+        ),
+        #fff8f6;
 }
 
 
-/* Card */
+/* CARD */
 
 .form-card {
     width: 100%;
     max-width: 1180px;
     margin: 0 auto;
+
     overflow: hidden;
+
     background: #ffffff;
+
     border: 1px solid #efdfe3;
     border-radius: 20px;
-    box-shadow: 0 8px 28px rgba(120, 45, 70, .08);
+
+    box-shadow:
+        0 10px 30px rgba(120, 45, 70, .08);
 }
 
 
-/* Header */
+/* HEADER */
 
 .page-header {
-    padding: 22px 28px 19px;
-    background: #ffffff;
-    border-bottom: 1px solid #eee1e4;
+    padding: 25px 30px 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff 0%,
+            #fff7fa 100%
+        );
+
+    border-top: 3px solid #df2e57;
+    border-bottom: 1px solid #f0e1e5;
 }
 
-.page-header small {
+.header-info small {
     display: flex;
     align-items: center;
-    gap: 7px;
-    margin-bottom: 7px;
-    color: #c52f57;
-    font-size: 13px;
-    font-weight: 700;
+
+    gap: 6px;
+
+    margin-bottom: 6px;
+
+    color: #d52f58;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: .7px;
+    text-transform: uppercase;
 }
 
-.page-header small i {
-    font-size: 13px;
+.header-info small i {
+    font-size: 11px;
 }
 
-.page-header h1 {
+.header-info h1 {
     margin: 0;
+
     color: #30313f;
+
     font-size: 27px;
     font-weight: 800;
+
     line-height: 1.2;
 }
 
-.page-header p {
+.header-info p {
     margin: 6px 0 0;
+
     color: #81777d;
-    font-size: 14px;
-    line-height: 1.5;
-}
 
-
-/* Profil */
-
-.account-info {
-    padding: 19px 28px;
-    background: #ffffff;
-    border-bottom: 1px solid #eee1e4;
-}
-
-.account-main {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-}
-
-.avatar {
-    width: 65px;
-    height: 65px;
-    flex: 0 0 65px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background: linear-gradient(
-        135deg,
-        #f04468 0%,
-        #df2e57 55%,
-        #c8234b 100%
-    );
-
-    color: #ffffff;
-    font-size: 25px;
-    font-weight: 800;
-
-    box-shadow: 0 6px 16px rgba(210, 38, 79, .18);
-}
-
-.account-text span {
-    display: block;
-    margin-bottom: 2px;
-    color: #c52f57;
     font-size: 12px;
-    font-weight: 700;
-}
 
-.account-text h2 {
-    margin: 0;
-    color: #292936;
-    font-size: 19px;
-    font-weight: 800;
-}
-
-.account-text p {
-    margin: 3px 0 0;
-    color: #81777d;
-    font-size: 13px;
+    line-height: 1.4;
 }
 
 
-/* Form */
+/* FORM BODY */
 
 .form-body {
-    padding: 22px 28px 24px;
+    padding: 25px 30px 28px;
+
     background: #ffffff;
 }
+
+
+/* JUDUL SECTION */
 
 .section-title {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     gap: 15px;
-    margin-bottom: 15px;
+
+    margin-bottom: 18px;
 }
 
-.section-title h3 {
+.section-heading {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+}
+
+.section-line {
+    width: 4px;
+    height: 19px;
+
+    flex: 0 0 4px;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #f04468,
+            #c8234b
+        );
+}
+
+.section-heading h3 {
     margin: 0;
+
     color: #30313f;
+
     font-size: 17px;
     font-weight: 800;
 }
 
-.section-title span {
-    color: #9b858d;
-    font-size: 12px;
-    font-weight: 700;
+.profile-id {
+    padding: 5px 10px;
+
+    border-radius: 999px;
+
+    background: #fff0f3;
+
+    color: #c52f57;
+
+    font-size: 10px;
+    font-weight: 800;
 }
 
 
-/* Grid */
+/* GRID */
 
 .form-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 13px 14px;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 16px 18px;
 }
 
 
-/* Field */
+/* FIELD */
 
 .form-group {
     min-width: 0;
 }
 
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
 .form-group label {
     display: block;
-    margin-bottom: 6px;
-    color: #63585e;
-    font-size: 12px;
-    font-weight: 700;
+
+    margin-bottom: 7px;
+
+    color: #62585e;
+
+    font-size: 11px;
+    font-weight: 800;
 }
+
+
+/* INPUT WRAPPER */
 
 .input-wrap,
 .textarea-wrap {
     position: relative;
 }
 
+
+/* ICON */
+
 .input-wrap > i,
 .textarea-wrap > i {
     position: absolute;
-    left: 13px;
+
+    left: 14px;
     top: 50%;
+
+    z-index: 2;
 
     transform: translateY(-50%);
 
-    color: #c52f57;
+    color: #d52f58;
+
     font-size: 13px;
 
     pointer-events: none;
@@ -193,9 +223,12 @@
 
 .textarea-wrap > i {
     top: 16px;
+
     transform: none;
 }
 
+
+/* INPUT */
 
 input,
 select,
@@ -206,7 +239,8 @@ textarea {
     border: 1px solid #eadde1;
     border-radius: 11px;
 
-    background: #fffafa;
+    background: #fff9fa;
+
     color: #38353c;
 
     font-family: inherit;
@@ -220,63 +254,94 @@ textarea {
         background .2s ease;
 }
 
+
+/* INPUT + SELECT */
+
 input,
 select {
-    height: 43px;
-    padding: 0 13px 0 38px;
+    height: 44px;
+
+    padding:
+        0
+        13px
+        0
+        39px;
 }
 
+
+/* TEXTAREA */
+
 textarea {
-    min-height: 105px;
+    min-height: 96px;
+
     resize: vertical;
-    padding: 12px 13px 12px 38px;
+
+    padding:
+        12px
+        13px
+        12px
+        39px;
+
     line-height: 1.5;
 }
 
 
-/* Disabled */
+/* HOVER */
+
+input:not(:disabled):hover,
+select:hover,
+textarea:hover {
+    border-color: #e3a0b2;
+
+    background: #fff7f9;
+}
+
+
+/* DISABLED */
 
 input:disabled {
-    background: #f5f1f2;
+    background: #f6f1f3;
+
     color: #81777d;
+
+    border-color: #eadfe2;
+
     cursor: not-allowed;
 }
 
 
-/* Focus */
+/* FOCUS */
 
 input:not(:disabled):focus,
 select:focus,
 textarea:focus {
     background: #ffffff;
-    border-color: #df6a83;
-    box-shadow: 0 0 0 3px rgba(223, 46, 87, .08);
+
+    border-color: #df5272;
+
+    box-shadow:
+        0 0 0 3px rgba(223, 46, 87, .07);
 }
 
 
-/* Health */
-
-.health-group {
-    grid-column: 1 / -1;
-}
-
-
-/* Footer */
+/* FOOTER */
 
 .form-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     gap: 12px;
 
-    padding: 17px 28px;
+    padding: 17px 30px;
 
-    background: #ffffff;
+    background: #fffafb;
+
     border-top: 1px solid #eee1e4;
 }
 
 
-/* Buttons */
+/* BUTTON */
 
 .btn {
     min-height: 41px;
@@ -284,14 +349,15 @@ textarea:focus {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+
     gap: 7px;
 
     padding: 0 17px;
 
     border-radius: 10px;
 
-    font-size: 13px;
-    font-weight: 700;
+    font-size: 12px;
+    font-weight: 800;
 
     text-decoration: none;
 
@@ -308,11 +374,13 @@ textarea:focus {
 }
 
 
-/* Back */
+/* BATAL */
 
 .btn-back {
     background: #f0ecee;
+
     color: #686168 !important;
+
     border: 1px solid #e1dadd;
 }
 
@@ -321,17 +389,18 @@ textarea:focus {
 }
 
 
-/* Save */
+/* SIMPAN */
 
 .btn-save {
     border: none;
 
-    background: linear-gradient(
-        135deg,
-        #f04468 0%,
-        #df2e57 55%,
-        #c8234b 100%
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #f04468 0%,
+            #df2e57 55%,
+            #c8234b 100%
+        );
 
     color: #ffffff;
 
@@ -341,20 +410,46 @@ textarea:focus {
 
 .btn-save:hover {
     box-shadow:
-        0 8px 18px rgba(210, 38, 79, .28);
+        0 8px 19px rgba(210, 38, 79, .28);
 }
 
 
-/* Tablet */
+/* LAPTOP KECIL */
 
-@media (max-width: 850px) {
+@media (max-width: 1000px) {
 
     .pendonor-page {
-        padding: 20px;
+        padding: 22px 20px 32px;
     }
 
-    .form-grid {
-        gap: 12px;
+    .page-header,
+    .form-body,
+    .form-footer {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+}
+
+
+/* TABLET */
+
+@media (max-width: 800px) {
+
+    .page-header {
+        padding: 22px;
+    }
+
+    .header-info h1 {
+        font-size: 24px;
+    }
+
+    .form-body {
+        padding: 22px;
+    }
+
+    .form-footer {
+        padding: 16px 22px;
     }
 
 }
@@ -362,95 +457,176 @@ textarea:focus {
 
 /* HP */
 
-@media (max-width: 600px) {
+@media (max-width: 650px) {
 
     .pendonor-page {
-        padding: 14px 12px 25px;
+        padding: 12px 10px 24px;
     }
 
     .form-card {
         border-radius: 16px;
     }
 
+
+    /* HEADER */
+
     .page-header {
-        padding: 19px 18px 17px;
+        padding: 20px 18px 18px;
     }
 
-    .page-header h1 {
+    .header-info small {
+        font-size: 9px;
+    }
+
+    .header-info h1 {
         font-size: 23px;
     }
 
-    .page-header p {
-        font-size: 13px;
+    .header-info p {
+        font-size: 11px;
     }
 
-    .account-info {
-        padding: 17px 18px;
-    }
 
-    .avatar {
-        width: 56px;
-        height: 56px;
-        flex-basis: 56px;
-        font-size: 21px;
-    }
-
-    .account-text h2 {
-        font-size: 17px;
-    }
+    /* FORM */
 
     .form-body {
-        padding: 19px 18px 21px;
+        padding: 20px 18px 22px;
     }
 
     .section-title {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 4px;
+        align-items: center;
+
+        margin-bottom: 16px;
+    }
+
+    .section-heading {
+        gap: 8px;
+    }
+
+    .section-heading h3 {
+        font-size: 16px;
+    }
+
+    .section-line {
+        width: 3px;
+        height: 17px;
+    }
+
+    .profile-id {
+        padding: 4px 8px;
+
+        font-size: 9px;
     }
 
     .form-grid {
         grid-template-columns: 1fr;
-        gap: 12px;
+
+        gap: 13px;
     }
 
-    .health-group {
+    .form-group.full-width {
         grid-column: auto;
     }
 
+    .form-group label {
+        font-size: 10px;
+    }
+
+    input,
+    select {
+        height: 43px;
+
+        font-size: 12px;
+    }
+
+    textarea {
+        min-height: 92px;
+
+        font-size: 12px;
+    }
+
+
+    /* FOOTER */
+
     .form-footer {
-        padding: 15px 18px;
-        flex-direction: column-reverse;
-        align-items: stretch;
+        display: grid;
+
+        grid-template-columns: 1fr 1fr;
+
+        gap: 9px;
+
+        padding: 14px 18px;
     }
 
     .btn {
         width: 100%;
+
+        min-height: 42px;
+
+        padding: 0 9px;
+
+        font-size: 11px;
     }
 
 }
 
 
-/* HP kecil */
+/* HP KECIL */
 
-@media (max-width: 380px) {
+@media (max-width: 400px) {
 
-    .page-header h1 {
+    .pendonor-page {
+        padding: 8px;
+    }
+
+    .page-header {
+        padding: 18px 15px;
+    }
+
+    .header-info small {
+        font-size: 9px;
+    }
+
+    .header-info h1 {
         font-size: 21px;
     }
 
-    .account-main {
-        gap: 11px;
+    .header-info p {
+        font-size: 10px;
     }
 
-    .avatar {
-        width: 51px;
-        height: 51px;
-        flex-basis: 51px;
+
+    /* FORM */
+
+    .form-body {
+        padding: 18px 15px 20px;
     }
 
-    .account-text h2 {
-        font-size: 16px;
+    .section-title {
+        gap: 8px;
+    }
+
+    .section-heading h3 {
+        font-size: 15px;
+    }
+
+    .profile-id {
+        padding: 4px 8px;
+
+        font-size: 8px;
+    }
+
+
+    /* FOOTER */
+
+    .form-footer {
+        grid-template-columns: 1fr;
+
+        padding: 13px 15px;
+    }
+
+    .btn {
+        min-height: 41px;
     }
 
 }

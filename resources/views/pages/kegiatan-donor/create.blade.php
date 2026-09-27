@@ -2,189 +2,270 @@
 
 @section('title', 'Tambah Kegiatan Donor - DonorConnect')
 
+@push('styles')
+    @vite('resources/css/kegiatan-donor/create.css')
+@endpush
+
 @section('content')
 
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+<div class="kegiatan-create-page">
 
-        <h1 class="h3 mb-0 text-gray-800">
-            Tambah Kegiatan Donor
-        </h1>
+    <div class="create-card">
 
-    </div>
+        {{-- HEADER --}}
 
+        <div class="create-header">
 
-    <div class="row">
+            <div class="create-header-main">
 
-        <div class="col-md-8">
+                <div class="create-icon">
+                    <i class="fas fa-calendar-plus"></i>
+                </div>
 
-            <div class="card shadow mb-4">
+                <div class="create-header-text">
 
-                <div class="card-header">
+                    <span>
+                        DonorConnect • Petugas PMR
+                    </span>
 
-                    <h5 class="card-title mb-0">
+                    <h1>
                         Tambah Kegiatan Donor
-                    </h5>
+                    </h1>
+
+                    <p>
+                        Kelola jadwal dan informasi kegiatan donor darah.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        {{-- FORM --}}
+
+        <form
+            action="{{ route('kegiatan-donor.store') }}"
+            method="POST"
+        >
+
+            @csrf
+
+            <div class="form-content">
+
+                <div class="form-heading">
+
+                    <div class="heading-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Informasi Kegiatan
+                        </h2>
+
+                        <p>
+                            Lengkapi data kegiatan donor di bawah ini.
+                        </p>
+
+                    </div>
 
                 </div>
 
 
-                <form
-                    action="{{ route('kegiatan-donor.store') }}"
-                    method="POST"
-                >
+                <div class="form-grid">
 
-                    @csrf
+                    {{-- NAMA KEGIATAN --}}
 
-                    <div class="card-body">
+                    <div class="form-group full-width">
 
-                        <div class="form-group mb-3">
+                        <label for="nama_kegiatan">
+                            Nama Kegiatan
+                        </label>
 
-                            <label for="nama_kegiatan">
-                                Nama Kegiatan
-                            </label>
+                        <div class="input-box">
+
+                            <i class="fas fa-calendar-alt"></i>
 
                             <input
                                 type="text"
                                 name="nama_kegiatan"
                                 id="nama_kegiatan"
                                 value="{{ old('nama_kegiatan') }}"
-                                class="form-control @error('nama_kegiatan') is-invalid @enderror"
                                 placeholder="Masukkan nama kegiatan donor"
+                                class="@error('nama_kegiatan') input-error @enderror"
                             >
-
-                            @error('nama_kegiatan')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
 
                         </div>
 
+                        @error('nama_kegiatan')
+                            <small class="error-message">
+                                {{ $message }}
+                            </small>
+                        @enderror
 
-                        <div class="form-group mb-3">
+                    </div>
 
-                            <label for="tanggal">
-                                Tanggal
-                            </label>
+
+                    {{-- TANGGAL --}}
+
+                    <div class="form-group">
+
+                        <label for="tanggal">
+                            Tanggal
+                        </label>
+
+                        <div class="input-box">
+
+                            <i class="fas fa-calendar-day"></i>
 
                             <input
                                 type="date"
                                 name="tanggal"
                                 id="tanggal"
                                 value="{{ old('tanggal') }}"
-                                class="form-control @error('tanggal') is-invalid @enderror"
+                                class="@error('tanggal') input-error @enderror"
                             >
-
-                            @error('tanggal')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
 
                         </div>
 
+                        @error('tanggal')
+                            <small class="error-message">
+                                {{ $message }}
+                            </small>
+                        @enderror
 
-                        <div class="form-group mb-3">
+                    </div>
 
-                            <label for="waktu">
-                                Waktu
-                            </label>
+
+                    {{-- WAKTU --}}
+
+                    <div class="form-group">
+
+                        <label for="waktu">
+                            Waktu
+                        </label>
+
+                        <div class="input-box">
+
+                            <i class="fas fa-clock"></i>
 
                             <input
                                 type="text"
                                 name="waktu"
                                 id="waktu"
                                 value="{{ old('waktu') }}"
-                                class="form-control @error('waktu') is-invalid @enderror"
                                 placeholder="Contoh: 08:00 - 12:00"
                                 required
+                                class="@error('waktu') input-error @enderror"
                             >
-
-                            @error('waktu')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
 
                         </div>
 
+                        @error('waktu')
+                            <small class="error-message">
+                                {{ $message }}
+                            </small>
+                        @enderror
 
-                        <div class="form-group mb-3">
+                    </div>
 
-                            <label for="lokasi">
-                                Lokasi
-                            </label>
+
+                    {{-- LOKASI --}}
+
+                    <div class="form-group full-width">
+
+                        <label for="lokasi">
+                            Lokasi
+                        </label>
+
+                        <div class="input-box">
+
+                            <i class="fas fa-map-marker-alt"></i>
 
                             <input
                                 type="text"
                                 name="lokasi"
                                 id="lokasi"
                                 value="{{ old('lokasi') }}"
-                                class="form-control @error('lokasi') is-invalid @enderror"
                                 placeholder="Masukkan lokasi kegiatan"
+                                class="@error('lokasi') input-error @enderror"
                             >
-
-                            @error('lokasi')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
 
                         </div>
 
+                        @error('lokasi')
+                            <small class="error-message">
+                                {{ $message }}
+                            </small>
+                        @enderror
 
-                        <div class="form-group mb-0">
+                    </div>
 
-                            <label for="keterangan">
-                                Keterangan
-                            </label>
+
+                    {{-- KETERANGAN --}}
+
+                    <div class="form-group full-width">
+
+                        <label for="keterangan">
+                            Keterangan
+                        </label>
+
+                        <div class="textarea-box">
+
+                            <i class="fas fa-align-left"></i>
 
                             <textarea
                                 name="keterangan"
                                 id="keterangan"
                                 rows="4"
-                                class="form-control @error('keterangan') is-invalid @enderror"
                                 placeholder="Masukkan keterangan kegiatan (opsional)"
+                                class="@error('keterangan') input-error @enderror"
                             >{{ old('keterangan') }}</textarea>
-
-                            @error('keterangan')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
 
                         </div>
 
-                    </div>
-
-
-                    <div class="card-footer">
-
-                        <button
-                            type="submit"
-                            class="btn btn-primary"
-                        >
-                            <span class="fa fa-save mr-1"></span>
-                            Simpan
-                        </button>
-
-
-                        <a
-                            href="{{ route('kegiatan-donor.index') }}"
-                            class="btn btn-secondary"
-                        >
-                            <span class="fa fa-times-circle mr-1"></span>
-                            Batal
-                        </a>
+                        @error('keterangan')
+                            <small class="error-message">
+                                {{ $message }}
+                            </small>
+                        @enderror
 
                     </div>
 
-                </form>
+                </div>
 
             </div>
 
-        </div>
+
+            {{-- FOOTER --}}
+
+            <div class="form-footer">
+
+                <a
+                    href="{{ route('kegiatan-donor.index') }}"
+                    class="btn btn-cancel"
+                >
+                    <i class="fas fa-times"></i>
+                    Batal
+                </a>
+
+                <button
+                    type="submit"
+                    class="btn btn-save"
+                >
+                    <i class="fas fa-save"></i>
+                    Simpan Kegiatan
+                </button>
+
+            </div>
+
+        </form>
 
     </div>
+
+</div>
 
 @endsection

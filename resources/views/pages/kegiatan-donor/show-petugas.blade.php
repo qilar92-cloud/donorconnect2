@@ -33,6 +33,7 @@
 
     </div>
 
+
     <div class="detail-kegiatan-body">
 
         <div class="detail-info-grid">
@@ -193,6 +194,7 @@
 
                     </thead>
 
+
                     <tbody>
 
                         @foreach ($kegiatan->pendaftaranDonor as $pendaftaran)
@@ -202,6 +204,7 @@
                                 <td class="pendonor-number">
                                     {{ $loop->iteration }}
                                 </td>
+
 
                                 <td>
 
@@ -218,6 +221,7 @@
                                     </div>
 
                                 </td>
+
 
                                 <td>
 
@@ -327,6 +331,8 @@
     </div>
 
 
+    {{-- Form Upload --}}
+
     <div
         id="formDokumentasi"
         class="upload-wrapper"
@@ -369,9 +375,11 @@
                     <i class="fas fa-cloud-upload-alt"></i>
                 </div>
 
+
                 <h4>
                     Pilih Foto Dokumentasi
                 </h4>
+
 
                 <p>
                     JPG, PNG, atau WEBP · Maksimal 5 MB per foto
@@ -459,6 +467,7 @@
                     Batal
                 </button>
 
+
                 <button
                     type="submit"
                     class="btn-simpan-upload"
@@ -514,15 +523,20 @@
 
                             <div class="foto-overlay">
 
-                                <a
-                                    href="{{ asset('storage/' . $foto->foto) }}"
-                                    target="_blank"
+                                {{-- Tombol lihat --}}
+
+                                <button
+                                    type="button"
                                     class="btn-lihat-foto"
+                                    data-image="{{ asset('storage/' . $foto->foto) }}"
+                                    data-title="{{ $foto->judul ?? 'Dokumentasi donor darah' }}"
                                     title="Lihat foto"
                                 >
                                     <i class="fas fa-expand"></i>
-                                </a>
+                                </button>
 
+
+                                {{-- Tombol hapus --}}
 
                                 <form
                                     action="{{ route('dokumentasi-donor.destroy', $foto->id_dokumentasi) }}"
@@ -555,6 +569,7 @@
                                 {{ $foto->judul ?? 'Dokumentasi donor darah' }}
                             </strong>
 
+
                             @if ($foto->keterangan)
 
                                 <p>
@@ -579,13 +594,16 @@
                     <i class="far fa-images"></i>
                 </div>
 
+
                 <h3>
                     Belum Ada Dokumentasi
                 </h3>
 
+
                 <p>
                     Upload foto kegiatan donor darah untuk menampilkannya di galeri.
                 </p>
+
 
                 <button
                     type="button"
@@ -599,6 +617,63 @@
             </div>
 
         @endif
+
+    </div>
+
+</div>
+
+
+{{-- Lightbox --}}
+
+<div
+    class="dokumentasi-lightbox"
+    id="dokumentasiLightbox"
+>
+
+    <div class="lightbox-content">
+
+        <button
+            type="button"
+            class="lightbox-close"
+            id="lightboxClose"
+            aria-label="Tutup"
+        >
+            <i class="fas fa-times"></i>
+        </button>
+
+
+        <button
+            type="button"
+            class="lightbox-prev"
+            id="lightboxPrev"
+            aria-label="Foto sebelumnya"
+        >
+            <i class="fas fa-chevron-left"></i>
+        </button>
+
+
+        <img
+            src=""
+            alt="Dokumentasi donor"
+            class="lightbox-image"
+            id="lightboxImage"
+        >
+
+
+        <button
+            type="button"
+            class="lightbox-next"
+            id="lightboxNext"
+            aria-label="Foto berikutnya"
+        >
+            <i class="fas fa-chevron-right"></i>
+        </button>
+
+
+        <div
+            class="lightbox-caption"
+            id="lightboxCaption"
+        ></div>
 
     </div>
 
@@ -619,6 +694,7 @@
             Kembali
         </a>
 
+
         <a
             href="{{ route('kegiatan-donor.edit', $kegiatan->id_kegiatan) }}"
             class="btn-detail-edit"
@@ -635,6 +711,8 @@
 
 
 <script>
+
+/* Preview foto */
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -721,14 +799,22 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+/* Buka form upload */
+
 function toggleDokumentasiForm()
 {
     const form =
         document.getElementById('formDokumentasi');
 
+    if (!form) {
+        return;
+    }
+
     form.classList.toggle('show');
 }
 
+
+/* Tutup form upload */
 
 function tutupDokumentasiForm()
 {
@@ -745,24 +831,317 @@ function tutupDokumentasiForm()
         document.getElementById('previewFoto');
 
 
+    if (!form) {
+        return;
+    }
+
+
     form.classList.remove('show');
 
-    input.value = '';
 
-    jumlahFoto.textContent =
-        'Belum ada foto dipilih';
+    if (input) {
+        input.value = '';
+    }
 
-    jumlahFoto.classList.remove('active');
 
-    previewFoto.innerHTML = '';
+    if (jumlahFoto) {
 
-    document.getElementById(
-        'judulDokumentasi'
-    ).value = '';
+        jumlahFoto.textContent =
+            'Belum ada foto dipilih';
 
-    document.getElementById(
-        'keteranganDokumentasi'
-    ).value = '';
+        jumlahFoto.classList.remove('active');
+
+    }
+
+
+    if (previewFoto) {
+        previewFoto.innerHTML = '';
+    }
+
+
+    const judul =
+        document.getElementById('judulDokumentasi');
+
+    const keterangan =
+        document.getElementById('keteranganDokumentasi');
+
+
+    if (judul) {
+        judul.value = '';
+    }
+
+
+    if (keterangan) {
+        keterangan.value = '';
+    }
 }
+
+
+/* Lightbox */
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    const lightbox =
+        document.getElementById('dokumentasiLightbox');
+
+    const image =
+        document.getElementById('lightboxImage');
+
+    const caption =
+        document.getElementById('lightboxCaption');
+
+    const closeButton =
+        document.getElementById('lightboxClose');
+
+    const prevButton =
+        document.getElementById('lightboxPrev');
+
+    const nextButton =
+        document.getElementById('lightboxNext');
+
+    const photos =
+        Array.from(
+            document.querySelectorAll('.btn-lihat-foto')
+        );
+
+
+    if (
+        !lightbox ||
+        !image ||
+        !closeButton ||
+        !prevButton ||
+        !nextButton
+    ) {
+        return;
+    }
+
+
+    let currentIndex = 0;
+
+    let touchStartX = 0;
+
+    let touchEndX = 0;
+
+
+    /* Buka foto */
+
+    function bukaFoto(index)
+    {
+        if (!photos.length) {
+            return;
+        }
+
+
+        currentIndex = index;
+
+
+        const button =
+            photos[currentIndex];
+
+
+        image.src =
+            button.dataset.image;
+
+
+        caption.textContent =
+            button.dataset.title ||
+            'Dokumentasi Donor Darah';
+
+
+        lightbox.classList.add('show');
+
+
+        document.body.style.overflow =
+            'hidden';
+    }
+
+
+    /* Tutup foto */
+
+    function tutupFoto()
+    {
+        lightbox.classList.remove('show');
+
+        image.src = '';
+
+        caption.textContent = '';
+
+        document.body.style.overflow = '';
+    }
+
+
+    /* Foto sebelumnya */
+
+    function fotoSebelumnya()
+    {
+        if (!photos.length) {
+            return;
+        }
+
+
+        currentIndex =
+            (currentIndex - 1 + photos.length)
+            % photos.length;
+
+
+        bukaFoto(currentIndex);
+    }
+
+
+    /* Foto berikutnya */
+
+    function fotoBerikutnya()
+    {
+        if (!photos.length) {
+            return;
+        }
+
+
+        currentIndex =
+            (currentIndex + 1)
+            % photos.length;
+
+
+        bukaFoto(currentIndex);
+    }
+
+
+    /* Klik foto */
+
+    photos.forEach(function (button, index) {
+
+        button.addEventListener(
+            'click',
+            function () {
+
+                bukaFoto(index);
+
+            }
+        );
+
+    });
+
+
+    /* Tombol */
+
+    closeButton.addEventListener(
+        'click',
+        tutupFoto
+    );
+
+
+    prevButton.addEventListener(
+        'click',
+        fotoSebelumnya
+    );
+
+
+    nextButton.addEventListener(
+        'click',
+        fotoBerikutnya
+    );
+
+
+    /* Klik area luar */
+
+    lightbox.addEventListener(
+        'click',
+        function (event) {
+
+            if (event.target === lightbox) {
+
+                tutupFoto();
+
+            }
+
+        }
+    );
+
+
+    /* Keyboard */
+
+    document.addEventListener(
+        'keydown',
+        function (event) {
+
+            if (!lightbox.classList.contains('show')) {
+                return;
+            }
+
+
+            if (event.key === 'Escape') {
+
+                tutupFoto();
+
+            }
+
+
+            if (event.key === 'ArrowLeft') {
+
+                fotoSebelumnya();
+
+            }
+
+
+            if (event.key === 'ArrowRight') {
+
+                fotoBerikutnya();
+
+            }
+
+        }
+    );
+
+
+    /* Swipe HP */
+
+    image.addEventListener(
+        'touchstart',
+        function (event) {
+
+            touchStartX =
+                event.changedTouches[0].screenX;
+
+        },
+        {
+            passive: true
+        }
+    );
+
+
+    image.addEventListener(
+        'touchend',
+        function (event) {
+
+            touchEndX =
+                event.changedTouches[0].screenX;
+
+
+            const jarak =
+                touchEndX - touchStartX;
+
+
+            if (Math.abs(jarak) < 50) {
+                return;
+            }
+
+
+            if (jarak < 0) {
+
+                fotoBerikutnya();
+
+            } else {
+
+                fotoSebelumnya();
+
+            }
+
+        },
+        {
+            passive: true
+        }
+    );
+
+});
 
 </script>

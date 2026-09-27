@@ -12,56 +12,31 @@
 
     <div class="form-card">
 
-        {{-- Header --}}
+        {{-- HEADER --}}
 
         <div class="page-header">
 
-            <small>
-                <i class="fas fa-users"></i>
-                Data Pendonor
-            </small>
+            <div class="header-info">
 
-            <h1>
-                Edit Pendonor
-            </h1>
+                <small>
+                    <i class="fas fa-users"></i>
+                    Data Pendonor
+                </small>
 
-            <p>
-                Perbarui informasi pendonor yang diperlukan.
-            </p>
+                <h1>
+                    Edit Pendonor
+                </h1>
 
-        </div>
-
-
-        {{-- Profil Pendonor --}}
-
-        <div class="account-info">
-
-            <div class="account-main">
-
-                <div class="avatar">
-                    {{ strtoupper(substr($pendonor->user->nama ?? 'P', 0, 1)) }}
-                </div>
-
-                <div class="account-text">
-
-                    <span>Pendonor</span>
-
-                    <h2>
-                        {{ $pendonor->user->nama ?? '-' }}
-                    </h2>
-
-                    <p>
-                        {{ $pendonor->user->email ?? '-' }}
-                    </p>
-
-                </div>
+                <p>
+                    Perbarui informasi pendonor yang diperlukan.
+                </p>
 
             </div>
 
         </div>
 
 
-        {{-- Form --}}
+        {{-- FORM --}}
 
         <form
             action="{{ route('pendonor.update', $pendonor->id_pendonor) }}"
@@ -71,15 +46,24 @@
             @csrf
             @method('PUT')
 
+
+            {{-- INFORMASI PENDONOR --}}
+
             <div class="form-body">
 
                 <div class="section-title">
 
-                    <h3>
-                        Informasi Pendonor
-                    </h3>
+                    <div class="section-heading">
 
-                    <span>
+                        <span class="section-line"></span>
+
+                        <h3>
+                            Informasi Pendonor
+                        </h3>
+
+                    </div>
+
+                    <span class="profile-id">
                         ID #{{ $pendonor->id_pendonor }}
                     </span>
 
@@ -88,7 +72,8 @@
 
                 <div class="form-grid">
 
-                    {{-- Nama --}}
+
+                    {{-- NAMA LENGKAP --}}
 
                     <div class="form-group">
 
@@ -112,7 +97,7 @@
                     </div>
 
 
-                    {{-- Email --}}
+                    {{-- EMAIL --}}
 
                     <div class="form-group">
 
@@ -136,7 +121,7 @@
                     </div>
 
 
-                    {{-- Status --}}
+                    {{-- STATUS --}}
 
                     <div class="form-group">
 
@@ -148,29 +133,29 @@
 
                             <i class="fas fa-user-check"></i>
 
-                            <select id="status" name="status">
-
-                                <option value="">
-                                    Pilih Status
-                                </option>
+                            <select
+                                name="status"
+                                id="status"
+                                required
+                            >
 
                                 <option
                                     value="Siswa"
-                                    {{ $pendonor->status == 'Siswa' ? 'selected' : '' }}
+                                    {{ old('status', $pendonor->status) === 'Siswa' ? 'selected' : '' }}
                                 >
                                     Siswa
                                 </option>
 
                                 <option
                                     value="Mahasiswa"
-                                    {{ $pendonor->status == 'Mahasiswa' ? 'selected' : '' }}
+                                    {{ old('status', $pendonor->status) === 'Mahasiswa' ? 'selected' : '' }}
                                 >
                                     Mahasiswa
                                 </option>
 
                                 <option
                                     value="Umum"
-                                    {{ $pendonor->status == 'Umum' ? 'selected' : '' }}
+                                    {{ old('status', $pendonor->status) === 'Umum' ? 'selected' : '' }}
                                 >
                                     Umum
                                 </option>
@@ -182,7 +167,7 @@
                     </div>
 
 
-                    {{-- Kelas / Jabatan --}}
+                    {{-- KELAS / JABATAN --}}
 
                     <div class="form-group">
 
@@ -196,9 +181,10 @@
 
                             <input
                                 type="text"
-                                id="kelas_jabatan"
                                 name="kelas_jabatan"
+                                id="kelas_jabatan"
                                 value="{{ old('kelas_jabatan', $pendonor->kelas_jabatan) }}"
+                                placeholder="Masukkan kelas atau jabatan"
                             >
 
                         </div>
@@ -206,7 +192,7 @@
                     </div>
 
 
-                    {{-- Tanggal Lahir --}}
+                    {{-- TANGGAL LAHIR --}}
 
                     <div class="form-group">
 
@@ -220,9 +206,14 @@
 
                             <input
                                 type="date"
-                                id="tanggal_lahir"
                                 name="tanggal_lahir"
-                                value="{{ old('tanggal_lahir', $pendonor->tanggal_lahir ? $pendonor->tanggal_lahir->format('Y-m-d') : '') }}"
+                                id="tanggal_lahir"
+                                value="{{ old(
+                                    'tanggal_lahir',
+                                    $pendonor->tanggal_lahir
+                                        ? $pendonor->tanggal_lahir->format('Y-m-d')
+                                        : ''
+                                ) }}"
                             >
 
                         </div>
@@ -230,7 +221,7 @@
                     </div>
 
 
-                    {{-- Golongan Darah --}}
+                    {{-- GOLONGAN DARAH --}}
 
                     <div class="form-group">
 
@@ -243,38 +234,39 @@
                             <i class="fas fa-tint"></i>
 
                             <select
-                                id="golongan_darah"
                                 name="golongan_darah"
+                                id="golongan_darah"
+                                required
                             >
 
                                 <option value="">
-                                    Pilih Golongan Darah
+                                    Pilih golongan darah
                                 </option>
 
                                 <option
                                     value="A"
-                                    {{ $pendonor->golongan_darah == 'A' ? 'selected' : '' }}
+                                    {{ old('golongan_darah', $pendonor->golongan_darah) === 'A' ? 'selected' : '' }}
                                 >
                                     A
                                 </option>
 
                                 <option
                                     value="B"
-                                    {{ $pendonor->golongan_darah == 'B' ? 'selected' : '' }}
+                                    {{ old('golongan_darah', $pendonor->golongan_darah) === 'B' ? 'selected' : '' }}
                                 >
                                     B
                                 </option>
 
                                 <option
                                     value="AB"
-                                    {{ $pendonor->golongan_darah == 'AB' ? 'selected' : '' }}
+                                    {{ old('golongan_darah', $pendonor->golongan_darah) === 'AB' ? 'selected' : '' }}
                                 >
                                     AB
                                 </option>
 
                                 <option
                                     value="O"
-                                    {{ $pendonor->golongan_darah == 'O' ? 'selected' : '' }}
+                                    {{ old('golongan_darah', $pendonor->golongan_darah) === 'O' ? 'selected' : '' }}
                                 >
                                     O
                                 </option>
@@ -286,9 +278,9 @@
                     </div>
 
 
-                    {{-- No Telepon --}}
+                    {{-- NO TELEPON --}}
 
-                    <div class="form-group">
+                    <div class="form-group full-width">
 
                         <label for="nomor_telepon">
                             No. Telepon
@@ -300,9 +292,10 @@
 
                             <input
                                 type="text"
-                                id="nomor_telepon"
                                 name="nomor_telepon"
+                                id="nomor_telepon"
                                 value="{{ old('nomor_telepon', $pendonor->nomor_telepon) }}"
+                                placeholder="Masukkan nomor telepon"
                             >
 
                         </div>
@@ -310,9 +303,9 @@
                     </div>
 
 
-                    {{-- Informasi Kesehatan --}}
+                    {{-- INFORMASI KESEHATAN --}}
 
-                    <div class="form-group health-group">
+                    <div class="form-group full-width">
 
                         <label for="informasi_kesehatan">
                             Informasi Kesehatan
@@ -323,9 +316,9 @@
                             <i class="fas fa-heartbeat"></i>
 
                             <textarea
-                                id="informasi_kesehatan"
                                 name="informasi_kesehatan"
-                                rows="4"
+                                id="informasi_kesehatan"
+                                placeholder="Masukkan informasi kesehatan jika diperlukan..."
                             >{{ old('informasi_kesehatan', $pendonor->informasi_kesehatan) }}</textarea>
 
                         </div>
@@ -337,7 +330,7 @@
             </div>
 
 
-            {{-- Tombol --}}
+            {{-- FOOTER --}}
 
             <div class="form-footer">
 
