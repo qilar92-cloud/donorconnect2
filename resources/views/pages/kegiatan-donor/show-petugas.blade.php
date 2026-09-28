@@ -3,8 +3,10 @@
 @section('title', 'Detail Kegiatan Donor - DonorConnect')
 
 @push('styles')
-    @vite('resources/css/kegiatan-donor/show-petugas.css')
-    @vite('resources/css/kegiatan-donor/dokumentasi.css')
+    @vite([
+        'resources/css/kegiatan-donor/show-petugas.css',
+        'resources/css/kegiatan-donor/dokumentasi.css'
+    ])
 @endpush
 
 @section('content')
@@ -29,6 +31,10 @@
                 {{ $kegiatan->nama_kegiatan }}
             </h1>
 
+            <p class="detail-kegiatan-subtitle">
+                Informasi lengkap kegiatan donor darah.
+            </p>
+
         </div>
 
     </div>
@@ -37,6 +43,8 @@
     <div class="detail-kegiatan-body">
 
         <div class="detail-info-grid">
+
+            {{-- Tanggal --}}
 
             <div class="detail-info-item">
 
@@ -59,6 +67,8 @@
             </div>
 
 
+            {{-- Waktu --}}
+
             <div class="detail-info-item">
 
                 <div class="detail-info-icon">
@@ -80,6 +90,8 @@
             </div>
 
 
+            {{-- Lokasi --}}
+
             <div class="detail-info-item">
 
                 <div class="detail-info-icon">
@@ -100,6 +112,8 @@
 
             </div>
 
+
+            {{-- Status --}}
 
             <div class="detail-info-item">
 
@@ -125,9 +139,12 @@
         </div>
 
 
+        {{-- Keterangan --}}
+
         <div class="detail-description">
 
             <span class="detail-description-label">
+                <i class="fas fa-info-circle"></i>
                 Keterangan
             </span>
 
@@ -194,7 +211,6 @@
 
                     </thead>
 
-
                     <tbody>
 
                         @foreach ($kegiatan->pendaftaranDonor as $pendaftaran)
@@ -204,7 +220,6 @@
                                 <td class="pendonor-number">
                                     {{ $loop->iteration }}
                                 </td>
-
 
                                 <td>
 
@@ -222,22 +237,21 @@
 
                                 </td>
 
-
                                 <td>
 
-                                    @if ($pendaftaran->status_pendaftaran == 'menunggu')
+                                    @if ($pendaftaran->status_pendaftaran === 'menunggu')
 
                                         <span class="status-pendaftaran status-menunggu">
                                             Menunggu
                                         </span>
 
-                                    @elseif ($pendaftaran->status_pendaftaran == 'diterima')
+                                    @elseif ($pendaftaran->status_pendaftaran === 'diterima')
 
                                         <span class="status-pendaftaran status-diterima">
                                             Diterima
                                         </span>
 
-                                    @elseif ($pendaftaran->status_pendaftaran == 'ditolak')
+                                    @elseif ($pendaftaran->status_pendaftaran === 'ditolak')
 
                                         <span class="status-pendaftaran status-ditolak">
                                             Ditolak
@@ -331,7 +345,7 @@
     </div>
 
 
-    {{-- Form Upload --}}
+    {{-- Upload --}}
 
     <div
         id="formDokumentasi"
@@ -375,16 +389,13 @@
                     <i class="fas fa-cloud-upload-alt"></i>
                 </div>
 
-
                 <h4>
                     Pilih Foto Dokumentasi
                 </h4>
 
-
                 <p>
                     JPG, PNG, atau WEBP · Maksimal 5 MB per foto
                 </p>
-
 
                 <label
                     for="fotoDokumentasi"
@@ -393,7 +404,6 @@
                     <i class="fas fa-folder-open"></i>
                     Pilih Foto
                 </label>
-
 
                 <input
                     type="file"
@@ -404,14 +414,12 @@
                     required
                 >
 
-
                 <div
                     id="jumlahFoto"
                     class="jumlah-foto"
                 >
                     Belum ada foto dipilih
                 </div>
-
 
                 <div
                     id="previewFoto"
@@ -467,7 +475,6 @@
                     Batal
                 </button>
 
-
                 <button
                     type="submit"
                     class="btn-simpan-upload"
@@ -520,10 +527,7 @@
                                 loading="lazy"
                             >
 
-
                             <div class="foto-overlay">
-
-                                {{-- Tombol lihat --}}
 
                                 <button
                                     type="button"
@@ -536,8 +540,6 @@
                                 </button>
 
 
-                                {{-- Tombol hapus --}}
-
                                 <form
                                     action="{{ route('dokumentasi-donor.destroy', $foto->id_dokumentasi) }}"
                                     method="POST"
@@ -545,7 +547,6 @@
                                 >
 
                                     @csrf
-
                                     @method('DELETE')
 
                                     <button
@@ -568,7 +569,6 @@
                             <strong>
                                 {{ $foto->judul ?? 'Dokumentasi donor darah' }}
                             </strong>
-
 
                             @if ($foto->keterangan)
 
@@ -594,16 +594,13 @@
                     <i class="far fa-images"></i>
                 </div>
 
-
                 <h3>
                     Belum Ada Dokumentasi
                 </h3>
 
-
                 <p>
                     Upload foto kegiatan donor darah untuk menampilkannya di galeri.
                 </p>
-
 
                 <button
                     type="button"
@@ -634,16 +631,6 @@
 
         <button
             type="button"
-            class="lightbox-close"
-            id="lightboxClose"
-            aria-label="Tutup"
-        >
-            <i class="fas fa-times"></i>
-        </button>
-
-
-        <button
-            type="button"
             class="lightbox-prev"
             id="lightboxPrev"
             aria-label="Foto sebelumnya"
@@ -671,9 +658,11 @@
 
 
         <div
-            class="lightbox-caption"
-            id="lightboxCaption"
-        ></div>
+            class="lightbox-counter"
+            id="lightboxCounter"
+        >
+            1 / 1
+        </div>
 
     </div>
 
@@ -694,7 +683,6 @@
             Kembali
         </a>
 
-
         <a
             href="{{ route('kegiatan-donor.edit', $kegiatan->id_kegiatan) }}"
             class="btn-detail-edit"
@@ -710,42 +698,35 @@
 @endsection
 
 
+{{-- JavaScript --}}
+
+@push('scripts')
+
 <script>
 
-/* Preview foto */
+/* Preview */
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    const inputFoto =
-        document.getElementById('fotoDokumentasi');
-
-    const jumlahFoto =
-        document.getElementById('jumlahFoto');
-
-    const previewFoto =
-        document.getElementById('previewFoto');
-
+    const inputFoto = document.getElementById('fotoDokumentasi');
+    const jumlahFoto = document.getElementById('jumlahFoto');
+    const previewFoto = document.getElementById('previewFoto');
 
     if (!inputFoto) {
         return;
     }
 
-
     inputFoto.addEventListener('change', function () {
 
         previewFoto.innerHTML = '';
 
-
         if (this.files.length === 0) {
 
-            jumlahFoto.textContent =
-                'Belum ada foto dipilih';
-
+            jumlahFoto.textContent = 'Belum ada foto dipilih';
             jumlahFoto.classList.remove('active');
 
             return;
         }
-
 
         jumlahFoto.textContent =
             this.files.length + ' foto dipilih';
@@ -759,10 +740,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-
-            const reader =
-                new FileReader();
-
+            const reader = new FileReader();
 
             reader.onload = function (event) {
 
@@ -771,7 +749,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 item.className =
                     'preview-foto-item';
-
 
                 item.innerHTML = `
                     <img
@@ -784,11 +761,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     </span>
                 `;
 
-
                 previewFoto.appendChild(item);
 
             };
-
 
             reader.readAsDataURL(file);
 
@@ -799,7 +774,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-/* Buka form upload */
+/* Upload */
 
 function toggleDokumentasiForm()
 {
@@ -813,8 +788,6 @@ function toggleDokumentasiForm()
     form.classList.toggle('show');
 }
 
-
-/* Tutup form upload */
 
 function tutupDokumentasiForm()
 {
@@ -830,34 +803,26 @@ function tutupDokumentasiForm()
     const previewFoto =
         document.getElementById('previewFoto');
 
-
     if (!form) {
         return;
     }
 
-
     form.classList.remove('show');
-
 
     if (input) {
         input.value = '';
     }
 
-
     if (jumlahFoto) {
-
         jumlahFoto.textContent =
             'Belum ada foto dipilih';
 
         jumlahFoto.classList.remove('active');
-
     }
-
 
     if (previewFoto) {
         previewFoto.innerHTML = '';
     }
-
 
     const judul =
         document.getElementById('judulDokumentasi');
@@ -865,11 +830,9 @@ function tutupDokumentasiForm()
     const keterangan =
         document.getElementById('keteranganDokumentasi');
 
-
     if (judul) {
         judul.value = '';
     }
-
 
     if (keterangan) {
         keterangan.value = '';
@@ -887,11 +850,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const image =
         document.getElementById('lightboxImage');
 
-    const caption =
-        document.getElementById('lightboxCaption');
-
-    const closeButton =
-        document.getElementById('lightboxClose');
+    const counter =
+        document.getElementById('lightboxCounter');
 
     const prevButton =
         document.getElementById('lightboxPrev');
@@ -908,7 +868,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (
         !lightbox ||
         !image ||
-        !closeButton ||
+        !counter ||
         !prevButton ||
         !nextButton
     ) {
@@ -917,13 +877,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     let currentIndex = 0;
-
     let touchStartX = 0;
-
     let touchEndX = 0;
 
-
-    /* Buka foto */
 
     function bukaFoto(index)
     {
@@ -931,32 +887,22 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-
         currentIndex = index;
-
 
         const button =
             photos[currentIndex];
 
-
         image.src =
             button.dataset.image;
 
-
-        caption.textContent =
-            button.dataset.title ||
-            'Dokumentasi Donor Darah';
-
+        counter.textContent =
+            `${currentIndex + 1} / ${photos.length}`;
 
         lightbox.classList.add('show');
 
-
-        document.body.style.overflow =
-            'hidden';
+        document.body.style.overflow = 'hidden';
     }
 
-
-    /* Tutup foto */
 
     function tutupFoto()
     {
@@ -964,13 +910,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         image.src = '';
 
-        caption.textContent = '';
-
         document.body.style.overflow = '';
     }
 
-
-    /* Foto sebelumnya */
 
     function fotoSebelumnya()
     {
@@ -978,17 +920,13 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-
         currentIndex =
             (currentIndex - 1 + photos.length)
             % photos.length;
 
-
         bukaFoto(currentIndex);
     }
 
-
-    /* Foto berikutnya */
 
     function fotoBerikutnya()
     {
@@ -996,69 +934,61 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-
         currentIndex =
             (currentIndex + 1)
             % photos.length;
 
-
         bukaFoto(currentIndex);
     }
 
-
-    /* Klik foto */
 
     photos.forEach(function (button, index) {
 
         button.addEventListener(
             'click',
             function () {
-
                 bukaFoto(index);
-
             }
         );
 
     });
 
 
-    /* Tombol */
-
-    closeButton.addEventListener(
-        'click',
-        tutupFoto
-    );
-
-
     prevButton.addEventListener(
         'click',
-        fotoSebelumnya
+        function (event) {
+
+            event.stopPropagation();
+
+            fotoSebelumnya();
+
+        }
     );
 
 
     nextButton.addEventListener(
         'click',
-        fotoBerikutnya
+        function (event) {
+
+            event.stopPropagation();
+
+            fotoBerikutnya();
+
+        }
     );
 
-
-    /* Klik area luar */
 
     lightbox.addEventListener(
         'click',
         function (event) {
 
             if (event.target === lightbox) {
-
                 tutupFoto();
-
             }
 
         }
     );
 
-
-    /* Keyboard */
 
     document.addEventListener(
         'keydown',
@@ -1068,32 +998,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-
             if (event.key === 'Escape') {
-
                 tutupFoto();
-
             }
-
 
             if (event.key === 'ArrowLeft') {
-
                 fotoSebelumnya();
-
             }
 
-
             if (event.key === 'ArrowRight') {
-
                 fotoBerikutnya();
-
             }
 
         }
     );
 
-
-    /* Swipe HP */
 
     image.addEventListener(
         'touchstart',
@@ -1116,24 +1035,17 @@ document.addEventListener('DOMContentLoaded', function () {
             touchEndX =
                 event.changedTouches[0].screenX;
 
-
             const jarak =
                 touchEndX - touchStartX;
-
 
             if (Math.abs(jarak) < 50) {
                 return;
             }
 
-
             if (jarak < 0) {
-
                 fotoBerikutnya();
-
             } else {
-
                 fotoSebelumnya();
-
             }
 
         },
@@ -1145,3 +1057,5 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 </script>
+
+@endpush

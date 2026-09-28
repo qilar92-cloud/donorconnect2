@@ -2,8 +2,8 @@
 
 .pendonor-page {
     min-height: 100vh;
-    padding: 24px 28px 35px;
-    background: #fff8f6;
+    padding: 25px 28px 35px;
+    background: #fff7f5;
 }
 
 
@@ -13,33 +13,32 @@
     width: 100%;
     max-width: 1180px;
     margin: 0 auto;
-
     overflow: hidden;
 
     background: #ffffff;
 
-    border: 1px solid #efdfe3;
+    border: 1px solid #efd8df;
     border-radius: 20px;
 
     box-shadow:
-        0 10px 30px rgba(120, 45, 70, .08);
+        0 12px 32px rgba(190, 55, 88, .09);
 }
 
 
 /* HEADER */
 
 .detail-header {
-    padding: 24px 30px 21px;
+    padding: 25px 30px 22px;
 
     background:
         linear-gradient(
-            105deg,
+            110deg,
             #ffffff 0%,
-            #fff8fa 100%
+            #fff5f8 100%
         );
 
-    border-top: 3px solid #df2e57;
-    border-bottom: 1px solid #f0e1e5;
+    border-top: 3px solid #e52f59;
+    border-bottom: 1px solid #f1dfe4;
 }
 
 .header-label {
@@ -47,15 +46,13 @@
     align-items: center;
 
     gap: 7px;
+    margin-bottom: 7px;
 
-    margin-bottom: 6px;
-
-    color: #d12e57;
+    color: #df2854;
 
     font-size: 9px;
-    font-weight: 800;
-
-    letter-spacing: 1.2px;
+    font-weight: 900;
+    letter-spacing: 1.3px;
 
     text-transform: uppercase;
 }
@@ -75,97 +72,91 @@
 .detail-header h1 {
     margin: 0;
 
-    color: #30313f;
+    color: #303343;
 
-    font-size: 27px;
-    font-weight: 800;
-
+    font-size: 28px;
+    font-weight: 900;
     line-height: 1.2;
 }
 
 .detail-header p {
     margin: 6px 0 0;
 
-    color: #81777d;
+    color: #82747b;
 
     font-size: 10px;
-
     line-height: 1.5;
 }
 
 .header-id {
     flex-shrink: 0;
 
-    margin-top: 3px;
+    margin-top: 4px;
+    padding: 7px 12px;
 
-    padding: 6px 10px;
+    background: #ffe8ee;
+    color: #cf2851;
 
+    border: 1px solid #f8d3dc;
     border-radius: 999px;
 
-    background: #fff0f3;
-
-    color: #c52f57;
-
     font-size: 8px;
-    font-weight: 800;
+    font-weight: 900;
 }
 
 
 /* INFORMASI */
 
 .information {
-    padding: 23px 30px 25px;
-
+    padding: 24px 30px 26px;
     background: #ffffff;
 }
 
 .section-title {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
 
-    margin-bottom: 15px;
+    margin-bottom: 16px;
 }
 
 .section-title h3 {
     position: relative;
 
     margin: 0;
+    padding-left: 12px;
 
-    padding-left: 11px;
-
-    color: #30313f;
+    color: #303343;
 
     font-size: 16px;
-    font-weight: 800;
+    font-weight: 900;
 }
 
 .section-title h3::before {
     content: "";
 
     position: absolute;
-
     left: 0;
     top: 50%;
 
-    width: 3px;
-    height: 17px;
+    width: 4px;
+    height: 18px;
 
     border-radius: 10px;
 
     background:
         linear-gradient(
             180deg,
-            #f04468,
-            #c8234b
+            #f13e67,
+            #ce244e
         );
 
     transform: translateY(-50%);
 }
 
 .section-title p {
-    margin: 4px 0 0 11px;
+    margin: 4px 0 0 12px;
 
-    color: #9b858d;
+    color: #9a858d;
 
     font-size: 9px;
 }
@@ -179,7 +170,7 @@
     grid-template-columns:
         repeat(2, minmax(0, 1fr));
 
-    gap: 10px 12px;
+    gap: 11px 13px;
 }
 
 
@@ -187,30 +178,39 @@
 
 .data-item {
     min-width: 0;
-    min-height: 59px;
+    min-height: 63px;
 
     display: flex;
     align-items: center;
 
-    gap: 10px;
+    gap: 11px;
 
-    padding: 9px 12px;
+    padding: 10px 13px;
 
-    background: #fffafb;
+    background:
+        linear-gradient(
+            135deg,
+            #fffafa 0%,
+            #fff5f7 100%
+        );
 
-    border: 1px solid #f0dfe4;
-    border-radius: 11px;
+    border: 1px solid #efd9df;
+    border-radius: 12px;
 
     transition:
         background .2s ease,
         border-color .2s ease,
+        box-shadow .2s ease,
         transform .2s ease;
 }
 
 .data-item:hover {
-    background: #fff5f7;
+    background: #fff0f4;
 
-    border-color: #e7b8c5;
+    border-color: #e7aebd;
+
+    box-shadow:
+        0 5px 14px rgba(210, 42, 82, .08);
 
     transform: translateY(-1px);
 }
@@ -219,22 +219,30 @@
 /* ICON */
 
 .data-icon {
-    width: 33px;
-    height: 33px;
+    width: 35px;
+    height: 35px;
 
-    flex: 0 0 33px;
+    flex: 0 0 35px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    border-radius: 9px;
+    background:
+        linear-gradient(
+            135deg,
+            #ffe0e8,
+            #ffd3df
+        );
 
-    background: #ffe3e9;
+    color: #d92753;
 
-    color: #d02e57;
+    border-radius: 10px;
 
     font-size: 10px;
+
+    box-shadow:
+        inset 0 0 0 1px rgba(210, 39, 81, .04);
 }
 
 
@@ -247,14 +255,13 @@
 .data-content label {
     display: block;
 
-    margin-bottom: 3px;
+    margin-bottom: 4px;
 
-    color: #9d858d;
+    color: #a07f89;
 
     font-size: 7px;
-    font-weight: 800;
-
-    letter-spacing: .6px;
+    font-weight: 900;
+    letter-spacing: .7px;
 
     text-transform: uppercase;
 }
@@ -264,12 +271,11 @@
 
     margin: 0;
 
-    color: #373540;
+    color: #363542;
 
     font-size: 11px;
-    font-weight: 700;
-
-    line-height: 1.3;
+    font-weight: 800;
+    line-height: 1.35;
 
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -277,8 +283,7 @@
 
 .empty {
     color: #aaa0a5 !important;
-
-    font-weight: 500 !important;
+    font-weight: 600 !important;
 }
 
 
@@ -290,10 +295,9 @@
 
 .health-item .data-content p {
     white-space: normal;
-
     word-break: break-word;
 
-    line-height: 1.45;
+    line-height: 1.5;
 }
 
 
@@ -310,17 +314,17 @@
 
     background: #ffffff;
 
-    border-top: 1px solid #f0e1e5;
+    border-top: 1px solid #f0dfe4;
 }
 
 
 /* BUTTON */
 
 .btn {
-    min-width: 82px;
-    height: 38px;
+    min-width: 84px;
+    height: 39px;
 
-    padding: 0 14px;
+    padding: 0 15px;
 
     display: inline-flex;
     align-items: center;
@@ -331,7 +335,7 @@
     border-radius: 10px;
 
     font-size: 10px;
-    font-weight: 800;
+    font-weight: 900;
 
     text-decoration: none !important;
 
@@ -351,17 +355,15 @@
 /* KEMBALI */
 
 .btn-back {
-    background: #f1edef;
-
+    background: #f3eff1;
     color: #686168 !important;
 
-    border: 1px solid #e1dadd;
+    border: 1px solid #e2dadd;
 }
 
 .btn-back:hover {
-    background: #e7e1e4;
-
-    color: #4f4a50 !important;
+    background: #e8e2e5;
+    color: #504a50 !important;
 }
 
 
@@ -371,9 +373,9 @@
     background:
         linear-gradient(
             135deg,
-            #f04468 0%,
-            #df2e57 55%,
-            #c8234b 100%
+            #f34369 0%,
+            #e22d58 55%,
+            #c9234c 100%
         );
 
     color: #ffffff !important;
@@ -381,14 +383,14 @@
     border: 1px solid transparent;
 
     box-shadow:
-        0 6px 15px rgba(210, 38, 79, .20);
+        0 7px 17px rgba(213, 40, 79, .22);
 }
 
 .btn-edit:hover {
     color: #ffffff !important;
 
     box-shadow:
-        0 8px 18px rgba(210, 38, 79, .27);
+        0 9px 20px rgba(213, 40, 79, .30);
 }
 
 
@@ -401,11 +403,11 @@
     }
 
     .detail-header {
-        padding: 21px 24px;
+        padding: 22px 24px;
     }
 
     .information {
-        padding: 21px 24px 23px;
+        padding: 22px 24px 24px;
     }
 
     .card-footer {
@@ -430,7 +432,7 @@
     /* HEADER */
 
     .detail-header {
-        padding: 19px 17px 17px;
+        padding: 19px 17px 18px;
     }
 
     .header-row {
@@ -439,7 +441,6 @@
 
     .header-label {
         margin-bottom: 6px;
-
         font-size: 8px;
     }
 
@@ -449,7 +450,6 @@
 
     .detail-header p {
         margin-top: 5px;
-
         font-size: 9px;
     }
 
@@ -458,6 +458,8 @@
 
         margin-top: 10px;
 
+        padding: 6px 10px;
+
         font-size: 7px;
     }
 
@@ -465,11 +467,11 @@
     /* INFORMASI */
 
     .information {
-        padding: 18px 16px 20px;
+        padding: 19px 16px 21px;
     }
 
     .section-title {
-        margin-bottom: 12px;
+        margin-bottom: 13px;
     }
 
     .section-title h3 {
@@ -477,6 +479,7 @@
     }
 
     .section-title h3::before {
+        width: 3px;
         height: 15px;
     }
 
@@ -489,23 +492,22 @@
 
     .data-grid {
         grid-template-columns: 1fr;
-
         gap: 8px;
     }
 
     .data-item {
-        min-height: 55px;
+        min-height: 56px;
 
-        padding: 8px 10px;
+        padding: 9px 10px;
 
         border-radius: 10px;
     }
 
     .data-icon {
-        width: 30px;
-        height: 30px;
+        width: 31px;
+        height: 31px;
 
-        flex-basis: 30px;
+        flex-basis: 31px;
 
         border-radius: 8px;
     }
@@ -555,7 +557,7 @@
     }
 
     .detail-header {
-        padding: 16px 14px 14px;
+        padding: 16px 14px 15px;
     }
 
     .detail-header h1 {
@@ -583,18 +585,18 @@
     }
 
     .data-item {
-        min-height: 52px;
+        min-height: 53px;
 
-        padding: 7px 8px;
+        padding: 8px;
 
         gap: 8px;
     }
 
     .data-icon {
-        width: 28px;
-        height: 28px;
+        width: 29px;
+        height: 29px;
 
-        flex-basis: 28px;
+        flex-basis: 29px;
     }
 
     .data-content label {
@@ -611,7 +613,6 @@
 
     .btn {
         height: 35px;
-
         font-size: 8.5px;
     }
 }
