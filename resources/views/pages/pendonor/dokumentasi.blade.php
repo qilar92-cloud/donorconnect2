@@ -25,6 +25,7 @@
         <a
             href="{{ route('dashboard') }}"
             class="documentation-back"
+            aria-label="Kembali ke dashboard"
         >
             <i class="fas fa-arrow-left"></i>
         </a>
@@ -72,11 +73,12 @@
                     type="button"
                     class="documentation-photo"
                     data-index="{{ $loop->index }}"
+                    aria-label="Buka foto dokumentasi"
                 >
 
                     <img
                         src="{{ asset('storage/' . $foto->foto) }}"
-                        alt="Dokumentasi donor darah"
+                        alt="{{ $foto->judul ?: 'Dokumentasi donor darah' }}"
                         loading="lazy"
                     >
 
@@ -148,61 +150,57 @@
 
 @if ($dokumentasi->count() > 0)
 
-<div
-    class="photo-lightbox"
-    id="photoLightbox"
-    aria-hidden="true"
->
-
-    <button
-        type="button"
-        class="lightbox-close"
-        id="lightboxClose"
-        aria-label="Tutup"
+    <div
+        class="photo-lightbox"
+        id="photoLightbox"
+        aria-hidden="true"
     >
-        <i class="fas fa-times"></i>
-    </button>
 
-
-    <button
-        type="button"
-        class="lightbox-arrow lightbox-prev"
-        id="lightboxPrev"
-        aria-label="Foto sebelumnya"
-    >
-        <i class="fas fa-chevron-left"></i>
-    </button>
-
-
-    <div class="lightbox-content">
-
-        <img
-            src=""
-            alt="Dokumentasi donor darah"
-            id="lightboxImage"
+        <button
+            type="button"
+            class="lightbox-arrow lightbox-prev"
+            id="lightboxPrev"
+            aria-label="Foto sebelumnya"
         >
+            <i class="fas fa-chevron-left"></i>
+        </button>
 
-        <div class="lightbox-counter">
-            <span id="lightboxCurrent">1</span>
-            /
-            <span id="lightboxTotal">
-                {{ $dokumentasi->count() }}
-            </span>
+
+        <div class="lightbox-content">
+
+            <img
+                src=""
+                alt="Dokumentasi donor darah"
+                id="lightboxImage"
+            >
+
+            <div class="lightbox-counter">
+
+                <span id="lightboxCurrent">
+                    1
+                </span>
+
+                /
+
+                <span id="lightboxTotal">
+                    {{ $dokumentasi->count() }}
+                </span>
+
+            </div>
+
         </div>
 
+
+        <button
+            type="button"
+            class="lightbox-arrow lightbox-next"
+            id="lightboxNext"
+            aria-label="Foto berikutnya"
+        >
+            <i class="fas fa-chevron-right"></i>
+        </button>
+
     </div>
-
-
-    <button
-        type="button"
-        class="lightbox-arrow lightbox-next"
-        id="lightboxNext"
-        aria-label="Foto berikutnya"
-    >
-        <i class="fas fa-chevron-right"></i>
-    </button>
-
-</div>
 
 @endif
 
@@ -214,16 +212,38 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll('.documentation-photo')
     );
 
-    const lightbox = document.getElementById('photoLightbox');
-    const image = document.getElementById('lightboxImage');
-    const closeButton = document.getElementById('lightboxClose');
-    const prevButton = document.getElementById('lightboxPrev');
-    const nextButton = document.getElementById('lightboxNext');
-    const currentNumber = document.getElementById('lightboxCurrent');
+    const lightbox = document.getElementById(
+        'photoLightbox'
+    );
 
-    if (!lightbox || photos.length === 0) {
+    const image = document.getElementById(
+        'lightboxImage'
+    );
+
+    const prevButton = document.getElementById(
+        'lightboxPrev'
+    );
+
+    const nextButton = document.getElementById(
+        'lightboxNext'
+    );
+
+    const currentNumber = document.getElementById(
+        'lightboxCurrent'
+    );
+
+
+    if (
+        !lightbox ||
+        !image ||
+        !prevButton ||
+        !nextButton ||
+        !currentNumber ||
+        photos.length === 0
+    ) {
         return;
     }
+
 
     let currentIndex = 0;
 
@@ -241,13 +261,24 @@ document.addEventListener('DOMContentLoaded', function () {
             index = 0;
         }
 
+
+        const photo = photos[index];
+
+        const photoImage =
+            photo.querySelector('img');
+
+
+        if (!photoImage) {
+            return;
+        }
+
+
         currentIndex = index;
 
-        const photo = photos[currentIndex];
-        const photoImage = photo.querySelector('img');
-
         image.src = photoImage.src;
+
         image.alt = photoImage.alt;
+
 
         currentNumber.textContent =
             currentIndex + 1;
@@ -259,12 +290,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
         showPhoto(index);
 
+
         lightbox.classList.add('show');
 
         lightbox.setAttribute(
             'aria-hidden',
             'false'
         );
+
 
         document.body.classList.add(
             'lightbox-open'
@@ -275,16 +308,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function closeLightbox() {
 
-        lightbox.classList.remove('show');
+        lightbox.classList.remove(
+            'show'
+        );
 
         lightbox.setAttribute(
             'aria-hidden',
             'true'
         );
 
+
         document.body.classList.remove(
             'lightbox-open'
         );
+
 
         image.src = '';
 
@@ -292,12 +329,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     function nextPhoto() {
-        showPhoto(currentIndex + 1);
+
+        showPhoto(
+            currentIndex + 1
+        );
+
     }
 
 
     function previousPhoto() {
-        showPhoto(currentIndex - 1);
+
+        showPhoto(
+            currentIndex - 1
+        );
+
     }
 
 
@@ -315,21 +360,37 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-    closeButton.addEventListener(
+    prevButton.addEventListener(
         'click',
-        closeLightbox
+        function (event) {
+
+            event.stopPropagation();
+
+            previousPhoto();
+
+        }
     );
 
 
     nextButton.addEventListener(
         'click',
-        nextPhoto
+        function (event) {
+
+            event.stopPropagation();
+
+            nextPhoto();
+
+        }
     );
 
 
-    prevButton.addEventListener(
+    image.addEventListener(
         'click',
-        previousPhoto
+        function (event) {
+
+            event.stopPropagation();
+
+        }
     );
 
 
@@ -337,8 +398,12 @@ document.addEventListener('DOMContentLoaded', function () {
         'click',
         function (event) {
 
-            if (event.target === lightbox) {
+            if (
+                event.target === lightbox
+            ) {
+
                 closeLightbox();
+
             }
 
         }
@@ -349,20 +414,39 @@ document.addEventListener('DOMContentLoaded', function () {
         'keydown',
         function (event) {
 
-            if (!lightbox.classList.contains('show')) {
+            if (
+                !lightbox.classList.contains(
+                    'show'
+                )
+            ) {
                 return;
             }
 
-            if (event.key === 'Escape') {
+
+            if (
+                event.key === 'Escape'
+            ) {
+
                 closeLightbox();
+
             }
 
-            if (event.key === 'ArrowRight') {
+
+            if (
+                event.key === 'ArrowRight'
+            ) {
+
                 nextPhoto();
+
             }
 
-            if (event.key === 'ArrowLeft') {
+
+            if (
+                event.key === 'ArrowLeft'
+            ) {
+
                 previousPhoto();
+
             }
 
         }
@@ -377,7 +461,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 event.changedTouches[0].screenX;
 
         },
-        { passive: true }
+        {
+            passive: true
+        }
     );
 
 
@@ -388,23 +474,32 @@ document.addEventListener('DOMContentLoaded', function () {
             touchEndX =
                 event.changedTouches[0].screenX;
 
+
             const difference =
                 touchStartX - touchEndX;
 
 
-            if (Math.abs(difference) < 50) {
+            if (
+                Math.abs(difference) < 50
+            ) {
                 return;
             }
 
 
             if (difference > 0) {
+
                 nextPhoto();
+
             } else {
+
                 previousPhoto();
+
             }
 
         },
-        { passive: true }
+        {
+            passive: true
+        }
     );
 
 });

@@ -1,3 +1,5 @@
+/* Dasar */
+
 * {
     box-sizing: border-box;
 }
@@ -8,7 +10,6 @@
 .kegiatan-page {
     min-height: 100vh;
     padding: 20px 24px 30px;
-
     background: #fff8f6;
 }
 
@@ -23,74 +24,48 @@
 
 .kegiatan-banner {
     position: relative;
-    overflow: hidden;
-
-    min-height: 92px;
-    margin-bottom: 15px;
-    padding: 15px 19px;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     gap: 15px;
-
+    min-height: 92px;
+    margin-bottom: 15px;
+    padding: 15px 19px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f04468, #df315b);
     border-radius: 18px;
-
-    background: linear-gradient(
-        135deg,
-        #f04468,
-        #df315b
-    );
-
     color: #fff;
-
-    box-shadow:
-        0 8px 20px rgba(218, 47, 88, .18);
+    box-shadow: 0 8px 20px rgba(218, 47, 88, .18);
 }
 
 .kegiatan-banner::before {
     content: "";
-
     position: absolute;
     width: 170px;
     height: 170px;
-
     top: -105px;
     right: 70px;
-
     border-radius: 50%;
-
-    background: rgba(255,255,255,.08);
+    background: rgba(255, 255, 255, .08);
 }
 
 .kegiatan-banner::after {
     content: "";
-
     position: absolute;
     width: 105px;
     height: 105px;
-
     right: -35px;
     bottom: -65px;
-
-    border: 1px solid rgba(255,255,255,.12);
-
+    border: 1px solid rgba(255, 255, 255, .12);
     border-radius: 50%;
 }
-
-
-/* Banner kiri */
 
 .banner-left {
     position: relative;
     z-index: 2;
-
     display: flex;
     align-items: center;
-
     gap: 12px;
-
     min-width: 0;
 }
 
@@ -98,18 +73,16 @@
     width: 50px;
     height: 50px;
     min-width: 50px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
+    background: rgba(255, 255, 255, .16);
+    border: 1px solid rgba(255, 255, 255, .16);
     border-radius: 14px;
-
-    background: rgba(255,255,255,.16);
-    border: 1px solid rgba(255,255,255,.16);
 }
 
 .banner-icon i {
+    color: #fff;
     font-size: 21px;
 }
 
@@ -119,104 +92,83 @@
 
 .banner-text small {
     display: block;
-
     margin-bottom: 3px;
-
     font-size: 7px;
     font-weight: 800;
-
     letter-spacing: 1px;
-
     opacity: .85;
 }
 
 .banner-text h1 {
     margin: 0;
-
+    color: #fff;
     font-size: 21px;
     line-height: 1.15;
-
     font-weight: 900;
 }
 
 .banner-text p {
     margin: 4px 0 0;
-
+    color: #fff;
     font-size: 9px;
-
     opacity: .82;
 }
-
-
-/* Banner kanan */
 
 .banner-right {
     position: relative;
     z-index: 2;
-
     display: flex;
     align-items: center;
-
     gap: 12px;
-
     flex-shrink: 0;
 }
 
 .banner-total {
     min-width: 52px;
-
     text-align: center;
 }
 
 .banner-total strong {
     display: block;
-
+    color: #fff;
     font-size: 21px;
     line-height: 1;
-
     font-weight: 900;
 }
 
 .banner-total span {
     display: block;
-
     margin-top: 4px;
-
+    color: #fff;
     font-size: 7px;
-
     opacity: .82;
 }
 
 .btn-add {
     min-height: 36px;
-
     padding: 0 13px;
-
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
     gap: 6px;
-
-    border-radius: 10px;
-
     background: #fff;
+    border-radius: 10px;
     color: #d52e58 !important;
-
     text-decoration: none;
-
     font-size: 9px;
     font-weight: 800;
+    box-shadow: 0 5px 12px rgba(0, 0, 0, .10);
+    transition: transform .2s ease, box-shadow .2s ease;
+}
 
-    box-shadow:
-        0 5px 12px rgba(0,0,0,.10);
-
-    transition: .2s ease;
+.btn-add i {
+    color: #d52e58;
 }
 
 .btn-add:hover {
     color: #b91f48 !important;
     transform: translateY(-2px);
+    box-shadow: 0 7px 16px rgba(0, 0, 0, .13);
 }
 
 
@@ -225,19 +177,13 @@
 .success-alert {
     display: flex;
     align-items: center;
-
     gap: 8px;
-
     margin-bottom: 13px;
     padding: 9px 12px;
-
-    border-radius: 10px;
-
     background: #effaf2;
     border: 1px solid #ccebd4;
-
+    border-radius: 10px;
     color: #28743b;
-
     font-size: 10px;
     font-weight: 600;
 }
@@ -246,14 +192,13 @@
     width: 23px;
     height: 23px;
     min-width: 23px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
-    border-radius: 50%;
-
     background: #d6f2dd;
+    border-radius: 50%;
+    color: #28743b;
+    font-size: 9px;
 }
 
 
@@ -261,45 +206,31 @@
 
 .stats-grid {
     display: grid;
-
-    grid-template-columns: repeat(3, 1fr);
-
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 11px;
-
     margin-bottom: 18px;
 }
 
 .stat-card {
     min-height: 70px;
-
     padding: 10px 13px;
-
     display: flex;
     align-items: center;
-
     gap: 10px;
-
     background: #fff;
-
     border: 1px solid #f0dce2;
-
     border-radius: 14px;
-
-    box-shadow:
-        0 4px 14px rgba(130,30,60,.05);
+    box-shadow: 0 4px 14px rgba(130, 30, 60, .05);
 }
 
 .stat-icon {
     width: 38px;
     height: 38px;
     min-width: 38px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     border-radius: 11px;
-
     font-size: 14px;
 }
 
@@ -320,20 +251,15 @@
 
 .stat-info strong {
     display: block;
-
     margin-bottom: 2px;
-
     color: #352b31;
-
     font-size: 19px;
     line-height: 1;
-
     font-weight: 900;
 }
 
 .stat-info span {
     color: #9c8f94;
-
     font-size: 8px;
 }
 
@@ -344,18 +270,14 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     gap: 12px;
-
     margin-bottom: 11px;
 }
 
 .section-title {
     display: flex;
     align-items: center;
-
     gap: 9px;
-
     min-width: 0;
 }
 
@@ -363,210 +285,147 @@
     width: 35px;
     height: 35px;
     min-width: 35px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
-    border-radius: 10px;
-
     background: #fde1e8;
+    border-radius: 10px;
     color: #d82f58;
-
     font-size: 13px;
+}
+
+.section-icon i {
+    color: #d82f58;
 }
 
 .section-heading h2 {
     margin: 0;
-
     color: #352b31;
-
     font-size: 16px;
     line-height: 1.2;
-
     font-weight: 900;
 }
 
 .section-heading p {
     margin: 2px 0 0;
-
     color: #9d9398;
-
     font-size: 8px;
 }
 
 .section-count {
     flex-shrink: 0;
-
     padding: 6px 9px;
-
-    border-radius: 18px;
-
     background: #fde1e8;
+    border-radius: 18px;
     color: #c72d55;
-
     font-size: 8px;
     font-weight: 700;
 }
 
 
-/* Card */
+/* Grid */
 
 .kegiatan-grid {
     display: grid;
-
     grid-template-columns: repeat(3, minmax(0, 1fr));
-
     gap: 12px;
 }
 
+
+/* Card */
+
 .kegiatan-card {
     min-width: 0;
-
     display: flex;
     flex-direction: column;
-
     overflow: hidden;
-
     background: #fff;
-
     border: 1px solid #f0dfe4;
-
     border-radius: 15px;
-
-    box-shadow:
-        0 4px 15px rgba(120,45,70,.05);
-
-    transition: .2s ease;
+    box-shadow: 0 4px 15px rgba(120, 45, 70, .05);
+    transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
 }
 
 .kegiatan-card:hover {
     transform: translateY(-2px);
-
     border-color: #edbdca;
-
-    box-shadow:
-        0 8px 20px rgba(120,45,70,.09);
+    box-shadow: 0 8px 20px rgba(120, 45, 70, .09);
 }
-
-
-/* Card atas */
 
 .card-top {
     position: relative;
-    overflow: hidden;
-
-    min-height: 94px;
-
+    min-height: 90px;
     padding: 12px 13px;
-
-    background: linear-gradient(
-        135deg,
-        #ef456b,
-        #d82f59
-    );
-
+    overflow: hidden;
+    background: linear-gradient(135deg, #ef456b, #d82f59);
     color: #fff;
 }
 
 .card-top::before {
     content: "";
-
     position: absolute;
-
     width: 95px;
     height: 95px;
-
     top: -43px;
     right: -25px;
-
     border-radius: 50%;
-
-    background: rgba(255,255,255,.08);
+    background: rgba(255, 255, 255, .07);
 }
 
 .card-top::after {
     content: "";
-
     position: absolute;
-
     width: 55px;
     height: 55px;
-
     right: 30px;
     bottom: -35px;
-
-    border: 1px solid rgba(255,255,255,.10);
-
+    border: 1px solid rgba(255, 255, 255, .08);
     border-radius: 50%;
 }
 
 .event-top {
     position: relative;
     z-index: 2;
-
     display: flex;
     align-items: center;
-    justify-content: space-between;
-
-    margin-bottom: 9px;
-}
-
-.event-number,
-.event-icon {
-    width: 29px;
-    height: 29px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 8px;
-
-    background: rgba(255,255,255,.16);
-    border: 1px solid rgba(255,255,255,.13);
+    margin-bottom: 8px;
 }
 
 .event-number {
+    width: 29px;
+    height: 29px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, .16);
+    border: 1px solid rgba(255, 255, 255, .13);
+    border-radius: 8px;
+    color: #fff;
     font-size: 8px;
     font-weight: 800;
-}
-
-.event-icon {
-    font-size: 11px;
 }
 
 .card-top h3 {
     position: relative;
     z-index: 2;
-
-    max-width: 92%;
-
+    max-width: 95%;
     margin: 0;
-
     color: #fff;
-
     font-size: 12px;
     line-height: 1.35;
-
     font-weight: 800;
+    overflow-wrap: anywhere;
 }
-
-
-/* Data */
 
 .card-body {
     flex: 1;
-
     padding: 12px 13px 10px;
 }
 
 .info-item {
     display: flex;
     align-items: center;
-
     gap: 8px;
-
     margin-bottom: 8px;
 }
 
@@ -578,17 +437,17 @@
     width: 28px;
     height: 28px;
     min-width: 28px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
-    border-radius: 8px;
-
     background: #fff0f3;
+    border-radius: 8px;
     color: #d82f58;
-
     font-size: 10px;
+}
+
+.info-icon i {
+    color: #d82f58;
 }
 
 .info-text {
@@ -597,59 +456,44 @@
 
 .info-text small {
     display: block;
-
     margin-bottom: 1px;
-
     color: #aaa0a5;
-
     font-size: 6.5px;
     font-weight: 700;
-
     letter-spacing: .4px;
 }
 
 .info-text span {
     display: block;
-
     color: #464047;
-
     font-size: 9px;
-    line-height: 1.3;
-
+    line-height: 1.35;
     font-weight: 700;
-
-    word-break: break-word;
+    overflow-wrap: anywhere;
 }
-
-
-/* Keterangan */
 
 .description {
     margin-top: 9px;
-
     padding: 8px 9px;
-
-    border-radius: 9px;
-
     background: #fff7f8;
     border: 1px solid #f8e5e9;
-
+    border-radius: 9px;
     color: #777078;
-
     font-size: 8px;
     line-height: 1.45;
 }
 
 .description strong {
     display: block;
-
     margin-bottom: 2px;
-
     color: #555057;
-
     font-size: 7px;
-
     letter-spacing: .3px;
+}
+
+.description span {
+    display: block;
+    overflow-wrap: anywhere;
 }
 
 
@@ -657,37 +501,25 @@
 
 .card-actions {
     display: grid;
-
-    grid-template-columns: repeat(3, 1fr);
-
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 5px;
-
     padding: 0 13px 13px;
 }
 
 .action-btn {
     min-height: 31px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     gap: 4px;
-
     border: none;
-
     border-radius: 8px;
-
     text-decoration: none;
-
     cursor: pointer;
-
     font-family: inherit;
-
     font-size: 8px;
     font-weight: 700;
-
-    transition: .2s ease;
+    transition: transform .2s ease, background .2s ease;
 }
 
 .action-btn:hover {
@@ -713,56 +545,56 @@
     color: #c52d55;
 }
 
+.action-detail:hover {
+    background: #f9d4df;
+    color: #b9254d;
+}
+
+.action-edit:hover {
+    background: #ffe8bd;
+    color: #966100;
+}
+
+.action-delete:hover {
+    background: #f9d7df;
+    color: #b9254d;
+}
+
 
 /* Kosong */
 
 .empty-card {
     padding: 42px 20px;
-
     text-align: center;
-
     background: #fff;
-
     border: 1px solid #f0dfe4;
-
     border-radius: 15px;
-
-    box-shadow:
-        0 4px 15px rgba(120,45,70,.05);
+    box-shadow: 0 4px 15px rgba(120, 45, 70, .05);
 }
 
 .empty-icon {
     width: 55px;
     height: 55px;
-
     margin: 0 auto 11px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
-    border-radius: 16px;
-
     background: #fde1e8;
+    border-radius: 16px;
     color: #d82f58;
-
     font-size: 20px;
 }
 
 .empty-card h3 {
     margin: 0 0 4px;
-
     color: #3b3237;
-
     font-size: 15px;
     font-weight: 800;
 }
 
 .empty-card p {
     margin: 0;
-
     color: #999095;
-
     font-size: 9px;
 }
 
@@ -772,16 +604,13 @@
 .pagination-area {
     display: flex;
     justify-content: center;
-
     margin-top: 17px;
 }
 
 .pagination-area .pagination {
     display: flex;
     align-items: center;
-
     gap: 4px;
-
     margin: 0;
 }
 
@@ -792,22 +621,15 @@
 .pagination-area .page-link {
     min-width: 30px;
     height: 30px;
-
     padding: 0 7px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
-    border: 1px solid #f0dfe4;
-
-    border-radius: 7px;
-
     background: #fff;
+    border: 1px solid #f0dfe4;
+    border-radius: 7px;
     color: #777078;
-
     text-decoration: none;
-
     font-size: 8px;
     font-weight: 700;
 }
@@ -815,15 +637,119 @@
 .pagination-area .page-item.active .page-link {
     background: #d82f58;
     border-color: #d82f58;
-
     color: #fff;
 }
 
 
-/* Form */
+/* Modal */
 
 .form-hidden {
     display: none;
+}
+
+.delete-swal-popup {
+    width: 390px !important;
+    max-width: calc(100vw - 30px) !important;
+    padding: 30px 28px 25px !important;
+    background: #fff !important;
+    border: 1px solid #f0dce2 !important;
+    border-radius: 20px !important;
+    box-shadow: 0 20px 55px rgba(90, 25, 50, .20) !important;
+}
+
+.delete-modal {
+    text-align: center;
+}
+
+.delete-modal-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fde5eb;
+    border: 1px solid #f8cbd6;
+    border-radius: 18px;
+    color: #df315b !important;
+    font-size: 24px;
+}
+
+.delete-modal-icon i {
+    color: #df315b !important;
+    font-size: 24px;
+}
+
+.delete-modal h3 {
+    margin: 0;
+    color: #382f34;
+    font-size: 18px;
+    line-height: 1.3;
+    font-weight: 800;
+}
+
+.delete-modal p {
+    max-width: 280px;
+    margin: 7px auto 0;
+    color: #988b91;
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+.delete-swal-popup .swal2-actions {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    margin-top: 21px !important;
+}
+
+.delete-confirm-btn,
+.delete-cancel-btn {
+    min-width: 92px;
+    height: 38px;
+    padding: 0 15px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 9px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform .2s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.delete-cancel-btn {
+    background: #f8f5f6;
+    border: 1px solid #e8dfe3;
+    color: #766970;
+}
+
+.delete-cancel-btn:hover {
+    background: #fff0f3;
+    border-color: #edc0cb;
+    color: #d93659;
+    transform: translateY(-1px);
+}
+
+.delete-confirm-btn {
+    background: linear-gradient(135deg, #ef315c, #d62550);
+    border: 1px solid #d62550;
+    color: #fff !important;
+    box-shadow: 0 6px 15px rgba(214, 37, 80, .20);
+}
+
+.delete-confirm-btn i {
+    color: #fff !important;
+}
+
+.delete-confirm-btn:hover {
+    background: linear-gradient(135deg, #df2854, #c9234d);
+    color: #fff !important;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(214, 37, 80, .25);
 }
 
 
@@ -847,10 +773,8 @@
 
     .kegiatan-banner {
         min-height: 78px;
-
         margin-bottom: 12px;
         padding: 11px 12px;
-
         border-radius: 15px;
     }
 
@@ -862,7 +786,6 @@
         width: 40px;
         height: 40px;
         min-width: 40px;
-
         border-radius: 10px;
     }
 
@@ -890,9 +813,7 @@
         width: 37px;
         height: 37px;
         min-width: 37px;
-
         padding: 0;
-
         border-radius: 9px;
     }
 
@@ -900,28 +821,18 @@
         display: none;
     }
 
-
-    /* Statistik */
-
     .stats-grid {
         gap: 7px;
-
         margin-bottom: 15px;
     }
 
     .stat-card {
         min-height: 68px;
-
         padding: 7px 4px;
-
         flex-direction: column;
-
         justify-content: center;
-
         gap: 4px;
-
         text-align: center;
-
         border-radius: 12px;
     }
 
@@ -929,9 +840,7 @@
         width: 29px;
         height: 29px;
         min-width: 29px;
-
         border-radius: 8px;
-
         font-size: 11px;
     }
 
@@ -943,9 +852,6 @@
         font-size: 6.5px;
     }
 
-
-    /* Heading */
-
     .section-heading {
         margin-bottom: 9px;
     }
@@ -954,7 +860,6 @@
         width: 32px;
         height: 32px;
         min-width: 32px;
-
         border-radius: 9px;
     }
 
@@ -968,16 +873,11 @@
 
     .section-count {
         padding: 5px 7px;
-
         font-size: 6.5px;
     }
 
-
-    /* Card */
-
     .kegiatan-grid {
         grid-template-columns: 1fr;
-
         gap: 10px;
     }
 
@@ -987,7 +887,6 @@
 
     .card-top {
         min-height: 90px;
-
         padding: 11px 12px;
     }
 
@@ -1023,8 +922,47 @@
 
     .action-btn {
         min-height: 31px;
-
         font-size: 7.5px;
+    }
+
+    .delete-swal-popup {
+        width: calc(100vw - 28px) !important;
+        max-width: 390px !important;
+        padding: 27px 22px 23px !important;
+        border-radius: 18px !important;
+    }
+
+    .delete-modal-icon {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 14px;
+        border-radius: 17px;
+        font-size: 22px;
+    }
+
+    .delete-modal-icon i {
+        font-size: 22px;
+    }
+
+    .delete-modal h3 {
+        font-size: 17px;
+    }
+
+    .delete-modal p {
+        max-width: 250px;
+        font-size: 9px;
+    }
+
+    .delete-swal-popup .swal2-actions {
+        margin-top: 19px !important;
+        gap: 8px;
+    }
+
+    .delete-confirm-btn,
+    .delete-cancel-btn {
+        min-width: 86px;
+        height: 37px;
+        font-size: 8.5px;
     }
 }
 
@@ -1074,5 +1012,50 @@
 
     .section-heading p {
         font-size: 6.5px;
+    }
+
+    .delete-swal-popup {
+        width: calc(100vw - 24px) !important;
+        padding: 24px 17px 21px !important;
+        border-radius: 17px !important;
+    }
+
+    .delete-modal-icon {
+        width: 56px;
+        height: 56px;
+        margin-bottom: 12px;
+    }
+
+    .delete-modal-icon i {
+        font-size: 20px;
+    }
+
+    .delete-modal h3 {
+        font-size: 16px;
+    }
+
+    .delete-modal p {
+        font-size: 8px;
+    }
+
+    .delete-confirm-btn,
+    .delete-cancel-btn {
+        min-width: 78px;
+        height: 35px;
+        font-size: 8px;
+    }
+}
+
+
+/* Animasi */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .kegiatan-card,
+    .btn-add,
+    .action-btn,
+    .delete-confirm-btn,
+    .delete-cancel-btn {
+        transition: none;
     }
 }

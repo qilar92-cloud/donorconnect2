@@ -2,11 +2,8 @@
 
 .documentation-gallery {
     position: relative;
-
     width: min(1250px, calc(100% - 40px));
-
     margin: 28px auto 45px;
-
     padding: 34px 38px 30px;
 
     background:
@@ -25,21 +22,15 @@
             rgba(239, 102, 135, .20),
             transparent 250px
         ),
-        radial-gradient(
-            circle at 0% 100%,
-            rgba(214, 92, 157, .15),
-            transparent 220px
-        ),
         linear-gradient(
             135deg,
             #fff8fb 0%,
-            #fff3f7 35%,
-            #fdf0f7 68%,
+            #fff3f7 40%,
+            #fdf0f7 70%,
             #f7eef9 100%
         );
 
     border: 1px solid rgba(214, 83, 123, .18);
-
     border-radius: 28px;
 
     box-shadow:
@@ -49,7 +40,7 @@
 }
 
 
-/* Hiasan background */
+/* Background */
 
 .documentation-gallery::before {
     content: "";
@@ -65,13 +56,11 @@
     background:
         radial-gradient(
             circle,
-            rgba(221, 61, 107, .16) 0%,
-            rgba(221, 61, 107, .07) 45%,
+            rgba(221, 61, 107, .16),
             transparent 72%
         );
 
     border-radius: 50%;
-
     pointer-events: none;
 }
 
@@ -89,13 +78,11 @@
     background:
         radial-gradient(
             circle,
-            rgba(187, 81, 151, .15) 0%,
-            rgba(187, 81, 151, .06) 48%,
+            rgba(187, 81, 151, .15),
             transparent 72%
         );
 
     border-radius: 50%;
-
     pointer-events: none;
 }
 
@@ -106,20 +93,15 @@
     position: relative;
 
     display: grid;
-
     grid-template-columns: 44px 1fr 70px;
 
     align-items: center;
 
     gap: 18px;
-
     margin-bottom: 30px;
 
     z-index: 2;
 }
-
-
-/* Hiasan Header */
 
 .documentation-header::before {
     content: "♡";
@@ -130,7 +112,6 @@
     left: 18%;
 
     color: rgba(184, 46, 103, .30);
-
     font-size: 23px;
 
     transform: rotate(-12deg);
@@ -147,7 +128,6 @@
     right: 29%;
 
     color: rgba(213, 99, 132, .30);
-
     font-size: 14px;
 
     transform: rotate(15deg);
@@ -163,22 +143,20 @@
     height: 42px;
 
     display: flex;
-
     align-items: center;
     justify-content: center;
 
     background:
         linear-gradient(
             145deg,
-            #c92c5c 0%,
+            #c92c5c,
             #df315f 55%,
-            #e95579 100%
+            #e95579
         );
 
     border-radius: 50%;
 
     color: #fff;
-
     font-size: 11px;
 
     text-decoration: none;
@@ -186,21 +164,20 @@
     box-shadow:
         0 7px 17px rgba(207, 43, 86, .25);
 
-    transition:
-        .25s ease;
+    transition: .25s ease;
 }
 
 .documentation-back:hover {
-    background:
-        linear-gradient(
-            145deg,
-            #b92451 0%,
-            #d52a59 100%
-        );
-
     color: #fff;
 
     transform: translateX(-3px);
+
+    background:
+        linear-gradient(
+            145deg,
+            #b92451,
+            #d52a59
+        );
 }
 
 
@@ -218,7 +195,6 @@
     color: #bd3d68;
 
     font-size: 8px;
-
     font-weight: 900;
 
     letter-spacing: 3px;
@@ -230,9 +206,9 @@
     background:
         linear-gradient(
             90deg,
-            #70436f 0%,
+            #70436f,
             #9b345e 50%,
-            #c13b68 100%
+            #c13b68
         );
 
     -webkit-background-clip: text;
@@ -241,7 +217,6 @@
     background-clip: text;
 
     font-size: 27px;
-
     font-weight: 900;
 
     letter-spacing: -.5px;
@@ -253,8 +228,6 @@
     color: #9a6477;
 
     font-size: 10px;
-
-    font-weight: 500;
 }
 
 
@@ -265,7 +238,6 @@
     height: 68px;
 
     display: flex;
-
     flex-direction: column;
 
     align-items: center;
@@ -274,9 +246,9 @@
     background:
         linear-gradient(
             145deg,
-            #b82a58 0%,
+            #b82a58,
             #d33162 52%,
-            #e05a7b 100%
+            #e05a7b
         );
 
     border-radius: 18px;
@@ -289,7 +261,6 @@
 
 .documentation-total strong {
     font-size: 18px;
-
     line-height: 1;
 }
 
@@ -297,7 +268,6 @@
     margin-top: 4px;
 
     font-size: 7px;
-
     font-weight: 800;
 
     letter-spacing: 1px;
@@ -309,15 +279,12 @@
 .gallery-decor {
     position: absolute;
 
-    pointer-events: none;
-
     z-index: 1;
+
+    pointer-events: none;
 
     font-weight: 700;
 }
-
-
-/* Heart */
 
 .decor-heart-1 {
     top: 22px;
@@ -341,9 +308,6 @@
     transform: rotate(12deg);
 }
 
-
-/* Star */
-
 .decor-star-1 {
     top: 43px;
     right: 165px;
@@ -366,9 +330,6 @@
     transform: rotate(-15deg);
 }
 
-
-/* Tambahan dekorasi */
-
 .decor-dot-1,
 .decor-dot-2,
 .decor-dot-3 {
@@ -380,7 +341,6 @@
     border-radius: 50%;
 
     pointer-events: none;
-
     z-index: 1;
 }
 
@@ -392,8 +352,8 @@
 }
 
 .decor-dot-2 {
-    right: 75px;
     top: 78px;
+    right: 75px;
 
     width: 4px;
     height: 4px;
@@ -440,6 +400,8 @@
 
     overflow: hidden;
 
+    padding: 0;
+
     background:
         linear-gradient(
             145deg,
@@ -451,7 +413,7 @@
 
     border-radius: 15px;
 
-    text-decoration: none;
+    cursor: pointer;
 
     box-shadow:
         0 5px 14px rgba(133, 35, 58, .12);
@@ -462,10 +424,10 @@
 }
 
 .documentation-photo img {
+    display: block;
+
     width: 100%;
     height: 100%;
-
-    display: block;
 
     object-fit: cover;
 
@@ -562,7 +524,6 @@
     min-height: 300px;
 
     display: flex;
-
     flex-direction: column;
 
     align-items: center;
@@ -573,8 +534,8 @@
     background:
         linear-gradient(
             135deg,
-            #fff0f3 0%,
-            #f9e8f3 100%
+            #fff0f3,
+            #f9e8f3
         );
 
     border: 1px dashed #df9aaa;
@@ -647,7 +608,6 @@
     color: #fff;
 
     font-size: 9px;
-
     font-weight: 700;
 
     text-decoration: none;
@@ -659,14 +619,14 @@
 }
 
 .documentation-empty-button:hover {
+    color: #fff;
+
     background:
         linear-gradient(
             135deg,
             #b82350,
             #d53d65
         );
-
-    color: #fff;
 }
 
 
@@ -716,7 +676,6 @@
     color: #a45c72;
 
     font-size: 8px;
-
     font-weight: 700;
 
     letter-spacing: 1px;
@@ -730,7 +689,6 @@
     .documentation-gallery-grid {
         grid-template-columns: repeat(3, 1fr);
     }
-
 }
 
 
@@ -762,7 +720,6 @@
     .documentation-gallery-grid {
         gap: 9px;
     }
-
 }
 
 
@@ -779,9 +736,6 @@
 
         border-radius: 21px;
     }
-
-
-    /* Header */
 
     .documentation-header {
         grid-template-columns: 34px 1fr 48px;
@@ -831,9 +785,6 @@
         font-size: 5px;
     }
 
-
-    /* Gallery */
-
     .documentation-gallery-grid {
         grid-template-columns: repeat(2, 1fr);
 
@@ -850,9 +801,6 @@
 
         font-size: 8px;
     }
-
-
-    /* Decorations */
 
     .decor-heart-1 {
         top: 12px;
@@ -899,15 +847,12 @@
     }
 
     .decor-dot-3 {
-        bottom: 30px;
         right: 18px;
+        bottom: 30px;
 
         width: 4px;
         height: 4px;
     }
-
-
-    /* Footer */
 
     .documentation-footer {
         gap: 7px;
@@ -924,15 +869,11 @@
         font-size: 6px;
     }
 
-
-    /* Empty */
-
     .documentation-empty {
         min-height: 240px;
 
         border-radius: 15px;
     }
-
 }
 
 
@@ -983,7 +924,6 @@
     .documentation-photo {
         border-radius: 7px;
     }
-
 }
 
 
@@ -1003,10 +943,9 @@ body.lightbox-open {
     align-items: center;
     justify-content: center;
 
-    padding: 40px 90px;
+    padding: 30px;
 
-    background:
-        rgba(54, 14, 29, .94);
+    background: rgba(54, 14, 29, .94);
 
     opacity: 0;
     visibility: hidden;
@@ -1024,13 +963,13 @@ body.lightbox-open {
 }
 
 
-/* Foto besar */
+/* Lightbox */
 
 .lightbox-content {
     position: relative;
 
-    max-width: min(1050px, 85vw);
-    max-height: 88vh;
+    width: min(1000px, 82vw);
+    height: 82vh;
 
     display: flex;
 
@@ -1041,8 +980,8 @@ body.lightbox-open {
 .lightbox-content img {
     display: block;
 
-    max-width: 100%;
-    max-height: 82vh;
+    max-width: 82%;
+    max-height: 78vh;
 
     width: auto;
     height: auto;
@@ -1052,147 +991,113 @@ body.lightbox-open {
     border-radius: 10px;
 
     box-shadow:
-        0 20px 60px rgba(0, 0, 0, .35);
+        0 20px 60px rgba(0, 0, 0, .38);
 
     user-select: none;
 
     -webkit-user-drag: none;
+
+    pointer-events: auto;
+
+    touch-action: pan-y;
 }
 
 
-/* Tutup */
-
-.lightbox-close {
-    position: absolute;
-
-    top: 25px;
-    right: 28px;
-
-    width: 42px;
-    height: 42px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    background: rgba(255, 255, 255, .14);
-
-    border: 1px solid rgba(255, 255, 255, .25);
-
-    border-radius: 50%;
-
-    color: #fff;
-
-    font-size: 14px;
-
-    cursor: pointer;
-
-    z-index: 3;
-
-    transition: .2s ease;
-}
-
-.lightbox-close:hover {
-    background:
-        linear-gradient(
-            135deg,
-            #c62b58,
-            #df5577
-        );
-
-    border-color: #df5577;
-
-    transform: rotate(5deg);
-}
-
-
-/* Tombol kiri kanan */
+/* Panah */
 
 .lightbox-arrow {
     position: absolute;
 
     top: 50%;
 
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
 
     display: flex;
 
     align-items: center;
     justify-content: center;
 
-    background: rgba(255, 255, 255, .14);
+    padding: 0;
 
-    border: 1px solid rgba(255, 255, 255, .25);
+    background: rgba(255, 255, 255, .94);
+
+    border: none;
 
     border-radius: 50%;
 
-    color: #fff;
+    color: #d33162;
 
-    font-size: 13px;
+    font-size: 12px;
+    line-height: 1;
 
     cursor: pointer;
 
     transform: translateY(-50%);
 
-    z-index: 3;
+    z-index: 10;
 
-    transition: .2s ease;
+    box-shadow:
+        0 7px 20px rgba(0, 0, 0, .16);
+
+    transition:
+        background .2s ease,
+        color .2s ease,
+        transform .2s ease;
 }
 
-.lightbox-arrow:hover {
-    background:
-        linear-gradient(
-            135deg,
-            #c62b58,
-            #df5577
-        );
 
-    border-color: #df5577;
-}
+/* Posisi panah */
 
 .lightbox-prev {
-    left: 25px;
+    left: 18px;
 }
 
 .lightbox-next {
-    right: 25px;
+    right: 18px;
 }
 
 
-/* Nomor foto */
+/* Hover panah */
+
+.lightbox-prev:hover,
+.lightbox-next:hover {
+    background: #df315f;
+
+    color: #fff;
+
+    transform:
+        translateY(-50%)
+        scale(1.06);
+}
+
+
+/* Counter */
 
 .lightbox-counter {
     position: absolute;
 
-    bottom: -35px;
-
     left: 50%;
+    bottom: 4px;
 
     transform: translateX(-50%);
 
-    padding: 6px 12px;
+    padding: 5px 11px;
 
-    background: rgba(255, 255, 255, .12);
-
-    border: 1px solid rgba(255, 255, 255, .18);
+    background: rgba(255, 255, 255, .90);
 
     border-radius: 20px;
 
-    color: rgba(255, 255, 255, .85);
+    color: #71394e;
 
     font-size: 9px;
+    font-weight: 800;
 
-    letter-spacing: 1px;
+    letter-spacing: .5px;
 
     white-space: nowrap;
-}
 
-.lightbox-counter span:first-child {
-    color: #ff8ca5;
-
-    font-weight: 800;
+    z-index: 10;
 }
 
 
@@ -1201,55 +1106,71 @@ body.lightbox-open {
 @media (max-width: 600px) {
 
     .photo-lightbox {
-        padding: 30px 12px;
+        padding: 20px 10px;
     }
 
     .lightbox-content {
         width: 100%;
-
-        max-width: 100%;
+        height: 80vh;
     }
 
     .lightbox-content img {
-        max-width: 100%;
+        max-width: calc(100% - 70px);
 
-        max-height: 78vh;
+        max-height: 72vh;
 
         border-radius: 7px;
     }
 
-    .lightbox-close {
-        top: 15px;
-        right: 15px;
-
-        width: 36px;
-        height: 36px;
-
-        font-size: 11px;
-    }
-
     .lightbox-arrow {
-        top: auto;
-        bottom: 25px;
-
         width: 38px;
         height: 38px;
 
         font-size: 10px;
-
-        transform: none;
     }
 
     .lightbox-prev {
-        left: 25px;
+        left: 4px;
     }
 
     .lightbox-next {
-        right: 25px;
+        right: 4px;
     }
 
     .lightbox-counter {
-        bottom: 35px;
+        bottom: 0;
+
+        padding: 5px 9px;
+
+        font-size: 8px;
+    }
+}
+
+
+/* HP sangat kecil */
+
+@media (max-width: 390px) {
+
+    .lightbox-content {
+        height: 75vh;
     }
 
+    .lightbox-content img {
+        max-width: calc(100% - 60px);
+
+        max-height: 68vh;
+    }
+
+    .lightbox-arrow {
+        width: 34px;
+        height: 34px;
+    }
+
+    .lightbox-prev {
+        left: 3px;
+    }
+
+    .lightbox-next {
+        right: 3px;
+    }
 }

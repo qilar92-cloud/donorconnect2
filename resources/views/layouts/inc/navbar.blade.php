@@ -6,27 +6,24 @@
     {{ $role === 'petugas' ? 'petugas-navbar' : 'pendonor-navbar' }}
     mb-4 static-top">
 
-    {{-- Tombol mobile --}}
+    {{-- Mobile --}}
     <button
         id="sidebarToggleTop"
-        class="btn btn-link d-md-none rounded-circle donor-menu-button mr-3"
+        class="btn btn-link d-md-none rounded-circle donor-menu-button"
+        type="button"
     >
         <i class="fa fa-bars"></i>
     </button>
 
-
     {{-- Hiasan --}}
     <div class="navbar-decoration">
-
         <span class="shape shape-one"></span>
         <span class="shape shape-two"></span>
         <span class="shape shape-three"></span>
 
         <span class="curve curve-one"></span>
         <span class="curve curve-two"></span>
-
     </div>
-
 
     {{-- User --}}
     <ul class="navbar-nav ml-auto">
@@ -63,7 +60,6 @@
 
             </a>
 
-
             {{-- Dropdown --}}
             <div
                 class="dropdown-menu dropdown-menu-right donor-dropdown shadow animated--grow-in"
@@ -90,9 +86,7 @@
 
                 </div>
 
-
                 <div class="dropdown-divider"></div>
-
 
                 {{-- Profil --}}
                 <a
@@ -114,7 +108,6 @@
 
                 </a>
 
-
                 {{-- Logout --}}
                 <a
                     class="dropdown-item donor-dropdown-item logout-item"
@@ -133,7 +126,6 @@
                     <i class="fas fa-chevron-right dropdown-arrow"></i>
 
                 </a>
-
 
                 <form
                     action="{{ route('logout') }}"
@@ -155,11 +147,13 @@
 
 <style>
 
-/* Navbar */
+/* Dasar */
 
 .donor-navbar {
-    min-height: 72px;
+    position: relative;
+    z-index: 1000;
 
+    min-height: 72px;
     padding: 0 28px;
 
     background: #ffffff !important;
@@ -169,10 +163,6 @@
     box-shadow:
         0 4px 18px rgba(111, 38, 54, .06);
 
-    position: relative;
-
-    z-index: 1000;
-
     overflow: visible !important;
 }
 
@@ -181,28 +171,25 @@
 
 .navbar-decoration {
     position: absolute;
-
+    top: 0;
     left: 260px;
     right: 300px;
-    top: 0;
 
     height: 72px;
 
-    pointer-events: none;
-
     overflow: hidden;
-
+    pointer-events: none;
     z-index: 0;
 }
 
 .shape {
     position: absolute;
-
+    display: block;
     border-radius: 50%;
 }
 
 
-/* Petugas */
+/* Hiasan Petugas */
 
 .petugas-navbar .shape-one {
     width: 120px;
@@ -235,7 +222,7 @@
 }
 
 
-/* Pendonor */
+/* Hiasan Pendonor */
 
 .pendonor-navbar .shape-one {
     width: 120px;
@@ -268,20 +255,19 @@
 }
 
 
-/* Curve */
+/* Garis */
 
 .curve {
     position: absolute;
 
     border: 1.5px solid;
-
     border-radius: 50%;
 
     transform: rotate(-12deg);
 }
 
 
-/* Petugas Curve */
+/* Curve Petugas */
 
 .petugas-navbar .curve-one {
     width: 190px;
@@ -304,7 +290,7 @@
 }
 
 
-/* Pendonor Curve */
+/* Curve Pendonor */
 
 .pendonor-navbar .curve-one {
     width: 190px;
@@ -327,26 +313,31 @@
 }
 
 
-/* Tombol */
+/* Tombol Menu */
 
 .donor-menu-button {
+    position: relative;
+    z-index: 1002;
+
     width: 38px;
     height: 38px;
 
-    display: flex;
-
+    display: flex !important;
     align-items: center;
     justify-content: center;
 
+    margin-right: 10px;
+
     border-radius: 11px !important;
+
+    font-size: 14px;
 }
 
 
-/* Tombol Petugas */
+/* Menu Petugas */
 
 .petugas-navbar .donor-menu-button {
     background: #fff0f3;
-
     color: #d93659 !important;
 }
 
@@ -355,11 +346,10 @@
 }
 
 
-/* Tombol Pendonor */
+/* Menu Pendonor */
 
 .pendonor-navbar .donor-menu-button {
     background: #fbe8ee;
-
     color: #a81743 !important;
 }
 
@@ -371,25 +361,22 @@
 /* User */
 
 .donor-user-menu {
+    position: relative;
+    z-index: 1001;
+
     min-height: 50px;
 
     display: flex !important;
-
     align-items: center;
 
     padding: 5px 9px !important;
 
     border-radius: 15px;
 
-    position: relative;
-
-    z-index: 1001;
-
-    transition: .2s ease;
+    transition:
+        background .2s ease,
+        transform .2s ease;
 }
-
-
-/* User Hover */
 
 .petugas-navbar .donor-user-menu:hover {
     background: #fff0f3;
@@ -405,11 +392,9 @@
 .donor-avatar {
     width: 42px;
     height: 42px;
-
-    flex-shrink: 0;
+    min-width: 42px;
 
     display: flex;
-
     align-items: center;
     justify-content: center;
 
@@ -445,17 +430,15 @@
         );
 }
 
-
 .donor-avatar i {
     font-size: 14px;
 }
 
 
-/* User Text */
+/* Informasi User */
 
 .donor-user-info {
     flex-direction: column;
-
     justify-content: center;
 
     margin-left: 11px;
@@ -469,13 +452,10 @@
     color: #3b3034;
 
     font-size: 12px;
-
     font-weight: 800;
 
     white-space: nowrap;
-
     overflow: hidden;
-
     text-overflow: ellipsis;
 }
 
@@ -483,23 +463,15 @@
     margin-top: 4px;
 
     font-size: 9px;
-
     font-weight: 700;
 
     text-transform: uppercase;
-
     letter-spacing: .6px;
 }
-
-
-/* Role Petugas */
 
 .petugas-navbar .donor-user-role {
     color: #c34a64;
 }
-
-
-/* Role Pendonor */
 
 .pendonor-navbar .donor-user-role {
     color: #a34a66;
@@ -513,7 +485,7 @@
 
     font-size: 9px;
 
-    transition: .2s ease;
+    transition: transform .2s ease;
 }
 
 .petugas-navbar .donor-chevron {
@@ -528,11 +500,15 @@
     transform: rotate(180deg);
 }
 
-.petugas-navbar .donor-user-menu[aria-expanded="true"] .donor-chevron {
+.petugas-navbar
+.donor-user-menu[aria-expanded="true"]
+.donor-chevron {
     color: #d93659;
 }
 
-.pendonor-navbar .donor-user-menu[aria-expanded="true"] .donor-chevron {
+.pendonor-navbar
+.donor-user-menu[aria-expanded="true"]
+.donor-chevron {
     color: #a81743;
 }
 
@@ -543,13 +519,11 @@
     width: 245px;
 
     margin-top: 9px !important;
-
     padding: 7px 0;
 
     background: #ffffff;
 
     border: 1px solid #f0dce0;
-
     border-radius: 16px;
 
     overflow: hidden;
@@ -561,20 +535,16 @@
 }
 
 
-/* Dropdown Header */
+/* Header Dropdown */
 
 .donor-dropdown-header {
     display: flex;
-
     align-items: center;
 
     gap: 11px;
 
     padding: 15px 16px;
 }
-
-
-/* Petugas */
 
 .petugas-navbar .donor-dropdown-header {
     background:
@@ -584,9 +554,6 @@
             #ffecef
         );
 }
-
-
-/* Pendonor */
 
 .pendonor-navbar .donor-dropdown-header {
     background:
@@ -598,16 +565,14 @@
 }
 
 
-/* Dropdown Avatar */
+/* Avatar Dropdown */
 
 .donor-dropdown-avatar {
     width: 42px;
     height: 42px;
-
-    flex-shrink: 0;
+    min-width: 42px;
 
     display: flex;
-
     align-items: center;
     justify-content: center;
 
@@ -618,9 +583,6 @@
     font-size: 14px;
 }
 
-
-/* Petugas */
-
 .petugas-navbar .donor-dropdown-avatar {
     background:
         linear-gradient(
@@ -629,9 +591,6 @@
             #d93659
         );
 }
-
-
-/* Pendonor */
 
 .pendonor-navbar .donor-dropdown-avatar {
     background:
@@ -643,7 +602,7 @@
 }
 
 
-/* Dropdown User */
+/* Teks Dropdown */
 
 .donor-dropdown-user strong {
     display: block;
@@ -651,7 +610,6 @@
     color: #3b3034;
 
     font-size: 12px;
-
     font-weight: 800;
 }
 
@@ -661,7 +619,6 @@
     margin-top: 4px;
 
     font-size: 9px;
-
     font-weight: 700;
 
     text-transform: uppercase;
@@ -676,7 +633,7 @@
 }
 
 
-/* Divider */
+/* Garis Dropdown */
 
 .donor-dropdown .dropdown-divider {
     margin: 6px 14px;
@@ -685,11 +642,10 @@
 }
 
 
-/* Item */
+/* Item Dropdown */
 
 .donor-dropdown-item {
     display: flex !important;
-
     align-items: center;
 
     gap: 10px;
@@ -703,41 +659,33 @@
     color: #56484d !important;
 
     font-size: 11px;
-
     font-weight: 700;
 
-    transition: .2s ease;
+    transition:
+        background .2s ease,
+        color .2s ease,
+        transform .2s ease;
 }
-
-
-/* Hover Petugas */
 
 .petugas-navbar .donor-dropdown-item:hover {
     background: #fff0f3 !important;
-
     color: #b91f4f !important;
 }
 
-
-/* Hover Pendonor */
-
 .pendonor-navbar .donor-dropdown-item:hover {
     background: #fbe8ee !important;
-
     color: #8f183f !important;
 }
 
 
-/* Icon */
+/* Icon Dropdown */
 
 .dropdown-icon {
     width: 31px;
     height: 31px;
-
-    flex-shrink: 0;
+    min-width: 31px;
 
     display: flex;
-
     align-items: center;
     justify-content: center;
 
@@ -746,40 +694,32 @@
     font-size: 11px;
 }
 
-
-/* Petugas Icon */
-
 .petugas-navbar .profile-icon {
     background: #ffe6ed;
-
     color: #c52f59;
 }
 
 .petugas-navbar .logout-icon {
     background: #fff0f2;
-
     color: #c93659;
 }
 
-
-/* Pendonor Icon */
-
 .pendonor-navbar .profile-icon {
     background: #f9e3ea;
-
     color: #a81743;
 }
 
 .pendonor-navbar .logout-icon {
     background: #fbe8ee;
-
     color: #b91f4f;
 }
 
 
-/* Arrow */
+/* Panah Dropdown */
 
 .dropdown-arrow {
+    margin-left: auto;
+
     font-size: 8px;
 }
 
@@ -791,46 +731,306 @@
     color: #b99aa5;
 }
 
-
-/* Arrow Hover */
-
-.petugas-navbar .donor-dropdown-item:hover .dropdown-arrow {
+.petugas-navbar
+.donor-dropdown-item:hover
+.dropdown-arrow {
     color: #c52f59;
 }
 
-.pendonor-navbar .donor-dropdown-item:hover .dropdown-arrow {
+.pendonor-navbar
+.donor-dropdown-item:hover
+.dropdown-arrow {
     color: #a81743;
+}
+
+
+/* Tablet */
+
+@media (max-width: 991px) {
+
+    .donor-navbar {
+        min-height: 68px;
+        padding: 0 20px;
+    }
+
+    .navbar-decoration {
+        left: 170px;
+        right: 220px;
+        height: 68px;
+    }
+
+    .donor-avatar {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        border-radius: 12px;
+    }
+
+    .donor-chevron {
+        margin-left: 8px;
+    }
+
+    .donor-dropdown {
+        width: 235px;
+    }
 }
 
 
 /* HP */
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
 
     .donor-navbar {
-        min-height: 65px;
+        min-height: 64px;
 
-        padding: 0 15px;
+        padding: 0 12px;
+
+        margin-bottom: 14px !important;
     }
 
     .navbar-decoration {
-        left: 100px;
+        left: 75px;
+        right: 85px;
 
-        right: 150px;
-
-        height: 65px;
+        height: 64px;
     }
 
-    .donor-avatar {
-        width: 39px;
-        height: 39px;
+    .navbar-decoration .shape-one {
+        width: 85px;
+        height: 85px;
+
+        top: -53px;
+    }
+
+    .navbar-decoration .shape-two {
+        width: 60px;
+        height: 60px;
+
+        bottom: -38px;
+    }
+
+    .navbar-decoration .shape-three {
+        width: 32px;
+        height: 32px;
+
+        top: 16px;
+    }
+
+    .navbar-decoration .curve-one {
+        width: 130px;
+        height: 45px;
+
+        left: 18%;
+        top: 8px;
+    }
+
+    .navbar-decoration .curve-two {
+        width: 95px;
+        height: 35px;
+
+        left: 52%;
+        top: 15px;
+    }
+
+    .donor-menu-button {
+        width: 36px;
+        height: 36px;
+
+        min-width: 36px;
+
+        margin-right: 6px;
+
+        border-radius: 10px !important;
+    }
+
+    .donor-menu-button i {
+        font-size: 13px;
+    }
+
+    .donor-user-menu {
+        min-height: 46px;
+
+        padding: 4px 5px !important;
 
         border-radius: 12px;
     }
 
-    .donor-dropdown {
-        width: 220px;
+    .donor-avatar {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+
+        border-radius: 11px;
     }
 
+    .donor-avatar i {
+        font-size: 13px;
+    }
+
+    .donor-chevron {
+        margin-left: 7px;
+
+        font-size: 8px;
+    }
+
+    .donor-dropdown {
+        width: 225px;
+
+        max-width: calc(100vw - 24px);
+
+        margin-top: 7px !important;
+
+        border-radius: 14px;
+    }
+
+    .donor-dropdown-header {
+        padding: 13px 14px;
+    }
+
+    .donor-dropdown-avatar {
+        width: 39px;
+        height: 39px;
+        min-width: 39px;
+
+        border-radius: 11px;
+
+        font-size: 13px;
+    }
+
+    .donor-dropdown-user strong {
+        font-size: 11px;
+    }
+
+    .donor-dropdown-user small {
+        font-size: 8px;
+    }
+
+    .donor-dropdown-item {
+        margin: 3px 7px;
+
+        padding: 9px !important;
+
+        gap: 9px;
+
+        font-size: 10px;
+    }
+
+    .dropdown-icon {
+        width: 29px;
+        height: 29px;
+        min-width: 29px;
+
+        border-radius: 8px;
+
+        font-size: 10px;
+    }
+
+    .dropdown-arrow {
+        font-size: 7px;
+    }
 }
+
+
+/* HP kecil */
+
+@media (max-width: 430px) {
+
+    .donor-navbar {
+        min-height: 60px;
+
+        padding: 0 9px;
+    }
+
+    .navbar-decoration {
+        left: 62px;
+        right: 68px;
+
+        height: 60px;
+    }
+
+    .donor-menu-button {
+        width: 34px;
+        height: 34px;
+
+        min-width: 34px;
+
+        margin-right: 4px;
+    }
+
+    .donor-avatar {
+        width: 35px;
+        height: 35px;
+        min-width: 35px;
+
+        border-radius: 10px;
+    }
+
+    .donor-avatar i {
+        font-size: 12px;
+    }
+
+    .donor-user-menu {
+        padding: 3px 4px !important;
+    }
+
+    .donor-chevron {
+        margin-left: 5px;
+        font-size: 7px;
+    }
+
+    .donor-dropdown {
+        width: 215px;
+        max-width: calc(100vw - 18px);
+    }
+}
+
+
+/* HP sangat kecil */
+
+@media (max-width: 360px) {
+
+    .donor-navbar {
+        padding: 0 7px;
+    }
+
+    .navbar-decoration {
+        left: 55px;
+        right: 55px;
+    }
+
+    .donor-menu-button {
+        width: 32px;
+        height: 32px;
+
+        min-width: 32px;
+    }
+
+    .donor-avatar {
+        width: 33px;
+        height: 33px;
+        min-width: 33px;
+    }
+
+    .donor-chevron {
+        margin-left: 4px;
+        font-size: 6px;
+    }
+
+    .donor-dropdown {
+        width: 205px;
+    }
+}
+
+
+/* Animasi */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .donor-user-menu,
+    .donor-dropdown-item,
+    .donor-chevron {
+        transition: none;
+    }
+}
+
 </style>

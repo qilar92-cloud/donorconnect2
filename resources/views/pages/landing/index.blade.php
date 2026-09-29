@@ -155,8 +155,7 @@
                     </p>
 
                     <p class="description">
-                        Setetes darah Anda, berarti bagi mereka yang membutuhkan.
-                        Mari bersama membantu sesama melalui DonorConnect.
+                        Setetes darah, sejuta harapan.
                     </p>
 
 
