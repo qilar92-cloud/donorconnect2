@@ -1,70 +1,63 @@
 @php
-    $role = strtolower(Auth::user()->role ?? 'pendonor');
+    $role = strtolower(Auth::user()->role ?? 'user');
 @endphp
 
-<nav class="navbar navbar-expand navbar-light donor-navbar
-    {{ $role === 'petugas' ? 'petugas-navbar' : 'pendonor-navbar' }}
-    mb-4 static-top">
+<nav class="donor-navbar {{ $role === 'admin' ? 'petugas-navbar' : 'pendonor-navbar' }}">
 
-    {{-- Mobile --}}
-    <button
-        id="sidebarToggleTop"
-        class="btn btn-link d-md-none rounded-circle donor-menu-button"
-        type="button"
-    >
-        <i class="fa fa-bars"></i>
-    </button>
+    <!-- Menu Petugas -->
+    @if($role === 'admin')
+        <button
+            type="button"
+            class="petugas-menu-button"
+            id="petugasMenuButton"
+            aria-label="Buka menu"
+            aria-expanded="false"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    @endif
 
-    {{-- Hiasan --}}
+    <!-- Hiasan -->
     <div class="navbar-decoration">
         <span class="shape shape-one"></span>
         <span class="shape shape-two"></span>
         <span class="shape shape-three"></span>
-
         <span class="curve curve-one"></span>
         <span class="curve curve-two"></span>
     </div>
 
-    {{-- User --}}
-    <ul class="navbar-nav ml-auto">
+    <!-- Profil -->
+    <div class="donor-navbar-right">
+        <div class="donor-user-wrapper">
 
-        <li class="nav-item dropdown no-arrow">
-
-            <a
-                class="nav-link dropdown-toggle donor-user-menu"
-                href="#"
-                id="userDropdown"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
+            <button
+                type="button"
+                class="donor-user-menu"
+                id="userDropdownButton"
                 aria-expanded="false"
             >
-
                 <span class="donor-avatar">
                     <i class="fas fa-user"></i>
                 </span>
 
-                <span class="donor-user-info d-none d-lg-flex">
-
+                <span class="donor-user-info">
                     <span class="donor-user-name">
                         {{ Auth::user()->nama ?? 'User' }}
                     </span>
 
                     <span class="donor-user-role">
-                        {{ ucfirst(Auth::user()->role ?? 'pendonor') }}
+                        {{ $role === 'admin' ? 'Petugas PMR' : 'Pendonor' }}
                     </span>
-
                 </span>
 
                 <i class="fas fa-chevron-down donor-chevron"></i>
+            </button>
 
-            </a>
+            <!-- Dropdown -->
 
-            {{-- Dropdown --}}
-            <div
-                class="dropdown-menu dropdown-menu-right donor-dropdown shadow animated--grow-in"
-                aria-labelledby="userDropdown"
-            >
+            <div class="donor-dropdown" id="donorDropdown">
 
                 <div class="donor-dropdown-header">
 
@@ -79,7 +72,7 @@
                         </strong>
 
                         <small>
-                            {{ ucfirst(Auth::user()->role ?? 'pendonor') }}
+                            {{ $role === 'admin' ? 'Petugas PMR' : 'Pendonor' }}
                         </small>
 
                     </div>
@@ -88,10 +81,11 @@
 
                 <div class="dropdown-divider"></div>
 
-                {{-- Profil --}}
+                <!-- Profil -->
+
                 <a
-                    class="dropdown-item donor-dropdown-item"
-                    href="{{ Auth::user()->role === 'petugas'
+                    class="donor-dropdown-item"
+                    href="{{ $role === 'admin'
                         ? route('profile.petugas')
                         : route('profile.pendonor') }}"
                 >
@@ -100,17 +94,16 @@
                         <i class="fas fa-user"></i>
                     </span>
 
-                    <span class="dropdown-item-text">
-                        Profil Saya
-                    </span>
+                    <span>Profil Saya</span>
 
                     <i class="fas fa-chevron-right dropdown-arrow"></i>
 
                 </a>
 
-                {{-- Logout --}}
+                <!-- Logout -->
+
                 <a
-                    class="dropdown-item donor-dropdown-item logout-item"
+                    class="donor-dropdown-item logout-item"
                     href="#"
                     onclick="event.preventDefault(); document.getElementById('form-logout').submit();"
                 >
@@ -119,51 +112,65 @@
                         <i class="fas fa-sign-out-alt"></i>
                     </span>
 
-                    <span class="dropdown-item-text">
-                        Logout
-                    </span>
+                    <span>Logout</span>
 
                     <i class="fas fa-chevron-right dropdown-arrow"></i>
 
                 </a>
 
+                <!-- Form Logout -->
+
                 <form
                     action="{{ route('logout') }}"
                     method="POST"
                     id="form-logout"
-                    class="d-none"
+                    style="display: none;"
                 >
                     @csrf
                 </form>
 
             </div>
 
-        </li>
-
-    </ul>
+        </div>
+    </div>
 
 </nav>
+
+<!-- Overlay Petugas -->
+
+@if($role === 'admin')
+    <div
+        class="petugas-sidebar-overlay"
+        id="petugasSidebarOverlay"
+    ></div>
+@endif
 
 
 <style>
 
-/* Dasar */
+/* Navbar */
 
 .donor-navbar {
     position: relative;
-    z-index: 1000;
-
+    width: 100%;
+    height: 72px;
     min-height: 72px;
-    padding: 0 28px;
 
-    background: #ffffff !important;
+    background: #ffffff;
 
     border-bottom: 1px solid #f1dddd;
 
-    box-shadow:
-        0 4px 18px rgba(111, 38, 54, .06);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
 
-    overflow: visible !important;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    padding: 0 22px;
+
+    box-sizing: border-box;
+
+    z-index: 1000;
 }
 
 
@@ -171,621 +178,413 @@
 
 .navbar-decoration {
     position: absolute;
-    top: 0;
+
     left: 260px;
     right: 300px;
+
+    top: 0;
 
     height: 72px;
 
     overflow: hidden;
+
     pointer-events: none;
-    z-index: 0;
 }
 
 .shape {
     position: absolute;
-    display: block;
     border-radius: 50%;
 }
 
+.shape-one {
+    width: 85px;
+    height: 85px;
 
-/* Hiasan Petugas */
+    left: 20%;
+    top: -48px;
 
-.petugas-navbar .shape-one {
-    width: 120px;
-    height: 120px;
-
-    top: -72px;
-    left: 18%;
-
-    background: rgba(237, 85, 115, .08);
+    background: rgba(214, 47, 97, 0.05);
 }
 
-.petugas-navbar .shape-two {
-    width: 80px;
-    height: 80px;
+.shape-two {
+    width: 55px;
+    height: 55px;
 
-    bottom: -50px;
-    left: 42%;
+    left: 48%;
+    top: 25px;
 
-    background: rgba(217, 54, 89, .06);
+    background: rgba(237, 85, 115, 0.06);
 }
 
-.petugas-navbar .shape-three {
-    width: 45px;
-    height: 45px;
+.shape-three {
+    width: 75px;
+    height: 75px;
 
-    top: 14px;
-    right: 24%;
+    right: 15%;
+    top: -45px;
 
-    background: rgba(237, 85, 115, .07);
+    background: rgba(201, 47, 81, 0.05);
 }
-
-
-/* Hiasan Pendonor */
-
-.pendonor-navbar .shape-one {
-    width: 120px;
-    height: 120px;
-
-    top: -72px;
-    left: 18%;
-
-    background: rgba(143, 24, 63, .09);
-}
-
-.pendonor-navbar .shape-two {
-    width: 80px;
-    height: 80px;
-
-    bottom: -50px;
-    left: 42%;
-
-    background: rgba(185, 31, 79, .07);
-}
-
-.pendonor-navbar .shape-three {
-    width: 45px;
-    height: 45px;
-
-    top: 14px;
-    right: 24%;
-
-    background: rgba(214, 47, 97, .08);
-}
-
-
-/* Garis */
 
 .curve {
     position: absolute;
 
-    border: 1.5px solid;
+    border: 2px solid rgba(214, 47, 97, 0.07);
+
     border-radius: 50%;
+}
 
-    transform: rotate(-12deg);
+.curve-one {
+    width: 180px;
+    height: 70px;
+
+    left: 35%;
+    bottom: -48px;
+}
+
+.curve-two {
+    width: 120px;
+    height: 55px;
+
+    right: 25%;
+    bottom: -35px;
 }
 
 
-/* Curve Petugas */
+/* Tombol menu */
 
-.petugas-navbar .curve-one {
-    width: 190px;
-    height: 65px;
-
-    left: 30%;
-    top: 5px;
-
-    border-color: rgba(217, 54, 89, .10);
-}
-
-.petugas-navbar .curve-two {
-    width: 140px;
-    height: 50px;
-
-    left: 55%;
-    top: 17px;
-
-    border-color: rgba(237, 85, 115, .12);
-}
-
-
-/* Curve Pendonor */
-
-.pendonor-navbar .curve-one {
-    width: 190px;
-    height: 65px;
-
-    left: 30%;
-    top: 5px;
-
-    border-color: rgba(143, 24, 63, .10);
-}
-
-.pendonor-navbar .curve-two {
-    width: 140px;
-    height: 50px;
-
-    left: 55%;
-    top: 17px;
-
-    border-color: rgba(214, 47, 97, .12);
-}
-
-
-/* Tombol Menu */
-
-.donor-menu-button {
-    position: relative;
-    z-index: 1002;
+.petugas-menu-button {
+    display: none;
 
     width: 38px;
     height: 38px;
 
-    display: flex !important;
+    padding: 0;
+    margin: 0;
+
+    border: 0;
+    border-radius: 10px;
+
+    background: #fbe8ee;
+
     align-items: center;
     justify-content: center;
 
-    margin-right: 10px;
+    flex-direction: column;
 
-    border-radius: 11px !important;
+    gap: 4px;
 
-    font-size: 14px;
+    cursor: pointer;
+
+    position: relative;
+
+    z-index: 1100;
+}
+
+.petugas-menu-button span {
+    display: block;
+
+    width: 18px;
+    height: 2px;
+
+    border-radius: 5px;
+
+    background: #a81743;
+
+    transition: 0.2s ease;
+}
+
+.petugas-menu-button:hover {
+    background: #f7dce5;
 }
 
 
-/* Menu Petugas */
+/* Profil */
 
-.petugas-navbar .donor-menu-button {
-    background: #fff0f3;
-    color: #d93659 !important;
+.donor-navbar-right {
+    position: relative;
+
+    z-index: 1100;
+
+    margin-left: auto;
 }
 
-.petugas-navbar .donor-menu-button:hover {
-    background: #ffe1e8;
+.donor-user-wrapper {
+    position: relative;
 }
-
-
-/* Menu Pendonor */
-
-.pendonor-navbar .donor-menu-button {
-    background: #fbe8ee;
-    color: #a81743 !important;
-}
-
-.pendonor-navbar .donor-menu-button:hover {
-    background: #f7dce4;
-}
-
-
-/* User */
 
 .donor-user-menu {
-    position: relative;
-    z-index: 1001;
+    border: 0;
 
-    min-height: 50px;
+    background: transparent;
 
-    display: flex !important;
+    display: flex;
     align-items: center;
 
-    padding: 5px 9px !important;
+    gap: 10px;
 
-    border-radius: 15px;
+    padding: 5px 7px;
 
-    transition:
-        background .2s ease,
-        transform .2s ease;
+    border-radius: 12px;
+
+    cursor: pointer;
 }
 
-.petugas-navbar .donor-user-menu:hover {
-    background: #fff0f3;
+.donor-user-menu:hover {
+    background: #fff5f7;
 }
-
-.pendonor-navbar .donor-user-menu:hover {
-    background: #fdf0f4;
-}
-
-
-/* Avatar */
 
 .donor-avatar {
     width: 42px;
     height: 42px;
+
     min-width: 42px;
+
+    border-radius: 12px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    border-radius: 13px;
-
     color: #ffffff;
 
-    box-shadow:
-        0 5px 12px rgba(120, 30, 60, .18);
+    font-size: 16px;
 }
-
-
-/* Avatar Petugas */
-
-.petugas-navbar .donor-avatar {
-    background:
-        linear-gradient(
-            135deg,
-            #ed5573,
-            #d93659
-        );
-}
-
-
-/* Avatar Pendonor */
 
 .pendonor-navbar .donor-avatar {
-    background:
-        linear-gradient(
-            135deg,
-            #8f183f,
-            #d62f61
-        );
+    background: linear-gradient(
+        135deg,
+        #8f183f,
+        #d62f61
+    );
 }
 
-.donor-avatar i {
-    font-size: 14px;
+.petugas-navbar .donor-avatar {
+    background: linear-gradient(
+        135deg,
+        #ed5573,
+        #d93659
+    );
 }
-
-
-/* Informasi User */
 
 .donor-user-info {
+    display: flex;
     flex-direction: column;
-    justify-content: center;
 
-    margin-left: 11px;
+    align-items: flex-start;
 
     line-height: 1.2;
 }
 
 .donor-user-name {
-    max-width: 145px;
+    color: #453238;
 
-    color: #3b3034;
+    font-size: 13px;
 
-    font-size: 12px;
     font-weight: 800;
-
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .donor-user-role {
-    margin-top: 4px;
+    margin-top: 3px;
 
-    font-size: 9px;
-    font-weight: 700;
+    font-size: 11px;
 
-    text-transform: uppercase;
-    letter-spacing: .6px;
-}
-
-.petugas-navbar .donor-user-role {
-    color: #c34a64;
+    font-weight: 600;
 }
 
 .pendonor-navbar .donor-user-role {
-    color: #a34a66;
+    color: #b91f4f;
 }
 
-
-/* Chevron */
+.petugas-navbar .donor-user-role {
+    color: #c92f51;
+}
 
 .donor-chevron {
-    margin-left: 10px;
+    color: #9e7c85;
 
-    font-size: 9px;
+    font-size: 11px;
 
-    transition: transform .2s ease;
-}
-
-.petugas-navbar .donor-chevron {
-    color: #c47787;
-}
-
-.pendonor-navbar .donor-chevron {
-    color: #a97887;
-}
-
-.donor-user-menu[aria-expanded="true"] .donor-chevron {
-    transform: rotate(180deg);
-}
-
-.petugas-navbar
-.donor-user-menu[aria-expanded="true"]
-.donor-chevron {
-    color: #d93659;
-}
-
-.pendonor-navbar
-.donor-user-menu[aria-expanded="true"]
-.donor-chevron {
-    color: #a81743;
+    margin-left: 2px;
 }
 
 
 /* Dropdown */
 
 .donor-dropdown {
-    width: 245px;
+    position: absolute;
 
-    margin-top: 9px !important;
-    padding: 7px 0;
+    top: calc(100% + 10px);
+    right: 0;
+
+    width: 245px;
 
     background: #ffffff;
 
-    border: 1px solid #f0dce0;
     border-radius: 16px;
 
-    overflow: hidden;
+    padding: 10px;
 
     box-shadow:
-        0 12px 30px rgba(83, 33, 45, .15) !important;
+        0 12px 35px rgba(87, 35, 47, 0.14);
 
-    z-index: 2000 !important;
+    border: 1px solid #f2dfe3;
+
+    display: none;
+
+    z-index: 1200;
 }
 
-
-/* Header Dropdown */
+.donor-dropdown.show {
+    display: block;
+}
 
 .donor-dropdown-header {
     display: flex;
-    align-items: center;
 
-    gap: 11px;
-
-    padding: 15px 16px;
-}
-
-.petugas-navbar .donor-dropdown-header {
-    background:
-        linear-gradient(
-            135deg,
-            #fff5f7,
-            #ffecef
-        );
-}
-
-.pendonor-navbar .donor-dropdown-header {
-    background:
-        linear-gradient(
-            135deg,
-            #fff5f7,
-            #fce9ef
-        );
-}
-
-
-/* Avatar Dropdown */
-
-.donor-dropdown-avatar {
-    width: 42px;
-    height: 42px;
-    min-width: 42px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 13px;
-
-    color: #ffffff;
-
-    font-size: 14px;
-}
-
-.petugas-navbar .donor-dropdown-avatar {
-    background:
-        linear-gradient(
-            135deg,
-            #ed5573,
-            #d93659
-        );
-}
-
-.pendonor-navbar .donor-dropdown-avatar {
-    background:
-        linear-gradient(
-            135deg,
-            #8f183f,
-            #d62f61
-        );
-}
-
-
-/* Teks Dropdown */
-
-.donor-dropdown-user strong {
-    display: block;
-
-    color: #3b3034;
-
-    font-size: 12px;
-    font-weight: 800;
-}
-
-.donor-dropdown-user small {
-    display: block;
-
-    margin-top: 4px;
-
-    font-size: 9px;
-    font-weight: 700;
-
-    text-transform: uppercase;
-}
-
-.petugas-navbar .donor-dropdown-user small {
-    color: #c34a64;
-}
-
-.pendonor-navbar .donor-dropdown-user small {
-    color: #a34a66;
-}
-
-
-/* Garis Dropdown */
-
-.donor-dropdown .dropdown-divider {
-    margin: 6px 14px;
-
-    border-top-color: #f2e3e6;
-}
-
-
-/* Item Dropdown */
-
-.donor-dropdown-item {
-    display: flex !important;
     align-items: center;
 
     gap: 10px;
 
-    margin: 3px 8px;
+    padding: 8px;
+}
 
-    padding: 10px !important;
+.donor-dropdown-avatar {
+    width: 40px;
+    height: 40px;
 
     border-radius: 11px;
-
-    color: #56484d !important;
-
-    font-size: 11px;
-    font-weight: 700;
-
-    transition:
-        background .2s ease,
-        color .2s ease,
-        transform .2s ease;
-}
-
-.petugas-navbar .donor-dropdown-item:hover {
-    background: #fff0f3 !important;
-    color: #b91f4f !important;
-}
-
-.pendonor-navbar .donor-dropdown-item:hover {
-    background: #fbe8ee !important;
-    color: #8f183f !important;
-}
-
-
-/* Icon Dropdown */
-
-.dropdown-icon {
-    width: 31px;
-    height: 31px;
-    min-width: 31px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    border-radius: 9px;
+    color: #ffffff;
+
+    background: linear-gradient(
+        135deg,
+        #ed5573,
+        #d93659
+    );
+}
+
+.donor-dropdown-user {
+    display: flex;
+    flex-direction: column;
+}
+
+.donor-dropdown-user strong {
+    color: #453238;
+
+    font-size: 13px;
+}
+
+.donor-dropdown-user small {
+    color: #b97989;
 
     font-size: 11px;
+
+    margin-top: 2px;
 }
 
-.petugas-navbar .profile-icon {
-    background: #ffe6ed;
-    color: #c52f59;
+.dropdown-divider {
+    height: 1px;
+
+    background: #f2e4e7;
+
+    margin: 7px 4px;
 }
 
-.petugas-navbar .logout-icon {
-    background: #fff0f2;
-    color: #c93659;
+.donor-dropdown-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    min-height: 43px;
+
+    padding: 0 9px;
+
+    border-radius: 10px;
+
+    color: #59454b;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    transition: 0.2s ease;
 }
 
-.pendonor-navbar .profile-icon {
-    background: #f9e3ea;
+.donor-dropdown-item:hover {
+    background: #fff4f6;
+
     color: #a81743;
 }
 
-.pendonor-navbar .logout-icon {
-    background: #fbe8ee;
-    color: #b91f4f;
+.dropdown-icon {
+    width: 30px;
+    height: 30px;
+
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+.profile-icon {
+    background: #fde9ef;
 
-/* Panah Dropdown */
+    color: #c52f59;
+}
+
+.logout-icon {
+    background: #fff0f2;
+
+    color: #d93659;
+}
 
 .dropdown-arrow {
     margin-left: auto;
 
-    font-size: 8px;
+    font-size: 9px;
+
+    color: #bfa4ab;
 }
 
-.petugas-navbar .dropdown-arrow {
-    color: #cba3ad;
-}
-
-.pendonor-navbar .dropdown-arrow {
-    color: #b99aa5;
-}
-
-.petugas-navbar
-.donor-dropdown-item:hover
-.dropdown-arrow {
-    color: #c52f59;
-}
-
-.pendonor-navbar
-.donor-dropdown-item:hover
-.dropdown-arrow {
-    color: #a81743;
+.logout-item {
+    margin-top: 2px;
 }
 
 
-/* Tablet */
+/* Overlay */
 
-@media (max-width: 991px) {
+.petugas-sidebar-overlay {
+    display: none;
+}
+
+
+/* Mobile */
+
+@media (max-width: 768px) {
 
     .donor-navbar {
-        min-height: 68px;
-        padding: 0 20px;
-    }
+        position: sticky !important;
 
-    .navbar-decoration {
-        left: 170px;
-        right: 220px;
-        height: 68px;
-    }
+        top: 0 !important;
 
-    .donor-avatar {
-        width: 40px;
-        height: 40px;
-        min-width: 40px;
-        border-radius: 12px;
-    }
-
-    .donor-chevron {
-        margin-left: 8px;
-    }
-
-    .donor-dropdown {
-        width: 235px;
-    }
-}
-
-
-/* HP */
-
-@media (max-width: 767px) {
-
-    .donor-navbar {
         min-height: 64px;
+        height: 64px;
 
         padding: 0 12px;
 
-        margin-bottom: 14px !important;
+        margin: 0 !important;
+
+        background: #ffffff !important;
     }
 
     .navbar-decoration {
@@ -795,139 +594,62 @@
         height: 64px;
     }
 
-    .navbar-decoration .shape-one {
-        width: 85px;
-        height: 85px;
-
-        top: -53px;
-    }
-
-    .navbar-decoration .shape-two {
-        width: 60px;
-        height: 60px;
-
-        bottom: -38px;
-    }
-
-    .navbar-decoration .shape-three {
-        width: 32px;
-        height: 32px;
-
-        top: 16px;
-    }
-
-    .navbar-decoration .curve-one {
-        width: 130px;
-        height: 45px;
-
-        left: 18%;
-        top: 8px;
-    }
-
-    .navbar-decoration .curve-two {
-        width: 95px;
-        height: 35px;
-
-        left: 52%;
-        top: 15px;
-    }
-
-    .donor-menu-button {
-        width: 36px;
-        height: 36px;
-
-        min-width: 36px;
-
-        margin-right: 6px;
-
-        border-radius: 10px !important;
-    }
-
-    .donor-menu-button i {
-        font-size: 13px;
+    .donor-user-name,
+    .donor-user-role {
+        display: none;
     }
 
     .donor-user-menu {
-        min-height: 46px;
-
-        padding: 4px 5px !important;
-
-        border-radius: 12px;
+        padding: 4px !important;
     }
 
     .donor-avatar {
         width: 38px;
         height: 38px;
+
         min-width: 38px;
 
         border-radius: 11px;
     }
 
-    .donor-avatar i {
-        font-size: 13px;
-    }
-
     .donor-chevron {
-        margin-left: 7px;
-
-        font-size: 8px;
+        display: none;
     }
 
     .donor-dropdown {
         width: 225px;
 
         max-width: calc(100vw - 24px);
-
-        margin-top: 7px !important;
-
-        border-radius: 14px;
     }
 
-    .donor-dropdown-header {
-        padding: 13px 14px;
+    /* Menu Petugas */
+
+    .petugas-navbar {
+        justify-content: space-between !important;
     }
 
-    .donor-dropdown-avatar {
-        width: 39px;
-        height: 39px;
-        min-width: 39px;
-
-        border-radius: 11px;
-
-        font-size: 13px;
+    .petugas-menu-button {
+        display: flex;
     }
 
-    .donor-dropdown-user strong {
-        font-size: 11px;
+    .petugas-navbar .donor-navbar-right {
+        margin-left: auto;
     }
 
-    .donor-dropdown-user small {
-        font-size: 8px;
+    /* Overlay */
+
+    .petugas-sidebar-overlay.show {
+        display: block;
+
+        position: fixed;
+
+        inset: 0;
+
+        background: rgba(69, 50, 56, 0.28);
+
+        z-index: 9997;
     }
 
-    .donor-dropdown-item {
-        margin: 3px 7px;
-
-        padding: 9px !important;
-
-        gap: 9px;
-
-        font-size: 10px;
-    }
-
-    .dropdown-icon {
-        width: 29px;
-        height: 29px;
-        min-width: 29px;
-
-        border-radius: 8px;
-
-        font-size: 10px;
-    }
-
-    .dropdown-arrow {
-        font-size: 7px;
-    }
 }
 
 
@@ -937,100 +659,178 @@
 
     .donor-navbar {
         min-height: 60px;
+        height: 60px;
 
         padding: 0 9px;
-    }
-
-    .navbar-decoration {
-        left: 62px;
-        right: 68px;
-
-        height: 60px;
-    }
-
-    .donor-menu-button {
-        width: 34px;
-        height: 34px;
-
-        min-width: 34px;
-
-        margin-right: 4px;
     }
 
     .donor-avatar {
         width: 35px;
         height: 35px;
+
         min-width: 35px;
-
-        border-radius: 10px;
     }
 
-    .donor-avatar i {
-        font-size: 12px;
+    .petugas-menu-button {
+        width: 36px;
+        height: 36px;
     }
 
-    .donor-user-menu {
-        padding: 3px 4px !important;
-    }
-
-    .donor-chevron {
-        margin-left: 5px;
-        font-size: 7px;
-    }
-
-    .donor-dropdown {
-        width: 215px;
-        max-width: calc(100vw - 18px);
-    }
-}
-
-
-/* HP sangat kecil */
-
-@media (max-width: 360px) {
-
-    .donor-navbar {
-        padding: 0 7px;
-    }
-
-    .navbar-decoration {
-        left: 55px;
-        right: 55px;
-    }
-
-    .donor-menu-button {
-        width: 32px;
-        height: 32px;
-
-        min-width: 32px;
-    }
-
-    .donor-avatar {
-        width: 33px;
-        height: 33px;
-        min-width: 33px;
-    }
-
-    .donor-chevron {
-        margin-left: 4px;
-        font-size: 6px;
-    }
-
-    .donor-dropdown {
-        width: 205px;
-    }
-}
-
-
-/* Animasi */
-
-@media (prefers-reduced-motion: reduce) {
-
-    .donor-user-menu,
-    .donor-dropdown-item,
-    .donor-chevron {
-        transition: none;
-    }
 }
 
 </style>
+
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    /* Dropdown profil */
+
+    const userButton =
+        document.getElementById('userDropdownButton');
+
+    const userDropdown =
+        document.getElementById('donorDropdown');
+
+    if (userButton && userDropdown) {
+
+        userButton.addEventListener('click', function (event) {
+
+            event.stopPropagation();
+
+            const isOpen =
+                userDropdown.classList.toggle('show');
+
+            userButton.setAttribute(
+                'aria-expanded',
+                isOpen ? 'true' : 'false'
+            );
+
+        });
+
+    }
+
+
+    /* Menu Petugas */
+
+    const menuButton =
+        document.getElementById('petugasMenuButton');
+
+    const sidebar =
+        document.getElementById('accordionSidebar');
+
+    const overlay =
+        document.getElementById('petugasSidebarOverlay');
+
+
+    if (menuButton && sidebar) {
+
+        menuButton.addEventListener('click', function (event) {
+
+            event.preventDefault();
+
+            event.stopPropagation();
+
+            const isOpen =
+                sidebar.classList.toggle('mobile-show');
+
+            menuButton.setAttribute(
+                'aria-expanded',
+                isOpen ? 'true' : 'false'
+            );
+
+            if (overlay) {
+
+                overlay.classList.toggle(
+                    'show',
+                    isOpen
+                );
+
+            }
+
+        });
+
+
+        /* Klik overlay */
+
+        if (overlay) {
+
+            overlay.addEventListener('click', function () {
+
+                sidebar.classList.remove(
+                    'mobile-show'
+                );
+
+                menuButton.setAttribute(
+                    'aria-expanded',
+                    'false'
+                );
+
+                overlay.classList.remove(
+                    'show'
+                );
+
+            });
+
+        }
+
+
+        /* Klik menu */
+
+        const sidebarLinks =
+            sidebar.querySelectorAll('.nav-link');
+
+        sidebarLinks.forEach(function (link) {
+
+            link.addEventListener('click', function () {
+
+                sidebar.classList.remove(
+                    'mobile-show'
+                );
+
+                menuButton.setAttribute(
+                    'aria-expanded',
+                    'false'
+                );
+
+                if (overlay) {
+
+                    overlay.classList.remove(
+                        'show'
+                    );
+
+                }
+
+            });
+
+        });
+
+    }
+
+
+    /* Klik luar dropdown */
+
+    document.addEventListener('click', function (event) {
+
+        if (
+            userDropdown &&
+            userButton &&
+            !userDropdown.contains(event.target) &&
+            !userButton.contains(event.target)
+        ) {
+
+            userDropdown.classList.remove('show');
+
+            userButton.setAttribute(
+                'aria-expanded',
+                'false'
+            );
+
+        }
+
+    });
+
+});
+
+</script>

@@ -8,14 +8,25 @@
 
 @section('content')
 
-<div class="login-page">
+<div
+    class="login-page"
+    id="loginPage"
+>
 
-    <!-- Background -->
+    <!-- Background Pendonor -->
     <img
         src="{{ asset('images/2.jpg') }}"
         alt=""
-        class="login-background"
+        class="login-background login-background-pendonor"
     >
+
+    <!-- Background Petugas -->
+    <img
+        src="{{ asset('images/petugas.jpeg') }}"
+        alt=""
+        class="login-background login-background-petugas"
+    >
+
 
     <!-- Card Login -->
     <div class="login-card">
@@ -24,14 +35,18 @@
         <div class="login-header">
 
             <div class="login-icon">
-                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart" id="loginIcon"></i>
             </div>
 
             <h1>DONORCONNECT</h1>
 
-            <h2>SMKN 2 PURBALINGGA</h2>
+            <h2 id="loginTitle">
+                SMKN 2 PURBALINGGA
+            </h2>
 
-            <p>Masuk untuk melanjutkan</p>
+            <p id="loginDescription">
+                Masuk untuk melanjutkan
+            </p>
 
         </div>
 
@@ -47,48 +62,44 @@
 
 
         <!-- Form Login -->
-        <form action="{{ route('login.submit') }}" method="POST">
+        <form
+            action="{{ route('login.submit') }}"
+            method="POST"
+        >
 
             @csrf
 
 
-            <!-- Status Pengguna -->
+            <!-- Tipe Login -->
             <div class="form-group">
 
-                <label for="jenis_warga">
-                    Status Pengguna
+                <label for="tipe_login">
+                    Login Sebagai
                 </label>
 
                 <select
-                    name="jenis_warga"
-                    id="jenis_warga"
-                    onchange="ubahIdentitas()"
+                    name="tipe_login"
+                    id="tipe_login"
+                    onchange="ubahLogin()"
                     required
                 >
 
                     <option value="">
-                        Pilih status pengguna
+                        Pilih jenis login
                     </option>
 
                     <option
-                        value="siswa"
-                        {{ old('jenis_warga') == 'siswa' ? 'selected' : '' }}
+                        value="pendonor"
+                        {{ old('tipe_login') == 'pendonor' ? 'selected' : '' }}
                     >
-                        Siswa
+                        Pendonor
                     </option>
 
                     <option
-                        value="guru"
-                        {{ old('jenis_warga') == 'guru' ? 'selected' : '' }}
+                        value="petugas"
+                        {{ old('tipe_login') == 'petugas' ? 'selected' : '' }}
                     >
-                        Guru
-                    </option>
-
-                    <option
-                        value="karyawan"
-                        {{ old('jenis_warga') == 'karyawan' ? 'selected' : '' }}
-                    >
-                        Karyawan
+                        Petugas PMR
                     </option>
 
                 </select>
@@ -96,24 +107,111 @@
             </div>
 
 
-            <!-- Identitas -->
-            <div class="form-group">
+            <!-- Pendonor -->
+            <div id="formPendonor">
 
-                <label
-                    for="identitas"
-                    id="labelIdentitas"
-                >
-                    NIS / NIP / ID Pegawai
-                </label>
+                <div class="form-group">
 
-                <input
-                    type="text"
-                    name="identitas"
-                    id="identitas"
-                    value="{{ old('identitas') }}"
-                    placeholder="Masukkan identitas"
-                    required
-                >
+                    <label for="jenis_warga">
+                        Status Pengguna
+                    </label>
+
+                    <select
+                        name="jenis_warga"
+                        id="jenis_warga"
+                        onchange="ubahIdentitas()"
+                    >
+
+                        <option value="">
+                            Pilih status pengguna
+                        </option>
+
+                        <option
+                            value="siswa"
+                            {{ old('jenis_warga') == 'siswa' ? 'selected' : '' }}
+                        >
+                            Siswa
+                        </option>
+
+                        <option
+                            value="guru"
+                            {{ old('jenis_warga') == 'guru' ? 'selected' : '' }}
+                        >
+                            Guru
+                        </option>
+
+                        <option
+                            value="karyawan"
+                            {{ old('jenis_warga') == 'karyawan' ? 'selected' : '' }}
+                        >
+                            Karyawan
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label
+                        for="identitas"
+                        id="labelIdentitas"
+                    >
+                        NIS / NIP / ID Pegawai
+                    </label>
+
+                    <input
+                        type="text"
+                        name="identitas"
+                        id="identitas"
+                        value="{{ old('identitas') }}"
+                        placeholder="Masukkan identitas"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- Petugas -->
+            <div
+                id="formPetugas"
+                style="display: none;"
+            >
+
+                <div class="form-group">
+
+                    <label for="nama">
+                        Nama
+                    </label>
+
+                    <input
+                        type="text"
+                        name="nama"
+                        id="nama"
+                        value="{{ old('nama') }}"
+                        placeholder="Masukkan nama"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        value="{{ old('email') }}"
+                        placeholder="Masukkan email"
+                    >
+
+                </div>
 
             </div>
 
@@ -168,7 +266,7 @@
             </label>
 
 
-            <!-- Tombol Login -->
+            <!-- Login -->
             <button
                 type="submit"
                 class="login-button"
@@ -211,11 +309,135 @@
 
 <script>
 
+    // Login
+
+    function ubahLogin() {
+
+        const tipe =
+            document.getElementById('tipe_login').value;
+
+        const loginPage =
+            document.getElementById('loginPage');
+
+        const formPendonor =
+            document.getElementById('formPendonor');
+
+        const formPetugas =
+            document.getElementById('formPetugas');
+
+        const jenisWarga =
+            document.getElementById('jenis_warga');
+
+        const identitas =
+            document.getElementById('identitas');
+
+        const nama =
+            document.getElementById('nama');
+
+        const email =
+            document.getElementById('email');
+
+        const loginIcon =
+            document.getElementById('loginIcon');
+
+        const loginTitle =
+            document.getElementById('loginTitle');
+
+        const loginDescription =
+            document.getElementById('loginDescription');
+
+
+        loginPage.classList.remove(
+            'login-pendonor',
+            'login-petugas'
+        );
+
+
+        if (tipe === 'petugas') {
+
+            loginPage.classList.add('login-petugas');
+
+            formPendonor.style.display = 'none';
+            formPetugas.style.display = 'block';
+
+            jenisWarga.required = false;
+            identitas.required = false;
+
+            nama.required = true;
+            email.required = true;
+
+            loginIcon.className =
+                'fas fa-user-shield';
+
+            loginTitle.textContent =
+                'PETUGAS PMR';
+
+            loginDescription.textContent =
+                'Masuk ke sistem pengelolaan donor';
+
+        }
+
+        else if (tipe === 'pendonor') {
+
+            loginPage.classList.add('login-pendonor');
+
+            formPendonor.style.display = 'block';
+            formPetugas.style.display = 'none';
+
+            jenisWarga.required = true;
+            identitas.required = true;
+
+            nama.required = false;
+            email.required = false;
+
+            loginIcon.className =
+                'fas fa-heart';
+
+            loginTitle.textContent =
+                'SMKN 2 PURBALINGGA';
+
+            loginDescription.textContent =
+                'Masuk untuk melanjutkan';
+
+        }
+
+        else {
+
+            formPendonor.style.display = 'block';
+            formPetugas.style.display = 'none';
+
+            jenisWarga.required = false;
+            identitas.required = false;
+
+            nama.required = false;
+            email.required = false;
+
+            loginIcon.className =
+                'fas fa-heart';
+
+            loginTitle.textContent =
+                'SMKN 2 PURBALINGGA';
+
+            loginDescription.textContent =
+                'Masuk untuk melanjutkan';
+
+        }
+
+    }
+
+
+    // Identitas
+
     function ubahIdentitas() {
 
-        const jenis = document.getElementById('jenis_warga').value;
-        const label = document.getElementById('labelIdentitas');
-        const input = document.getElementById('identitas');
+        const jenis =
+            document.getElementById('jenis_warga').value;
+
+        const label =
+            document.getElementById('labelIdentitas');
+
+        const input =
+            document.getElementById('identitas');
 
 
         if (jenis === 'siswa') {
@@ -241,18 +463,26 @@
 
         else {
 
-            label.textContent = 'NIS / NIP / ID Pegawai';
-            input.placeholder = 'Masukkan identitas';
+            label.textContent =
+                'NIS / NIP / ID Pegawai';
+
+            input.placeholder =
+                'Masukkan identitas';
 
         }
 
     }
 
 
+    // Password
+
     function togglePassword() {
 
-        const password = document.getElementById('password');
-        const icon = document.getElementById('eyeIcon');
+        const password =
+            document.getElementById('password');
+
+        const icon =
+            document.getElementById('eyeIcon');
 
 
         if (password.type === 'password') {
@@ -276,11 +506,17 @@
     }
 
 
-    document.addEventListener('DOMContentLoaded', function () {
+    // Saat halaman dibuka
 
-        ubahIdentitas();
+    document.addEventListener(
+        'DOMContentLoaded',
+        function () {
 
-    });
+            ubahLogin();
+            ubahIdentitas();
+
+        }
+    );
 
 </script>
 

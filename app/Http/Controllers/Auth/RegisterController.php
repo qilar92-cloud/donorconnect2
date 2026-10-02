@@ -31,7 +31,7 @@ class RegisterController extends Controller
             'identitas' => $data['identitas'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'role' => 'pendonor',
+            'role' => 'user',
         ]);
 
         Pendonor::create([

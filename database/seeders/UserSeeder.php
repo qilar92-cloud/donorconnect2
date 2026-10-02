@@ -14,6 +14,7 @@ class UserSeeder extends Seeder
             'nama' => 'Admin DonorConnect',
             'email' => 'admin@donorconnect.com',
             'password' => Hash::make('password'),
+            'role' => 'admin',
         ]);
     }
 }

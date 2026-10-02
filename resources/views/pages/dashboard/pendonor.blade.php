@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.pendonor')
 
 @section('title', 'Dashboard Pendonor - DonorConnect')
 
@@ -16,11 +16,13 @@
     use App\Models\Pendonor;
     use App\Models\DokumentasiDonor;
 
+    // Data pendonor
     $pendonor = Pendonor::where(
         'id_user',
         session('id_user')
     )->first();
 
+    // Statistik
     $jumlahKegiatan = KegiatanDonor::count();
 
     $jumlahPendaftaran = $pendonor
@@ -52,6 +54,7 @@
         )->sum('jumlah_kantong')
         : 0;
 
+    // Pendaftaran terakhir
     $pendaftaranTerakhir = $pendonor
         ? PendaftaranDonor::where(
             'id_pendonor',
@@ -66,6 +69,7 @@
         ? $pendaftaranTerakhir->status_pendaftaran
         : 'Belum Terdaftar';
 
+    // Kegiatan terdekat
     $kegiatanTerdekat = KegiatanDonor::whereDate(
         'tanggal',
         '>=',
@@ -75,6 +79,7 @@
         ->orderBy('waktu')
         ->first();
 
+    // Dokumentasi
     $dokumentasi = DokumentasiDonor::with('kegiatanDonor')
         ->latest()
         ->get();
@@ -86,7 +91,6 @@
 <div class="pendonor-dashboard">
 
     {{-- Hero --}}
-
     <section class="dashboard-hero">
 
         <div class="hero-background-shape shape-one"></div>
@@ -130,6 +134,7 @@
             <div class="visual-glow"></div>
 
             <div class="blood-bag">
+
                 <div class="blood-bag-top"></div>
 
                 <div class="blood-bag-body">
@@ -143,6 +148,7 @@
                 </div>
 
                 <div class="blood-tube"></div>
+
             </div>
 
             <div class="heart-line">
@@ -169,7 +175,6 @@
 
 
     {{-- Statistik --}}
-
     <section class="stats-grid">
 
         <a
@@ -282,10 +287,10 @@
     </section>
 
 
-    {{-- Kegiatan --}}
-
+    {{-- Kegiatan dan aktivitas --}}
     <section class="dashboard-sections">
 
+        {{-- Kegiatan --}}
         <div class="dashboard-panel">
 
             <div class="panel-header">
@@ -297,6 +302,7 @@
                     </div>
 
                     <div>
+
                         <span>AGENDA</span>
 
                         <h2>
@@ -306,6 +312,7 @@
                         <p>
                             Kegiatan donor yang akan datang
                         </p>
+
                     </div>
 
                 </div>
@@ -360,7 +367,10 @@
                     </div>
 
                     <a
-                        href="{{ route('pendonor.kegiatan.show', $kegiatanTerdekat->id_kegiatan) }}"
+                        href="{{ route(
+                            'pendonor.kegiatan.show',
+                            $kegiatanTerdekat->id_kegiatan
+                        ) }}"
                         class="event-button"
                         aria-label="Lihat detail kegiatan"
                     >
@@ -393,7 +403,6 @@
 
 
         {{-- Status --}}
-
         <div class="dashboard-panel activity-panel">
 
             <div class="panel-header">
@@ -405,6 +414,7 @@
                     </div>
 
                     <div>
+
                         <span>AKTIVITAS</span>
 
                         <h2>
@@ -414,6 +424,7 @@
                         <p>
                             Ringkasan aktivitas donor kamu
                         </p>
+
                     </div>
 
                 </div>
@@ -513,7 +524,6 @@
 
 
     {{-- Dokumentasi --}}
-
     <section class="donor-gallery">
 
         <div class="donor-gallery-header">
@@ -572,6 +582,7 @@
                         <div class="donor-gallery-overlay">
 
                             <div>
+
                                 <i class="fas fa-search-plus"></i>
 
                                 @if($loop->first)
@@ -579,6 +590,7 @@
                                         Dokumentasi donor darah
                                     </span>
                                 @endif
+
                             </div>
 
                         </div>
@@ -615,220 +627,288 @@
 
 
 {{-- Lightbox --}}
-
 @if($fotoDashboard->count() > 0)
 
-<div
-    class="photo-lightbox"
-    id="photoLightbox"
-    aria-hidden="true"
->
-
-    <button
-        type="button"
-        class="lightbox-arrow lightbox-prev"
-        id="lightboxPrev"
-        aria-label="Foto sebelumnya"
+    <div
+        class="photo-lightbox"
+        id="photoLightbox"
+        aria-hidden="true"
     >
-        <i class="fas fa-chevron-left"></i>
-    </button>
 
-    <div class="lightbox-content">
-
-        <img
-            id="lightboxImage"
-            src=""
-            alt="Dokumentasi donor darah"
+        <button
+            type="button"
+            class="lightbox-arrow lightbox-prev"
+            id="lightboxPrev"
+            aria-label="Foto sebelumnya"
         >
+            <i class="fas fa-chevron-left"></i>
+        </button>
 
-        <div class="lightbox-counter">
-            <span id="lightboxCurrent">1</span>
-            /
-            <span id="lightboxTotal">
-                {{ $fotoDashboard->count() }}
-            </span>
+        <div class="lightbox-content">
+
+            <img
+                id="lightboxImage"
+                src=""
+                alt="Dokumentasi donor darah"
+            >
+
+            <div class="lightbox-counter">
+                <span id="lightboxCurrent">1</span>
+                /
+                <span id="lightboxTotal">
+                    {{ $fotoDashboard->count() }}
+                </span>
+            </div>
+
         </div>
+
+        <button
+            type="button"
+            class="lightbox-arrow lightbox-next"
+            id="lightboxNext"
+            aria-label="Foto berikutnya"
+        >
+            <i class="fas fa-chevron-right"></i>
+        </button>
 
     </div>
 
-    <button
-        type="button"
-        class="lightbox-arrow lightbox-next"
-        id="lightboxNext"
-        aria-label="Foto berikutnya"
-    >
-        <i class="fas fa-chevron-right"></i>
-    </button>
 
-</div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
 
-<script>
-document.addEventListener('DOMContentLoaded', function () {
+            const photos = document.querySelectorAll(
+                '.donor-gallery-photo'
+            );
 
-    const photos = document.querySelectorAll('.donor-gallery-photo');
-    const lightbox = document.getElementById('photoLightbox');
-    const image = document.getElementById('lightboxImage');
-    const prevButton = document.getElementById('lightboxPrev');
-    const nextButton = document.getElementById('lightboxNext');
-    const currentNumber = document.getElementById('lightboxCurrent');
+            const lightbox = document.getElementById(
+                'photoLightbox'
+            );
 
-    if (
-        !photos.length ||
-        !lightbox ||
-        !image ||
-        !prevButton ||
-        !nextButton
-    ) {
-        return;
-    }
+            const image = document.getElementById(
+                'lightboxImage'
+            );
 
-    let currentIndex = 0;
-    let touchStartX = 0;
+            const prevButton = document.getElementById(
+                'lightboxPrev'
+            );
 
-    function showPhoto(index) {
+            const nextButton = document.getElementById(
+                'lightboxNext'
+            );
 
-        if (index < 0) {
-            index = photos.length - 1;
-        }
+            const currentNumber = document.getElementById(
+                'lightboxCurrent'
+            );
 
-        if (index >= photos.length) {
-            index = 0;
-        }
-
-        const photoImage = photos[index].querySelector('img');
-
-        if (!photoImage) {
-            return;
-        }
-
-        currentIndex = index;
-
-        image.src = photoImage.src;
-        image.alt = photoImage.alt;
-
-        currentNumber.textContent = index + 1;
-    }
-
-    function openLightbox(index) {
-
-        showPhoto(index);
-
-        lightbox.classList.add('show');
-
-        lightbox.setAttribute(
-            'aria-hidden',
-            'false'
-        );
-
-        document.body.classList.add('lightbox-open');
-    }
-
-    function closeLightbox() {
-
-        lightbox.classList.remove('show');
-
-        lightbox.setAttribute(
-            'aria-hidden',
-            'true'
-        );
-
-        document.body.classList.remove('lightbox-open');
-
-        image.src = '';
-    }
-
-    photos.forEach(function (photo, index) {
-
-        photo.addEventListener('click', function () {
-            openLightbox(index);
-        });
-
-    });
-
-    prevButton.addEventListener('click', function (event) {
-
-        event.stopPropagation();
-
-        showPhoto(currentIndex - 1);
-
-    });
-
-    nextButton.addEventListener('click', function (event) {
-
-        event.stopPropagation();
-
-        showPhoto(currentIndex + 1);
-
-    });
-
-    image.addEventListener('click', function (event) {
-        event.stopPropagation();
-    });
-
-    lightbox.addEventListener('click', function (event) {
-
-        if (event.target === lightbox) {
-            closeLightbox();
-        }
-
-    });
-
-    document.addEventListener('keydown', function (event) {
-
-        if (!lightbox.classList.contains('show')) {
-            return;
-        }
-
-        if (event.key === 'Escape') {
-            closeLightbox();
-            return;
-        }
-
-        if (event.key === 'ArrowLeft') {
-            showPhoto(currentIndex - 1);
-            return;
-        }
-
-        if (event.key === 'ArrowRight') {
-            showPhoto(currentIndex + 1);
-        }
-
-    });
-
-    image.addEventListener(
-        'touchstart',
-        function (event) {
-            touchStartX = event.changedTouches[0].screenX;
-        },
-        { passive: true }
-    );
-
-    image.addEventListener(
-        'touchend',
-        function (event) {
-
-            const touchEndX =
-                event.changedTouches[0].screenX;
-
-            const distance =
-                touchEndX - touchStartX;
-
-            if (Math.abs(distance) < 50) {
+            if (
+                !photos.length ||
+                !lightbox ||
+                !image ||
+                !prevButton ||
+                !nextButton
+            ) {
                 return;
             }
 
-            if (distance < 0) {
-                showPhoto(currentIndex + 1);
-            } else {
-                showPhoto(currentIndex - 1);
+            let currentIndex = 0;
+            let touchStartX = 0;
+
+
+            // Tampilkan foto
+            function showPhoto(index) {
+
+                if (index < 0) {
+                    index = photos.length - 1;
+                }
+
+                if (index >= photos.length) {
+                    index = 0;
+                }
+
+                const photoImage =
+                    photos[index].querySelector('img');
+
+                if (!photoImage) {
+                    return;
+                }
+
+                currentIndex = index;
+
+                image.src = photoImage.src;
+                image.alt = photoImage.alt;
+
+                currentNumber.textContent = index + 1;
             }
 
-        },
-        { passive: true }
-    );
 
-});
-</script>
+            // Buka lightbox
+            function openLightbox(index) {
+
+                showPhoto(index);
+
+                lightbox.classList.add('show');
+
+                lightbox.setAttribute(
+                    'aria-hidden',
+                    'false'
+                );
+
+                document.body.classList.add(
+                    'lightbox-open'
+                );
+            }
+
+
+            // Tutup lightbox
+            function closeLightbox() {
+
+                lightbox.classList.remove('show');
+
+                lightbox.setAttribute(
+                    'aria-hidden',
+                    'true'
+                );
+
+                document.body.classList.remove(
+                    'lightbox-open'
+                );
+
+                image.src = '';
+            }
+
+
+            // Klik foto
+            photos.forEach(function (photo, index) {
+
+                photo.addEventListener(
+                    'click',
+                    function () {
+                        openLightbox(index);
+                    }
+                );
+
+            });
+
+
+            // Foto sebelumnya
+            prevButton.addEventListener(
+                'click',
+                function (event) {
+
+                    event.stopPropagation();
+
+                    showPhoto(
+                        currentIndex - 1
+                    );
+
+                }
+            );
+
+
+            // Foto berikutnya
+            nextButton.addEventListener(
+                'click',
+                function (event) {
+
+                    event.stopPropagation();
+
+                    showPhoto(
+                        currentIndex + 1
+                    );
+
+                }
+            );
+
+
+            // Klik gambar
+            image.addEventListener(
+                'click',
+                function (event) {
+                    event.stopPropagation();
+                }
+            );
+
+
+            // Tutup saat klik luar
+            lightbox.addEventListener(
+                'click',
+                function (event) {
+
+                    if (event.target === lightbox) {
+                        closeLightbox();
+                    }
+
+                }
+            );
+
+
+            // Keyboard
+            document.addEventListener(
+                'keydown',
+                function (event) {
+
+                    if (!lightbox.classList.contains('show')) {
+                        return;
+                    }
+
+                    if (event.key === 'Escape') {
+                        closeLightbox();
+                        return;
+                    }
+
+                    if (event.key === 'ArrowLeft') {
+                        showPhoto(currentIndex - 1);
+                        return;
+                    }
+
+                    if (event.key === 'ArrowRight') {
+                        showPhoto(currentIndex + 1);
+                    }
+
+                }
+            );
+
+
+            // Geser foto di HP
+            image.addEventListener(
+                'touchstart',
+                function (event) {
+
+                    touchStartX =
+                        event.changedTouches[0].screenX;
+
+                },
+                { passive: true }
+            );
+
+
+            image.addEventListener(
+                'touchend',
+                function (event) {
+
+                    const touchEndX =
+                        event.changedTouches[0].screenX;
+
+                    const distance =
+                        touchEndX - touchStartX;
+
+                    if (Math.abs(distance) < 50) {
+                        return;
+                    }
+
+                    if (distance < 0) {
+                        showPhoto(currentIndex + 1);
+                    } else {
+                        showPhoto(currentIndex - 1);
+                    }
+
+                },
+                { passive: true }
+            );
+
+        });
+    </script>
 
 @endif
 

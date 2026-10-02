@@ -42,6 +42,46 @@ body {
     display: block;
 
     z-index: 0;
+
+    opacity: 0;
+
+    transition: opacity 0.35s ease;
+}
+
+
+/* Background Pendonor */
+
+.login-background-pendonor {
+    opacity: 1;
+}
+
+
+/* Background Petugas */
+
+.login-background-petugas {
+    opacity: 0;
+}
+
+
+/* Mode Pendonor */
+
+.login-page.login-pendonor .login-background-pendonor {
+    opacity: 1;
+}
+
+.login-page.login-pendonor .login-background-petugas {
+    opacity: 0;
+}
+
+
+/* Mode Petugas */
+
+.login-page.login-petugas .login-background-pendonor {
+    opacity: 0;
+}
+
+.login-page.login-petugas .login-background-petugas {
+    opacity: 1;
 }
 
 
@@ -57,6 +97,13 @@ body {
     background: rgba(70, 15, 30, 0.12);
 
     z-index: 1;
+}
+
+
+/* Overlay Petugas */
+
+.login-page.login-petugas::before {
+    background: rgba(58, 12, 27, 0.48);
 }
 
 
@@ -105,7 +152,21 @@ body {
     color: #d93659;
 
     font-size: 24px;
+
+    transition: 0.25s ease;
 }
+
+
+/* Icon Petugas */
+
+.login-petugas .login-icon {
+    background: #fff0f3;
+
+    color: #c12f4e;
+}
+
+
+/* Judul */
 
 .login-header h1 {
     margin: 0;
@@ -152,6 +213,8 @@ body {
     font-size: 11px;
 
     line-height: 1.5;
+
+    border: 1px solid #ffdce2;
 }
 
 
@@ -199,6 +262,15 @@ body {
     color: #b59da3;
 }
 
+.form-group select {
+    cursor: pointer;
+}
+
+.form-group input:hover,
+.form-group select:hover {
+    border-color: #dfc1c9;
+}
+
 .form-group input:focus,
 .form-group select:focus {
     border-color: #d93659;
@@ -224,9 +296,18 @@ body {
     right: 13px;
     top: 50%;
 
+    width: 28px;
+    height: 28px;
+
     transform: translateY(-50%);
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     border: none;
+
+    border-radius: 8px;
 
     background: transparent;
 
@@ -235,9 +316,13 @@ body {
     cursor: pointer;
 
     font-size: 15px;
+
+    transition: 0.2s ease;
 }
 
 .password-toggle:hover {
+    background: #fff0f3;
+
     color: #d93659;
 }
 

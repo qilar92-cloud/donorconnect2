@@ -10,12 +10,12 @@ class RoleMiddleware
 {
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
-        // Cek apakah sudah login
+        // Cek login
         if (!auth()->check()) {
             return redirect()->route('login');
         }
 
-        // Cek role pengguna
+        // Cek role
         if (!in_array(auth()->user()->role, $roles)) {
             abort(
                 403,

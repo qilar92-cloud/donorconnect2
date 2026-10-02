@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.pendonor')
 
 @section('title', 'Detail Kegiatan Donor - DonorConnect')
 

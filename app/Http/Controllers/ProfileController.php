@@ -17,11 +17,11 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         // Profil Petugas
-        if ($user->role === 'petugas') {
+        if ($user->role === 'admin') {
 
             $petugas = PetugasPMR::with('user')
                 ->where('id_user', $user->id_user)
-                ->firstOrFail();
+                ->first();
 
             return view(
                 'pages.petugas.profile.profile-petugas',
@@ -30,7 +30,7 @@ class ProfileController extends Controller
         }
 
         // Profil Pendonor
-        if ($user->role === 'pendonor') {
+        if ($user->role === 'user') {
 
             $pendonor = Pendonor::with('user')
                 ->where('id_user', $user->id_user)
@@ -52,11 +52,11 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         // Edit profil Petugas
-        if ($user->role === 'petugas') {
+        if ($user->role === 'admin') {
 
             $petugas = PetugasPMR::with('user')
                 ->where('id_user', $user->id_user)
-                ->firstOrFail();
+                ->first();
 
             return view(
                 'pages.petugas.profile.edit',
@@ -65,7 +65,7 @@ class ProfileController extends Controller
         }
 
         // Edit profil Pendonor
-        if ($user->role === 'pendonor') {
+        if ($user->role === 'user') {
 
             $pendonor = Pendonor::with('user')
                 ->where('id_user', $user->id_user)
@@ -110,7 +110,6 @@ class ProfileController extends Controller
             ],
         ]);
 
-
         // Update akun
         $user->nama = $data['nama'];
         $user->email = $data['email'];
@@ -125,7 +124,7 @@ class ProfileController extends Controller
 
 
         // Update profil Pendonor
-        if ($user->role === 'pendonor') {
+        if ($user->role === 'user') {
 
             $pendonorData = $request->validate([
                 'status' => [
@@ -180,15 +179,7 @@ class ProfileController extends Controller
 
 
         // Update profil Petugas
-        if ($user->role === 'petugas') {
-
-            $petugas = PetugasPMR::where(
-                'id_user',
-                $user->id_user
-            )->firstOrFail();
-
-            // Tidak ada field tambahan
-            // selain data akun pada rancangan saat ini.
+        if ($user->role === 'admin') {
 
             return redirect()
                 ->route('profile.petugas')
