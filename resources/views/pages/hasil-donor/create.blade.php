@@ -119,6 +119,23 @@
                 @endif
 
 
+                {{-- Notifikasi --}}
+
+                @if (session('error'))
+
+                    <div class="error-box">
+
+                        <i class="fas fa-exclamation-circle"></i>
+
+                        <div>
+                            {{ session('error') }}
+                        </div>
+
+                    </div>
+
+                @endif
+
+
                 {{-- Success --}}
 
                 @if (session('success'))
@@ -139,6 +156,7 @@
                 <form
                     action="{{ route('hasil-donor.store') }}"
                     method="POST"
+                    id="hasilDonorForm"
                 >
 
                     @csrf
@@ -148,7 +166,7 @@
 
                     <div class="form-group">
 
-                        <label>
+                        <label for="id_pendonor">
                             <i class="fas fa-user"></i>
                             Pendonor
                         </label>
@@ -157,6 +175,7 @@
 
                             <select
                                 name="id_pendonor"
+                                id="id_pendonor"
                                 class="donor-input"
                                 required
                             >
@@ -189,7 +208,7 @@
 
                     <div class="form-group">
 
-                        <label>
+                        <label for="id_kegiatan">
                             <i class="fas fa-calendar-alt"></i>
                             Kegiatan
                         </label>
@@ -198,6 +217,7 @@
 
                             <select
                                 name="id_kegiatan"
+                                id="id_kegiatan"
                                 class="donor-input"
                                 required
                             >
@@ -210,9 +230,12 @@
 
                                     <option
                                         value="{{ $item->id_kegiatan }}"
+                                        data-tanggal="{{ \Carbon\Carbon::parse($item->tanggal)->format('Y-m-d') }}"
                                         {{ old('id_kegiatan') == $item->id_kegiatan ? 'selected' : '' }}
                                     >
                                         {{ $item->nama_kegiatan }}
+                                        —
+                                        {{ \Carbon\Carbon::parse($item->tanggal)->format('d/m/Y') }}
                                     </option>
 
                                 @endforeach
@@ -223,31 +246,70 @@
 
                         </div>
 
+                        <small class="form-hint">
+                            Hanya kegiatan yang sudah berlangsung dan memiliki pendaftaran aktif yang tersedia.
+                        </small>
+
                     </div>
 
 
-                    {{-- Tanggal dan jumlah darah --}}
+                    {{-- Tanggal --}}
+
+                    <div class="form-group">
+
+                        <label for="tanggal_donor">
+                            <i class="fas fa-calendar-day"></i>
+                            Tanggal Donor
+                        </label>
+
+                        <div class="input-icon">
+
+                            <input
+                                type="date"
+                                name="tanggal_donor"
+                                id="tanggal_donor"
+                                value="{{ old('tanggal_donor') }}"
+                                class="donor-input"
+                                required
+                            >
+
+                            <i class="fas fa-calendar-alt"></i>
+
+                        </div>
+
+                        <small class="form-hint">
+                            Tanggal donor harus sesuai dengan tanggal kegiatan.
+                        </small>
+
+                    </div>
+
+
+                    {{-- Jumlah dan volume --}}
 
                     <div class="two-column">
 
                         <div class="form-group">
 
-                            <label>
-                                <i class="fas fa-calendar-day"></i>
-                                Tanggal Donor
+                            <label for="jumlah_kantong">
+                                <i class="fas fa-tint"></i>
+                                Jumlah Kantong
                             </label>
 
                             <div class="input-icon">
 
                                 <input
-                                    type="date"
-                                    name="tanggal_donor"
-                                    value="{{ old('tanggal_donor') }}"
+                                    type="number"
+                                    name="jumlah_kantong"
+                                    id="jumlah_kantong"
+                                    value="{{ old('jumlah_kantong', 1) }}"
                                     class="donor-input"
+                                    min="1"
                                     required
                                 >
 
-                                <i class="fas fa-calendar-alt"></i>
+                                <span class="unit-label">
+                                    kantong
+                                </span>
 
                             </div>
 
@@ -256,23 +318,24 @@
 
                         <div class="form-group">
 
-                            <label>
-                                <i class="fas fa-tint"></i>
-                                Jumlah Darah (mL)
+                            <label for="volume_ml">
+                                <i class="fas fa-flask"></i>
+                                Volume Darah
                             </label>
 
                             <div class="input-icon">
 
                                 <input
                                     type="number"
-                                    name="jumlah_kantong"
-                                    value="{{ old('jumlah_kantong', 450) }}"
+                                    name="volume_ml"
+                                    id="volume_ml"
+                                    value="{{ old('volume_ml', 450) }}"
                                     class="donor-input"
                                     min="1"
                                     required
                                 >
 
-                                <span class="ml-label">
+                                <span class="unit-label">
                                     mL
                                 </span>
 
@@ -287,13 +350,14 @@
 
                     <div class="form-group">
 
-                        <label>
+                        <label for="keterangan">
                             <i class="fas fa-clipboard-check"></i>
                             Keterangan
                         </label>
 
                         <textarea
                             name="keterangan"
+                            id="keterangan"
                             class="donor-input textarea-input"
                             rows="3"
                             placeholder="Contoh: Sehat"
@@ -460,5 +524,45 @@
     </div>
 
 </div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const kegiatanSelect = document.getElementById('id_kegiatan');
+    const tanggalInput = document.getElementById('tanggal_donor');
+
+    if (!kegiatanSelect || !tanggalInput) {
+        return;
+    }
+
+    function isiTanggalKegiatan() {
+
+        const selectedOption =
+            kegiatanSelect.options[kegiatanSelect.selectedIndex];
+
+        if (!selectedOption) {
+            return;
+        }
+
+        const tanggal =
+            selectedOption.getAttribute('data-tanggal');
+
+        if (tanggal) {
+            tanggalInput.value = tanggal;
+        }
+    }
+
+    kegiatanSelect.addEventListener(
+        'change',
+        isiTanggalKegiatan
+    );
+
+    if (kegiatanSelect.value) {
+        isiTanggalKegiatan();
+    }
+
+});
+</script>
 
 @endsection

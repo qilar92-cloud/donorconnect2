@@ -12,7 +12,7 @@
 
     <div class="detail-card">
 
-        {{-- HEADER --}}
+        {{-- Header --}}
 
         <div class="detail-header">
 
@@ -40,7 +40,7 @@
         </div>
 
 
-        {{-- INFORMASI --}}
+        {{-- Informasi --}}
 
         <div class="information">
 
@@ -59,7 +59,7 @@
 
             <div class="data-grid">
 
-                {{-- NAMA --}}
+                {{-- Nama --}}
 
                 <div class="data-item">
 
@@ -80,28 +80,7 @@
                 </div>
 
 
-                {{-- USERNAME --}}
-
-                <div class="data-item">
-
-                    <div class="data-icon">
-                        <i class="fas fa-at"></i>
-                    </div>
-
-                    <div class="data-content">
-
-                        <label>Username</label>
-
-                        <p>
-                            {{ $pendonor->user->username ?? '-' }}
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                {{-- EMAIL --}}
+                {{-- Email --}}
 
                 <div class="data-item">
 
@@ -122,7 +101,7 @@
                 </div>
 
 
-                {{-- STATUS --}}
+                {{-- Status --}}
 
                 <div class="data-item">
 
@@ -143,7 +122,7 @@
                 </div>
 
 
-                {{-- KELAS / JABATAN --}}
+                {{-- Kelas / Jabatan --}}
 
                 <div class="data-item">
 
@@ -164,7 +143,7 @@
                 </div>
 
 
-                {{-- TANGGAL LAHIR --}}
+                {{-- Tanggal Lahir --}}
 
                 <div class="data-item">
 
@@ -188,7 +167,7 @@
                 </div>
 
 
-                {{-- GOLONGAN DARAH --}}
+                {{-- Golongan Darah --}}
 
                 <div class="data-item">
 
@@ -209,7 +188,7 @@
                 </div>
 
 
-                {{-- NO TELEPON --}}
+                {{-- No. Telepon --}}
 
                 <div class="data-item">
 
@@ -230,7 +209,7 @@
                 </div>
 
 
-                {{-- INFORMASI KESEHATAN --}}
+                {{-- Informasi Kesehatan --}}
 
                 <div class="data-item health-item">
 
@@ -255,7 +234,7 @@
         </div>
 
 
-        {{-- FOOTER --}}
+        {{-- Footer --}}
 
         <div class="card-footer">
 
@@ -282,3 +261,4 @@
 </div>
 
 @endsection
+

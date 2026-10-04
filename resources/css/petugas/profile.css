@@ -2,6 +2,7 @@
 
 .profile-page {
     min-height: calc(100vh - 70px);
+
     padding: 22px 25px 35px;
 
     background: #fff8f5;
@@ -40,12 +41,12 @@
     background:
         radial-gradient(
             circle at 10% 20%,
-            rgba(255,255,255,.10) 0 35px,
+            rgba(255, 255, 255, .10) 0 35px,
             transparent 36px
         ),
         radial-gradient(
             circle at 92% 15%,
-            rgba(255,255,255,.08) 0 30px,
+            rgba(255, 255, 255, .08) 0 30px,
             transparent 31px
         ),
         linear-gradient(
@@ -54,7 +55,7 @@
             #c92f55
         );
 
-    color: #fff;
+    color: #ffffff;
 }
 
 
@@ -70,9 +71,9 @@
     align-items: center;
     justify-content: center;
 
-    background: rgba(255,255,255,.16);
+    background: rgba(255, 255, 255, .16);
 
-    border: 3px solid rgba(255,255,255,.65);
+    border: 3px solid rgba(255, 255, 255, .65);
     border-radius: 50%;
 
     color: #ffffff;
@@ -80,7 +81,7 @@
     font-size: 25px;
 
     box-shadow:
-        0 7px 18px rgba(100,20,45,.15);
+        0 7px 18px rgba(100, 20, 45, .15);
 }
 
 
@@ -111,9 +112,9 @@
 
     gap: 6px;
 
-    background: rgba(255,255,255,.16);
+    background: rgba(255, 255, 255, .16);
 
-    border: 1px solid rgba(255,255,255,.20);
+    border: 1px solid rgba(255, 255, 255, .20);
 
     border-radius: 20px;
 
@@ -163,7 +164,10 @@
 
     overflow: hidden;
 
-    transition: .2s ease;
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        transform .2s ease;
 }
 
 .data-item::before {
@@ -190,7 +194,7 @@
     border-color: #e6b9c7;
 
     box-shadow:
-        0 5px 14px rgba(190,45,82,.07);
+        0 5px 14px rgba(190, 45, 82, .07);
 }
 
 
@@ -220,6 +224,7 @@
 
 .data-text {
     min-width: 0;
+
     flex: 1;
 }
 
@@ -318,9 +323,11 @@
     font-weight: 800;
 
     box-shadow:
-        0 6px 14px rgba(201,47,85,.16);
+        0 6px 14px rgba(201, 47, 85, .16);
 
-    transition: .2s ease;
+    transition:
+        transform .2s ease,
+        background .2s ease;
 }
 
 .edit-button:hover {
@@ -346,6 +353,7 @@
 
     .profile-card {
         max-width: 680px;
+
         border-radius: 16px;
     }
 
@@ -446,11 +454,11 @@
     }
 
     .data-text span {
-        font-size: 7px;
+        font-size: 8px;
     }
 
     .data-text strong {
-        font-size: 10px;
+        font-size: 11px;
     }
 
     .data-number {
@@ -498,6 +506,10 @@
         font-size: 16px;
     }
 
+    .profile-role {
+        font-size: 8px;
+    }
+
     .profile-body {
         padding: 12px 9px;
     }
@@ -513,10 +525,16 @@
         height: 32px;
 
         min-width: 32px;
+
+        font-size: 9px;
+    }
+
+    .data-text span {
+        font-size: 8px;
     }
 
     .data-text strong {
-        font-size: 9px;
+        font-size: 10px;
     }
 
     .data-number {
@@ -527,3 +545,4 @@
         padding: 10px;
     }
 }
+

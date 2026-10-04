@@ -188,6 +188,11 @@
     line-height: 1;
 }
 
+.summary-text small {
+    color: #ad929a;
+    font-size: 7px;
+}
+
 
 /* Card utama */
 
@@ -235,30 +240,11 @@
 
 /* Daftar */
 
-.history-scroll {
-    max-height: 570px;
-    overflow-y: auto;
-    padding: 15px 22px 20px;
-}
-
-.history-scroll::-webkit-scrollbar {
-    width: 5px;
-}
-
-.history-scroll::-webkit-scrollbar-track {
-    background: #fff7f5;
-    border-radius: 10px;
-}
-
-.history-scroll::-webkit-scrollbar-thumb {
-    background: #e8a5b6;
-    border-radius: 10px;
-}
-
 .history-list {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    padding: 15px 22px 20px;
 }
 
 
@@ -267,7 +253,7 @@
 .donor-record {
     position: relative;
     display: grid;
-    grid-template-columns: 48px minmax(0, 1fr) 105px;
+    grid-template-columns: 48px minmax(0, 1fr) 115px;
     align-items: center;
     gap: 14px;
     min-height: 105px;
@@ -405,7 +391,7 @@
 }
 
 
-/* Jumlah */
+/* Jumlah darah */
 
 .record-amount {
     align-self: stretch;
@@ -435,6 +421,14 @@
 .record-amount small {
     color: #ad929a;
     font-size: 7px;
+    font-weight: 700;
+}
+
+.record-volume {
+    margin-top: 4px;
+    color: #8f747d;
+    font-size: 8px;
+    font-weight: 700;
 }
 
 
@@ -507,7 +501,7 @@
     }
 
     .donor-record {
-        grid-template-columns: 45px minmax(0, 1fr) 90px;
+        grid-template-columns: 45px minmax(0, 1fr) 100px;
         gap: 11px;
     }
 
@@ -517,6 +511,10 @@
 
     .record-amount strong {
         font-size: 22px;
+    }
+
+    .record-volume {
+        font-size: 7px;
     }
 }
 
@@ -587,6 +585,10 @@
         font-size: 20px;
     }
 
+    .summary-text small {
+        font-size: 6px;
+    }
+
     .history-box {
         border-radius: 18px;
     }
@@ -604,13 +606,9 @@
         font-size: 7px;
     }
 
-    .history-scroll {
-        max-height: 520px;
-        padding: 11px;
-    }
-
     .history-list {
         gap: 8px;
+        padding: 11px;
     }
 
     .donor-record {
@@ -693,6 +691,11 @@
     .record-amount small {
         font-size: 7px;
     }
+
+    .record-volume {
+        margin-top: 0;
+        font-size: 7px;
+    }
 }
 
 
@@ -739,7 +742,8 @@
         margin-top: 7px;
     }
 
-    .history-scroll {
-        max-height: 470px;
+    .history-list {
+        padding: 9px;
     }
 }
+

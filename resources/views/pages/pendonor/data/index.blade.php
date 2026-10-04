@@ -306,16 +306,17 @@
                                         <form
                                             action="{{ route('pendonor.destroy', $item->id_pendonor) }}"
                                             method="POST"
-                                            onsubmit="return confirm('Yakin ingin menghapus data pendonor ini?')"
+                                            class="delete-form"
                                         >
 
                                             @csrf
                                             @method('DELETE')
 
                                             <button
-                                                type="submit"
+                                                type="button"
                                                 class="action-btn delete-btn"
                                                 title="Hapus"
+                                                onclick="openDeleteModal(this)"
                                             >
 
                                                 <svg
@@ -448,6 +449,71 @@
     </div>
 
 
+    {{-- Modal Hapus --}}
+
+    <div
+        class="delete-modal"
+        id="deleteModal"
+        aria-hidden="true"
+    >
+
+        <div
+            class="delete-modal-overlay"
+            onclick="closeDeleteModal()"
+        ></div>
+
+
+        <div class="delete-modal-card">
+
+            <div class="delete-modal-icon">
+
+                <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                >
+                    <path d="M5 7h14"/>
+                    <path d="M9 7V4h6v3"/>
+                    <path d="m7 7 1 14h8l1-14"/>
+                    <path d="M10 11v6M14 11v6"/>
+                </svg>
+
+            </div>
+
+
+            <h3>
+                Hapus Data Pendonor?
+            </h3>
+
+            <p>
+                Data pendonor yang dihapus tidak dapat dikembalikan.
+            </p>
+
+
+            <div class="delete-modal-actions">
+
+                <button
+                    type="button"
+                    class="cancel-delete"
+                    onclick="closeDeleteModal()"
+                >
+                    Batal
+                </button>
+
+                <button
+                    type="button"
+                    class="confirm-delete"
+                    id="confirmDeleteButton"
+                >
+                    Hapus Data
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
     @push('scripts')
 
         <script>
@@ -461,26 +527,100 @@
                         '#pendonorTable tbody tr'
                     );
 
-                if (!searchInput) {
-                    return;
-                }
 
-                searchInput.addEventListener('input', function () {
+                /* Search */
 
-                    const keyword =
-                        this.value.toLowerCase().trim();
+                if (searchInput) {
 
-                    rows.forEach(function (row) {
+                    searchInput.addEventListener('input', function () {
 
-                        const text =
-                            row.textContent.toLowerCase();
+                        const keyword =
+                            this.value.toLowerCase().trim();
 
-                        row.style.display =
-                            text.includes(keyword) ? '' : 'none';
+                        rows.forEach(function (row) {
+
+                            const text =
+                                row.textContent.toLowerCase();
+
+                            row.style.display =
+                                text.includes(keyword) ? '' : 'none';
+
+                        });
 
                     });
 
-                });
+                }
+
+
+                /* Modal hapus */
+
+                const modal =
+                    document.getElementById('deleteModal');
+
+                const confirmButton =
+                    document.getElementById('confirmDeleteButton');
+
+                let selectedForm = null;
+
+
+                window.openDeleteModal = function (button) {
+
+                    selectedForm =
+                        button.closest('.delete-form');
+
+                    modal.classList.add('show');
+
+                    modal.setAttribute(
+                        'aria-hidden',
+                        'false'
+                    );
+
+                };
+
+
+                window.closeDeleteModal = function () {
+
+                    modal.classList.remove('show');
+
+                    modal.setAttribute(
+                        'aria-hidden',
+                        'true'
+                    );
+
+                    selectedForm = null;
+
+                };
+
+
+                confirmButton.addEventListener(
+                    'click',
+                    function () {
+
+                        if (selectedForm) {
+
+                            selectedForm.submit();
+
+                        }
+
+                    }
+                );
+
+
+                document.addEventListener(
+                    'keydown',
+                    function (event) {
+
+                        if (
+                            event.key === 'Escape' &&
+                            modal.classList.contains('show')
+                        ) {
+
+                            closeDeleteModal();
+
+                        }
+
+                    }
+                );
 
             });
         </script>
@@ -488,3 +628,4 @@
     @endpush
 
 @endsection
+

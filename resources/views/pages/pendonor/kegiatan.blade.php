@@ -10,6 +10,8 @@
 
 <div class="donor-page">
 
+    {{-- Banner --}}
+
     <div class="donor-banner">
 
         <div class="banner-main">
@@ -18,47 +20,82 @@
                 DONORCONNECT • PENDONOR
             </div>
 
-            <h1>Kegiatan Donor</h1>
+            <h1>
+                Kegiatan Donor
+            </h1>
 
             <p>
                 Pilih jadwal donor yang ingin kamu ikuti.
             </p>
 
             <div class="banner-meta">
+
                 <i class="fas fa-calendar-check"></i>
+
                 {{ $kegiatan->count() }} kegiatan tersedia
+
             </div>
 
         </div>
 
+
         <div class="banner-art">
+
             <div class="art-circle"></div>
 
+
             <div class="art-card">
+
                 <i class="fas fa-tint"></i>
-                <span>DONOR</span>
+
+                <span>
+                    DONOR
+                </span>
+
             </div>
 
+
             <div class="art-heart">
+
                 <i class="fas fa-heart"></i>
+
             </div>
+
         </div>
 
     </div>
 
 
+    {{-- Statistik singkat --}}
+
     <div class="quick-row">
 
+
         <div class="quick-card">
+
             <div class="quick-icon">
+
                 <i class="fas fa-calendar-day"></i>
+
             </div>
 
+
             <div>
-                <small>KEGIATAN</small>
-                <strong>{{ $kegiatan->count() }}</strong>
-                <span>Tersedia</span>
+
+                <small>
+                    KEGIATAN
+                </small>
+
+                <strong>
+                    {{ $kegiatan->count() }}
+                </strong>
+
+                <span>
+                    Tersedia
+                </span>
+
             </div>
+
         </div>
 
 
@@ -66,46 +103,75 @@
             href="{{ route('pendonor.status') }}"
             class="quick-card quick-link"
         >
+
             <div class="quick-icon">
+
                 <i class="fas fa-clipboard-list"></i>
+
             </div>
+
 
             <div>
-                <small>PENDAFTARAN</small>
-                <strong>→</strong>
-                <span>Lihat status</span>
+
+                <small>
+                    PENDAFTARAN
+                </small>
+
+                <strong>
+                    →
+                </strong>
+
+                <span>
+                    Lihat status
+                </span>
+
             </div>
 
+
             <i class="fas fa-arrow-right quick-arrow"></i>
+
         </a>
 
     </div>
 
 
+    {{-- Pencarian --}}
+
     <div class="search-card">
 
         <div class="search-icon">
+
             <i class="fas fa-search"></i>
+
         </div>
+
 
         <input
             type="text"
             id="searchKegiatan"
             placeholder="Cari kegiatan atau lokasi..."
+            autocomplete="off"
         >
 
     </div>
 
 
+    {{-- Judul section --}}
+
     <div class="section-top">
 
         <div>
+
             <span class="section-label">
                 JADWAL DONOR
             </span>
 
-            <h2>Kegiatan yang tersedia</h2>
+            <h2>
+                Kegiatan yang tersedia
+            </h2>
+
         </div>
+
 
         <span
             class="result-count"
@@ -117,6 +183,8 @@
     </div>
 
 
+    {{-- Daftar kegiatan --}}
+
     <div
         class="event-list"
         id="eventGrid"
@@ -126,8 +194,13 @@
 
             <div
                 class="event-card"
-                data-search="{{ strtolower($item->nama_kegiatan . ' ' . $item->lokasi) }}"
+                data-search="{{ strtolower(
+                    $item->nama_kegiatan . ' ' . $item->lokasi
+                ) }}"
             >
+
+
+                {{-- Tanggal --}}
 
                 <div class="date-box">
 
@@ -146,14 +219,22 @@
                 </div>
 
 
+                {{-- Informasi kegiatan --}}
+
                 <div class="event-content">
 
                     <div class="event-heading">
 
+                        {{-- Label UI, bukan field status database --}}
+
                         <span class="available">
+
                             <i class="fas fa-circle"></i>
+
                             Tersedia
+
                         </span>
+
 
                         <h3>
                             {{ $item->nama_kegiatan }}
@@ -165,38 +246,59 @@
                     <div class="event-details">
 
                         <span>
+
                             <i class="fas fa-clock"></i>
+
                             {{ $item->waktu }}
+
                         </span>
 
+
                         <span>
+
                             <i class="fas fa-map-marker-alt"></i>
+
                             {{ $item->lokasi }}
+
                         </span>
 
                     </div>
 
 
                     @if ($item->keterangan)
+
                         <div class="event-note">
+
                             {{ $item->keterangan }}
+
                         </div>
+
                     @endif
 
 
                     <div class="event-footer">
 
                         <span class="event-purpose">
+
                             <i class="fas fa-heart"></i>
+
                             Donor darah
+
                         </span>
 
+
                         <a
-                            href="{{ route('pendonor.kegiatan.show', $item->id_kegiatan) }}"
+                            href="{{ route(
+                                'pendonor.kegiatan.show',
+                                $item->id_kegiatan
+                            ) }}"
                             class="detail-button"
                         >
+
                             Lihat Detail
+
                             <i class="fas fa-arrow-right"></i>
+
                         </a>
 
                     </div>
@@ -207,13 +309,21 @@
 
         @empty
 
+            {{-- Tidak ada kegiatan --}}
+
             <div class="empty-state">
 
                 <div class="empty-icon">
+
                     <i class="fas fa-calendar-times"></i>
+
                 </div>
 
-                <h3>Belum Ada Kegiatan</h3>
+
+                <h3>
+                    Belum Ada Kegiatan
+                </h3>
+
 
                 <p>
                     Belum ada jadwal donor yang tersedia.
@@ -228,41 +338,93 @@
 </div>
 
 
+{{-- Pencarian kegiatan --}}
+
 <script>
-document.addEventListener('DOMContentLoaded', function () {
 
-    const searchInput = document.getElementById('searchKegiatan');
-    const cards = document.querySelectorAll('.event-card');
-    const counter = document.getElementById('jumlahKegiatan');
+document.addEventListener(
+    'DOMContentLoaded',
+    function () {
 
-    if (!searchInput) {
-        return;
-    }
+        const searchInput =
+            document.getElementById(
+                'searchKegiatan'
+            );
 
-    searchInput.addEventListener('input', function () {
+        const cards =
+            document.querySelectorAll(
+                '.event-card'
+            );
 
-        const keyword = this.value.toLowerCase().trim();
+        const counter =
+            document.getElementById(
+                'jumlahKegiatan'
+            );
 
-        let total = 0;
 
-        cards.forEach(function (card) {
+        if (
+            !searchInput ||
+            !counter
+        ) {
 
-            const text = card.dataset.search || '';
+            return;
 
-            if (text.includes(keyword)) {
-                card.style.display = '';
-                total++;
-            } else {
-                card.style.display = 'none';
+        }
+
+
+        searchInput.addEventListener(
+            'input',
+            function () {
+
+                const keyword =
+                    this.value
+                        .toLowerCase()
+                        .trim();
+
+
+                let total = 0;
+
+
+                cards.forEach(
+                    function (card) {
+
+                        const text =
+                            card.dataset.search ||
+                            '';
+
+
+                        if (
+                            text.includes(
+                                keyword
+                            )
+                        ) {
+
+                            card.style.display =
+                                '';
+
+                            total++;
+
+                        } else {
+
+                            card.style.display =
+                                'none';
+
+                        }
+
+                    }
+                );
+
+
+                counter.textContent =
+                    total;
+
             }
+        );
 
-        });
+    }
+);
 
-        counter.textContent = total;
-
-    });
-
-});
 </script>
 
 @endsection
+

@@ -169,6 +169,7 @@ class ProfileController extends Controller
 
             $pendonor->update($pendonorData);
 
+            // Kembali ke Profil Saya
             return redirect()
                 ->route('profile.pendonor')
                 ->with(
@@ -193,3 +194,4 @@ class ProfileController extends Controller
         abort(403);
     }
 }
+

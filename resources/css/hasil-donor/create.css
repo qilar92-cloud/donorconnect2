@@ -344,6 +344,21 @@ body {
 }
 
 
+/* Petunjuk */
+
+.form-hint {
+    display: block;
+
+    margin-top: 6px;
+    padding-left: 2px;
+
+    color: #a58f97;
+
+    font-size: 8.5px;
+    line-height: 1.45;
+}
+
+
 /* Input */
 
 .donor-input {
@@ -428,7 +443,7 @@ body {
 }
 
 .input-icon .donor-input {
-    padding-right: 38px;
+    padding-right: 72px;
 }
 
 .input-icon > i {
@@ -446,7 +461,7 @@ body {
     pointer-events: none;
 }
 
-.ml-label {
+.unit-label {
     position: absolute;
 
     right: 13px;
@@ -460,6 +475,17 @@ body {
     font-weight: 800;
 
     pointer-events: none;
+}
+
+
+/* Tanggal */
+
+.form-group > .input-icon input[type="date"] {
+    padding-right: 38px;
+}
+
+.form-group > .input-icon input[type="date"] + i {
+    display: block;
 }
 
 
@@ -481,25 +507,44 @@ body {
     display: flex;
     align-items: flex-start;
 
-    gap: 9px;
+    gap: 10px;
 
-    padding: 11px 13px;
+    padding: 12px 14px;
     margin-bottom: 16px;
 
-    border-radius: 10px;
+    border-radius: 12px;
 
     font-size: 10.5px;
     line-height: 1.5;
 }
 
+.error-box i,
+.success-box i {
+    flex-shrink: 0;
+
+    margin-top: 1px;
+
+    font-size: 13px;
+}
+
 .error-box {
-    background: #fff0f2;
+    border: 1px solid #f4cdd5;
+
+    background: #fff2f4;
+
     color: #a80e2c;
+
+    box-shadow: 0 4px 12px rgba(168, 14, 44, .04);
 }
 
 .success-box {
+    border: 1px solid #ccebd9;
+
     background: #eefaf3;
+
     color: #28804d;
+
+    box-shadow: 0 4px 12px rgba(40, 128, 77, .04);
 }
 
 
@@ -1171,6 +1216,12 @@ body {
         font-size: 10.5px;
     }
 
+    .form-hint {
+        margin-top: 5px;
+
+        font-size: 7.5px;
+    }
+
     .select-wrapper select {
         padding-right: 33px;
     }
@@ -1191,7 +1242,7 @@ body {
     }
 
     .input-icon .donor-input {
-        padding-right: 32px;
+        padding-right: 57px;
     }
 
     .input-icon > i {
@@ -1199,14 +1250,32 @@ body {
         font-size: 10px;
     }
 
-    .ml-label {
+    .unit-label {
         right: 11px;
         font-size: 8px;
+    }
+
+    .form-group > .input-icon input[type="date"] {
+        padding-right: 32px;
     }
 
     .textarea-input {
         height: 72px;
         min-height: 72px;
+    }
+
+    .error-box,
+    .success-box {
+        padding: 10px 11px;
+
+        gap: 8px;
+
+        font-size: 9px;
+    }
+
+    .error-box i,
+    .success-box i {
+        font-size: 12px;
     }
 
     .form-actions {
@@ -1413,6 +1482,10 @@ body {
         font-size: 10px;
     }
 
+    .form-hint {
+        font-size: 7px;
+    }
+
     .two-column {
         gap: 6px;
     }
@@ -1421,9 +1494,29 @@ body {
         font-size: 8px;
     }
 
+    .unit-label {
+        right: 10px;
+        font-size: 7.5px;
+    }
+
+    .input-icon .donor-input {
+        padding-right: 50px;
+    }
+
+    .form-group > .input-icon input[type="date"] {
+        padding-right: 31px;
+    }
+
     .textarea-input {
         height: 68px;
         min-height: 68px;
+    }
+
+    .error-box,
+    .success-box {
+        padding: 9px 10px;
+
+        font-size: 8.5px;
     }
 
     .form-actions {

@@ -35,7 +35,6 @@
 
         </div>
 
-
         {{-- Body --}}
         <div class="edit-body">
 
@@ -68,7 +67,6 @@
 
             @endif
 
-
             <form
                 action="{{ route('profile.petugas.update') }}"
                 method="POST"
@@ -76,7 +74,6 @@
 
                 @csrf
                 @method('PUT')
-
 
                 {{-- Data Petugas --}}
                 @if(isset($petugas))
@@ -107,15 +104,12 @@
                             </div>
 
                             @error('nama')
-
                                 <small class="error-text">
                                     {{ $message }}
                                 </small>
-
                             @enderror
 
                         </div>
-
 
                         {{-- Email --}}
                         <div class="form-group">
@@ -141,87 +135,12 @@
                             </div>
 
                             @error('email')
-
                                 <small class="error-text">
                                     {{ $message }}
                                 </small>
-
                             @enderror
 
                         </div>
-
-
-                        {{-- Jabatan --}}
-                        @if(isset($petugas->jabatan))
-
-                            <div class="form-group">
-
-                                <label for="jabatan">
-                                    Jabatan
-                                </label>
-
-                                <div class="input-box">
-
-                                    <i class="fas fa-id-badge"></i>
-
-                                    <input
-                                        type="text"
-                                        id="jabatan"
-                                        name="jabatan"
-                                        value="{{ old('jabatan', $petugas->jabatan) }}"
-                                        placeholder="Masukkan jabatan"
-                                    >
-
-                                </div>
-
-                                @error('jabatan')
-
-                                    <small class="error-text">
-                                        {{ $message }}
-                                    </small>
-
-                                @enderror
-
-                            </div>
-
-                        @endif
-
-
-                        {{-- Nomor Telepon --}}
-                        @if(isset($petugas->nomor_telepon))
-
-                            <div class="form-group">
-
-                                <label for="nomor_telepon">
-                                    Nomor Telepon
-                                </label>
-
-                                <div class="input-box">
-
-                                    <i class="fas fa-phone"></i>
-
-                                    <input
-                                        type="text"
-                                        id="nomor_telepon"
-                                        name="nomor_telepon"
-                                        value="{{ old('nomor_telepon', $petugas->nomor_telepon) }}"
-                                        placeholder="Masukkan nomor telepon"
-                                        autocomplete="tel"
-                                    >
-
-                                </div>
-
-                                @error('nomor_telepon')
-
-                                    <small class="error-text">
-                                        {{ $message }}
-                                    </small>
-
-                                @enderror
-
-                            </div>
-
-                        @endif
 
                     </div>
 
@@ -246,7 +165,6 @@
 
                 @endif
 
-
                 {{-- Tombol --}}
                 <div class="form-footer">
 
@@ -255,13 +173,8 @@
                         class="cancel-button"
                     >
                         <i class="fas fa-arrow-left"></i>
-
-                        <span>
-                            Kembali
-                        </span>
-
+                        <span>Kembali</span>
                     </a>
-
 
                     @if(isset($petugas))
 
@@ -269,13 +182,8 @@
                             type="submit"
                             class="save-button"
                         >
-
                             <i class="fas fa-check"></i>
-
-                            <span>
-                                Simpan Perubahan
-                            </span>
-
+                            <span>Simpan Perubahan</span>
                         </button>
 
                     @endif
@@ -291,3 +199,4 @@
 </div>
 
 @endsection
+

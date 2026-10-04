@@ -17,6 +17,7 @@ class HasilDonor extends Model
         'id_kegiatan',
         'tanggal_donor',
         'jumlah_kantong',
+        'volume_ml',
         'keterangan',
     ];
 

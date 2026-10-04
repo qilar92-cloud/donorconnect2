@@ -1,14 +1,31 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>@yield('title', 'DONORCONNECT')</title>
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        @yield('title', 'DONORCONNECT')
+    </title>
 
     <!-- Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+        crossorigin
+    >
+
     <link
         href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap"
         rel="stylesheet"
@@ -27,6 +44,7 @@
     ])
 
     @stack('styles')
+
 </head>
 
 <body>
@@ -44,54 +62,84 @@
         <div class="pendonor-navbar-inner">
 
             <!-- Logo -->
-            <a href="{{ route('dashboard') }}" class="pendonor-brand">
+            <a
+                href="{{ route('dashboard') }}"
+                class="pendonor-brand"
+            >
+
                 <span class="pendonor-brand-icon">
                     <i class="fa-solid fa-droplet"></i>
                 </span>
 
-                <span>DONORCONNECT</span>
+                <span>
+                    DONORCONNECT
+                </span>
+
             </a>
 
 
-            <!-- Menu Desktop -->
+            <!-- Menu -->
             <div class="pendonor-nav-menu">
 
                 <a
                     href="{{ route('dashboard') }}"
                     class="pendonor-nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"
                 >
+
                     <i class="fa-solid fa-house"></i>
-                    <span>Dashboard</span>
+
+                    <span>
+                        Dashboard
+                    </span>
+
                 </a>
+
 
                 <a
                     href="{{ route('pendonor.kegiatan') }}"
                     class="pendonor-nav-link {{ request()->routeIs('pendonor.kegiatan*') ? 'active' : '' }}"
                 >
+
                     <i class="fa-solid fa-calendar-days"></i>
-                    <span>Kegiatan</span>
+
+                    <span>
+                        Kegiatan
+                    </span>
+
                 </a>
+
 
                 <a
                     href="{{ route('pendonor.status') }}"
                     class="pendonor-nav-link {{ request()->routeIs('pendonor.status') ? 'active' : '' }}"
                 >
+
                     <i class="fa-solid fa-clipboard-check"></i>
-                    <span>Status</span>
+
+                    <span>
+                        Status
+                    </span>
+
                 </a>
+
 
                 <a
                     href="{{ route('pendonor.riwayat') }}"
                     class="pendonor-nav-link {{ request()->routeIs('pendonor.riwayat') ? 'active' : '' }}"
                 >
+
                     <i class="fa-solid fa-clock-rotate-left"></i>
-                    <span>Riwayat</span>
+
+                    <span>
+                        Riwayat
+                    </span>
+
                 </a>
 
             </div>
 
 
-            <!-- Profile -->
+            <!-- Profil -->
             <div class="pendonor-profile">
 
                 <button
@@ -104,9 +152,19 @@
                         <i class="fa-solid fa-user"></i>
                     </span>
 
-                    <span class="pendonor-profile-name">
-                        {{ $namaPengguna }}
+
+                    <span class="pendonor-profile-info">
+
+                        <span class="pendonor-profile-name">
+                            {{ $namaPengguna }}
+                        </span>
+
+                        <span class="pendonor-profile-role">
+                            {{ $rolePengguna }}
+                        </span>
+
                     </span>
+
 
                     <i class="fa-solid fa-chevron-down"></i>
 
@@ -119,29 +177,39 @@
                     class="pendonor-profile-menu"
                 >
 
+                    <!-- Profil Saya -->
                     <a href="{{ route('profile.pendonor') }}">
+
                         <i class="fa-solid fa-user"></i>
-                        <span>Profil Saya</span>
+
+                        <span>
+                            Profil Saya
+                        </span>
+
                     </a>
 
-                    <a href="{{ route('profile.pendonor.edit') }}">
-                        <i class="fa-solid fa-pen"></i>
-                        <span>Ubah Profil</span>
-                    </a>
 
+                    <!-- Logout -->
                     <form
                         action="{{ route('logout') }}"
                         method="POST"
                     >
+
                         @csrf
 
                         <button
                             type="submit"
                             class="logout"
                         >
+
                             <i class="fa-solid fa-right-from-bracket"></i>
-                            <span>Logout</span>
+
+                            <span>
+                                Logout
+                            </span>
+
                         </button>
+
                     </form>
 
                 </div>
@@ -155,7 +223,9 @@
 
     <!-- Konten -->
     <main class="pendonor-main">
+
         @yield('content')
+
     </main>
 
 
@@ -170,7 +240,9 @@
                     <i class="fa-solid fa-droplet"></i>
                 </span>
 
-                <span>DONORCONNECT</span>
+                <span>
+                    DONORCONNECT
+                </span>
 
             </div>
 
@@ -179,39 +251,62 @@
     </footer>
 
 
-    <!-- Bottom Menu Mobile -->
+    <!-- Mobile -->
     <nav class="mobile-bottom-nav">
 
         <a
             href="{{ route('dashboard') }}"
             class="{{ request()->routeIs('dashboard') ? 'active' : '' }}"
         >
+
             <i class="fa-solid fa-house"></i>
-            <span>Dashboard</span>
+
+            <span>
+                Dashboard
+            </span>
+
         </a>
+
 
         <a
             href="{{ route('pendonor.kegiatan') }}"
             class="{{ request()->routeIs('pendonor.kegiatan*') ? 'active' : '' }}"
         >
+
             <i class="fa-solid fa-calendar-days"></i>
-            <span>Kegiatan</span>
+
+            <span>
+                Kegiatan
+            </span>
+
         </a>
+
 
         <a
             href="{{ route('pendonor.status') }}"
             class="{{ request()->routeIs('pendonor.status') ? 'active' : '' }}"
         >
+
             <i class="fa-solid fa-clipboard-check"></i>
-            <span>Status</span>
+
+            <span>
+                Status
+            </span>
+
         </a>
+
 
         <a
             href="{{ route('pendonor.riwayat') }}"
             class="{{ request()->routeIs('pendonor.riwayat') ? 'active' : '' }}"
         >
+
             <i class="fa-solid fa-clock-rotate-left"></i>
-            <span>Riwayat</span>
+
+            <span>
+                Riwayat
+            </span>
+
         </a>
 
     </nav>
@@ -221,47 +316,66 @@
     <script>
 
         function toggleMenu() {
-            const menu = document.getElementById('profileMenu');
+
+            const menu =
+                document.getElementById('profileMenu');
 
             if (menu) {
                 menu.classList.toggle('show');
             }
+
         }
 
+
         function closeMenu() {
-            const menu = document.getElementById('profileMenu');
+
+            const menu =
+                document.getElementById('profileMenu');
 
             if (menu) {
                 menu.classList.remove('show');
             }
+
         }
+
 
         document.addEventListener('click', function(event) {
 
-            const profile = document.querySelector('.pendonor-profile');
-            const menu = document.getElementById('profileMenu');
+            const profile =
+                document.querySelector('.pendonor-profile');
+
+            const menu =
+                document.getElementById('profileMenu');
 
             if (!profile || !menu) {
                 return;
             }
 
             if (!profile.contains(event.target)) {
+
                 menu.classList.remove('show');
+
             }
 
         });
 
+
         document.addEventListener('keydown', function(event) {
 
             if (event.key === 'Escape') {
+
                 closeMenu();
+
             }
 
         });
 
     </script>
 
+
     @stack('scripts')
 
 </body>
+
 </html>
+

@@ -9,24 +9,18 @@
 @section('content')
 
 @php
-    use App\Models\KegiatanDonor;
-    use App\Models\PendaftaranDonor;
-    use App\Models\HasilDonor;
-    use App\Models\RiwayatDonor;
-    use App\Models\Pendonor;
-    use App\Models\DokumentasiDonor;
 
-    // Data pendonor
-    $pendonor = Pendonor::where(
+    /* Data pendonor */
+    $pendonor = \App\Models\Pendonor::where(
         'id_user',
         session('id_user')
     )->first();
 
-    // Statistik
-    $jumlahKegiatan = KegiatanDonor::count();
+    /* Statistik */
+    $jumlahKegiatan = \App\Models\KegiatanDonor::count();
 
     $jumlahPendaftaran = $pendonor
-        ? PendaftaranDonor::where(
+        ? \App\Models\PendaftaranDonor::where(
             'id_pendonor',
             $pendonor->id_pendonor
         )
@@ -39,7 +33,7 @@
         : 0;
 
     $jumlahRiwayat = $pendonor
-        ? RiwayatDonor::where(
+        ? \App\Models\RiwayatDonor::where(
             'id_pendonor',
             $pendonor->id_pendonor
         )->count()
@@ -47,16 +41,25 @@
 
     $totalDonor = $jumlahRiwayat;
 
-    $totalDarah = $pendonor
-        ? HasilDonor::where(
+    /* Total kantong */
+    $totalKantong = $pendonor
+        ? \App\Models\HasilDonor::where(
             'id_pendonor',
             $pendonor->id_pendonor
         )->sum('jumlah_kantong')
         : 0;
 
-    // Pendaftaran terakhir
+    /* Total volume */
+    $totalVolume = $pendonor
+        ? \App\Models\HasilDonor::where(
+            'id_pendonor',
+            $pendonor->id_pendonor
+        )->sum('volume_ml')
+        : 0;
+
+    /* Pendaftaran terakhir */
     $pendaftaranTerakhir = $pendonor
-        ? PendaftaranDonor::where(
+        ? \App\Models\PendaftaranDonor::where(
             'id_pendonor',
             $pendonor->id_pendonor
         )
@@ -69,40 +72,38 @@
         ? $pendaftaranTerakhir->status_pendaftaran
         : 'Belum Terdaftar';
 
-    // Kegiatan terdekat
-    $kegiatanTerdekat = KegiatanDonor::whereDate(
+    /* Kegiatan terdekat */
+    $kegiatanTerdekat = \App\Models\KegiatanDonor::whereDate(
         'tanggal',
         '>=',
-        now()
+        today()
     )
         ->orderBy('tanggal')
         ->orderBy('waktu')
         ->first();
 
-    // Dokumentasi
-    $dokumentasi = DokumentasiDonor::with('kegiatanDonor')
+    /* Dokumentasi */
+    $fotoDashboard = \App\Models\DokumentasiDonor::with(
+        'kegiatanDonor'
+    )
         ->latest()
+        ->take(8)
         ->get();
 
-    $fotoDashboard = $dokumentasi->take(6);
 @endphp
-
 
 <div class="pendonor-dashboard">
 
     {{-- Hero --}}
     <section class="dashboard-hero">
-
         <div class="hero-background-shape shape-one"></div>
         <div class="hero-background-shape shape-two"></div>
 
         <div class="hero-content">
-
             <div class="hero-brand">
                 <span class="brand-icon">
                     <i class="fas fa-heart"></i>
                 </span>
-
                 <span>DONORCONNECT</span>
             </div>
 
@@ -126,29 +127,23 @@
                 <i class="fas fa-calendar-alt"></i>
                 {{ now()->translatedFormat('l, d F Y') }}
             </div>
-
         </div>
 
         <div class="hero-visual">
-
             <div class="visual-glow"></div>
 
             <div class="blood-bag">
-
                 <div class="blood-bag-top"></div>
 
                 <div class="blood-bag-body">
-
                     <div class="blood-label">
                         <i class="fas fa-heartbeat"></i>
                     </div>
 
                     <div class="blood-level"></div>
-
                 </div>
 
                 <div class="blood-tube"></div>
-
             </div>
 
             <div class="heart-line">
@@ -168,9 +163,7 @@
             <span class="spark spark-one">✦</span>
             <span class="spark spark-two">✦</span>
             <span class="spark spark-three">•</span>
-
         </div>
-
     </section>
 
 
@@ -182,7 +175,6 @@
             class="stat-card"
         >
             <div class="stat-top">
-
                 <span class="stat-label">
                     KEGIATAN TERSEDIA
                 </span>
@@ -190,7 +182,6 @@
                 <div class="stat-icon pink">
                     <i class="fas fa-calendar-alt"></i>
                 </div>
-
             </div>
 
             <div class="stat-number">
@@ -209,7 +200,6 @@
             class="stat-card"
         >
             <div class="stat-top">
-
                 <span class="stat-label">
                     PENDAFTARAN AKTIF
                 </span>
@@ -217,7 +207,6 @@
                 <div class="stat-icon blue">
                     <i class="fas fa-clipboard-check"></i>
                 </div>
-
             </div>
 
             <div class="stat-number">
@@ -236,7 +225,6 @@
             class="stat-card"
         >
             <div class="stat-top">
-
                 <span class="stat-label">
                     RIWAYAT DONOR
                 </span>
@@ -244,7 +232,6 @@
                 <div class="stat-icon lavender">
                     <i class="fas fa-history"></i>
                 </div>
-
             </div>
 
             <div class="stat-number">
@@ -263,7 +250,6 @@
             class="stat-card"
         >
             <div class="stat-top">
-
                 <span class="stat-label">
                     TOTAL DONOR
                 </span>
@@ -271,7 +257,6 @@
                 <div class="stat-icon red">
                     <i class="fas fa-tint"></i>
                 </div>
-
             </div>
 
             <div class="stat-number">
@@ -279,7 +264,12 @@
             </div>
 
             <div class="stat-bottom">
-                <span>{{ $totalDarah }} ml darah</span>
+                <span>
+                    {{ $totalKantong }} kantong
+                    •
+                    {{ $totalVolume }} mL
+                </span>
+
                 <i class="fas fa-arrow-right"></i>
             </div>
         </a>
@@ -302,7 +292,6 @@
                     </div>
 
                     <div>
-
                         <span>AGENDA</span>
 
                         <h2>
@@ -312,10 +301,10 @@
                         <p>
                             Kegiatan donor yang akan datang
                         </p>
-
                     </div>
 
                 </div>
+
 
                 <a
                     href="{{ route('pendonor.kegiatan') }}"
@@ -333,7 +322,6 @@
                 <div class="event-card">
 
                     <div class="event-date">
-
                         <strong>
                             {{ $kegiatanTerdekat->tanggal->format('d') }}
                         </strong>
@@ -341,8 +329,8 @@
                         <span>
                             {{ $kegiatanTerdekat->tanggal->translatedFormat('M') }}
                         </span>
-
                     </div>
+
 
                     <div class="event-info">
 
@@ -365,6 +353,7 @@
                         </div>
 
                     </div>
+
 
                     <a
                         href="{{ route(
@@ -402,7 +391,7 @@
         </div>
 
 
-        {{-- Status --}}
+        {{-- Aktivitas --}}
         <div class="dashboard-panel activity-panel">
 
             <div class="panel-header">
@@ -414,7 +403,6 @@
                     </div>
 
                     <div>
-
                         <span>AKTIVITAS</span>
 
                         <h2>
@@ -424,16 +412,16 @@
                         <p>
                             Ringkasan aktivitas donor kamu
                         </p>
-
                     </div>
 
                 </div>
 
+
                 <a
-                    href="{{ route('pendonor.status') }}"
+                    href="{{ route('pendonor.riwayat') }}"
                     class="see-all"
                 >
-                    Detail
+                    Riwayat
                     <i class="fas fa-arrow-right"></i>
                 </a>
 
@@ -480,7 +468,8 @@
                         </strong>
 
                         <span>
-                            {{ $jumlahRiwayat }} riwayat tersimpan
+                            {{ $jumlahRiwayat }}
+                            riwayat tersimpan
                         </span>
 
                     </div>
@@ -511,7 +500,7 @@
                     </div>
 
                     <div class="activity-value">
-                        {{ $totalDarah }} ml
+                        {{ $totalVolume }} mL
                     </div>
 
                 </div>
@@ -536,7 +525,9 @@
 
                 <div>
 
-                    <span>DOKUMENTASI</span>
+                    <span>
+                        DOKUMENTASI
+                    </span>
 
                     <h2>
                         Dokumentasi Donor Darah
@@ -549,6 +540,7 @@
                 </div>
 
             </div>
+
 
             <a
                 href="{{ route('pendonor.dokumentasi') }}"
@@ -570,6 +562,7 @@
                     <button
                         type="button"
                         class="donor-gallery-photo"
+                        data-image="{{ asset('storage/' . $foto->foto) }}"
                         aria-label="Buka foto dokumentasi"
                     >
 
@@ -583,13 +576,11 @@
 
                             <div>
 
-                                <i class="fas fa-search-plus"></i>
+                                <span>
+                                    Dokumentasi donor darah
+                                </span>
 
-                                @if($loop->first)
-                                    <span>
-                                        Dokumentasi donor darah
-                                    </span>
-                                @endif
+                                <i class="fas fa-search-plus"></i>
 
                             </div>
 
@@ -637,12 +628,23 @@
 
         <button
             type="button"
+            class="lightbox-close"
+            id="lightboxClose"
+            aria-label="Tutup foto"
+        >
+            <i class="fas fa-times"></i>
+        </button>
+
+
+        <button
+            type="button"
             class="lightbox-arrow lightbox-prev"
             id="lightboxPrev"
             aria-label="Foto sebelumnya"
         >
             <i class="fas fa-chevron-left"></i>
         </button>
+
 
         <div class="lightbox-content">
 
@@ -653,14 +655,21 @@
             >
 
             <div class="lightbox-counter">
-                <span id="lightboxCurrent">1</span>
+
+                <span id="lightboxCurrent">
+                    1
+                </span>
+
                 /
+
                 <span id="lightboxTotal">
                     {{ $fotoDashboard->count() }}
                 </span>
+
             </div>
 
         </div>
+
 
         <button
             type="button"
@@ -675,239 +684,340 @@
 
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener(
+            'DOMContentLoaded',
+            function () {
 
-            const photos = document.querySelectorAll(
-                '.donor-gallery-photo'
-            );
+                const photos =
+                    document.querySelectorAll(
+                        '.donor-gallery-photo'
+                    );
 
-            const lightbox = document.getElementById(
-                'photoLightbox'
-            );
+                const lightbox =
+                    document.getElementById(
+                        'photoLightbox'
+                    );
 
-            const image = document.getElementById(
-                'lightboxImage'
-            );
+                const image =
+                    document.getElementById(
+                        'lightboxImage'
+                    );
 
-            const prevButton = document.getElementById(
-                'lightboxPrev'
-            );
+                const prevButton =
+                    document.getElementById(
+                        'lightboxPrev'
+                    );
 
-            const nextButton = document.getElementById(
-                'lightboxNext'
-            );
+                const nextButton =
+                    document.getElementById(
+                        'lightboxNext'
+                    );
 
-            const currentNumber = document.getElementById(
-                'lightboxCurrent'
-            );
+                const closeButton =
+                    document.getElementById(
+                        'lightboxClose'
+                    );
 
-            if (
-                !photos.length ||
-                !lightbox ||
-                !image ||
-                !prevButton ||
-                !nextButton
-            ) {
-                return;
-            }
+                const currentNumber =
+                    document.getElementById(
+                        'lightboxCurrent'
+                    );
 
-            let currentIndex = 0;
-            let touchStartX = 0;
-
-
-            // Tampilkan foto
-            function showPhoto(index) {
-
-                if (index < 0) {
-                    index = photos.length - 1;
-                }
-
-                if (index >= photos.length) {
-                    index = 0;
-                }
-
-                const photoImage =
-                    photos[index].querySelector('img');
-
-                if (!photoImage) {
+                if (
+                    !photos.length ||
+                    !lightbox ||
+                    !image ||
+                    !prevButton ||
+                    !nextButton ||
+                    !closeButton ||
+                    !currentNumber
+                ) {
                     return;
                 }
 
-                currentIndex = index;
 
-                image.src = photoImage.src;
-                image.alt = photoImage.alt;
-
-                currentNumber.textContent = index + 1;
-            }
+                let currentIndex = 0;
+                let touchStartX = 0;
 
 
-            // Buka lightbox
-            function openLightbox(index) {
+                /* Tampilkan foto */
+                function showPhoto(index) {
 
-                showPhoto(index);
+                    if (index < 0) {
+                        index = photos.length - 1;
+                    }
 
-                lightbox.classList.add('show');
+                    if (index >= photos.length) {
+                        index = 0;
+                    }
 
-                lightbox.setAttribute(
-                    'aria-hidden',
-                    'false'
+
+                    const photoImage =
+                        photos[index].querySelector(
+                            'img'
+                        );
+
+                    const imageUrl =
+                        photos[index].dataset.image;
+
+
+                    if (
+                        !photoImage ||
+                        !imageUrl
+                    ) {
+                        return;
+                    }
+
+
+                    currentIndex = index;
+
+                    image.src = imageUrl;
+
+                    image.alt = photoImage.alt;
+
+                    currentNumber.textContent =
+                        currentIndex + 1;
+                }
+
+
+                /* Buka foto */
+                function openLightbox(index) {
+
+                    showPhoto(index);
+
+                    lightbox.classList.add('show');
+
+                    lightbox.setAttribute(
+                        'aria-hidden',
+                        'false'
+                    );
+
+                    document.body.classList.add(
+                        'lightbox-open'
+                    );
+                }
+
+
+                /* Tutup foto */
+                function closeLightbox() {
+
+                    lightbox.classList.remove(
+                        'show'
+                    );
+
+                    lightbox.setAttribute(
+                        'aria-hidden',
+                        'true'
+                    );
+
+                    document.body.classList.remove(
+                        'lightbox-open'
+                    );
+
+                    image.removeAttribute(
+                        'src'
+                    );
+                }
+
+
+                /* Klik foto */
+                photos.forEach(
+                    function (
+                        photo,
+                        index
+                    ) {
+
+                        photo.addEventListener(
+                            'click',
+                            function (event) {
+
+                                event.preventDefault();
+
+                                event.stopPropagation();
+
+                                openLightbox(index);
+                            }
+                        );
+
+                    }
                 );
 
-                document.body.classList.add(
-                    'lightbox-open'
-                );
-            }
 
-
-            // Tutup lightbox
-            function closeLightbox() {
-
-                lightbox.classList.remove('show');
-
-                lightbox.setAttribute(
-                    'aria-hidden',
-                    'true'
-                );
-
-                document.body.classList.remove(
-                    'lightbox-open'
-                );
-
-                image.src = '';
-            }
-
-
-            // Klik foto
-            photos.forEach(function (photo, index) {
-
-                photo.addEventListener(
+                /* Foto sebelumnya */
+                prevButton.addEventListener(
                     'click',
-                    function () {
-                        openLightbox(index);
+                    function (event) {
+
+                        event.preventDefault();
+
+                        event.stopPropagation();
+
+                        showPhoto(
+                            currentIndex - 1
+                        );
                     }
                 );
 
-            });
+
+                /* Foto berikutnya */
+                nextButton.addEventListener(
+                    'click',
+                    function (event) {
+
+                        event.preventDefault();
+
+                        event.stopPropagation();
+
+                        showPhoto(
+                            currentIndex + 1
+                        );
+                    }
+                );
 
 
-            // Foto sebelumnya
-            prevButton.addEventListener(
-                'click',
-                function (event) {
+                /* Tutup */
+                closeButton.addEventListener(
+                    'click',
+                    function (event) {
 
-                    event.stopPropagation();
+                        event.preventDefault();
 
-                    showPhoto(
-                        currentIndex - 1
-                    );
+                        event.stopPropagation();
 
-                }
-            );
-
-
-            // Foto berikutnya
-            nextButton.addEventListener(
-                'click',
-                function (event) {
-
-                    event.stopPropagation();
-
-                    showPhoto(
-                        currentIndex + 1
-                    );
-
-                }
-            );
-
-
-            // Klik gambar
-            image.addEventListener(
-                'click',
-                function (event) {
-                    event.stopPropagation();
-                }
-            );
-
-
-            // Tutup saat klik luar
-            lightbox.addEventListener(
-                'click',
-                function (event) {
-
-                    if (event.target === lightbox) {
                         closeLightbox();
                     }
-
-                }
-            );
+                );
 
 
-            // Keyboard
-            document.addEventListener(
-                'keydown',
-                function (event) {
+                /* Klik area gelap */
+                lightbox.addEventListener(
+                    'click',
+                    function (event) {
 
-                    if (!lightbox.classList.contains('show')) {
-                        return;
+                        if (
+                            event.target ===
+                            lightbox
+                        ) {
+                            closeLightbox();
+                        }
                     }
+                );
 
-                    if (event.key === 'Escape') {
-                        closeLightbox();
-                        return;
+
+                /* Jangan tutup saat klik gambar */
+                image.addEventListener(
+                    'click',
+                    function (event) {
+                        event.stopPropagation();
                     }
+                );
 
-                    if (event.key === 'ArrowLeft') {
-                        showPhoto(currentIndex - 1);
-                        return;
+
+                /* Keyboard */
+                document.addEventListener(
+                    'keydown',
+                    function (event) {
+
+                        if (
+                            !lightbox.classList.contains(
+                                'show'
+                            )
+                        ) {
+                            return;
+                        }
+
+
+                        if (
+                            event.key ===
+                            'Escape'
+                        ) {
+                            closeLightbox();
+                        }
+
+
+                        if (
+                            event.key ===
+                            'ArrowLeft'
+                        ) {
+                            showPhoto(
+                                currentIndex - 1
+                            );
+                        }
+
+
+                        if (
+                            event.key ===
+                            'ArrowRight'
+                        ) {
+                            showPhoto(
+                                currentIndex + 1
+                            );
+                        }
+
                     }
+                );
 
-                    if (event.key === 'ArrowRight') {
-                        showPhoto(currentIndex + 1);
+
+                /* Swipe HP */
+                image.addEventListener(
+                    'touchstart',
+                    function (event) {
+
+                        touchStartX =
+                            event
+                                .changedTouches[0]
+                                .screenX;
+
+                    },
+                    {
+                        passive: true
                     }
-
-                }
-            );
+                );
 
 
-            // Geser foto di HP
-            image.addEventListener(
-                'touchstart',
-                function (event) {
+                image.addEventListener(
+                    'touchend',
+                    function (event) {
 
-                    touchStartX =
-                        event.changedTouches[0].screenX;
+                        const touchEndX =
+                            event
+                                .changedTouches[0]
+                                .screenX;
 
-                },
-                { passive: true }
-            );
+                        const distance =
+                            touchEndX -
+                            touchStartX;
 
 
-            image.addEventListener(
-                'touchend',
-                function (event) {
+                        if (
+                            Math.abs(distance) < 50
+                        ) {
+                            return;
+                        }
 
-                    const touchEndX =
-                        event.changedTouches[0].screenX;
 
-                    const distance =
-                        touchEndX - touchStartX;
+                        if (distance < 0) {
 
-                    if (Math.abs(distance) < 50) {
-                        return;
+                            showPhoto(
+                                currentIndex + 1
+                            );
+
+                        } else {
+
+                            showPhoto(
+                                currentIndex - 1
+                            );
+
+                        }
+
+                    },
+                    {
+                        passive: true
                     }
+                );
 
-                    if (distance < 0) {
-                        showPhoto(currentIndex + 1);
-                    } else {
-                        showPhoto(currentIndex - 1);
-                    }
-
-                },
-                { passive: true }
-            );
-
-        });
+            }
+        );
     </script>
 
 @endif

@@ -6,49 +6,207 @@ use Illuminate\Http\Request;
 use App\Models\HasilDonor;
 use App\Models\Pendonor;
 use App\Models\KegiatanDonor;
+use App\Models\PendaftaranDonor;
 use App\Models\RiwayatDonor;
 use App\Models\LaporanDonor;
+use Carbon\Carbon;
 
 class HasilDonorController extends Controller
 {
     // Form catat hasil donor
     public function create()
     {
-        $pendonor = Pendonor::with('user')->get();
+        // Ambil pendaftaran yang masih valid
+        $pendaftaran = PendaftaranDonor::with([
+            'pendonor.user',
+            'kegiatanDonor'
+        ])
+            ->where('status_pendaftaran', 'Terdaftar')
+            ->get()
+            ->filter(function ($item) {
+                return $item->kegiatanDonor
+                    && !Carbon::parse(
+                        $item->kegiatanDonor->tanggal
+                    )->isFuture();
+            });
 
-        $kegiatan = KegiatanDonor::orderBy(
-            'tanggal',
-            'asc'
-        )->get();
+        // Ambil pendonor dari pendaftaran valid
+        $pendonor = $pendaftaran
+            ->pluck('pendonor')
+            ->filter()
+            ->unique('id_pendonor')
+            ->sortBy(function ($item) {
+                return $item->user->nama ?? '';
+            })
+            ->values();
+
+        // Ambil kegiatan dari pendaftaran valid
+        $kegiatan = $pendaftaran
+            ->pluck('kegiatanDonor')
+            ->filter()
+            ->unique('id_kegiatan')
+            ->sortBy('tanggal')
+            ->values();
 
         return view(
             'pages.hasil-donor.create',
-            compact('pendonor', 'kegiatan')
+            compact(
+                'pendonor',
+                'kegiatan',
+                'pendaftaran'
+            )
         );
     }
+
 
     // Simpan hasil donor
     public function store(Request $request)
     {
         $data = $request->validate([
-            'id_pendonor' => 'required|exists:pendonor,id_pendonor',
-            'id_kegiatan' => 'required|exists:kegiatan_donor,id_kegiatan',
-            'tanggal_donor' => 'required|date',
-            'jumlah_kantong' => 'required|integer|min:1',
-            'keterangan' => 'nullable|string',
+            'id_pendonor' => [
+                'required',
+                'exists:pendonor,id_pendonor',
+            ],
+
+            'id_kegiatan' => [
+                'required',
+                'exists:kegiatan_donor,id_kegiatan',
+            ],
+
+            'tanggal_donor' => [
+                'required',
+                'date',
+            ],
+
+            'jumlah_kantong' => [
+                'required',
+                'integer',
+                'min:1',
+            ],
+
+            'volume_ml' => [
+                'required',
+                'integer',
+                'min:1',
+            ],
+
+            'keterangan' => [
+                'nullable',
+                'string',
+            ],
         ]);
 
+
+        // Ambil kegiatan
+        $kegiatan = KegiatanDonor::find(
+            $data['id_kegiatan']
+        );
+
+
+        // Pastikan pendonor terdaftar pada kegiatan
+        $pendaftaran = PendaftaranDonor::where(
+            'id_pendonor',
+            $data['id_pendonor']
+        )
+            ->where(
+                'id_kegiatan',
+                $data['id_kegiatan']
+            )
+            ->first();
+
+
+        if (!$pendaftaran) {
+            return back()
+                ->withInput()
+                ->with(
+                    'error',
+                    'Hasil donor tidak dapat dicatat karena pendonor belum terdaftar pada kegiatan donor yang dipilih.'
+                );
+        }
+
+
+        // Pastikan status pendaftaran valid
+        if (
+            trim($pendaftaran->status_pendaftaran)
+            !== 'Terdaftar'
+        ) {
+            return back()
+                ->withInput()
+                ->with(
+                    'error',
+                    'Hasil donor tidak dapat dicatat karena status pendaftaran pendonor tidak valid.'
+                );
+        }
+
+
+        // Pastikan kegiatan sudah berlangsung
+        if (
+            !$kegiatan ||
+            Carbon::parse($kegiatan->tanggal)->isFuture()
+        ) {
+            return back()
+                ->withInput()
+                ->with(
+                    'error',
+                    'Hasil donor belum dapat dicatat karena kegiatan donor belum berlangsung.'
+                );
+        }
+
+
+        // Pastikan tanggal donor sesuai kegiatan
+        if (
+            $data['tanggal_donor'] !==
+            Carbon::parse($kegiatan->tanggal)
+                ->format('Y-m-d')
+        ) {
+            return back()
+                ->withInput()
+                ->with(
+                    'error',
+                    'Tanggal donor tidak sesuai dengan tanggal kegiatan donor.'
+                );
+        }
+
+
+        // Cegah hasil donor dicatat dua kali
+        $sudahAda = HasilDonor::where(
+            'id_pendonor',
+            $data['id_pendonor']
+        )
+            ->where(
+                'id_kegiatan',
+                $data['id_kegiatan']
+            )
+            ->exists();
+
+
+        if ($sudahAda) {
+            return back()
+                ->withInput()
+                ->with(
+                    'error',
+                    'Hasil donor untuk pendonor dan kegiatan tersebut sudah pernah dicatat.'
+                );
+        }
+
+
+        // Simpan hasil donor
         $hasil = HasilDonor::create($data);
 
+
+        // Simpan ke riwayat donor
         RiwayatDonor::create([
             'id_pendonor' => $hasil->id_pendonor,
             'id_hasil' => $hasil->id_hasil,
         ]);
 
+
+        // Simpan ke laporan donor
         LaporanDonor::create([
             'id_hasil' => $hasil->id_hasil,
             'id_kegiatan' => $hasil->id_kegiatan,
         ]);
+
 
         return redirect()
             ->route('riwayat-donor.index')

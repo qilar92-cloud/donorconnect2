@@ -11,15 +11,12 @@
 <div class="documentation-gallery">
 
     {{-- Dekorasi --}}
-
     <span class="gallery-decor decor-heart-1">♡</span>
     <span class="gallery-decor decor-heart-2">♡</span>
     <span class="gallery-decor decor-star-1">✦</span>
     <span class="gallery-decor decor-star-2">✦</span>
 
-
     {{-- Header --}}
-
     <div class="documentation-header">
 
         <a
@@ -47,7 +44,6 @@
         </div>
 
         <div class="documentation-total">
-
             <strong>
                 {{ $dokumentasi->count() }}
             </strong>
@@ -55,14 +51,11 @@
             <span>
                 FOTO
             </span>
-
         </div>
 
     </div>
 
-
     {{-- Gallery --}}
-
     @if ($dokumentasi->count() > 0)
 
         <div class="documentation-gallery-grid">
@@ -124,9 +117,7 @@
 
     @endif
 
-
     {{-- Footer --}}
-
     @if ($dokumentasi->count() > 0)
 
         <div class="documentation-footer">
@@ -147,7 +138,6 @@
 
 
 {{-- Lightbox --}}
-
 @if ($dokumentasi->count() > 0)
 
     <div
@@ -156,6 +146,17 @@
         aria-hidden="true"
     >
 
+        {{-- Tombol tutup --}}
+        <button
+            type="button"
+            class="lightbox-close"
+            id="lightboxClose"
+            aria-label="Tutup foto"
+        >
+            <i class="fas fa-times"></i>
+        </button>
+
+        {{-- Tombol sebelumnya --}}
         <button
             type="button"
             class="lightbox-arrow lightbox-prev"
@@ -165,7 +166,7 @@
             <i class="fas fa-chevron-left"></i>
         </button>
 
-
+        {{-- Foto --}}
         <div class="lightbox-content">
 
             <img
@@ -190,7 +191,7 @@
 
         </div>
 
-
+        {{-- Tombol berikutnya --}}
         <button
             type="button"
             class="lightbox-arrow lightbox-next"
@@ -212,30 +213,25 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll('.documentation-photo')
     );
 
-    const lightbox = document.getElementById(
-        'photoLightbox'
-    );
+    const lightbox = document.getElementById('photoLightbox');
 
-    const image = document.getElementById(
-        'lightboxImage'
-    );
+    const image = document.getElementById('lightboxImage');
 
-    const prevButton = document.getElementById(
-        'lightboxPrev'
-    );
+    const closeButton = document.getElementById('lightboxClose');
 
-    const nextButton = document.getElementById(
-        'lightboxNext'
-    );
+    const prevButton = document.getElementById('lightboxPrev');
 
-    const currentNumber = document.getElementById(
-        'lightboxCurrent'
-    );
+    const nextButton = document.getElementById('lightboxNext');
+
+    const currentNumber =
+        document.getElementById('lightboxCurrent');
 
 
+    // Hentikan script jika elemen tidak ada
     if (
         !lightbox ||
         !image ||
+        !closeButton ||
         !prevButton ||
         !nextButton ||
         !currentNumber ||
@@ -248,9 +244,9 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentIndex = 0;
 
     let touchStartX = 0;
-    let touchEndX = 0;
 
 
+    // Tampilkan foto
     function showPhoto(index) {
 
         if (index < 0) {
@@ -279,17 +275,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
         image.alt = photoImage.alt;
 
-
         currentNumber.textContent =
             currentIndex + 1;
 
     }
 
 
+    // Buka lightbox
     function openLightbox(index) {
 
         showPhoto(index);
-
 
         lightbox.classList.add('show');
 
@@ -298,7 +293,6 @@ document.addEventListener('DOMContentLoaded', function () {
             'false'
         );
 
-
         document.body.classList.add(
             'lightbox-open'
         );
@@ -306,28 +300,26 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
+    // Tutup lightbox
     function closeLightbox() {
 
-        lightbox.classList.remove(
-            'show'
-        );
+        lightbox.classList.remove('show');
 
         lightbox.setAttribute(
             'aria-hidden',
             'true'
         );
 
-
         document.body.classList.remove(
             'lightbox-open'
         );
-
 
         image.src = '';
 
     }
 
 
+    // Foto berikutnya
     function nextPhoto() {
 
         showPhoto(
@@ -337,6 +329,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
+    // Foto sebelumnya
     function previousPhoto() {
 
         showPhoto(
@@ -346,6 +339,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
+    // Klik foto
     photos.forEach(function (photo, index) {
 
         photo.addEventListener(
@@ -360,6 +354,20 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
+    // Tombol tutup X
+    closeButton.addEventListener(
+        'click',
+        function (event) {
+
+            event.stopPropagation();
+
+            closeLightbox();
+
+        }
+    );
+
+
+    // Tombol sebelumnya
     prevButton.addEventListener(
         'click',
         function (event) {
@@ -372,6 +380,7 @@ document.addEventListener('DOMContentLoaded', function () {
     );
 
 
+    // Tombol berikutnya
     nextButton.addEventListener(
         'click',
         function (event) {
@@ -384,6 +393,7 @@ document.addEventListener('DOMContentLoaded', function () {
     );
 
 
+    // Jangan tutup ketika foto diklik
     image.addEventListener(
         'click',
         function (event) {
@@ -394,13 +404,12 @@ document.addEventListener('DOMContentLoaded', function () {
     );
 
 
+    // Klik area gelap untuk menutup
     lightbox.addEventListener(
         'click',
         function (event) {
 
-            if (
-                event.target === lightbox
-            ) {
+            if (event.target === lightbox) {
 
                 closeLightbox();
 
@@ -410,40 +419,40 @@ document.addEventListener('DOMContentLoaded', function () {
     );
 
 
+    // Keyboard
     document.addEventListener(
         'keydown',
         function (event) {
 
             if (
-                !lightbox.classList.contains(
-                    'show'
-                )
+                !lightbox.classList.contains('show')
             ) {
                 return;
             }
 
 
-            if (
-                event.key === 'Escape'
-            ) {
+            // Escape
+            if (event.key === 'Escape') {
 
                 closeLightbox();
 
+                return;
+
             }
 
 
-            if (
-                event.key === 'ArrowRight'
-            ) {
+            // Panah kanan
+            if (event.key === 'ArrowRight') {
 
                 nextPhoto();
 
+                return;
+
             }
 
 
-            if (
-                event.key === 'ArrowLeft'
-            ) {
+            // Panah kiri
+            if (event.key === 'ArrowLeft') {
 
                 previousPhoto();
 
@@ -453,6 +462,7 @@ document.addEventListener('DOMContentLoaded', function () {
     );
 
 
+    // Swipe di HP
     image.addEventListener(
         'touchstart',
         function (event) {
@@ -471,9 +481,8 @@ document.addEventListener('DOMContentLoaded', function () {
         'touchend',
         function (event) {
 
-            touchEndX =
+            const touchEndX =
                 event.changedTouches[0].screenX;
-
 
             const difference =
                 touchStartX - touchEndX;

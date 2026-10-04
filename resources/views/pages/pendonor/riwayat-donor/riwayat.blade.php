@@ -20,7 +20,9 @@
                 RIWAYAT DONOR
             </span>
 
-            <h1>Perjalanan Kebaikanmu</h1>
+            <h1>
+                Perjalanan Kebaikanmu
+            </h1>
 
             <p>
                 Catatan donor yang sudah kamu lakukan.
@@ -28,15 +30,20 @@
 
         </div>
 
+
         <div class="history-total">
 
-            <span>Total Donor</span>
+            <span>
+                Total Donor
+            </span>
 
             <strong>
                 {{ $riwayat->count() }}
             </strong>
 
-            <small>kali</small>
+            <small>
+                kali
+            </small>
 
         </div>
 
@@ -55,13 +62,17 @@
 
             <div class="summary-text">
 
-                <span>JUMLAH DONOR</span>
+                <span>
+                    JUMLAH DONOR
+                </span>
 
                 <strong>
                     {{ $riwayat->count() }}
                 </strong>
 
-                <small>kali</small>
+                <small>
+                    kali
+                </small>
 
             </div>
 
@@ -76,7 +87,9 @@
 
             <div class="summary-text">
 
-                <span>TOTAL DARAH</span>
+                <span>
+                    TOTAL KANTONG
+                </span>
 
                 <strong>
                     {{ $riwayat->sum(function ($item) {
@@ -84,7 +97,9 @@
                     }) }}
                 </strong>
 
-                <small>ml</small>
+                <small>
+                    kantong
+                </small>
 
             </div>
 
@@ -101,11 +116,16 @@
 
             <div>
 
-                <span>CATATAN DONOR</span>
+                <span>
+                    CATATAN DONOR
+                </span>
 
-                <h2>Riwayat Donor</h2>
+                <h2>
+                    Riwayat Donor
+                </h2>
 
             </div>
+
 
             <div class="record-count">
                 {{ $riwayat->count() }} data
@@ -222,8 +242,14 @@
                             </strong>
 
                             <small>
-                                ml
+                                kantong
                             </small>
+
+                            <div class="record-volume">
+
+                                {{ $hasil->volume_ml ?? 0 }} mL
+
+                            </div>
 
                         </div>
 
@@ -271,3 +297,4 @@
 </div>
 
 @endsection
+

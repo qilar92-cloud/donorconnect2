@@ -1,25 +1,19 @@
-@php
-    $role = strtolower(Auth::user()->role ?? 'user');
-@endphp
+<nav class="donor-navbar petugas-navbar">
 
-<nav class="donor-navbar {{ $role === 'admin' ? 'petugas-navbar' : 'pendonor-navbar' }}">
+    {{-- Menu --}}
+    <button
+        type="button"
+        class="petugas-menu-button"
+        id="petugasMenuButton"
+        aria-label="Buka menu"
+        aria-expanded="false"
+    >
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
 
-    <!-- Menu Petugas -->
-    @if($role === 'admin')
-        <button
-            type="button"
-            class="petugas-menu-button"
-            id="petugasMenuButton"
-            aria-label="Buka menu"
-            aria-expanded="false"
-        >
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    @endif
-
-    <!-- Hiasan -->
+    {{-- Hiasan --}}
     <div class="navbar-decoration">
         <span class="shape shape-one"></span>
         <span class="shape shape-two"></span>
@@ -28,8 +22,9 @@
         <span class="curve curve-two"></span>
     </div>
 
-    <!-- Profil -->
+    {{-- Profil --}}
     <div class="donor-navbar-right">
+
         <div class="donor-user-wrapper">
 
             <button
@@ -37,27 +32,32 @@
                 class="donor-user-menu"
                 id="userDropdownButton"
                 aria-expanded="false"
+                aria-haspopup="true"
             >
                 <span class="donor-avatar">
                     <i class="fas fa-user"></i>
                 </span>
 
                 <span class="donor-user-info">
+
                     <span class="donor-user-name">
-                        {{ Auth::user()->nama ?? 'User' }}
+                        {{ Auth::user()->nama ?? 'Petugas' }}
                     </span>
 
                     <span class="donor-user-role">
-                        {{ $role === 'admin' ? 'Petugas PMR' : 'Pendonor' }}
+                        Petugas PMR
                     </span>
+
                 </span>
 
                 <i class="fas fa-chevron-down donor-chevron"></i>
             </button>
 
-            <!-- Dropdown -->
-
-            <div class="donor-dropdown" id="donorDropdown">
+            {{-- Dropdown --}}
+            <div
+                class="donor-dropdown"
+                id="donorDropdown"
+            >
 
                 <div class="donor-dropdown-header">
 
@@ -68,11 +68,11 @@
                     <div class="donor-dropdown-user">
 
                         <strong>
-                            {{ Auth::user()->nama ?? 'User' }}
+                            {{ Auth::user()->nama ?? 'Petugas' }}
                         </strong>
 
                         <small>
-                            {{ $role === 'admin' ? 'Petugas PMR' : 'Pendonor' }}
+                            Petugas PMR
                         </small>
 
                     </div>
@@ -81,15 +81,11 @@
 
                 <div class="dropdown-divider"></div>
 
-                <!-- Profil -->
-
+                {{-- Profil --}}
                 <a
                     class="donor-dropdown-item"
-                    href="{{ $role === 'admin'
-                        ? route('profile.petugas')
-                        : route('profile.pendonor') }}"
+                    href="{{ route('profile.petugas') }}"
                 >
-
                     <span class="dropdown-icon profile-icon">
                         <i class="fas fa-user"></i>
                     </span>
@@ -97,17 +93,14 @@
                     <span>Profil Saya</span>
 
                     <i class="fas fa-chevron-right dropdown-arrow"></i>
-
                 </a>
 
-                <!-- Logout -->
-
+                {{-- Logout --}}
                 <a
                     class="donor-dropdown-item logout-item"
                     href="#"
                     onclick="event.preventDefault(); document.getElementById('form-logout').submit();"
                 >
-
                     <span class="dropdown-icon logout-icon">
                         <i class="fas fa-sign-out-alt"></i>
                     </span>
@@ -115,11 +108,9 @@
                     <span>Logout</span>
 
                     <i class="fas fa-chevron-right dropdown-arrow"></i>
-
                 </a>
 
-                <!-- Form Logout -->
-
+                {{-- Form Logout --}}
                 <form
                     action="{{ route('logout') }}"
                     method="POST"
@@ -132,18 +123,16 @@
             </div>
 
         </div>
+
     </div>
 
 </nav>
 
-<!-- Overlay Petugas -->
-
-@if($role === 'admin')
-    <div
-        class="petugas-sidebar-overlay"
-        id="petugasSidebarOverlay"
-    ></div>
-@endif
+{{-- Overlay --}}
+<div
+    class="petugas-sidebar-overlay"
+    id="petugasSidebarOverlay"
+></div>
 
 
 <style>
@@ -251,7 +240,7 @@
 }
 
 
-/* Tombol menu */
+/* Menu */
 
 .petugas-menu-button {
     display: none;
@@ -349,17 +338,7 @@
     color: #ffffff;
 
     font-size: 16px;
-}
 
-.pendonor-navbar .donor-avatar {
-    background: linear-gradient(
-        135deg,
-        #8f183f,
-        #d62f61
-    );
-}
-
-.petugas-navbar .donor-avatar {
     background: linear-gradient(
         135deg,
         #ed5573,
@@ -387,17 +366,11 @@
 .donor-user-role {
     margin-top: 3px;
 
+    color: #c92f51;
+
     font-size: 11px;
 
     font-weight: 600;
-}
-
-.pendonor-navbar .donor-user-role {
-    color: #b91f4f;
-}
-
-.petugas-navbar .donor-user-role {
-    color: #c92f51;
 }
 
 .donor-chevron {
@@ -653,7 +626,7 @@
 }
 
 
-/* HP kecil */
+/* HP Kecil */
 
 @media (max-width: 430px) {
 
@@ -685,7 +658,7 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    /* Dropdown profil */
+    /* Dropdown */
 
     const userButton =
         document.getElementById('userDropdownButton');
@@ -752,31 +725,27 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
 
-        /* Klik overlay */
+        /* Overlay */
 
         if (overlay) {
 
             overlay.addEventListener('click', function () {
 
-                sidebar.classList.remove(
-                    'mobile-show'
-                );
+                sidebar.classList.remove('mobile-show');
 
                 menuButton.setAttribute(
                     'aria-expanded',
                     'false'
                 );
 
-                overlay.classList.remove(
-                    'show'
-                );
+                overlay.classList.remove('show');
 
             });
 
         }
 
 
-        /* Klik menu */
+        /* Menu */
 
         const sidebarLinks =
             sidebar.querySelectorAll('.nav-link');
@@ -785,9 +754,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             link.addEventListener('click', function () {
 
-                sidebar.classList.remove(
-                    'mobile-show'
-                );
+                sidebar.classList.remove('mobile-show');
 
                 menuButton.setAttribute(
                     'aria-expanded',
@@ -796,9 +763,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if (overlay) {
 
-                    overlay.classList.remove(
-                        'show'
-                    );
+                    overlay.classList.remove('show');
 
                 }
 
@@ -809,7 +774,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-    /* Klik luar dropdown */
+    /* Klik luar */
 
     document.addEventListener('click', function (event) {
 
@@ -834,3 +799,4 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 </script>
+

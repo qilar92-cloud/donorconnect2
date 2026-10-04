@@ -182,26 +182,50 @@
 
                     @forelse (($laporan ?? []) as $item)
 
+                        @php
+
+                            $hasil = $item->hasilDonor;
+
+                            $pendonor = $hasil?->pendonor;
+
+                            $kegiatanDonor = $hasil?->kegiatanDonor;
+
+                        @endphp
+
+
                         <div class="data-item">
 
                             <div class="data-icon">
                                 <i class="fas fa-tint"></i>
                             </div>
 
+
                             <div class="data-info">
 
                                 <strong>
-                                    {{ $item->hasilDonor->pendonor->user->nama ?? 'Pendonor' }}
+                                    {{ $pendonor?->user?->nama ?? 'Pendonor' }}
                                 </strong>
 
                                 <span>
-                                    {{ $item->hasilDonor->kegiatanDonor->nama_kegiatan ?? 'Kegiatan donor' }}
+                                    {{ $kegiatanDonor?->nama_kegiatan ?? 'Kegiatan donor' }}
                                 </span>
 
                             </div>
 
+
                             <div class="data-badge">
-                                {{ $item->hasilDonor->jumlah_kantong ?? 0 }} kantong
+
+                                <span>
+                                    {{ $hasil?->jumlah_kantong ?? 0 }}
+                                    kantong
+                                </span>
+
+                                <span>
+                                    •
+                                    {{ $hasil?->volume_ml ?? 0 }}
+                                    mL
+                                </span>
+
                             </div>
 
                         </div>
@@ -290,9 +314,15 @@
                         'Des'
                     ];
 
-                    $dataGrafik = $dataGrafik ?? array_fill(0, 12, 0);
+                    $dataGrafik = $dataGrafik ?? array_fill(
+                        0,
+                        12,
+                        0
+                    );
 
-                    $nilaiTertinggi = max($dataGrafik ?: [1]);
+                    $nilaiTertinggi = max(
+                        $dataGrafik ?: [1]
+                    );
 
                 @endphp
 

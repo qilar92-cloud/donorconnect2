@@ -121,6 +121,7 @@ main.container-fluid {
     color: rgba(255, 255, 255, .88);
 
     font-size: 10px;
+    line-height: 1.5;
 }
 
 .banner-meta {
@@ -283,7 +284,10 @@ main.container-fluid {
     box-shadow:
         0 5px 16px rgba(67, 38, 48, .045);
 
-    transition: .2s ease;
+    transition:
+        transform .2s ease,
+        border-color .2s ease,
+        box-shadow .2s ease;
 }
 
 .quick-card::after {
@@ -339,6 +343,8 @@ main.container-fluid {
 .quick-card > div:last-of-type {
     position: relative;
     z-index: 2;
+
+    min-width: 0;
 }
 
 .quick-card small {
@@ -377,6 +383,8 @@ main.container-fluid {
 
     margin-left: auto;
 
+    flex-shrink: 0;
+
     color: #c72e59;
 
     font-size: 9px;
@@ -405,11 +413,15 @@ main.container-fluid {
 
     box-shadow:
         0 4px 15px rgba(67, 38, 48, .04);
+
+    box-sizing: border-box;
 }
 
 .search-icon {
     width: 30px;
     height: 30px;
+
+    flex-shrink: 0;
 
     display: flex;
     align-items: center;
@@ -427,6 +439,7 @@ main.container-fluid {
 .search-card input {
     flex: 1;
 
+    min-width: 0;
     width: 100%;
 
     border: 0;
@@ -481,6 +494,8 @@ main.container-fluid {
     min-width: 31px;
     height: 31px;
 
+    flex-shrink: 0;
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -517,7 +532,6 @@ main.container-fluid {
     display: flex;
 
     min-width: 0;
-
     overflow: hidden;
 
     border: 1px solid #efd8dc;
@@ -606,10 +620,14 @@ main.container-fluid {
     background: rgba(255, 255, 255, .08);
 }
 
-.date-box span {
+.date-box span,
+.date-box strong,
+.date-box small {
     position: relative;
     z-index: 2;
+}
 
+.date-box span {
     font-size: 8px;
     font-weight: 800;
 
@@ -619,9 +637,6 @@ main.container-fluid {
 }
 
 .date-box strong {
-    position: relative;
-    z-index: 2;
-
     margin: 3px 0;
 
     font-size: 29px;
@@ -630,9 +645,6 @@ main.container-fluid {
 }
 
 .date-box small {
-    position: relative;
-    z-index: 2;
-
     font-size: 7px;
 
     color: rgba(255, 255, 255, .78);
@@ -650,6 +662,8 @@ main.container-fluid {
 }
 
 .event-heading {
+    min-width: 0;
+
     margin-bottom: 10px;
 }
 
@@ -687,6 +701,8 @@ main.container-fluid {
     font-size: 14px;
     line-height: 1.4;
     font-weight: 800;
+
+    overflow-wrap: anywhere;
 }
 
 
@@ -707,6 +723,8 @@ main.container-fluid {
 
     gap: 4px;
 
+    max-width: 100%;
+
     padding: 6px 8px;
 
     border-radius: 8px;
@@ -716,9 +734,13 @@ main.container-fluid {
     color: #76676c;
 
     font-size: 7px;
+
+    overflow-wrap: anywhere;
 }
 
 .event-details i {
+    flex-shrink: 0;
+
     color: #c72e59;
 
     font-size: 8px;
@@ -771,6 +793,8 @@ main.container-fluid {
 
     gap: 4px;
 
+    min-width: 0;
+
     color: #9a898e;
 
     font-size: 7px;
@@ -778,6 +802,8 @@ main.container-fluid {
 }
 
 .event-purpose i {
+    flex-shrink: 0;
+
     color: #c72e59;
 }
 
@@ -788,6 +814,8 @@ main.container-fluid {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+
+    flex-shrink: 0;
 
     gap: 6px;
 
@@ -810,7 +838,10 @@ main.container-fluid {
     box-shadow:
         0 5px 12px rgba(199, 46, 89, .16);
 
-    transition: .2s ease;
+    transition:
+        background .2s ease,
+        border-color .2s ease,
+        transform .2s ease;
 }
 
 .detail-button:hover {
@@ -887,10 +918,6 @@ main.container-fluid {
         padding: 20px 20px 40px;
     }
 
-    .event-list {
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
-    }
 }
 
 
@@ -915,6 +942,7 @@ main.container-fluid {
     .event-list {
         grid-template-columns: 1fr;
     }
+
 }
 
 
@@ -927,6 +955,9 @@ main.container-fluid {
 
         overflow-x: hidden;
     }
+
+
+    /* Banner */
 
     .donor-banner {
         min-height: 150px;
@@ -982,6 +1013,9 @@ main.container-fluid {
         font-size: 7px;
     }
 
+
+    /* Banner ilustrasi */
+
     .banner-art {
         position: absolute;
 
@@ -991,6 +1025,8 @@ main.container-fluid {
         height: 100%;
 
         opacity: .9;
+
+        pointer-events: none;
     }
 
     .art-circle {
@@ -1032,6 +1068,9 @@ main.container-fluid {
 
         font-size: 8px;
     }
+
+
+    /* Quick card */
 
     .quick-row {
         grid-template-columns: 1fr 1fr;
@@ -1090,6 +1129,9 @@ main.container-fluid {
         display: none;
     }
 
+
+    /* Search */
+
     .search-card {
         height: 43px;
 
@@ -1117,6 +1159,9 @@ main.container-fluid {
         font-size: 10px;
     }
 
+
+    /* Section */
+
     .section-top {
         margin-bottom: 11px;
     }
@@ -1141,6 +1186,9 @@ main.container-fluid {
 
         font-size: 8px;
     }
+
+
+    /* Event */
 
     .event-list {
         grid-template-columns: 1fr;
@@ -1244,6 +1292,7 @@ main.container-fluid {
 
         font-size: 7px;
     }
+
 }
 
 
@@ -1254,6 +1303,9 @@ main.container-fluid {
     .donor-page {
         padding: 9px 8px 23px;
     }
+
+
+    /* Banner */
 
     .donor-banner {
         min-height: 138px;
@@ -1314,6 +1366,9 @@ main.container-fluid {
         height: 22px;
     }
 
+
+    /* Quick */
+
     .quick-card {
         min-height: 62px;
 
@@ -1349,6 +1404,9 @@ main.container-fluid {
         font-size: 6px;
     }
 
+
+    /* Search */
+
     .search-card {
         height: 40px;
 
@@ -1366,6 +1424,9 @@ main.container-fluid {
         font-size: 9px;
     }
 
+
+    /* Section */
+
     .section-top h2 {
         font-size: 15px;
     }
@@ -1374,6 +1435,9 @@ main.container-fluid {
         min-width: 26px;
         height: 26px;
     }
+
+
+    /* Event */
 
     .event-card {
         border-radius: 14px;
@@ -1414,9 +1478,15 @@ main.container-fluid {
         font-size: 6px;
     }
 
+    .event-footer {
+        gap: 6px;
+    }
+
     .detail-button {
         min-height: 34px;
 
         font-size: 7px;
     }
+
 }
+

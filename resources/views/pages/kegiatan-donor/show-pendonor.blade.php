@@ -101,25 +101,6 @@
 
             </div>
 
-
-            <div class="detail-row">
-
-                <div class="detail-label">
-                    <i class="fas fa-check-circle"></i>
-                    <span>Status</span>
-                </div>
-
-                <div class="detail-value">
-
-                    <span class="status-badge">
-                        <span></span>
-                        Tersedia
-                    </span>
-
-                </div>
-
-            </div>
-
         </div>
 
 
@@ -170,3 +151,4 @@
 </div>
 
 @endsection
+

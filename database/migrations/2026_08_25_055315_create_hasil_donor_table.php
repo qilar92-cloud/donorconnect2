@@ -20,7 +20,11 @@ return new class extends Migration
                   ->cascadeOnDelete();
 
             $table->date('tanggal_donor');
+
             $table->integer('jumlah_kantong');
+
+            $table->integer('volume_ml');
+
             $table->string('keterangan')->nullable();
 
             $table->timestamps();
@@ -32,3 +36,4 @@ return new class extends Migration
         Schema::dropIfExists('hasil_donor');
     }
 };
+

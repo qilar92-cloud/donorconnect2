@@ -433,8 +433,19 @@
     white-space: nowrap;
 }
 
+
+/* Badge hasil donor */
+
 .data-badge {
     flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 3px;
+
+    max-width: 145px;
 
     padding: 5px 9px;
 
@@ -445,7 +456,16 @@
 
     font-size: 8px;
     font-weight: 750;
+
+    white-space: nowrap;
 }
+
+.data-badge span {
+    white-space: nowrap;
+}
+
+
+/* Data kosong */
 
 .empty-data {
     padding: 50px 15px;
@@ -497,6 +517,8 @@
     align-items: center;
 
     gap: 12px;
+
+    min-width: 0;
 }
 
 .chart-title h5 {
@@ -663,7 +685,7 @@
 }
 
 
-/* Responsive */
+/* Tablet */
 
 @media (max-width: 1100px) {
 
@@ -672,6 +694,8 @@
     }
 }
 
+
+/* Tablet kecil */
 
 @media (max-width: 768px) {
 
@@ -729,8 +753,18 @@
     .chart-bars {
         gap: 6px;
     }
+
+    .data-badge {
+        max-width: 135px;
+
+        padding: 5px 8px;
+
+        font-size: 7px;
+    }
 }
 
+
+/* HP */
 
 @media (max-width: 500px) {
 
@@ -812,13 +846,22 @@
         height: 41px;
     }
 
+
+    /* Data donor */
+
     .data-item {
+        align-items: flex-start;
+
         padding: 9px;
+
+        gap: 8px;
     }
 
     .data-icon {
         width: 33px;
         height: 33px;
+
+        font-size: 11px;
     }
 
     .data-info strong {
@@ -830,13 +873,32 @@
     }
 
     .data-badge {
+        align-self: center;
+
+        max-width: 105px;
+
         padding: 4px 6px;
 
-        font-size: 7px;
+        font-size: 6.5px;
+
+        white-space: normal;
+
+        text-align: center;
     }
+
+    .data-badge span {
+        white-space: nowrap;
+    }
+
+
+    /* Grafik */
 
     .chart-header {
         gap: 10px;
+    }
+
+    .chart-title {
+        gap: 9px;
     }
 
     .chart-title h5 {
@@ -867,6 +929,7 @@
 
     .bar {
         max-width: 17px;
+
         width: 55%;
     }
 
@@ -876,6 +939,8 @@
     }
 }
 
+
+/* HP kecil */
 
 @media (max-width: 360px) {
 
@@ -887,8 +952,25 @@
         font-size: 8px;
     }
 
+    .data-item {
+        gap: 6px;
+    }
+
+    .data-icon {
+        width: 30px;
+        height: 30px;
+
+        font-size: 10px;
+    }
+
     .data-badge {
-        display: none;
+        display: flex;
+
+        max-width: 92px;
+
+        padding: 4px 5px;
+
+        font-size: 6px;
     }
 
     .chart-wrap {
@@ -899,3 +981,4 @@
         gap: 2px;
     }
 }
+

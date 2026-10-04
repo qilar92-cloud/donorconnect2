@@ -11,7 +11,6 @@
     box-shadow: 0 8px 25px rgba(130, 35, 65, .07);
 }
 
-
 /* Header */
 
 .dokumentasi-header {
@@ -23,12 +22,7 @@
     min-height: 105px;
     padding: 17px 25px;
     overflow: hidden;
-    background: linear-gradient(
-        135deg,
-        #ef315c 0%,
-        #df2854 48%,
-        #c9234d 100%
-    );
+    background: linear-gradient(135deg, #ef315c 0%, #df2854 48%, #c9234d 100%);
 }
 
 .dokumentasi-header::after {
@@ -40,12 +34,9 @@
     top: -105px;
     border: 1px solid rgba(255, 255, 255, .12);
     border-radius: 50%;
-    box-shadow:
-        0 0 0 25px rgba(255, 255, 255, .04),
-        0 0 0 50px rgba(255, 255, 255, .025);
+    box-shadow: 0 0 0 25px rgba(255, 255, 255, .04), 0 0 0 50px rgba(255, 255, 255, .025);
     pointer-events: none;
 }
-
 
 /* Heading */
 
@@ -102,7 +93,6 @@
     line-height: 1.4;
 }
 
-
 /* Upload button */
 
 .btn-upload-dokumentasi {
@@ -127,11 +117,7 @@
     line-height: 1;
     white-space: nowrap;
     cursor: pointer;
-    transition:
-        background .2s ease,
-        color .2s ease,
-        transform .2s ease,
-        box-shadow .2s ease;
+    transition: background .2s ease, color .2s ease, transform .2s ease, box-shadow .2s ease;
 }
 
 .btn-upload-dokumentasi i {
@@ -145,7 +131,6 @@
     transform: translateY(-1px);
     box-shadow: 0 7px 16px rgba(90, 20, 45, .12);
 }
-
 
 /* Upload */
 
@@ -163,7 +148,6 @@
 .upload-form {
     width: 100%;
 }
-
 
 /* Judul upload */
 
@@ -200,7 +184,6 @@
     font-size: 9px;
 }
 
-
 /* Area foto */
 
 .photo-upload-area {
@@ -211,9 +194,7 @@
     background: #ffffff;
     border: 1.5px dashed #e4a8b6;
     border-radius: 13px;
-    transition:
-        background .2s ease,
-        border-color .2s ease;
+    transition: background .2s ease, border-color .2s ease;
 }
 
 .photo-upload-area:hover {
@@ -228,11 +209,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(
-        135deg,
-        #ffe6ec,
-        #ffd9e2
-    );
+    background: linear-gradient(135deg, #ffe6ec, #ffd9e2);
     border-radius: 13px;
     color: #d52b54;
     font-size: 18px;
@@ -257,7 +234,6 @@
     display: none;
 }
 
-
 /* Pilih foto */
 
 .btn-pilih-foto {
@@ -267,11 +243,7 @@
     gap: 6px;
     min-height: 35px;
     padding: 0 14px;
-    background: linear-gradient(
-        135deg,
-        #ef315c,
-        #d62550
-    );
+    background: linear-gradient(135deg, #ef315c, #d62550);
     border: none;
     border-radius: 9px;
     color: #ffffff;
@@ -280,9 +252,7 @@
     font-weight: 800;
     line-height: 1;
     cursor: pointer;
-    transition:
-        transform .2s ease,
-        box-shadow .2s ease;
+    transition: transform .2s ease, box-shadow .2s ease;
 }
 
 .btn-pilih-foto:hover {
@@ -290,7 +260,6 @@
     transform: translateY(-1px);
     box-shadow: 0 6px 13px rgba(214, 37, 80, .18);
 }
-
 
 /* Jumlah foto */
 
@@ -304,7 +273,6 @@
     color: #d52b54;
     font-weight: 800;
 }
-
 
 /* Preview */
 
@@ -351,7 +319,6 @@
     font-weight: 800;
 }
 
-
 /* Input */
 
 .upload-info-grid {
@@ -385,9 +352,7 @@
     color: #45373d;
     font-family: inherit;
     font-size: 10px;
-    transition:
-        border-color .2s ease,
-        box-shadow .2s ease;
+    transition: border-color .2s ease, box-shadow .2s ease;
 }
 
 .upload-field input {
@@ -413,7 +378,6 @@
     box-shadow: 0 0 0 3px rgba(233, 87, 118, .08);
 }
 
-
 /* Aksi */
 
 .upload-actions {
@@ -434,12 +398,7 @@
     font-weight: 800;
     line-height: 1;
     cursor: pointer;
-    transition:
-        background .2s ease,
-        border-color .2s ease,
-        color .2s ease,
-        transform .2s ease,
-        box-shadow .2s ease;
+    transition: background .2s ease, border-color .2s ease, color .2s ease, transform .2s ease, box-shadow .2s ease;
 }
 
 .btn-batal-upload {
@@ -459,11 +418,7 @@
     align-items: center;
     justify-content: center;
     gap: 6px;
-    background: linear-gradient(
-        135deg,
-        #ef315c,
-        #d62550
-    );
+    background: linear-gradient(135deg, #ef315c, #d62550);
     border: none;
     color: #ffffff;
 }
@@ -473,7 +428,6 @@
     transform: translateY(-1px);
     box-shadow: 0 6px 14px rgba(214, 37, 80, .18);
 }
-
 
 /* Galeri */
 
@@ -503,7 +457,6 @@
     font-size: 8px;
 }
 
-
 /* Grid */
 
 .dokumentasi-grid {
@@ -511,7 +464,6 @@
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 10px;
 }
-
 
 /* Card foto */
 
@@ -521,10 +473,7 @@
     background: #ffffff;
     border: 1px solid #f0dce2;
     border-radius: 11px;
-    transition:
-        transform .2s ease,
-        box-shadow .2s ease,
-        border-color .2s ease;
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
 }
 
 .dokumentasi-item:hover {
@@ -553,7 +502,6 @@
     transform: scale(1.025);
 }
 
-
 /* Overlay */
 
 .foto-overlay {
@@ -563,11 +511,7 @@
     align-items: center;
     justify-content: center;
     gap: 7px;
-    background: linear-gradient(
-        135deg,
-        rgba(190, 30, 73, .58),
-        rgba(70, 20, 40, .38)
-    );
+    background: linear-gradient(135deg, rgba(190, 30, 73, .58), rgba(70, 20, 40, .38));
     opacity: 0;
     transition: opacity .2s ease;
 }
@@ -575,7 +519,6 @@
 .dokumentasi-item:hover .foto-overlay {
     opacity: 1;
 }
-
 
 /* Tombol foto */
 
@@ -591,9 +534,7 @@
     color: #ffffff;
     text-decoration: none;
     cursor: pointer;
-    transition:
-        background .2s ease,
-        transform .2s ease;
+    transition: background .2s ease, transform .2s ease;
 }
 
 .btn-lihat-foto {
@@ -614,7 +555,6 @@
 .foto-overlay form {
     margin: 0;
 }
-
 
 /* Info */
 
@@ -645,7 +585,6 @@
     -webkit-line-clamp: 2;
 }
 
-
 /* Kosong */
 
 .dokumentasi-empty {
@@ -660,11 +599,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(
-        135deg,
-        #ffe5eb,
-        #fbd9e2
-    );
+    background: linear-gradient(135deg, #ffe5eb, #fbd9e2);
     border-radius: 50%;
     color: #df315b;
     font-size: 21px;
@@ -692,11 +627,7 @@
     gap: 6px;
     min-height: 34px;
     padding: 0 13px;
-    background: linear-gradient(
-        135deg,
-        #ef315c,
-        #d62550
-    );
+    background: linear-gradient(135deg, #ef315c, #d62550);
     border: none;
     border-radius: 9px;
     color: #ffffff;
@@ -704,9 +635,7 @@
     font-size: 9px;
     font-weight: 800;
     cursor: pointer;
-    transition:
-        background .2s ease,
-        transform .2s ease;
+    transition: background .2s ease, transform .2s ease;
 }
 
 .btn-empty-upload:hover {
@@ -714,7 +643,6 @@
     color: #ffffff;
     transform: translateY(-1px);
 }
-
 
 /* Lightbox */
 
@@ -731,15 +659,41 @@
     backdrop-filter: blur(4px);
     opacity: 0;
     visibility: hidden;
-    transition:
-        opacity .22s ease,
-        visibility .22s ease;
+    transition: opacity .22s ease, visibility .22s ease;
     cursor: zoom-out;
 }
 
 .dokumentasi-lightbox.show {
     opacity: 1;
     visibility: visible;
+}
+
+/* Tombol Tutup */
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .95);
+    color: #a81743;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 20;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, .12);
+    transition: background .2s ease, color .2s ease, transform .2s ease;
+}
+
+.lightbox-close:hover {
+    background: #a81743;
+    color: #ffffff;
+    transform: scale(1.05);
 }
 
 .lightbox-content {
@@ -768,7 +722,6 @@
     box-sizing: border-box;
 }
 
-
 /* Panah */
 
 .lightbox-prev,
@@ -787,10 +740,7 @@
     font-size: 13px;
     cursor: pointer;
     transform: translateY(-50%);
-    transition:
-        background .2s ease,
-        color .2s ease,
-        transform .2s ease;
+    transition: background .2s ease, color .2s ease, transform .2s ease;
     z-index: 10;
 }
 
@@ -809,7 +759,6 @@
     transform: translateY(-50%) scale(1.05);
 }
 
-
 /* Counter */
 
 .lightbox-counter {
@@ -827,11 +776,9 @@
     z-index: 10;
 }
 
-
 /* Laptop kecil */
 
 @media (max-width: 1200px) {
-
     .dokumentasi-card {
         max-width: 100%;
     }
@@ -845,11 +792,9 @@
     }
 }
 
-
 /* Tablet */
 
 @media (max-width: 1000px) {
-
     .dokumentasi-header {
         padding: 16px 20px;
     }
@@ -885,11 +830,9 @@
     }
 }
 
-
 /* HP */
 
 @media (max-width: 700px) {
-
     .dokumentasi-card {
         margin-top: 12px;
         border-radius: 15px;
@@ -1082,11 +1025,9 @@
     }
 }
 
-
 /* HP kecil */
 
 @media (max-width: 430px) {
-
     .dokumentasi-header {
         min-height: 88px;
         padding: 13px 12px;
@@ -1233,13 +1174,19 @@
     .lightbox-counter {
         font-size: 8px;
     }
-}
 
+    .lightbox-close {
+        top: 12px;
+        right: 12px;
+        width: 36px;
+        height: 36px;
+        font-size: 15px;
+    }
+}
 
 /* HP sangat kecil */
 
 @media (max-width: 360px) {
-
     .dokumentasi-header {
         padding: 12px 10px;
     }
@@ -1327,11 +1274,9 @@
     }
 }
 
-
 /* Animasi */
 
 @media (prefers-reduced-motion: reduce) {
-
     .dokumentasi-item,
     .foto-wrapper img,
     .foto-overlay,
@@ -1339,7 +1284,501 @@
     .btn-pilih-foto,
     .btn-simpan-upload,
     .btn-lihat-foto,
-    .btn-hapus-foto {
+    .btn-hapus-foto,
+    .lightbox-close,
+    .lightbox-prev,
+    .lightbox-next {
+        transition: none;
+    }
+}
+
+/* Notifikasi */
+
+.dc-notification {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 9999;
+    width: min(390px, calc(100vw - 32px));
+    min-height: 76px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 42px 13px 14px;
+    background: #ffffff;
+    border: 1px solid #f0d5dd;
+    border-radius: 15px;
+    box-shadow: 0 14px 35px rgba(190, 55, 88, .16);
+    animation: dcNotificationIn .35s ease forwards;
+    overflow: hidden;
+}
+
+.dc-notification-icon {
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 11px;
+    font-size: 13px;
+}
+
+.dc-notification-success .dc-notification-icon {
+    background: #ffe6ed;
+    color: #d92b55;
+}
+
+.dc-notification-error .dc-notification-icon {
+    background: #fff0ed;
+    color: #d84a3f;
+}
+
+.dc-notification-content {
+    min-width: 0;
+    flex: 1;
+}
+
+.dc-notification-content strong {
+    display: block;
+    margin-bottom: 3px;
+    color: #34333f;
+    font-size: 11px;
+    font-weight: 900;
+}
+
+.dc-notification-content p {
+    margin: 0;
+    color: #8b7b82;
+    font-size: 9px;
+    font-weight: 600;
+    line-height: 1.45;
+    word-break: break-word;
+}
+
+.dc-notification-close {
+    position: absolute;
+    top: 9px;
+    right: 10px;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: transparent;
+    color: #b59ca5;
+    border: 0;
+    border-radius: 7px;
+    font-size: 10px;
+    cursor: pointer;
+    transition: background .2s ease, color .2s ease;
+}
+
+.dc-notification-close:hover {
+    background: #fff0f4;
+    color: #d72c55;
+}
+
+.dc-notification-progress {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 3px;
+    background: #e52f59;
+    transform-origin: left;
+    animation: dcNotificationProgress 4.5s linear forwards;
+}
+
+.dc-notification-error .dc-notification-progress {
+    background: #d84a3f;
+}
+
+@keyframes dcNotificationIn {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes dcNotificationOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+}
+
+@keyframes dcNotificationProgress {
+    from {
+        transform: scaleX(1);
+    }
+
+    to {
+        transform: scaleX(0);
+    }
+}
+
+/* Notifikasi HP */
+
+@media (max-width: 600px) {
+    .dc-notification {
+        top: 14px;
+        right: 14px;
+        left: 14px;
+        width: auto;
+        min-height: 70px;
+        padding: 12px 38px 12px 12px;
+        border-radius: 13px;
+    }
+
+    .dc-notification-icon {
+        width: 34px;
+        height: 34px;
+        flex-basis: 34px;
+        border-radius: 9px;
+        font-size: 11px;
+    }
+
+    .dc-notification-content strong {
+        font-size: 10px;
+    }
+
+    .dc-notification-content p {
+        font-size: 8px;
+    }
+}
+
+/* Reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+    .dc-notification {
+        animation: none;
+    }
+
+    .dc-notification-progress {
+        animation: none;
+    }
+}
+/* Modal Hapus Dokumentasi */
+
+.dc-delete-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    background: rgba(47, 25, 34, .48);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .22s ease, visibility .22s ease;
+}
+
+.dc-delete-modal.show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.dc-delete-dialog {
+    position: relative;
+    width: min(390px, 100%);
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid #f0dce2;
+    border-radius: 20px;
+    box-shadow: 0 22px 60px rgba(85, 28, 48, .20);
+    transform: translateY(12px) scale(.97);
+    transition: transform .22s ease;
+}
+
+.dc-delete-modal.show .dc-delete-dialog {
+    transform: translateY(0) scale(1);
+}
+
+/* Header modal */
+
+.dc-delete-header {
+    position: relative;
+    padding: 27px 25px 22px;
+    text-align: center;
+}
+
+.dc-delete-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: #fff5f7;
+    border: none;
+    border-radius: 9px;
+    color: #a98d96;
+    font-size: 11px;
+    cursor: pointer;
+    transition: background .2s ease, color .2s ease, transform .2s ease;
+}
+
+.dc-delete-close:hover {
+    background: #ffe5eb;
+    color: #d52b54;
+    transform: scale(1.04);
+}
+
+/* Icon */
+
+.dc-delete-icon {
+    width: 55px;
+    height: 55px;
+    margin: 0 auto 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #ffe8ee, #ffd9e3);
+    border-radius: 16px;
+    color: #d52b54;
+    font-size: 20px;
+}
+
+.dc-delete-header h2 {
+    margin: 0;
+    color: #352d31;
+    font-size: 17px;
+    font-weight: 900;
+    line-height: 1.3;
+}
+
+.dc-delete-header p {
+    margin: 7px auto 0;
+    max-width: 300px;
+    color: #8e7b82;
+    font-size: 9px;
+    font-weight: 600;
+    line-height: 1.55;
+}
+
+.dc-delete-name {
+    display: block;
+    max-width: 290px;
+    margin: 10px auto 0;
+    overflow: hidden;
+    padding: 7px 11px;
+    background: #fff4f6;
+    border: 1px solid #f5dce3;
+    border-radius: 9px;
+    color: #d02a51;
+    font-size: 9px;
+    font-weight: 800;
+    line-height: 1.4;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.dc-delete-header small {
+    display: block;
+    margin-top: 10px;
+    color: #ad9aa1;
+    font-size: 7.5px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+/* Tombol */
+
+.dc-delete-actions {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 15px 20px 20px;
+    background: #fffafb;
+    border-top: 1px solid #f4e4e8;
+}
+
+.dc-delete-cancel,
+.dc-delete-confirm {
+    min-height: 38px;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 9px;
+    font-weight: 800;
+    line-height: 1;
+    cursor: pointer;
+    transition:
+        background .2s ease,
+        border-color .2s ease,
+        color .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.dc-delete-cancel {
+    flex: 1;
+    background: #ffffff;
+    border: 1px solid #e4d9dd;
+    color: #76666d;
+}
+
+.dc-delete-cancel:hover {
+    background: #fff3f5;
+    border-color: #e4b8c3;
+    color: #d52b54;
+}
+
+.dc-delete-confirm {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: linear-gradient(135deg, #ef315c, #d62550);
+    border: none;
+    color: #ffffff;
+    box-shadow: 0 6px 14px rgba(214, 37, 80, .16);
+}
+
+.dc-delete-confirm:hover {
+    background: linear-gradient(135deg, #e62c58, #c9234d);
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 17px rgba(214, 37, 80, .22);
+}
+
+.dc-delete-confirm i {
+    font-size: 9px;
+}
+
+/* Saat modal terbuka */
+
+body.dc-delete-open {
+    overflow: hidden;
+}
+
+/* HP */
+
+@media (max-width: 600px) {
+
+    .dc-delete-modal {
+        align-items: flex-end;
+        padding: 12px;
+    }
+
+    .dc-delete-dialog {
+        width: 100%;
+        max-width: 430px;
+        border-radius: 19px;
+        transform: translateY(25px);
+    }
+
+    .dc-delete-modal.show .dc-delete-dialog {
+        transform: translateY(0);
+    }
+
+    .dc-delete-header {
+        padding: 25px 20px 20px;
+    }
+
+    .dc-delete-icon {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 12px;
+        border-radius: 14px;
+        font-size: 18px;
+    }
+
+    .dc-delete-header h2 {
+        font-size: 16px;
+    }
+
+    .dc-delete-header p {
+        font-size: 8.5px;
+    }
+
+    .dc-delete-name {
+        max-width: 100%;
+        font-size: 8.5px;
+    }
+
+    .dc-delete-header small {
+        font-size: 7px;
+    }
+
+    .dc-delete-actions {
+        padding: 13px 15px 16px;
+        gap: 8px;
+    }
+
+    .dc-delete-cancel,
+    .dc-delete-confirm {
+        min-height: 37px;
+        font-size: 8.5px;
+    }
+}
+
+/* HP sangat kecil */
+
+@media (max-width: 360px) {
+
+    .dc-delete-modal {
+        padding: 8px;
+    }
+
+    .dc-delete-dialog {
+        border-radius: 17px;
+    }
+
+    .dc-delete-header {
+        padding: 23px 16px 18px;
+    }
+
+    .dc-delete-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 13px;
+        font-size: 17px;
+    }
+
+    .dc-delete-header h2 {
+        font-size: 15px;
+    }
+
+    .dc-delete-header p {
+        font-size: 8px;
+    }
+
+    .dc-delete-actions {
+        padding: 12px 12px 14px;
+    }
+}
+
+/* Reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .dc-delete-modal,
+    .dc-delete-dialog,
+    .dc-delete-close,
+    .dc-delete-cancel,
+    .dc-delete-confirm {
         transition: none;
     }
 }

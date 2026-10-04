@@ -9,9 +9,7 @@ use Illuminate\Http\Request;
 
 class PendaftaranDonorController extends Controller
 {
-    /**
-     * Menampilkan form pendaftaran donor.
-     */
+    // Form pendaftaran
     public function create($id_kegiatan)
     {
         $kegiatan = KegiatanDonor::findOrFail($id_kegiatan);
@@ -28,9 +26,7 @@ class PendaftaranDonorController extends Controller
     }
 
 
-    /**
-     * Menyimpan pendaftaran donor.
-     */
+    // Simpan pendaftaran
     public function store(Request $request)
     {
         $pendonor = Pendonor::where(
@@ -49,7 +45,8 @@ class PendaftaranDonorController extends Controller
             ],
         ]);
 
-        // Cek apakah pendonor sudah terdaftar
+
+        // Cek pendaftaran yang sama
         $sudahDaftar = PendaftaranDonor::where(
             'id_pendonor',
             $pendonor->id_pendonor
@@ -60,6 +57,8 @@ class PendaftaranDonorController extends Controller
             )
             ->exists();
 
+
+        // Tolak jika sudah terdaftar
         if ($sudahDaftar) {
             return back()
                 ->withInput()
@@ -69,6 +68,7 @@ class PendaftaranDonorController extends Controller
                 );
         }
 
+
         // Simpan pendaftaran
         PendaftaranDonor::create([
             'id_pendonor' => $pendonor->id_pendonor,
@@ -76,7 +76,8 @@ class PendaftaranDonorController extends Controller
             'status_pendaftaran' => 'Terdaftar',
         ]);
 
-        // Setelah berhasil langsung ke Status Pendaftaran
+
+        // Ke halaman status
         return redirect()
             ->route('pendonor.status')
             ->with(
@@ -86,9 +87,7 @@ class PendaftaranDonorController extends Controller
     }
 
 
-    /**
-     * Menampilkan status pendaftaran pendonor.
-     */
+    // Status pendaftaran
     public function status()
     {
         $pendonor = Pendonor::where(
@@ -112,3 +111,4 @@ class PendaftaranDonorController extends Controller
         );
     }
 }
+

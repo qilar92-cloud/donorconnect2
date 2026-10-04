@@ -11,6 +11,7 @@
 <div class="history-page">
 
     {{-- Header --}}
+
     <div class="history-header">
 
         <div class="header-content">
@@ -20,7 +21,9 @@
                 DONORCONNECT
             </span>
 
-            <h1>Riwayat Donor</h1>
+            <h1>
+                Riwayat Donor
+            </h1>
 
             <p>
                 Catatan hasil donor yang telah tersimpan dalam sistem.
@@ -28,14 +31,18 @@
 
         </div>
 
+
         <div class="header-icon">
+
             <i class="fas fa-tint"></i>
+
         </div>
 
     </div>
 
 
     {{-- Statistik --}}
+
     <div class="stats-grid">
 
         <div class="stat-card">
@@ -46,7 +53,9 @@
 
             <div class="stat-info">
 
-                <span>Total Pendonor</span>
+                <span>
+                    Total Pendonor
+                </span>
 
                 <strong>
                     {{ $riwayat->pluck('id_pendonor')->filter()->unique()->count() }}
@@ -65,7 +74,9 @@
 
             <div class="stat-info">
 
-                <span>Total Riwayat</span>
+                <span>
+                    Total Riwayat
+                </span>
 
                 <strong>
                     {{ $riwayat->count() }}
@@ -84,7 +95,9 @@
 
             <div class="stat-info">
 
-                <span>Total Kantong</span>
+                <span>
+                    Total Kantong
+                </span>
 
                 <strong>
                     {{ $riwayat->sum(function ($item) {
@@ -99,7 +112,8 @@
     </div>
 
 
-    {{-- History --}}
+    {{-- Riwayat --}}
+
     <div class="history-card-wrapper">
 
         <div class="section-title">
@@ -110,13 +124,16 @@
                     DONOR JOURNEY
                 </span>
 
-                <h2>Perjalanan Donor</h2>
+                <h2>
+                    Perjalanan Donor
+                </h2>
 
                 <p>
                     Semua hasil donor yang sudah tercatat.
                 </p>
 
             </div>
+
 
             <div class="history-count">
 
@@ -150,9 +167,12 @@
 
                     <div class="timeline-item">
 
-                        {{-- Timeline --}}
+                        {{-- Garis timeline --}}
+
                         @if(!$loop->last)
+
                             <div class="timeline-line"></div>
+
                         @endif
 
 
@@ -165,8 +185,11 @@
 
                         <div class="donor-card">
 
-                            {{-- Informasi Utama --}}
+                            {{-- Informasi utama --}}
+
                             <div class="donor-main">
+
+                                {{-- Tanggal --}}
 
                                 <div class="date-box">
 
@@ -184,6 +207,8 @@
 
                                 </div>
 
+
+                                {{-- Pendonor --}}
 
                                 <div class="donor-info">
 
@@ -203,11 +228,16 @@
                                 </div>
 
 
+                                {{-- Hasil donor --}}
+
                                 <div class="blood-result">
 
                                     <span class="info-label">
                                         HASIL DONOR
                                     </span>
+
+
+                                    {{-- Jumlah kantong --}}
 
                                     <div class="blood-value">
 
@@ -223,18 +253,38 @@
 
                                     </div>
 
+
+                                    {{-- Volume darah --}}
+
+                                    <div class="blood-volume">
+
+                                        <i class="fas fa-flask"></i>
+
+                                        <strong>
+                                            {{ $hasil?->volume_ml ?? 0 }}
+                                        </strong>
+
+                                        <span>
+                                            mL
+                                        </span>
+
+                                    </div>
+
                                 </div>
 
                             </div>
 
 
                             {{-- Detail --}}
+
                             <div class="donor-details">
 
                                 <div class="detail-item">
 
                                     <div class="detail-icon">
+
                                         <i class="fas fa-calendar-check"></i>
+
                                     </div>
 
                                     <div class="detail-content">
@@ -255,7 +305,9 @@
                                 <div class="detail-item">
 
                                     <div class="detail-icon">
+
                                         <i class="fas fa-comment-medical"></i>
+
                                     </div>
 
                                     <div class="detail-content">
@@ -276,6 +328,7 @@
 
 
                             {{-- Footer --}}
+
                             <div class="donor-footer">
 
                                 <span class="success">
@@ -302,10 +355,14 @@
 
         @else
 
+            {{-- Data kosong --}}
+
             <div class="empty-state">
 
                 <div class="empty-icon">
+
                     <i class="fas fa-tint"></i>
+
                 </div>
 
                 <h3>

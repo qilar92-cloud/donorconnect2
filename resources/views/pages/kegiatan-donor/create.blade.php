@@ -95,6 +95,7 @@
                                 id="nama_kegiatan"
                                 value="{{ old('nama_kegiatan') }}"
                                 placeholder="Masukkan nama kegiatan donor"
+                                required
                                 class="@error('nama_kegiatan') input-error @enderror"
                             >
 
@@ -126,6 +127,7 @@
                                 name="tanggal"
                                 id="tanggal"
                                 value="{{ old('tanggal') }}"
+                                required
                                 class="@error('tanggal') input-error @enderror"
                             >
 
@@ -191,6 +193,7 @@
                                 id="lokasi"
                                 value="{{ old('lokasi') }}"
                                 placeholder="Masukkan lokasi kegiatan"
+                                required
                                 class="@error('lokasi') input-error @enderror"
                             >
 
@@ -269,3 +272,4 @@
 </div>
 
 @endsection
+
