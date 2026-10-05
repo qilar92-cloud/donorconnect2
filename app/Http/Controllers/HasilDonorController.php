@@ -16,7 +16,6 @@ class HasilDonorController extends Controller
     // Form catat hasil donor
     public function create()
     {
-        // Ambil pendaftaran yang masih valid
         $pendaftaran = PendaftaranDonor::with([
             'pendonor.user',
             'kegiatanDonor'
@@ -24,13 +23,22 @@ class HasilDonorController extends Controller
             ->where('status_pendaftaran', 'Terdaftar')
             ->get()
             ->filter(function ($item) {
-                return $item->kegiatanDonor
-                    && !Carbon::parse(
-                        $item->kegiatanDonor->tanggal
-                    )->isFuture();
-            });
+                if (!$item->kegiatanDonor) {
+                    return false;
+                }
 
-        // Ambil pendonor dari pendaftaran valid
+                $tanggalKegiatan = Carbon::parse(
+                    $item->kegiatanDonor->tanggal
+                );
+
+                // Kegiatan hari ini atau yang sudah berlangsung
+                return !$tanggalKegiatan
+                    ->startOfDay()
+                    ->isFuture();
+            })
+            ->values();
+
+        // Pendonor yang terdaftar pada kegiatan valid
         $pendonor = $pendaftaran
             ->pluck('pendonor')
             ->filter()
@@ -40,12 +48,14 @@ class HasilDonorController extends Controller
             })
             ->values();
 
-        // Ambil kegiatan dari pendaftaran valid
+        // Kegiatan yang sudah berlangsung
         $kegiatan = $pendaftaran
             ->pluck('kegiatanDonor')
             ->filter()
             ->unique('id_kegiatan')
-            ->sortBy('tanggal')
+            ->sortBy(function ($item) {
+                return $item->tanggal;
+            })
             ->values();
 
         return view(
@@ -57,7 +67,6 @@ class HasilDonorController extends Controller
             )
         );
     }
-
 
     // Simpan hasil donor
     public function store(Request $request)
@@ -96,12 +105,27 @@ class HasilDonorController extends Controller
             ],
         ]);
 
-
         // Ambil kegiatan
         $kegiatan = KegiatanDonor::find(
             $data['id_kegiatan']
         );
 
+        if (!$kegiatan) {
+            return back()
+                ->withInput()
+                ->with(
+                    'error',
+                    'Kegiatan donor tidak ditemukan.'
+                );
+        }
+
+        $tanggalKegiatan = Carbon::parse(
+            $kegiatan->tanggal
+        );
+
+        $tanggalDonor = Carbon::parse(
+            $data['tanggal_donor']
+        );
 
         // Pastikan pendonor terdaftar pada kegiatan
         $pendaftaran = PendaftaranDonor::where(
@@ -114,7 +138,6 @@ class HasilDonorController extends Controller
             )
             ->first();
 
-
         if (!$pendaftaran) {
             return back()
                 ->withInput()
@@ -124,8 +147,7 @@ class HasilDonorController extends Controller
                 );
         }
 
-
-        // Pastikan status pendaftaran valid
+        // Pastikan status pendaftaran benar
         if (
             trim($pendaftaran->status_pendaftaran)
             !== 'Terdaftar'
@@ -138,11 +160,11 @@ class HasilDonorController extends Controller
                 );
         }
 
-
-        // Pastikan kegiatan sudah berlangsung
+        // Kegiatan harus sudah berlangsung
         if (
-            !$kegiatan ||
-            Carbon::parse($kegiatan->tanggal)->isFuture()
+            $tanggalKegiatan
+                ->startOfDay()
+                ->isFuture()
         ) {
             return back()
                 ->withInput()
@@ -152,12 +174,9 @@ class HasilDonorController extends Controller
                 );
         }
 
-
-        // Pastikan tanggal donor sesuai kegiatan
+        // Tanggal donor harus sama dengan tanggal kegiatan
         if (
-            $data['tanggal_donor'] !==
-            Carbon::parse($kegiatan->tanggal)
-                ->format('Y-m-d')
+            !$tanggalDonor->isSameDay($tanggalKegiatan)
         ) {
             return back()
                 ->withInput()
@@ -166,7 +185,6 @@ class HasilDonorController extends Controller
                     'Tanggal donor tidak sesuai dengan tanggal kegiatan donor.'
                 );
         }
-
 
         // Cegah hasil donor dicatat dua kali
         $sudahAda = HasilDonor::where(
@@ -179,7 +197,6 @@ class HasilDonorController extends Controller
             )
             ->exists();
 
-
         if ($sudahAda) {
             return back()
                 ->withInput()
@@ -189,10 +206,15 @@ class HasilDonorController extends Controller
                 );
         }
 
-
         // Simpan hasil donor
-        $hasil = HasilDonor::create($data);
-
+        $hasil = HasilDonor::create([
+            'id_pendonor' => $data['id_pendonor'],
+            'id_kegiatan' => $data['id_kegiatan'],
+            'tanggal_donor' => $data['tanggal_donor'],
+            'jumlah_kantong' => $data['jumlah_kantong'],
+            'volume_ml' => $data['volume_ml'],
+            'keterangan' => $data['keterangan'] ?? null,
+        ]);
 
         // Simpan ke riwayat donor
         RiwayatDonor::create([
@@ -200,13 +222,11 @@ class HasilDonorController extends Controller
             'id_hasil' => $hasil->id_hasil,
         ]);
 
-
         // Simpan ke laporan donor
         LaporanDonor::create([
             'id_hasil' => $hasil->id_hasil,
             'id_kegiatan' => $hasil->id_kegiatan,
         ]);
-
 
         return redirect()
             ->route('riwayat-donor.index')

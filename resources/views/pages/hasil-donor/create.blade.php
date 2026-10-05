@@ -41,7 +41,6 @@
 
         </div>
 
-
         <div class="banner-heart">
 
             <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -49,7 +48,6 @@
             </svg>
 
         </div>
-
 
         <div class="banner-info">
 
@@ -136,7 +134,7 @@
                 @endif
 
 
-                {{-- Success --}}
+                {{-- Berhasil --}}
 
                 @if (session('success'))
 
@@ -201,6 +199,10 @@
 
                         </div>
 
+                        <small class="form-hint">
+                            Pilih pendonor yang terdaftar pada kegiatan donor.
+                        </small>
+
                     </div>
 
 
@@ -220,17 +222,26 @@
                                 id="id_kegiatan"
                                 class="donor-input"
                                 required
+                                disabled
                             >
 
                                 <option value="">
-                                    Pilih Kegiatan
+                                    Pilih Pendonor Terlebih Dahulu
                                 </option>
 
                                 @foreach ($kegiatan as $item)
 
+                                    @php
+                                        $pendonorKegiatan = $pendaftaran
+                                            ->where('id_kegiatan', $item->id_kegiatan)
+                                            ->pluck('id_pendonor')
+                                            ->values();
+                                    @endphp
+
                                     <option
                                         value="{{ $item->id_kegiatan }}"
                                         data-tanggal="{{ \Carbon\Carbon::parse($item->tanggal)->format('Y-m-d') }}"
+                                        data-pendonor="{{ $pendonorKegiatan->implode(',') }}"
                                         {{ old('id_kegiatan') == $item->id_kegiatan ? 'selected' : '' }}
                                     >
                                         {{ $item->nama_kegiatan }}
@@ -246,8 +257,11 @@
 
                         </div>
 
-                        <small class="form-hint">
-                            Hanya kegiatan yang sudah berlangsung dan memiliki pendaftaran aktif yang tersedia.
+                        <small
+                            class="form-hint"
+                            id="kegiatanHint"
+                        >
+                            Pilih pendonor terlebih dahulu untuk melihat kegiatan yang diikuti.
                         </small>
 
                     </div>
@@ -270,6 +284,7 @@
                                 id="tanggal_donor"
                                 value="{{ old('tanggal_donor') }}"
                                 class="donor-input"
+                                readonly
                                 required
                             >
 
@@ -278,7 +293,7 @@
                         </div>
 
                         <small class="form-hint">
-                            Tanggal donor harus sesuai dengan tanggal kegiatan.
+                            Tanggal donor otomatis mengikuti tanggal kegiatan.
                         </small>
 
                     </div>
@@ -373,6 +388,7 @@
                         <button
                             type="submit"
                             class="btn-save"
+                            id="btnSave"
                         >
                             <i class="fas fa-save"></i>
                             SIMPAN HASIL
@@ -526,43 +542,225 @@
 </div>
 
 
+{{-- Script --}}
+
+@push('scripts')
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 
+    const pendonorSelect = document.getElementById('id_pendonor');
     const kegiatanSelect = document.getElementById('id_kegiatan');
     const tanggalInput = document.getElementById('tanggal_donor');
+    const kegiatanHint = document.getElementById('kegiatanHint');
+    const form = document.getElementById('hasilDonorForm');
+    const btnSave = document.getElementById('btnSave');
 
-    if (!kegiatanSelect || !tanggalInput) {
+    if (
+        !pendonorSelect ||
+        !kegiatanSelect ||
+        !tanggalInput
+    ) {
         return;
     }
+
+
+    const semuaKegiatan = Array.from(
+        kegiatanSelect.options
+    ).filter(function (option) {
+        return option.value !== '';
+    });
+
+
+    function resetKegiatan() {
+
+        kegiatanSelect.innerHTML = '';
+
+        const optionAwal = document.createElement('option');
+
+        optionAwal.value = '';
+        optionAwal.textContent = 'Pilih Kegiatan';
+
+        kegiatanSelect.appendChild(optionAwal);
+
+        kegiatanSelect.value = '';
+        kegiatanSelect.disabled = true;
+
+        tanggalInput.value = '';
+
+        kegiatanHint.textContent =
+            'Pilih pendonor terlebih dahulu untuk melihat kegiatan yang diikuti.';
+    }
+
+
+    function tampilkanKegiatan() {
+
+        const idPendonor = pendonorSelect.value;
+
+        resetKegiatan();
+
+        if (!idPendonor) {
+            return;
+        }
+
+
+        let jumlahKegiatan = 0;
+
+
+        semuaKegiatan.forEach(function (option) {
+
+            const daftarPendonor =
+                option
+                    .getAttribute('data-pendonor')
+                    ?.split(',')
+                    .map(function (id) {
+                        return id.trim();
+                    })
+                    .filter(Boolean) || [];
+
+
+            if (
+                daftarPendonor.includes(
+                    String(idPendonor)
+                )
+            ) {
+
+                const optionBaru =
+                    option.cloneNode(true);
+
+                kegiatanSelect.appendChild(
+                    optionBaru
+                );
+
+                jumlahKegiatan++;
+            }
+
+        });
+
+
+        if (jumlahKegiatan > 0) {
+
+            kegiatanSelect.disabled = false;
+
+            kegiatanHint.textContent =
+                'Pilih kegiatan donor yang diikuti oleh pendonor tersebut.';
+
+            const oldKegiatan =
+                '{{ old('id_kegiatan') }}';
+
+            if (oldKegiatan) {
+
+                const optionLama =
+                    Array.from(
+                        kegiatanSelect.options
+                    ).find(function (option) {
+                        return option.value === oldKegiatan;
+                    });
+
+                if (optionLama) {
+                    kegiatanSelect.value = oldKegiatan;
+                    isiTanggalKegiatan();
+                }
+            }
+
+        } else {
+
+            kegiatanHint.textContent =
+                'Pendonor ini belum memiliki kegiatan donor yang dapat dicatat hasilnya.';
+
+            tanggalInput.value = '';
+        }
+    }
+
 
     function isiTanggalKegiatan() {
 
         const selectedOption =
-            kegiatanSelect.options[kegiatanSelect.selectedIndex];
+            kegiatanSelect.options[
+                kegiatanSelect.selectedIndex
+            ];
 
-        if (!selectedOption) {
+        if (
+            !selectedOption ||
+            !selectedOption.value
+        ) {
+            tanggalInput.value = '';
             return;
         }
 
+
         const tanggal =
-            selectedOption.getAttribute('data-tanggal');
+            selectedOption.getAttribute(
+                'data-tanggal'
+            );
+
 
         if (tanggal) {
             tanggalInput.value = tanggal;
         }
     }
 
-    kegiatanSelect.addEventListener(
+
+    pendonorSelect.addEventListener(
         'change',
-        isiTanggalKegiatan
+        function () {
+
+            tampilkanKegiatan();
+
+        }
     );
 
-    if (kegiatanSelect.value) {
-        isiTanggalKegiatan();
+
+    kegiatanSelect.addEventListener(
+        'change',
+        function () {
+
+            isiTanggalKegiatan();
+
+        }
+    );
+
+
+    form.addEventListener(
+        'submit',
+        function (event) {
+
+            if (
+                !pendonorSelect.value ||
+                !kegiatanSelect.value ||
+                !tanggalInput.value
+            ) {
+
+                event.preventDefault();
+
+                alert(
+                    'Lengkapi pendonor, kegiatan, dan tanggal donor terlebih dahulu.'
+                );
+
+                return;
+            }
+
+
+            if (btnSave) {
+
+                btnSave.disabled = true;
+
+                btnSave.innerHTML =
+                    '<i class="fas fa-spinner fa-spin"></i> MENYIMPAN...';
+
+            }
+
+        }
+    );
+
+
+    if (pendonorSelect.value) {
+        tampilkanKegiatan();
     }
 
 });
 </script>
+
+@endpush
 
 @endsection
